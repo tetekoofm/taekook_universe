@@ -1,0 +1,44 @@
+/* General Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Body Styling */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #000; /* Black Background */
+    color: #fff; /* White Text */
+    text-align: center;
+}
+
+/* Header Styling */
+header {
+    padding: 20px;
+    background-color: #6A0DAD; /* Purple Header */
+}
+
+header h1 {
+    color: #0FFF50; /* Neon Green Text */
+    font-size: 2.5rem;
+}
+
+/* Intro Section */
+.intro {
+    margin: 30px 10px;
+    font-size: 1.2rem;
+}
+
+.highlight {
+    color: #6A0DAD; /* Purple Highlights */
+}
+
+/* Image Container */
+.image-container img {
+    max-width: 90%;
+    height: auto;
+    margin-top: 20px;
+    border: 5px solid #6A0DAD; /* Purple Border */
+    box-shadow: 0px 0px 10px #0FFF50; /* Neon Green Shadow */
+}
