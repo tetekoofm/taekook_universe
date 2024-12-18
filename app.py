@@ -12,6 +12,10 @@ def home():
 def about():
     return render_template('about.html')  # Render the about page
 
+@app.route('/projects')
+def projects():
+    return render_template('projects.html')
+
 # Run the app
 if __name__ == '__main__':
     app.run(debug=True)

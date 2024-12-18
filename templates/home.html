@@ -4,20 +4,40 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Purple Dreams: Taekook Edition</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@500&display=swap" rel="stylesheet">
 </head>
 <body>
-    <header>
-        <h1>Welcome to Purple Dreams: Taekook Edition</h1>
-        <p>A fan page dedicated to #V and #Jungkook</p>
-    </header>
+    <!-- Navigation Menu -->
+    <nav class="navbar">
+        <ul>
+            <li><a href="/">Home</a></li>
+            <li><a href="/projects">Upcoming</a></li>
+            <li><a href="/memories">Memories</a></li>
+            <li><a href="/milestones">Milestones</a></li>
+            <li><a href="/radio">Radios</a></li>
+            <li><a href="/vibe">Vibe</a></li>
+            <li><a href="/fanbases">Fanbases</a></li>
+            <li><a href="/fanprojects">Projects</a></li>
+            <li><a href="/store">Store</a></li>
+        </ul>
+    </nav>
 
-    <!-- Adding the image to the homepage -->
-    <div class="image-container">
-        <img src="{{ url_for('static', filename='images/TK_Run.jpeg') }}" alt="Taekook Image">
+    <!-- Content of Home Page -->
+    <div class="container">
+        <div class="image-container">
+            <img src="{{ url_for('static', filename='images/TK_Run.jpeg') }}" alt="Taekook Image">
+        </div>
+        <div class="intro">
+            <h1>Welcome to Purple Dreams: Taekook Edition</h1>
+            <p class="caption">A fanpage dedicated to Kim Taehyung and Jeon Jungkook.</p>
+            <p>Follow their incredible journey from their debut to their milestones, upcoming projects, achievements, and their passionate fanbase.</p>
+        </div>
     </div>
-
-    <!-- Other content goes here -->
-
+    
+    <!-- Footer (Optional) -->
+    <footer>
+        <p>Thank you for visiting Purple Dreams: Taekook Edition. Stay tuned for updates!</p>
+    </footer>
 </body>
 </html>
