@@ -202,45 +202,67 @@ footer a:hover {
     flex-wrap: wrap;
     justify-content: space-around;
     padding: 20px;
+    margin-top: 20px;
+    font-size: 3rem;
+    color: #0FFF50; /* Neon Green for heading */
 }
 
-.store-item {
+.store-heading {
+    margin-top: 20px;
+    font-size: 3rem;
+    color: #0FFF50; /* Neon Green for heading */
+}
+
+.store-description {
+    color: #fff;
+    font-size: 1.5rem;
+    padding: 5px;
+}
+
+.merchandise-grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    gap: 10px;
+    width: 80%;
+}
+
+.product {
     width: 300px;
     background-color: #2b2b2b; /* Dark background for cards */
     border-radius: 10px;
     margin: 20px;
     text-align: center;
-    padding: 15px;
+    padding: 10px; /* Reduced padding for tighter spacing */
     box-shadow: 0px 0px 10px rgba(106, 13, 173, 0.6); /* Purple shadow */
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
-    height: 400px; /* Ensure consistent height for all cards */
+    justify-content: flex-start; /* Align content at the top */
+    height: auto; /* Allow height to adjust based on content */
 }
 
-.store-item img {
-    width: 100%;
-    height: auto;
+.product img {
+    width: 100%; /* Ensure image takes full container width */
+    height: 200px; /* Set a fixed height for images */
+    object-fit: contain; /* Ensure the entire image fits */
     border-radius: 10px;
-    margin-bottom: 15px;
+    margin-bottom: 10px; /* Reduced margin between image and title */
 }
 
-.store-item h3 {
+.product h3 {
     font-size: 1.2rem;
     color: #fff;
-    height: 50px; /* Fixed height for the title */
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap; /* Prevents long text from wrapping */
+    margin: 5px 0; /* Reduced margin to reduce space between title and price */
+    height: auto; /* Allow title to adjust height based on content */
 }
 
-.store-item p {
+.product p {
     font-size: 1rem;
     color: #0FFF50; /* Neon Green for price */
-    margin: 10px 0;
+    margin: 5px 0; /* Reduced margin between price and button */
 }
 
-.store-item button {
+.product a {
     background-color: #6A0DAD; /* Purple button color */
     color: #fff;
     border: none;
@@ -249,10 +271,12 @@ footer a:hover {
     cursor: pointer;
     border-radius: 5px;
     transition: background-color 0.3s ease;
-    margin-top: auto; /* Pushes the button to the bottom */
+    margin-top: 10px; /* Reduced margin above the button */
+    text-decoration: none; /* Removes underline from link */
+    text-align: center;
 }
 
-.store-item button:hover {
+.product a:hover {
     background-color: #0FFF50; /* Neon green on hover */
 }
 
@@ -267,7 +291,7 @@ footer a:hover {
         align-items: center;
     }
 
-    .merch-item {
+    .product {
         width: 80%; /* Adjust width for small screens */
     }
 }
