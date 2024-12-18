@@ -8,10 +8,9 @@ app = Flask(__name__)  # Initialize the Flask app
 def home():
     return render_template('home.html')  # Render the home page
 
-# Define the about page route
-@app.route('/about')
-def about():
-    return render_template('about.html')  # Render the about page
+@app.route("/vibe")
+def vibe():
+    return render_template("vibe.html")
 
 @app.route('/projects')
 def projects():

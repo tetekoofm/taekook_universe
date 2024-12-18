@@ -34,8 +34,7 @@ body {
     text-decoration: none;
     color: #6A0DAD;
     font-size: 1.1rem;
-    font-weight: 8000;
-    /* text-transform: uppercase; */
+    font-weight: 100000;
     transition: color 0.3s ease;
 }
 
@@ -66,11 +65,27 @@ body {
     box-shadow: 0px 0px 10px #0FFF50; /* Neon Green shadow */
 }
 
+/* Overall Heading Styles */
 .intro {
-    margin-top: 20px;
+    text-align: center;
+    margin-bottom: 40px;
 }
 
-.intro h1 {
+.heading {
+    margin-top: 120px;
+    font-size: 3rem;
+    color: #0FFF50; /* Neon Green for heading */
+}
+
+.intro-text {
+    font-size: 1.8rem;
+    color: #fff;
+    margin-top: 20px;
+    line-height: 1.6;
+}
+
+.homeheading {
+    margin-top: 5px;
     font-size: 2.5rem;
     font-weight: 600;
     color: #6A0DAD; /* Purple */
@@ -78,7 +93,7 @@ body {
 
 .intro p {
     color: #fff;
-    font-size: 1.2rem;
+    font-size: 1.5rem;
     padding: 10px 20px;
 }
 
@@ -101,20 +116,82 @@ footer a:hover {
 
 /* Responsive Design for Smaller Screens */
 @media screen and (max-width: 768px) {
-    .container {
-        flex-direction: column; /* Stack elements vertically on small screens */
-        text-align: center;
-    }
-
-    .image-container img {
-        width: 80%; /* Make the image smaller on small screens */
-    }
-
+    /* Stack the navigation items vertically on small screens */
     .navbar ul {
-        flex-direction: column; /* Stack navbar items vertically */
+        flex-direction: column; 
+        align-items: center;
     }
 
-    .navbar a {
-        font-size: 1.2rem; /* Slightly larger font for small screens */
+    /* Adjust menu item margins */
+    .navbar li {
+        margin: 10px 0; /* Space between items */
+    }
+
+    /* Adjust image size for small screens */
+    .image-container img {
+        width: 90%; /* Make the image slightly smaller on small screens */
+        max-width: 100%; /* Full width image */
+    }
+
+    /* Make the text in the intro smaller for mobile devices */
+    .homeheading {
+        font-size: 2rem; /* Smaller font size for the heading */
+    }
+
+    .intro p {
+        font-size: 1rem; /* Smaller font size for the paragraph */
+        padding: 5px 10px; /* Less padding on mobile */
+    }
+
+    /* Adjust padding in container */
+    .container {
+        padding: 10px;
+    }
+}
+
+/* Vibe Page Layout */
+.vibe-container {
+    display: flex;
+    justify-content: space-between;
+    padding: 20px;
+    flex-wrap: wrap; /* Allow wrapping for smaller screens */
+    margin-top: 40px;
+}
+
+.vibe-section {
+    width: 47%; /* Ensure each section takes up half the space */
+    background-color: #2b2b2b; /* Dark background for sections */
+    padding: 20px;
+    border-radius: 10px;
+    margin: 10px 0;
+    box-shadow: 0px 0px 10px rgba(0, 255, 80, 0.6); /* Neon green shadow */
+}
+
+.vibe-section h2 {
+    font-size: 2rem;
+    color: #6A0DAD; /* Purple for section titles */
+    text-align: center;
+}
+
+.vibe-section p {
+    font-size: 1rem;
+    color: #fff;
+    margin-top: 10px;
+    text-align: center;
+}
+
+/* Responsive Design for Smaller Screens */
+@media screen and (max-width: 768px) {
+    .vibe-container {
+        flex-direction: column; /* Stack the sections vertically on small screens */
+    }
+
+    .vibe-section {
+        width: 100%; /* Full width for each section on smaller screens */
+        margin: 20px 0;
+    }
+
+    .intro-text {
+        font-size: 1rem; /* Smaller text for mobile screens */
     }
 }
