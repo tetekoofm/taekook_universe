@@ -12,6 +12,10 @@ def home():
 def vibe():
     return render_template("vibe.html")
 
+@app.route('/store')
+def store():
+    return render_template('store.html')
+
 @app.route('/projects')
 def projects():
     return render_template('projects.html')

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Purple Vault</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <!-- Navigation Menu -->
+    <nav class="navbar">
+        <ul>
+            <li><a href="/">Home</a></li>
+            <li><a href="/projects">Upcoming</a></li>
+            <li><a href="/memories">Memories</a></li>
+            <li><a href="/milestones">Milestones</a></li>
+            <li><a href="/radio">Radios</a></li>
+            <li><a href="/vibe">Rhythm</a></li>
+            <li><a href="/fanbases">Fanbases</a></li>
+            <li><a href="/fanprojects">Projects</a></li>
+            <li><a href="/store">Store</a></li>
+        </ul>
+    </nav>
+
+    <!-- Store Page -->
+    <div class="store-container">
+        <h1 class="store-heading">Taekook Store</h1>
+        <p class="store-description">
+            Explore exclusive fan-made merchandise! All proceeds from these sales will be used for Taekook projects and giveaways for fans. 
+            Support the fandom and take home a little piece of Taekook!
+        </p>
+
+        <!-- Merchandise Grid -->
+        <div class="merchandise-grid">
+            <!-- Item 1 -->
+            <div class="merch-item">
+                <img src="/static/images/yeontan-ornament.jpg" alt="Yeontan Christmas Ornament">
+                <h2>Yeontan Christmas Ornament</h2>
+                <p>$1.99</p>
+                <button>Buy Now</button>
+            </div>
+            <!-- Item 2 -->
+            <div class="merch-item">
+                <img src="/static/images/yeontan-sticker.jpg" alt="Yeontan Sticker">
+                <h2>Yeontan Sticker</h2>
+                <p>$0.99</p>
+                <button>Buy Now</button>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

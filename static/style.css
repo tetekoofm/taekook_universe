@@ -195,3 +195,88 @@ footer a:hover {
         font-size: 1rem; /* Smaller text for mobile screens */
     }
 }
+
+/* Store Page Styles */
+.store-container {
+    text-align: center;
+    padding: 20px;
+    background-color: #1c1c1c; /* Black background */
+    color: #fff;
+}
+
+.store-heading {
+    font-size: 3rem;
+    color: #6A0DAD; /* Purple */
+    margin-bottom: 10px;
+}
+
+.store-description {
+    font-size: 1.2rem;
+    color: #ddd;
+    margin-bottom: 30px;
+    padding: 0 10%;
+}
+
+.merchandise-grid {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.merch-item {
+    background-color: #2b2b2b; /* Dark section background */
+    padding: 15px;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px #0FFF50; /* Neon green glow */
+    text-align: center;
+    width: 250px;
+}
+
+.merch-item img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 5px;
+    margin-bottom: 10px;
+}
+
+.merch-item h2 {
+    font-size: 1.5rem;
+    color: #6A0DAD; /* Purple */
+    margin: 10px 0;
+}
+
+.merch-item p {
+    font-size: 1.2rem;
+    color: #fff;
+}
+
+.merch-item button {
+    background-color: #6A0DAD;
+    color: #fff;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.merch-item button:hover {
+    background-color: #0FFF50; /* Neon green on hover */
+}
+
+/* Responsive Design */
+@media screen and (max-width: 768px) {
+    .store-description {
+        padding: 0 5%;
+    }
+
+    .merchandise-grid {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .merch-item {
+        width: 80%; /* Adjust width for small screens */
+    }
+}
