@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <h1>Checkout</h1>
+    
+    <!-- Display Cart Items -->
+    <div class="cart-items">
+        {% for item, details in cart_items.items() %}
+            <div class="cart-item">
+                <p>{{ item }} - Quantity: {{ details['quantity'] }} - Price: ${{ details['price'] }}</p>
+            </div>
+        {% endfor %}
+    </div>
+    
+    <h3>Total Price: ${{ total_price }}</h3>
+    
+    <!-- Payment Form -->
+    <form action="/process_payment" method="POST">
+        <input type="hidden" name="total_price" value="{{ total_price }}">
+        
+        <label for="payment_method">Choose Payment Method:</label>
+        <select name="payment_method" id="payment_method" required>
+            <option value="paypal">Pay with PayPal</option>
+            <option value="kofi">Pay with Ko-fi</option>
+        </select>
+        
+        <button type="submit" class="checkout-button">Proceed to Payment</button>
+    </form>
+</body>
+</html>

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Cart</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <h1>Your Cart</h1>
+    
+    <!-- Display cart items -->
+    {% if cart_items %}
+    <div class="cart-items">
+        {% for item, details in cart_items.items() %}
+        <div class="cart-item">
+            <h3>{{ item }}</h3>
+            <p>Price: ${{ details['price'] }}</p>
+            <p>Quantity: {{ details['quantity'] }}</p>
+            <p>Total: ${{ details['price'] * details['quantity'] }}</p>
+        </div>
+        {% endfor %}
+    </div>
+    
+    <h3>Total Price: ${{ total_price }}</h3>
+    
+    <!-- Checkout Button -->
+    <div class="checkout-container">
+        <a href="/process_payment"><button class="checkout-button">Proceed to Checkout</button></a>
+    </div>
+
+    {% else %}
+    <p>Your cart is empty.</p>
+    {% endif %}
+</body>
+</html>

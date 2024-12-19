@@ -199,41 +199,42 @@ footer a:hover {
 /* Store Page Styles */
 .store-container {
     display: flex;
-    flex-wrap: wrap;
-    justify-content: space-around;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
     padding: 20px;
-    margin-top: 20px;
-    font-size: 3rem;
-    color: #0FFF50; /* Neon Green for heading */
+    margin-top: 40px;
 }
 
 .store-heading {
-    margin-top: 20px;
+    margin-bottom: 20px;
     font-size: 3rem;
     color: #0FFF50; /* Neon Green for heading */
+    text-align: center;
 }
 
 .store-description {
     color: #fff;
     font-size: 1.5rem;
-    padding: 5px;
+    text-align: center;
+    padding: 10px;
+    margin-bottom: 20px;
 }
 
 .merchandise-grid {
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-around;
-    gap: 10px;
-    width: 80%;
+    justify-content: center;
+    gap: 20px;
+    width: 100%;
 }
 
 .product {
     width: 300px;
     background-color: #2b2b2b; /* Dark background for cards */
     border-radius: 10px;
-    margin: 20px;
     text-align: center;
-    padding: 10px; /* Reduced padding for tighter spacing */
+    padding: 10px;
     box-shadow: 0px 0px 10px rgba(106, 13, 173, 0.6); /* Purple shadow */
     display: flex;
     flex-direction: column;
@@ -242,9 +243,9 @@ footer a:hover {
 }
 
 .product img {
-    width: 100%; /* Ensure image takes full container width */
-    height: 200px; /* Set a fixed height for images */
-    object-fit: contain; /* Ensure the entire image fits */
+    width: 100%;
+    height: 200px;
+    object-fit: contain;
     border-radius: 10px;
     margin-bottom: 10px; /* Reduced margin between image and title */
 }
@@ -252,38 +253,110 @@ footer a:hover {
 .product h3 {
     font-size: 1.2rem;
     color: #fff;
-    margin: 5px 0; /* Reduced margin to reduce space between title and price */
-    height: auto; /* Allow title to adjust height based on content */
+    margin: 5px 0; /* Reduced margin */
+    height: auto;
 }
 
 .product p {
     font-size: 1rem;
     color: #0FFF50; /* Neon Green for price */
-    margin: 5px 0; /* Reduced margin between price and button */
+    margin: 5px 0; /* Reduced margin */
 }
 
 .product a {
-    background-color: #6A0DAD; /* Purple button color */
+    background-color: #6A0DAD; /* Purple color for the button */
     color: #fff;
     border: none;
     padding: 10px 20px;
     font-size: 1rem;
     cursor: pointer;
     border-radius: 5px;
-    transition: background-color 0.3s ease;
-    margin-top: 10px; /* Reduced margin above the button */
-    text-decoration: none; /* Removes underline from link */
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    margin-top: 10px;
+    text-decoration: none;
     text-align: center;
 }
 
 .product a:hover {
-    background-color: #0FFF50; /* Neon green on hover */
+    background-color: #0FFF50; /* Neon Green on hover */
+    transform: scale(1.05); /* Slightly increase size on hover for effect */
 }
 
-/* Responsive Design */
+/* Modal Container */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8); /* Semi-transparent background */
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-content-wrapper {
+    position: relative;
+    width: 30%; /* Adjust width to 1/3rd of the page */
+    max-width: 600px;
+    max-height: 90%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-content {
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+    border-radius: 10px;
+}
+
+.close {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    color: #fff;
+    font-size: 24px;
+    font-weight: bold;
+    cursor: pointer;
+    background-color: rgba(0, 0, 0, 0.5);
+    border: none;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.close:hover {
+    color: #f44336; /* Red on hover */
+    background-color: rgba(255, 255, 255, 0.8);
+}
+
+/* Responsive Design for Smaller Screens */
 @media screen and (max-width: 768px) {
+    .store-container {
+        padding: 10px;
+    }
+
+    .product {
+        width: 80%;
+    }
+
+    .store-heading {
+        font-size: 2.5rem;
+    }
+
+    .product img {
+        height: 150px; /* Make images smaller on small screens */
+    }
+
     .store-description {
-        padding: 0 5%;
+        font-size: 1.2rem;
+        padding: 10px 20px;
     }
 
     .merchandise-grid {
@@ -291,7 +364,172 @@ footer a:hover {
         align-items: center;
     }
 
-    .product {
-        width: 80%; /* Adjust width for small screens */
+    .product a {
+        width: 100%;
     }
+}
+
+/* Form Elements */
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+/* Form Layout */
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+/* Quantity and Textbox Side by Side */
+.quantity-container {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+label {
+    font-size: 16px;
+    margin-bottom: 5px;
+    color: #dcdcdc; /* Light grey for labels */
+}
+
+input[type="number"] {
+    padding: 10px;
+    margin-left: 10px;
+    background-color: #333;
+    color: white;
+    border: 1px solid #444;
+    border-radius: 5px;
+    font-size: 16px;
+    width: 60px; /* Smaller width for quantity */
+}
+
+/* Textbox Styles */
+input[type="text"],
+input[type="email"],
+textarea {
+    padding: 10px;
+    margin-bottom: 15px;
+    background-color: #333;
+    color: white;
+    border: 1px solid #444;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+/* Textarea for address */
+textarea {
+    resize: vertical;
+    height: 100px;
+}
+
+/* Button Styles */
+.buy-button {
+    padding: 10px;
+    background-color: #9b59b6; /* Purple */
+    color: white;
+    font-size: 14px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-top: 10px;
+}
+
+.buy-button:hover {
+    background-color: #2ecc71; /* Green on hover */
+}
+
+.buy-button:active {
+    background-color: #27ae60; /* Darker green on click */
+}
+
+/* Quantity Container: Label and Input side by side */
+.quantity-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 15px;
+}
+
+label {
+    font-size: 16px;
+    margin-right: 10px;
+    color: #dcdcdc; /* Light grey */
+}
+
+input[type="number"] {
+    padding: 10px;
+    background-color: #333;
+    color: white;
+    border: 1px solid #444;
+    border-radius: 5px;
+    font-size: 16px;
+    width: 60px; /* Smaller width for quantity */
+}
+
+/* Checkout Button */
+.checkout-button {
+    padding: 10px 20px;
+    background-color: #9b59b6; /* Purple */
+    color: white;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    width: 200px;
+    margin-top: 20px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.checkout-button:hover {
+    background-color: #2ecc71; /* Green on hover */
+}
+
+.checkout-button:active {
+    background-color: #27ae60; /* Darker green on click */
+}
+
+/* Responsive Layout for Smaller Screens */
+@media screen and (max-width: 768px) {
+    .store-container {
+        padding: 15px;
+    }
+
+    .product {
+        flex: 1 1 100%;
+        max-width: 100%;
+    }
+
+    .store-heading {
+        font-size: 20px;
+    }
+}
+
+.checkout-button {
+    padding: 10px 20px;
+    background-color: #9b59b6; /* Purple */
+    color: white;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    width: 200px;
+    margin-top: 20px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.checkout-button:hover {
+    background-color: #2ecc71; /* Green on hover */
+}
+
+.checkout-button:active {
+    background-color: #27ae60; /* Darker green on click */
 }
