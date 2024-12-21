@@ -24,70 +24,51 @@
 
     <!-- Store Page -->
     <div class="store-container">
-        <h1 class="store-heading">Purple Vault</h1>
-        <p class="store-description">
+        <h1 class="heading">Purple Vault</h1>
+        <p class="caption">
             Explore exclusive fan-made merchandise! All proceeds from these sales will be used for Taekook projects and giveaways for fans. 
             Support the fandom and take home a little piece of Taekook!
         </p>
 
         <!-- Merchandise Grid -->
         <div class="merchandise-grid">
-            <!-- Item 1 -->
-            <div class="product">
-                <img src="{{ url_for('static', filename='images/yeontan_ornament.jpeg') }}" alt="Yeontan Ornament">
-                <h3>Yeontan Christmas Ornament</h3>
-                <p>$1.99</p>
-                <form action="/add_to_cart" method="POST">
-                    <input type="hidden" name="item" value="Yeontan Christmas Ornament">
-                    <input type="hidden" name="price" value="1.99">
-                    
-                    <!-- Quantity Dropdown -->
-                    <div class="quantity-container">
-                        <label for="quantity">Quantity:</label>
-                        <select name="quantity" id="quantity" required
-                                style="max-height: 200px; overflow-y: auto; overflow-x: hidden; display: block; width: 50px;">
-                            {% for i in range(101) %}
-                            <option value="{{ i }}" {% if selected_quantities.get('Yeontan Christmas Ornament', 0) == i %}selected{% endif %}>
-                                {{ i }}
-                            </option>
-                            {% endfor %}
-                        </select>
-                    </div>       
-                    
-                    <button type="submit" class="buy-button">Add to Cart</button>
-                </form>
-            </div>
-            
-            <!-- Item 2 -->
-            <div class="product">
-                <img src="{{ url_for('static', filename='images/yeontan_sticker.jpeg') }}" alt="Yeontan Sticker">
-                <h3>Yeontan Sticker</h3>
-                <p>$0.99</p>
-                <form action="/add_to_cart" method="POST">
-                    <input type="hidden" name="item" value="Yeontan Sticker">
-                    <input type="hidden" name="price" value="0.99">
-                    
-                    <!-- Quantity Dropdown -->
-                    <div class="quantity-container">
-                        <label for="quantity">Quantity:</label>
-                        <select name="quantity" id="quantity"
-                                style="max-height: 200px; overflow-y: auto; overflow-x: hidden; display: block; width: 50px;">
-                            {% for i in range(101) %}
-                            <option value="{{ i }}" {% if selected_quantities.get('Yeontan Sticker', 0) == i %}selected{% endif %}>
-                                {{ i }}
-                            </option>
-                            {% endfor %}
-                        </select>
-                    </div>       
-                    
-                    <button type="submit" class="buy-button">Add to Cart</button>
-                </form>
-            </div>
-        </div>
+            {% for product in products %}
+                <div class="product">
+                    <!-- Display Product Image -->
+                    <img src="{{ url_for('static', filename='images/' + product.image) }}" alt="{{ product.name }} Thumbnail" class="product-thumbnail">
 
+                    <!-- Display Product Name -->
+                    <h3>{{ product.name }}</h3>
+                    
+                    <!-- Display Product Price -->
+                    <p>${{ product.price }}</p>
+                    
+                    <!-- Add to Cart Form -->
+                    <form action="/add_to_cart" method="POST">
+                        <input type="hidden" name="item" value="{{ product.name }}">
+                        <input type="hidden" name="price" value="{{ product.price }}">
+                        
+                        <!-- Quantity Dropdown -->
+                        <div class="quantity-container">
+                            <label for="quantity">Quantity:</label>
+                            <select name="quantity" id="quantity" required style="max-height: 200px; overflow-y: auto; overflow-x: hidden; display: block; width: 50px;">
+                                {% for i in range(101) %}
+                                    <option value="{{ i }}" {% if selected_quantities.get(product.name, 0) == i %}selected{% endif %}>
+                                        {{ i }}
+                                    </option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        
+                        <button type="submit" class="buy-button">Add to Cart</button>
+                    </form>
+                </div>
+            {% endfor %}
+        </div>
+        
         <!-- Common Checkout Button -->
-        <div class="checkout-container">
-            <a href="/cart"><button class="checkout-button">Go to Cart</button></a>
+        <div class="cart-container">
+            <a href="/cart"><button class="cart-button">Go to Cart</button></a>
         </div>
     </div>
 </body>

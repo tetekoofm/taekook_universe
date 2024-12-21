@@ -5,9 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Purple Dreams: Taekook Edition</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@500&display=swap" rel="stylesheet">
 </head>
 <body>
+    <!-- Night Sky -->
+    <div class="night-sky" id="night-sky"></div>
+
     <!-- Navigation Menu -->
     <nav class="navbar">
         <ul>
@@ -25,19 +27,99 @@
 
     <!-- Content of Home Page -->
     <div class="container">
-        <div class="image-container">
-            <img src="{{ url_for('static', filename='images/TK_Run.jpeg') }}" alt="Taekook Image">
+        <h1 class="heading">Welcome to Purple Dreams: Taekook Edition</h1>
+        <p class="caption">A fanpage dedicated to Kim Taehyung and Jeon Jungkook.</p>
+        <p class="caption">Follow their incredible journey from their debut to their milestones, upcoming projects, achievements, and their passionate fanbase.</p>
+
+        <!-- Image Carousel -->
+        <div class="image-carousel">
+            <div class="image-slide">
+                <img src="{{ url_for('static', filename='images/tk_run.jpeg') }}" alt="Image 1">
+            </div>
+            <div class="image-slide">
+                <img src="{{ url_for('static', filename='images/be_fun.jpeg') }}" alt="Image 2">
+            </div>
+            <div class="image-slide">
+                <img src="{{ url_for('static', filename='images/tk_black.jpeg') }}" alt="Image 3">
+            </div>
+            <div class="image-slide">
+                <img src="{{ url_for('static', filename='images/tk_fetus.jpeg') }}" alt="Image 4">
+            </div>
+            <div class="image-slide">
+                <img src="{{ url_for('static', filename='images/tk_inkigayo.jpeg') }}" alt="Image 5">
+            </div>
+            <div class="image-slide">
+                <img src="{{ url_for('static', filename='images/tk_purple.jpeg') }}" alt="Image 6">
+            </div>
         </div>
-        <div class="intro">
-            <h1 class="homeheading">Welcome to Purple Dreams: Taekook Edition</h1>
-            <p class="caption">A fanpage dedicated to Kim Taehyung and Jeon Jungkook.</p>
-            <p>Follow their incredible journey from their debut to their milestones, upcoming projects, achievements, and their passionate fanbase.</p>
-        </div>
-    </div>
-    
-    <!-- Footer (Optional) -->
+        
+
+    <!-- Footer -->
     <footer>
         <p>Thank you for visiting Purple Dreams: Taekook Edition. Stay tuned for updates!</p>
     </footer>
+
+    <!-- JavaScript -->
+    <script>
+        // Image Carousel
+        let currentIndex = 0;
+        const slides = document.querySelectorAll('.image-slide');
+        const totalSlides = slides.length;
+
+        function showNextSlide() {
+            // Hide current image
+            slides[currentIndex].classList.remove('visible');
+            // Increment index (loop back to 0 if necessary)
+            currentIndex = (currentIndex + 1) % totalSlides;
+            // Show next image
+            slides[currentIndex].classList.add('visible');
+        }
+
+        setInterval(showNextSlide, 3000); // Change image every 3 seconds
+
+        // Initially show the first slide
+        slides[currentIndex].classList.add('visible');
+
+        // Generate random stars and snowflakes in two colors
+        const nightSky = document.getElementById('night-sky');
+        const totalElements = 300; // Total number of stars and snowflakes
+
+        function createElement(type, color) {
+            const element = document.createElement('div');
+            const size = Math.random() * 100 + 5; // Random size
+            const top = Math.random() * 100; // Random vertical position (0 to 100%)
+            const left = Math.random() * 100; // Random horizontal position (0 to 100%)
+
+            // Randomly generate stars or snowflakes
+            if (type === 'star') {
+                element.classList.add('star');
+                element.style.fontSize = `${size}px`; // For star size
+                element.style.backgroundColor = color; // Set random color for the star
+                element.style.boxShadow = `0 0 5px ${color}`; // Set the glow color
+            // } else if (type === 'snowflake') {
+            //     element.textContent = '❄'; // Snowflake emoticon
+            //     element.classList.add('snowflake');
+            //     element.style.fontSize = `${size}px`; // For snowflake size
+            //     element.style.color = color; // Set random color for the snowflake
+            }
+
+            // Randomize vertical and horizontal positions
+            element.style.top = `${top}vh`;
+            element.style.left = `${left}vw`;
+
+            // Set a random animation delay for the snowflakes
+            const delay = Math.random() * 5 + 's'; // Random delay between 0 to 5 seconds
+            element.style.animationDelay = delay;
+
+            nightSky.appendChild(element);
+        }
+
+        for (let i = 0; i < totalElements; i++) {
+            const type = Math.random() > 0.5 ? 'star' : 'snowflake'; // Randomly choose star or snowflake
+            const color = Math.random() > 0.5 ? '#8A00C4' : '#0FFF50'; // Randomly choose purple or green
+            createElement(type, color);
+        }
+
+    </script>
 </body>
 </html>

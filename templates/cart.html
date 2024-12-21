@@ -3,34 +3,62 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Your Cart</title>
+    <title>Cart</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
-    <h1>Your Cart</h1>
-    
-    <!-- Display cart items -->
-    {% if cart_items %}
-    <div class="cart-items">
-        {% for item, details in cart_items.items() %}
-        <div class="cart-item">
-            <h3>{{ item }}</h3>
-            <p>Price: ${{ details['price'] }}</p>
-            <p>Quantity: {{ details['quantity'] }}</p>
-            <p>Total: ${{ details['price'] * details['quantity'] }}</p>
-        </div>
-        {% endfor %}
-    </div>
-    
-    <h3>Total Price: ${{ total_price }}</h3>
-    
-    <!-- Checkout Button -->
-    <div class="checkout-container">
-        <a href="/process_payment"><button class="checkout-button">Proceed to Checkout</button></a>
-    </div>
+    <div class="cart-container">
+        <h1>Your Cart</h1>
 
-    {% else %}
-    <p>Your cart is empty.</p>
-    {% endif %}
+        {% if cart_items %}
+        <form action="/cart" method="POST">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Item</th>
+                        <th>Price</th>
+                        <th>Quantity</th>
+                        <th>Subtotal</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for item, details in cart_items.items() %}
+                        {% set product = products | selectattr('name', 'equalto', item) | first %}
+                        <tr>
+                            <td>
+                                <div class="cart-item">
+                                    <!-- Fetch the image dynamically from the product image column -->
+                                    <img src="{{ url_for('static', filename='images/' + product.image) }}" alt="{{ item }} Thumbnail" class="cart-item-thumbnail">
+                                    {{ item }}
+                                </div>
+                            </td>
+                            <td>${{ details.price }}</td>
+                            <td>
+                                <div class="quantity-container">
+                                    <select name="quantity_{{ item }}" required>
+                                        {% for i in range(101) %}
+                                            <option value="{{ i }}" {% if details.quantity == i %}selected{% endif %}>
+                                                {{ i }}
+                                            </option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                            </td>
+                            <td>${{ "%.2f"|format(details.quantity * details.price) }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+
+            <div class="cart-total">
+                <strong>Total: ${{ "%.2f"|format(total_price) }}</strong>
+            </div>
+
+            <button type="submit" class="checkout-button">Proceed to Checkout</button>
+        </form>
+        {% else %}
+        <p>Your cart is empty. <a href="{{ url_for('store') }}" style="color: #39ff14;">Go back to the store</a></p>
+        {% endif %}
+    </div>
 </body>
 </html>
