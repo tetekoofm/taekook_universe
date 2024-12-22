@@ -247,6 +247,7 @@ body {
 
 /* Vibe Page Layout */
 .vibe-container {
+    font-family: 'Poppins', cursive;
     display: flex;
     justify-content: space-between;
     padding: 20px;
