@@ -48,5 +48,59 @@
         </div>
     </div>
 
+    <!-- Song Name Popups -->
+    <div class="song-names"></div>
+
+    <!-- JavaScript to handle song name popups -->
+    <script>
+        const songs = {{ song_names | tojson }};
+        const emojis = ['🎶', '🎵']; // Purple and green music emojis
+        let displayedSongs = [];
+
+        function getRandomPosition() {
+            const x = Math.floor(Math.random() * window.innerWidth);
+            const y = Math.floor(Math.random() * window.innerHeight);
+            return { x, y };
+        }
+
+        function getRandomSong() {
+            let randomSong;
+            do {
+                randomSong = songs[Math.floor(Math.random() * songs.length)];
+            } while (displayedSongs.includes(randomSong));
+            displayedSongs.push(randomSong);
+            if (displayedSongs.length > 20) displayedSongs.shift();
+            return randomSong;
+        }
+
+        function getRandomEmoji() {
+            return emojis[Math.floor(Math.random() * emojis.length)];
+        }
+
+        function createSongNamePopup() {
+            const songName = getRandomSong();
+            const { x, y } = getRandomPosition();
+            const emoji = getRandomEmoji();
+
+            const popup = document.createElement('div');
+            popup.classList.add('song-name');
+            popup.style.left = `${x}px`;
+            popup.style.top = `${y}px`;
+            popup.innerHTML = `${songName} ${emoji}`;
+            document.querySelector('.song-names').appendChild(popup);
+
+            setTimeout(() => {
+                popup.style.opacity = 0;
+            }, 4000);
+        }
+
+        setInterval(createSongNamePopup, 200); // Pop up a song every 500ms
+    </script>
+
+    <!-- Footer -->
+    <footer>
+        <p>Thank you for visiting Purple Dreams: Taekook Edition. Stay tuned for updates!</p>
+    </footer>
+    
 </body>
 </html>

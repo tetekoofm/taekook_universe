@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, session, url_for
+from flask import Flask, render_template, request, redirect, session, url_for, jsonify
 from flask_sqlalchemy import SQLAlchemy
 import os
 import secrets
@@ -26,7 +26,13 @@ def home():
 # Vibe route: Displays embedded songs and related content
 @app.route('/vibe')
 def vibe():
-    return render_template('vibe.html')  # Ensure the vibe.html template exists
+    # Fetch all the song names from the Discography table
+    song_names = [song.song_name for song in Discography.query.all() if song.song_name]
+    
+    if not song_names:
+        print("No song names found.")
+    
+    return render_template('vibe.html', song_names=song_names)
 
 # Store route: Displays products dynamically from the database
 @app.route('/store')
@@ -59,7 +65,9 @@ def add_to_cart():
         session['cart'][item] = {'quantity': quantity, 'price': price}
 
     session.modified = True  # Mark session as modified to save changes
-    return redirect(url_for('store'))
+
+    # Return a JSON response indicating success
+    return jsonify({"message": "Item added to cart", "item": item, "quantity": quantity})
 
 # Cart route: Displays the items in the user's cart
 @app.route('/cart', methods=['POST', 'GET'])
@@ -73,32 +81,54 @@ def cart():
     # Fetch all products from the database
     products = Product.query.all()
     
+    # Handle POST request for updating the cart
+    if request.method == 'POST':
+        # Loop through each item and update the quantity based on user input
+        for item in cart_items.keys():
+            quantity = int(request.form.get(f"quantity_{item}", 0))
+            if quantity > 0:
+                cart_items[item]['quantity'] = quantity
+            else:
+                del cart_items[item]  # Remove item if quantity is 0
+
+        session['cart'] = cart_items  # Update session with new cart items
+        session.modified = True  # Mark session as modified to save changes
+        return redirect('/cart')  # Redirect to cart to see updated items
+    
     # Calculate the total price of items in the cart
     total_price = sum(item_details['quantity'] * item_details['price'] for item_details in cart_items.values())
-    
-    # Handle POST request for checkout (if any)
-    if request.method == 'POST':
-        return redirect('/checkout')
     
     # Render the cart page with products and the calculated total price
     return render_template('cart.html', cart_items=cart_items, total_price=total_price, products=products)
 
 
 # Checkout route: Displays a summary of the cart and allows payment
-@app.route('/checkout', methods=['GET', 'POST'])
+@app.route('/checkout', methods=['POST', 'GET'])
 def checkout():
     cart_items = session.get('cart', {})
-    total_price = sum(item['quantity'] * item['price'] for item in cart_items.values())
+
+    if not cart_items or all(item_details['quantity'] == 0 for item_details in cart_items.values()):
+        return redirect('/cart')
+
+    total_price = sum(item_details['quantity'] * item_details['price'] for item_details in cart_items.values())
 
     if request.method == 'POST':
-        payment_method = request.form['payment_method']
-        if payment_method == "paypal":
-            return redirect(f"https://www.paypal.com/paypalme/tkfm9795/{total_price}")
-        elif payment_method == "kofi":
-            return redirect(f"https://ko-fi.com/tetekoofm?amount={total_price}&currency=USD")
-        return "Invalid payment method.", 400  # Handle invalid payment methods
+        name = request.form.get('name')
+        email = request.form.get('email')
+        address = request.form.get('address')
 
-    return render_template('checkout.html', cart_items=cart_items, total_price=total_price)
+        if not name or not email or not address:
+            return render_template('checkout.html', total_price=total_price, error="Please fill in all fields.")
+
+        # Process order or save details here
+
+        # Clear cart after order is processed
+        session['cart'] = {}
+
+        return render_template('thank_you.html', name=name, email=email, address=address, total_price=total_price)
+
+    return render_template('checkout.html', total_price=total_price)
+
 
 # Start the Flask app
 if __name__ == '__main__':
