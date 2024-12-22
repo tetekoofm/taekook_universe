@@ -37,24 +37,48 @@
         <div class="vibe-section">
             <h2>Taehyung's Vibes</h2>
             <p>Taehyung enjoys a unique blend of genres, ranging from soulful ballads to experimental sounds. His music is full of emotion, with an emphasis on rich, atmospheric textures.</p>
-            <iframe style="border-radius:12px" src="https://open.spotify.com/embed/playlist/37i9dQZF1DX5Ku5zxR5pFB?utm_source=generator&theme=0" width="100%" height="500" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+            <iframe style="border-radius:12px" src="https://open.spotify.com/embed/playlist/37i9dQZF1DX5Ku5zxR5pFB?utm_source=generator&theme=0" width="100%" height="500" frameborder="0" allowfullscreen></iframe>
         </div>
 
         <!-- Jungkook's Section -->
         <div class="vibe-section">
             <h2>Jungkook's Vibes</h2>
             <p>Jungkook has a dynamic taste in music, with influences spanning from K-pop, pop, to rock. His versatile voice fits perfectly with various genres, and his playlists are full of energy and emotion.</p>
-            <iframe style="border-radius:12px" src="https://open.spotify.com/embed/playlist/37i9dQZF1DXdVUsw2RlcPf?utm_source=generator&theme=0" width="100%" height="500" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+            <iframe style="border-radius:12px" src="https://open.spotify.com/embed/playlist/37i9dQZF1DXdVUsw2RlcPf?utm_source=generator&theme=0" width="100%" height="500" frameborder="0" allowfullscreen></iframe>
         </div>
     </div>
 
+    <!-- Music Videos Section -->
+    <div class="music-videos-container">
+        <h2>Music Videos</h2>
+        <p>Enjoy some of Taehyung's and Jungkook's best music videos!</p>
+
+        <div class="video-scroll-container">
+            <button class="arrow-left" onclick="scrollVideos(-1)">←</button>
+            
+            <div class="video-frame">
+                {% for video in music_videos %}
+                    <div class="video-item">
+                        <iframe width="300" height="200" 
+                        src="https://www.youtube.com/embed/{{ video.youtube_url.split('v=')[1].split('&')[0] if 'v=' in video.youtube_url else video.youtube_url.split('youtu.be/')[1] }}?rel=0&autohide=1&showinfo=0&modestbranding=1" 
+                        frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" 
+                        allowfullscreen loading="lazy"></iframe>
+                        <p>{{ video.video_name }}</p>
+                    </div>
+                {% endfor %}
+            </div>
+
+            <button class="arrow-right" onclick="scrollVideos(1)">→</button>
+        </div>
+    </div>
+    
     <!-- Song Name Popups -->
     <div class="song-names"></div>
 
     <!-- JavaScript to handle song name popups -->
     <script>
         const songs = {{ song_names | tojson }};
-        const emojis = ['🎶', '🎵']; // Purple and green music emojis
+        const emojis = ['🎶', '🎵'];
         let displayedSongs = [];
 
         function getRandomPosition() {
@@ -94,13 +118,17 @@
             }, 4000);
         }
 
-        setInterval(createSongNamePopup, 300); // Pop up a song every 500ms
+        function scrollVideos(direction) {
+            const frame = document.querySelector('.video-frame');
+            frame.scrollBy({ left: direction * 300, behavior: 'smooth' });
+        }
+
+        setInterval(createSongNamePopup, 300);
     </script>
 
     <!-- Footer -->
     <footer>
         <p>Thank you for visiting Purple Dreams: Taekook Edition. Stay tuned for updates!</p>
     </footer>
-    
 </body>
 </html>

@@ -317,6 +317,41 @@ body {
     color: #0FFF50; /* Green */
 }
 
+/* Custom scrollbar style */
+.video-frame {
+    overflow-x: auto;
+    display: flex;
+    gap: 20px;
+    scrollbar-width: thin;
+    scrollbar-color: #8A00C4 #111; /* Purple color for the scrollbar */
+}
+
+.video-frame::-webkit-scrollbar {
+    height: 8px;
+}
+
+.video-frame::-webkit-scrollbar-thumb {
+    background-color: #8A00C4; /* Purple color */
+}
+
+.video-frame::-webkit-scrollbar-track {
+    background-color: #8A00C4; /* Dark background for track */
+}
+
+/* Adjusting video container for better spacing */
+.video-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-weight: bold;
+}
+
+/* Basic styling for video name text */
+.video-item p {
+    text-align: center;
+    color: #8A00C4;
+}
+
 /************************************************************************************************/
 
 /* Store Page Container */

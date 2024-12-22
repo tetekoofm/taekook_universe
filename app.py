@@ -2,7 +2,7 @@ from flask import Flask, render_template, request, redirect, session, url_for, j
 from flask_sqlalchemy import SQLAlchemy
 import os
 import secrets
-from models import db, Product, Discography
+from models import db, Product, Discography, MusicVideos
 
 # Initialize the Flask app
 app = Flask(__name__)
@@ -29,10 +29,17 @@ def vibe():
     # Fetch all the song names from the Discography table
     song_names = [song.song_name for song in Discography.query.all() if song.song_name]
     
+    # Fetch all the music videos from the MusicVideos table
+    music_videos = MusicVideos.query.all()
+    
+    # Debugging info
     if not song_names:
         print("No song names found.")
+    if not music_videos:
+        print("No music videos found.")
     
-    return render_template('vibe.html', song_names=song_names)
+    # Pass both song_names and music_videos to the template
+    return render_template('vibe.html', song_names=song_names, music_videos=music_videos)
 
 # Store route: Displays products dynamically from the database
 @app.route('/store')
