@@ -243,7 +243,158 @@ body {
     }
 }
 
-/***********************************************************************************************************************************/
+/****************************************************************************************************/
+
+/* Card Container (Flex layout to arrange cards next to each other) */
+.memory-cards {
+    display: flex;
+    flex-wrap: wrap; /* Allow cards to wrap if they don't fit in one row */
+    justify-content: space-between; /* Even space between cards */
+    gap: 20px; /* Space between cards */
+    margin-top: 20px;
+}
+
+/* Memory Card Styles */
+.memory-card {
+    background-color: #000; /* Black background */
+    border: 2px solid #8A00C4; /* Purple border */
+    border-radius: 15px;
+    width: 300px; /* Width of each card */
+    padding: 15px;
+    cursor: pointer;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+    transition: transform 0.3s ease-in-out;
+    margin-bottom: 20px; /* Margin at the bottom of each card */
+}
+
+/* Hover effect for cards */
+.memory-card:hover {
+    transform: scale(1.05);
+}
+
+/* Card Header Styles */
+.card-header {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 10px;
+    background-color: #8A00C4; /* Purple background */
+    color: #fff;
+    font-size: 16px;
+    border-radius: 8px;
+    position: relative;
+}
+
+/* Title and Date Styling */
+.card-header .title {
+    font-size: 18px; /* Make title slightly bigger */
+    font-weight: bold;
+    top: 40px;
+    text-align: left;
+    left: 10px;
+}
+
+.card-header .date {
+    font-size: 12px; /* Smaller font for date */
+    position: absolute;
+    top: 0px;
+    left: 10px; /* Align date to the top left */
+}
+
+/* Card Body (Image and Hidden Description) */
+.card-body {
+    padding-top: 10px;
+    text-align: center;
+}
+
+/* Ensure the image is cropped from the bottom, prioritizing the top part */
+.card-body img {
+    width: 100%;
+    height: 200px; /* Set a fixed height for the image */
+    object-fit: cover; /* Crop the image */
+    object-position: top; /* Make sure the top part is shown */
+    border-radius: 8px;
+}
+
+/* Modal Styles */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7); /* Dark background with transparency */
+    overflow: auto;
+    padding-top: 60px;
+    transition: all 0.3s ease-in-out;
+}
+
+/* Modal Content Styles */
+.modal-content {
+    background-color: #fff; /* White background for modal content */
+    margin: 5% auto;
+    padding: 20px;
+    border-radius: 10px;
+    width: 80%;
+    max-width: 600px;
+    position: relative;
+}
+
+/* Title, Date, and Description */
+#modal-title {
+    font-size: 24px;
+    color: #8A00C4; /* Purple color for title */
+}
+
+#modal-date {
+    font-size: 16px;
+    color: #8A00C4; /* White color for date */
+}
+
+#modal-description {
+    font-size: 18px;
+    color: #8A00C4; /* White color for description */
+}
+
+/* Image */
+#modal-image {
+    width: 100%;
+    border-radius: 10px;
+}
+
+/* Scrollbar Styling (optional, to style the scrollbar) */
+.modal-content::-webkit-scrollbar {
+    width: 10px;
+}
+
+.modal-content::-webkit-scrollbar-thumb {
+    background-color: #888;
+    border-radius: 5px;
+}
+
+.modal-content::-webkit-scrollbar-thumb:hover {
+    background-color: #555;
+}
+
+/* Close Button */
+.close-btn {
+    position: absolute;
+    top: 10px;
+    right: 25px;
+    font-size: 30px;
+    color: #aaa;
+    cursor: pointer;
+}
+
+.close-btn:hover,
+.close-btn:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+/*****************************************************************************************************/
 
 /* Vibe Page Layout */
 .vibe-container {
@@ -317,6 +468,35 @@ body {
     color: #0FFF50; /* Green */
 }
 
+/* Music Video styles */
+.music-videos-container {
+    font-family: 'Poppins', cursive;
+    padding: 20px;
+    flex-wrap: wrap;
+    position: relative;
+    z-index: 2;
+}
+
+.music-videos-container h2 {
+    font-size: 2rem;
+    color: #8A00C4;
+    text-align: left;
+    margin-top: 0;
+    margin-bottom: 0; 
+}
+
+.music-videos-container p {
+    font-size: 1rem;
+    color: #0FFF50;
+    margin-top: 0; 
+    margin-bottom: 20px;
+}
+
+.arrow-left, 
+.arrow-right {
+    margin-top: 0; /* Ensures that arrows are not shifted down by any margin */
+}
+
 /* Custom scrollbar style */
 .video-frame {
     overflow-x: auto;
@@ -324,6 +504,7 @@ body {
     gap: 20px;
     scrollbar-width: thin;
     scrollbar-color: #8A00C4 #111; /* Purple color for the scrollbar */
+    margin-top: 10px; /* Adds space between the description and the video frame */
 }
 
 .video-frame::-webkit-scrollbar {
@@ -340,16 +521,19 @@ body {
 
 /* Adjusting video container for better spacing */
 .video-item {
+    font-family: 'Poppins', sans-serif;
     display: flex;
     flex-direction: column;
     align-items: center;
-    font-weight: bold;
+    /* font-weight: bold; */
 }
 
 /* Basic styling for video name text */
 .video-item p {
     text-align: center;
     color: #8A00C4;
+    font-size: 12px; /* Change this to your desired font size */
+    font-weight: bold; /* Optional: Make the font bold */
 }
 
 /************************************************************************************************/
