@@ -242,11 +242,136 @@ body {
         transform: translateY(0);
     }
 }
+/****************************************************************************************************/
+
+/* Timeline Container */
+.timeline-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Year Boxes */
+.years-container {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+    position: relative;
+}
+
+.year-box {
+    position: relative;
+    cursor: pointer;
+    padding: 10px 20px;
+    margin: 0 10px;
+    background-color: green;
+    color: white;
+    border-radius: 5px;
+    text-align: center;
+}
+
+.year-box.active {
+    background-color: purple;
+}
+
+/* Vertical Line from Year */
+.year-vertical-line {
+    width: 2px;
+    height: 40px;
+    background-color: white;
+    position: absolute;
+    bottom: -40px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: none; /* Hidden by default */
+}
+
+/* Months Container */
+.months-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 30px;
+    position: relative;
+    width: 100%;
+}
+
+.horizontal-tree-line {
+    height: 2px;
+    background-color: white;
+    width: 100%;
+    position: absolute;
+    top: -10px;
+    z-index: -1;
+    display: none; /* Hidden by default */
+}
+
+/* Months Box (Horizontal Layout for Months) */
+.months-box {
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: center;
+    gap: 10px;
+    width: 100%;
+    padding: 0 10px; /* Padding to create space on the edges */
+}
+
+.month-box-container {
+    display: flex;
+    flex-direction: column;
+    align-items: space-between;
+    position: relative;
+    min-width: 80px; /* Prevents months from shrinking too much */
+}
+
+.month-box {
+    background-color: purple;
+    top: 10px;
+    color: white;
+    padding: 10px 15px;
+    border-radius: 5px;
+    text-align: center;
+    position: relative;
+    width: 50px;
+    min-height: 10px;
+    font-size: 12px; /* Smaller font size */
+    box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.3);
+}
+
+.month-vertical-branch {
+    width: 2px;
+    height: 20px;
+    background-color: white;
+    position: absolute;
+    top: -20px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: none; /* Hidden by default */
+}
+
+/* Event List */
+.event-list {
+    margin-top: 20px;
+    list-style-type: none;
+    padding: 0;
+    text-align: left;
+}
+
+.event-item {
+    margin: 5px 0;
+    cursor: pointer;
+    color: white;
+}
+
+.event-bullet {
+    margin-right: 5px;
+    color: green;
+}
 
 /****************************************************************************************************/
 
 /* Card Container (Flex layout to arrange cards next to each other) */
-.memory-cards {
+.milestone-cards {
     display: flex;
     flex-wrap: wrap; /* Allow cards to wrap if they don't fit in one row */
     justify-content: space-between; /* Even space between cards */
@@ -255,7 +380,7 @@ body {
 }
 
 /* Memory Card Styles */
-.memory-card {
+.milestone-card {
     background-color: #000; /* Black background */
     border: 2px solid #8A00C4; /* Purple border */
     border-radius: 15px;
@@ -268,7 +393,7 @@ body {
 }
 
 /* Hover effect for cards */
-.memory-card:hover {
+.milestone-card:hover {
     transform: scale(1.05);
 }
 
@@ -325,9 +450,8 @@ body {
     width: 100%;
     height: 100%;
     background-color: rgba(0, 0, 0, 0.7); /* Dark background with transparency */
-    overflow: auto;
-    padding-top: 60px;
-    transition: all 0.3s ease-in-out;
+    overflow: auto; /* Enable scrolling for the modal itself */
+    padding: 0;
 }
 
 /* Modal Content Styles */
@@ -336,9 +460,12 @@ body {
     margin: 5% auto;
     padding: 20px;
     border-radius: 10px;
-    width: 80%;
-    max-width: 600px;
     position: relative;
+    width: 80%; /* Adjust the width as needed (e.g., 80% of the screen width) */
+    max-width: 1000px; /* Optional: Set a maximum width for larger screens */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Add some shadow for better aesthetics */
+    overflow-y: auto; /* Enable vertical scrolling within the modal content */
+    /*max-height: 90vh;  Limit height to 80% of the viewport height */
 }
 
 /* Title, Date, and Description */
@@ -348,12 +475,12 @@ body {
 }
 
 #modal-date {
-    font-size: 16px;
+    font-size: 10px;
     color: #8A00C4; /* White color for date */
 }
 
 #modal-description {
-    font-size: 18px;
+    font-size: 12px;
     color: #8A00C4; /* White color for description */
 }
 

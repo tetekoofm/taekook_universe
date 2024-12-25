@@ -1,8 +1,8 @@
 from flask import Flask, render_template, request, redirect, session, url_for, jsonify
-from datetime import datetime
 # from flask_sqlalchemy import SQLAlchemy
-import os, secrets, random
+import os, secrets, random, calendar
 from models import db, Memory, Milestone, Product, Discography, MusicVideo
+from collections import defaultdict
 
 # Initialize the Flask app
 app = Flask(__name__)
@@ -25,17 +25,67 @@ def home():
 
 @app.route('/memories')
 def memories():
-    # Query all memories from the Memory table, sorted by date in descending order
-    memories = Memory.query.order_by(Memory.date.desc()).all()
+    # Fetch all memories from the database
+    memories_data = Memory.query.all()
+
+    # Create a defaultdict to organize the data by year and month
+    timeline_data = defaultdict(lambda: defaultdict(list))
+
+    for memory in memories_data:
+        year, month = memory.date.split('-')[:2]
+        year = int(year)
+        month = int(month)  # Convert month to integer for proper sorting
+
+        # Add memory to the appropriate year and month
+        timeline_data[year][month].append({
+            'id': memory.id,
+            'title': memory.title,
+            'date': memory.date,
+            'image': memory.image,
+            'description': memory.description,
+        })
+
+    # Add missing months for each year and sort them
+    for year in range(2013, 2025):  # Adjust year range as needed
+        if year not in timeline_data:
+            timeline_data[year] = {}
+        # Add placeholders for missing months
+        for month in range(1, 13):
+            if month not in timeline_data[year]:
+                timeline_data[year][month] = []
+
+        # Sort months chronologically
+        sorted_months = {month: timeline_data[year][month] for month in sorted(timeline_data[year].keys())}
+        timeline_data[year] = sorted_months
+
+    # Prepare the formatted year for display (e.g., '20' for 2020)
+    formatted_years = {year: str(year)[-2:] for year in timeline_data.keys()}
+
+    return render_template('memories.html', timeline_data=timeline_data, calendar=calendar, formatted_years=formatted_years)
+
+@app.route('/get-event-details/<int:event_id>', methods=['GET'])
+def get_event_details(event_id):
+    # Fetch the memory by ID from the database
+    event = Memory.query.get(event_id)
+
+    if event:
+        # Return event details as JSON
+        return jsonify({
+            'title': event.title,
+            'image': url_for('static', filename=f'images/{event.image}'),
+            'description': event.description,
+            'date': event.date
+        })
+    else:
+        return jsonify({'error': 'Event not found'}), 404
+
+@app.route('/milestones')
+def milestones():
+    # Query all milestones from the Milestone table, sorted by date in descending order
+    milestones = Milestone.query.order_by(Milestone.date.desc()).all()
 
     # Pass the memories data to the template
-    return render_template('memories.html', memories=memories)
-
-# @app.route('/milestone')
-# def milestone():
-#     # Fetch milestones from the database, ordered by date descending
-#     milestones = Milestone.query.order_by(Milestone.date.desc()).all()
-#     return render_template('milestone.html', milestones=milestones)
+    return render_template('milestones.html', milestones=milestones)
 
 # Vibe route: Displays embedded songs and related content
 @app.route('/vibe')

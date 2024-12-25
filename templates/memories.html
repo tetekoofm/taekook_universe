@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Memories</title>
+    <title>Memories Timeline</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
@@ -25,83 +25,112 @@
     <!-- Main Content Section -->
     <div class="intro">
         <h1 class="heading">Memories</h1>
-        <p class="caption">Explore the memories and milestones of their careers!</p>
+        <p class="caption">Few memories through their timeline!</p>
     </div>
 
-    <!-- Stacked Cards for Memories -->
-    <div class="memory-cards">
-        {% for memory in memories %}
-        <div class="memory-card">
-            <div class="card-header">
-                <h2 class="title">{{ memory.title }}</h2>
-                <p class="date">{{ memory.date }}</p>
+
+    <div class="timeline-container">
+        <!-- Years Container -->
+        <div class="years-container">
+            {% for year in timeline_data.keys() | sort %}
+            <div class="year-box" data-year="{{ year }}" role="button" aria-expanded="false">
+                {{ year }}
+                <div class="year-vertical-line"></div> <!-- Vertical line from the year -->
             </div>
-            
-            <!-- Card Body with only header and image displayed -->
-            <div class="card-body">
-                <img src="{{ url_for('static', filename='images/' + memory.image) }}" 
-                    alt="{{ memory.title }}"
-                    data-title="{{ memory.title }}"
-                    data-date="{{ memory.date }}"
-                    data-image="{{ memory.image }}"
-                    data-description="{{ memory.description }}">
-            </div>            
+            {% endfor %}
         </div>
+
+        <!-- Months and Events for Each Year -->
+        {% for year, months in timeline_data.items() %}
+        <div class="months-container" data-year="{{ year }}" style="display: none;">
+            <div class="horizontal-tree-line"></div> <!-- Horizontal line connecting months -->
+            <div class="months-box">
+                {% for month_num, events in months.items() %}
+                <div class="month-box-container">
+                    <!-- Month Box -->
+                    <div class="month-box" data-month="{{ month_num }}">
+                        <div class="month-vertical-branch"></div> <!-- Short branch above month -->
+                        <div class="month-name">{{ calendar.month_abbr[month_num] }} '{{ formatted_years[year] }}'</div>
+                    </div>
+        
+                    <!-- Event list positioned below the month -->
+                    <div class="event-list" data-month="{{ month_num }}">
+                        {% if events %}
+                        {% for event in events %}
+                        <div class="event-item" onclick="showEventDetails('{{ event.title }}', '{{ event.date }}', '{{ event.description }}')">
+                            <span class="event-bullet">&#8226;</span> {{ event.title }}
+                        </div>
+                        {% endfor %}
+                        {% endif %}
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+        
         {% endfor %}
     </div>
 
-    <!-- Modal for Expanded Description -->
-    <div id="memory-modal" class="modal">
+    <!-- Event Modal -->
+    <div id="eventModal" class="modal">
         <div class="modal-content">
-            <span class="close-btn" onclick="closeModal()">×</span>
-            <h2 id="modal-title"></h2>
-            <p id="modal-date"></p>
-            <img id="modal-image" src="" alt="">
-            <p id="modal-description"></p>
+            <span class="close" onclick="closeModal()">&times;</span>
+            <h2 id="eventTitle"></h2>
+            <p id="eventDate"></p>
+            <p id="eventDescription"></p>
         </div>
     </div>
 
     <script>
-        // Function to open the modal
-        function openModal(title, date, image, description) {
-            // Populate the modal with the data passed from the memory card
-            document.getElementById('modal-title').textContent = title;
-            document.getElementById('modal-date').textContent = date;
-            document.getElementById('modal-image').src = '/static/images/' + image;
-            document.getElementById('modal-description').textContent = description;
+        document.addEventListener("DOMContentLoaded", () => {
+            const yearBoxes = document.querySelectorAll(".year-box");
 
-            // Show the modal
-            document.getElementById('memory-modal').style.display = 'block'; // Make sure it's visible
-        }
+            yearBoxes.forEach(box => {
+                box.addEventListener("click", () => {
+                    const year = box.dataset.year;
 
-        function closeModal() {
-            document.getElementById('memory-modal').style.display = 'none'; // Hide the modal
-        }
+                    // Hide all months and reset line visibility
+                    document.querySelectorAll(".months-container").forEach(container => {
+                        const isActive = container.dataset.year === year;
+                        container.style.display = isActive ? "flex" : "none";
 
-        // Listen for click events on memory cards to open the modal
-        document.querySelectorAll('.memory-card img').forEach(img => {
-            img.addEventListener('click', function() {
-                // Get data from the image's custom attributes
-                const title = this.getAttribute('data-title');
-                const date = this.getAttribute('data-date');
-                const image = this.getAttribute('data-image');
-                const description = this.getAttribute('data-description');
+                        const horizontalLine = container.querySelector(".horizontal-tree-line");
+                        if (horizontalLine) {
+                            horizontalLine.style.display = isActive ? "block" : "none";
+                        }
 
-                // Open the modal with the data
-                openModal(title, date, image, description);
+                        // Reset year-box lines
+                        const yearBox = document.querySelector(`[data-year="${container.dataset.year}"]`);
+                        if (yearBox) {
+                            const yearLine = yearBox.querySelector(".year-vertical-line");
+                            yearLine.style.display = isActive ? "block" : "none";
+                        }
+                    });
+
+                    // Display vertical branches for the active month's box
+                    document.querySelectorAll(".month-box-container").forEach(monthBox => {
+                        const branch = monthBox.querySelector(".month-vertical-branch");
+                        branch.style.display = branch.closest(".months-container").dataset.year === year ? "block" : "none";
+                    });
+
+                    // Set active state for the year clicked
+                    yearBoxes.forEach(yb => yb.classList.remove("active"));
+                    box.classList.add("active");
+                });
             });
         });
 
-        // Listen for clicks outside the modal content to close it
-        window.onclick = function(event) {
-            if (event.target == document.getElementById('memory-modal')) {
-                closeModal();
-            }
+        function showEventDetails(title = "No Title", date = "Unknown Date", description = "No Description") {
+            document.getElementById("eventTitle").textContent = title;
+            document.getElementById("eventDate").textContent = date;
+            document.getElementById("eventDescription").textContent = description;
+            document.getElementById("eventModal").style.display = "block";
         }
 
-
+        function closeModal() {
+            document.getElementById("eventModal").style.display = "none";
+        }
     </script>
-
     <!-- Footer -->
     <footer>
         <p>Thank you for visiting Purple Dreams: Taekook Edition. Stay tuned for updates!</p>
