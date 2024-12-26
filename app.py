@@ -28,44 +28,43 @@ def memories():
     # Fetch all memories from the database
     memories_data = Memory.query.all()
 
-    # Create a defaultdict to organize the data by year and month
+    # Organize data by year and month using a defaultdict
     timeline_data = defaultdict(lambda: defaultdict(list))
 
     for memory in memories_data:
-        year, month = memory.date.split('-')[:2]
-        year = int(year)
-        month = int(month)  # Convert month to integer for proper sorting
-
-        # Add memory to the appropriate year and month
+        year, month, day = map(int, memory.date.split('-'))  # Extract year, month, and day
         timeline_data[year][month].append({
             'id': memory.id,
             'title': memory.title,
-            'date': memory.date,
+            'date': f'{year}-{month:02}-{day:02}',  # Pass full date in YYYY-MM-DD format
             'image': memory.image,
             'description': memory.description,
         })
 
-    # Add missing months for each year and sort them
+    # Ensure all months exist for each year
     for year in range(2013, 2025):  # Adjust year range as needed
         if year not in timeline_data:
             timeline_data[year] = {}
-        # Add placeholders for missing months
-        for month in range(1, 13):
-            if month not in timeline_data[year]:
-                timeline_data[year][month] = []
+        for month in range(1, 13):  # Ensure each year has 12 months
+            timeline_data[year].setdefault(month, [])
 
         # Sort months chronologically
-        sorted_months = {month: timeline_data[year][month] for month in sorted(timeline_data[year].keys())}
-        timeline_data[year] = sorted_months
+        timeline_data[year] = {
+            month: timeline_data[year][month]
+            for month in sorted(timeline_data[year])
+        }
 
-    # Prepare the formatted year for display (e.g., '20' for 2020)
+    # Format years for display (e.g., '20' for 2020)
     formatted_years = {year: str(year)[-2:] for year in timeline_data.keys()}
 
-    return render_template('memories.html', timeline_data=timeline_data, calendar=calendar, formatted_years=formatted_years)
+    return render_template('memories.html', 
+                           timeline_data=timeline_data, 
+                           calendar=calendar, 
+                           formatted_years=formatted_years)
 
 @app.route('/get-event-details/<int:event_id>', methods=['GET'])
 def get_event_details(event_id):
-    # Fetch the memory by ID from the database
+    # Fetch the memory by ID
     event = Memory.query.get(event_id)
 
     if event:

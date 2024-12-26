@@ -1,13 +1,6 @@
-/* Import Google Fonts */
-/* @import url('https://fonts.googleapis.com/css2?family=Playwrite+FR+Moderne&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Tangerine&display=swap'); */
-
-
-/* General Styles */
-
 /* Main content section */
 .main-content {
-    padding-top: 60px;  /* To ensure the content doesn't overlap with the navbar */
+    padding-top: 100px;  /* To ensure the content doesn't overlap with the navbar */
 }
 
 /* Reset margins and paddings to ensure no unexpected space at the top */
@@ -19,6 +12,7 @@ html, body {
 /* Footer */
 footer {
     text-align: center;
+    font-size: 0.9rem;
     color: #fff;
     padding: 10px;
     background: #2c2c2c;
@@ -30,13 +24,12 @@ footer {
 }
 
 body {
-    /* font-family: 'Tangerine', cursive; */
     font-family: 'Poppins', sans-serif;
-    font-size: 0.8rem;
+    font-size: 1.8rem;
     background-color: #1c1c1c; /* Black background */
     color: #fff;
     margin: 0;
-    padding: 60px;
+    padding: 20px;
     position: relative;
     /* overflow: hidden; Prevent overflow from stars and snowflakes */
     overflow-y: auto; /* Always show a vertical scrollbar */
@@ -45,27 +38,26 @@ body {
 /* Styling for the intro and caption */
 .intro {
     text-align: center;
-    padding: 50px;
+    padding: 5px;
 }
 
 .heading {
     font-family: 'Dancing Script', cursive;
     font-size: 2.5rem;
     font-weight: 1200;
-    color: #8A00C4;
-    /* text-shadow: 0 0 3px #0FFF50, 0 0 3px #0FFF50, 0 0 5px #0FFF50; */
-    animation: fadeIn 2s ease-out;
+    color: #6A0DAD;
+    animation: fadeIn 3s ease-out;
 }
 
 .caption {
     font-family: 'Poppins', cursive;
-    font-size: 1.2rem;
+    font-size: 1.5rem;
     color: #0FFF50;
-    text-shadow: 0 0 1px #8A00C4, 0 0 1px #8A00C4, 0 0 1px #8A00C4;
+    text-shadow: 0 0 1px #6A0DAD, 0 0 1px #6A0DAD, 0 0 1px #6A0DAD;
     text-align: center; /* Ensure the caption is centered */
     max-width: 1000px;
-    line-height: 1.6;
-    animation: fadeIn 4s ease-out;
+    line-height: 1.0;
+    animation: fadeIn 5s ease-out;
     display: inline-block; /* Ensure the text is aligned correctly */
 }
 
@@ -125,7 +117,7 @@ body {
     justify-content: center;
     align-items: center;
     text-align: center; /* Ensure text content is center-aligned */
-    padding: 20px;
+    padding: 10px;
     position: relative;
     z-index: 10; /* Ensures content stays above the stars and background */
 }
@@ -184,9 +176,9 @@ body {
     position: absolute;
     width: 10px;
     height: 10px;
-    background-color: #8A00C4; /* Default color */
+    background-color: #6A0DAD; /* Default color */
     clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
-    box-shadow: 0 0 5px #8A00C4; /* Default color */
+    box-shadow: 0 0 5px #6A0DAD; /* Default color */
     animation: twinkle 2s infinite ease-in-out;
 }
 
@@ -242,6 +234,176 @@ body {
         transform: translateY(0);
     }
 }
+
+/* Countdown Styling */
+/* Countdown Container */
+.countdown-container {
+    text-align: center;
+    margin: 40px 0;
+    color: #fff;
+}
+
+/* Countdown Title */
+.countdown-container h2 {
+    font-family: 'Dancing Script', cursive;
+    font-size: 1.9rem;
+    font-weight: bold;
+    color: #FFD700; /* Gold */
+    margin-bottom: 30px;
+}
+
+/* Countdown Timer Wrapper */
+.countdown-timer-wrapper {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+}
+
+/* Countdown Timer */
+.countdown-timer {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+}
+
+/* Individual Timer Box */
+.timer-box {
+    background-color: #6A0DAD;
+    padding: 20px 20px;
+    border-radius: 10px;
+    color: #fff;
+    text-align: center;
+    width: 60px;
+    height: 60px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.2rem;
+}
+
+.timer-box span {
+    font-size: 2rem;
+    font-weight: bold;
+    color:#0FFF50
+}
+
+/* Small Text for Units */
+.timer-box p {
+    margin-top: 10px;
+    font-size: 1rem;
+    color:#0FFF50
+}
+
+/* Celebration Styling */
+.celebration {
+    text-align: center;
+    margin-top: 50px;
+}
+
+.celebration h2 {
+    font-size: 2rem;
+    color: #FFD700;
+}
+
+.celebration img {
+    width: 200px;
+    height: auto;
+    margin-top: 20px;
+    animation: fadeIn 2s;
+}
+
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+/* Mobile Styles (Max width of 768px, typically for tablets and below) */
+@media screen and (max-width: 768px) {
+    /* Adjust navbar for mobile screens */
+    .navbar {
+        padding: 10px;  /* Reduce padding for mobile */
+    }
+
+    .navbar a {
+        font-size: 1.2rem;  /* Slightly smaller font size for navbar links */
+    }
+
+    /* Adjusting Image Carousel for smaller screens */
+    .image-carousel {
+        width: 80%;   /* More screen space for images */
+        height: 300px; /* Reduced height for mobile */
+    }
+
+    /* Adjust heading size */
+    .heading {
+        font-size: 2rem;  /* Slightly smaller heading font size */
+    }
+
+    /* Adjust caption font size and max width */
+    .caption {
+        font-size: 1rem;
+        max-width: 100%;  /* Allow caption to take full width on small screens */
+    }
+
+    /* Footer adjustments for mobile */
+    footer {
+        font-size: 0.8rem;
+        padding: 10px; /* Reduce footer padding on mobile */
+    }
+}
+
+/* Extra Mobile Styles (Max width of 480px, typically for phones) */
+@media screen and (max-width: 480px) {
+    /* Adjust layout for very small screens (smartphones) */
+    body {
+        padding: 20px; /* Reduce padding for smaller screens */
+    }
+
+    .image-carousel {
+        width: 100%;   /* Use full width for images */
+        height: 200px; /* Reduced height for mobile */
+    }
+
+    .navbar a {
+        font-size: 1rem; /* Make navbar items smaller for phones */
+    }
+
+    .heading {
+        font-size: 1.6rem; /* Reduce heading size for phones */
+    }
+
+    .caption {
+        font-size: 0.9rem;
+        max-width: 100%; /* Ensure caption text takes full width */
+    }
+
+    footer {
+        font-size: 0.7rem; /* Smaller footer font on phones */
+    }
+}
+
+/* Countdown Timer Responsive */
+@media screen and (max-width: 768px) {
+    .countdown-timer-wrapper {
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .timer-box {
+        width: 60px;
+        height: 60px;
+    }
+
+    .timer-box span {
+        font-size: 1.5rem;
+    }
+}
+
 /****************************************************************************************************/
 
 /* Timeline Container */
@@ -354,20 +516,224 @@ body {
     margin-top: 20px;
     list-style-type: none;
     padding: 0;
-    text-align: left;
 }
 
 .event-item {
     margin: 5px 0;
     cursor: pointer;
-    color: white;
+    color: white ;
+    text-align: left;
 }
 
 .event-bullet {
-    margin-right: 5px;
-    color: green;
+    margin-right: 1px;
+    color: #0FFF50;
+    text-align: left;
+}  
+
+.event-date {
+    margin-right: 1px;
+    color: #0FFF50;
+    font-weight: bold;
+    text-align: left;
+}  
+
+.event-title {
+    /* margin-right: 1px; */
+    /* color: white; */
+    text-align: right;
+} 
+
+/* Event Icon */
+.event-icon {
+    width: 20px; /* Adjust the size of the icon */
+    height: 20px; /* Ensure it is square */
+    margin: 0 5px; /* Add space on both sides */
+    vertical-align: middle; /* Align it vertically with the text */
+    border-radius: 50%; /* Optional: Make it circular */
+    object-fit: cover; /* Ensure the image fits nicely */
 }
 
+/* Modal Container */
+.modal {
+    display: flex; /* Hidden by default */
+    position: fixed;
+    z-index: 1000;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.8); /* Dark overlay */
+    overflow-y: auto; /* Enable scrolling for tall modals */
+    display: flex;
+    justify-content: center;
+    align-items: flex-start; /* Align modal at the top */
+    padding-top: 200px; /* Ensure it's below the nav menu */
+}
+
+/* Modal Content */
+.modal-content {
+    width: 90%;
+    max-width: 600px;
+    background-color: #111 !important;
+    color: #000000;
+    padding: 15px 20px; /* Reduced padding */
+    border: 3px solid #6A0DAD;
+    border-radius: 10px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5); /* Optional for better appearance */
+}
+
+/* Close Button */
+.close {
+    position: absolute;
+    top: 10px; /* Reduced top margin */
+    right: 15px;
+    font-size: 24px;
+    color: #6A0DAD;
+    cursor: pointer;
+    z-index: 10;
+}
+
+.close:hover,
+.close:focus {
+    color: #0FFF50;
+    text-decoration: none;
+}
+
+/* Title */
+#eventTitle {
+    font-size: 28px;
+    color: #6A0DAD;
+    font-family: 'Arial', sans-serif;
+    margin-top: 60px;
+}
+
+/* Title Style */
+#eventTitle {
+    font-size: 22px;
+    font-weight: bold;
+    color: #6A0DAD;
+    /* margin: 10px 0; Reduced margin */
+}
+
+/* Event Date */
+#eventDate {
+    position: absolute;
+    top: 10px; /* Aligns with the close button */
+    left: 15px;
+    font-size: 14px;
+    font-weight: bold;
+    color: #6A0DAD;
+}
+
+/* Event Description */
+#eventDescription {
+    font-size: 16px;
+    margin-top: 15px; /* Reduced margin */
+    color: #0FFF50;
+}
+
+/* Event Image */
+.modal-event-image {
+    width: 100%;
+    max-width: 400px;
+    margin: 10px auto; /* Reduced top margin */
+    border-radius: 10px;
+    object-fit: cover;
+}
+
+/* Mobile Styles */
+@media screen and (max-width: 768px) {
+    .timeline-container {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .years-container {
+        flex-direction: column;
+        margin-bottom: 10px;
+    }
+
+    .year-box {
+        margin: 10px 0;
+        padding: 8px 15px;
+        font-size: 14px;
+    }
+
+    .month-box {
+        width: 40px;
+        padding: 8px 10px;
+        font-size: 10px;
+    }
+
+    .event-item {
+        font-size: 14px;
+    }
+
+    /* Adjust modal for smaller screens */
+    .modal-content {
+        width: 90%;
+        padding: 10px 15px;
+    }
+
+    #eventTitle {
+        font-size: 18px;
+    }
+
+    #eventDate {
+        font-size: 12px;
+    }
+
+    #eventDescription {
+        font-size: 14px;
+    }
+
+    .modal-event-image {
+        width: 80%;
+        margin: 10px auto;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .year-box {
+        font-size: 12px;
+        padding: 6px 12px;
+    }
+
+    .month-box {
+        width: 30px;
+        font-size: 8px;
+        padding: 5px 8px;
+    }
+
+    .event-item {
+        font-size: 12px;
+    }
+
+    /* Further reduce modal padding on very small screens */
+    .modal-content {
+        padding: 5px 10px;
+    }
+
+    #eventTitle {
+        font-size: 16px;
+    }
+
+    #eventDate {
+        font-size: 10px;
+    }
+
+    #eventDescription {
+        font-size: 12px;
+    }
+
+    .modal-event-image {
+        width: 70%;
+    }
+}
 /****************************************************************************************************/
 
 /* Card Container (Flex layout to arrange cards next to each other) */
@@ -382,7 +748,7 @@ body {
 /* Memory Card Styles */
 .milestone-card {
     background-color: #000; /* Black background */
-    border: 2px solid #8A00C4; /* Purple border */
+    border: 2px solid #6A0DAD; /* Purple border */
     border-radius: 15px;
     width: 300px; /* Width of each card */
     padding: 15px;
@@ -402,7 +768,7 @@ body {
     display: flex;
     justify-content: space-between;
     padding: 10px 10px;
-    background-color: #8A00C4; /* Purple background */
+    background-color: #6A0DAD; /* Purple background */
     color: #fff;
     font-size: 16px;
     border-radius: 8px;
@@ -471,17 +837,17 @@ body {
 /* Title, Date, and Description */
 #modal-title {
     font-size: 24px;
-    color: #8A00C4; /* Purple color for title */
+    color: #6A0DAD; /* Purple color for title */
 }
 
 #modal-date {
     font-size: 10px;
-    color: #8A00C4; /* White color for date */
+    color: #6A0DAD; /* White color for date */
 }
 
 #modal-description {
     font-size: 12px;
-    color: #8A00C4; /* White color for description */
+    color: #6A0DAD; /* White color for description */
 }
 
 /* Image */
@@ -521,6 +887,81 @@ body {
     cursor: pointer;
 }
 
+/* Mobile Styles for Milestone Cards */
+
+/* For screens smaller than 768px */
+@media screen and (max-width: 768px) {
+
+    /* Milestone Cards */
+    .milestone-cards {
+        display: flex;
+        flex-direction: column; /* Stack the cards vertically */
+        justify-content: center;
+        gap: 10px; /* Reduced gap between cards */
+        margin-top: 10px;
+    }
+
+    .milestone-card {
+        width: 100%; /* Full width of the container */
+        padding: 10px; /* Reduced padding for mobile */
+        margin-bottom: 15px; /* Reduced bottom margin */
+        border-radius: 10px; /* Smaller radius for cards */
+    }
+
+    .card-header {
+        padding: 8px 8px; /* Reduced padding */
+        font-size: 14px; /* Smaller font for mobile */
+    }
+
+    .card-header .title {
+        font-size: 16px; /* Adjust title size */
+    }
+
+    .card-header .date {
+        font-size: 10px; /* Smaller date font */
+    }
+
+    /* Card Body (Image) */
+    .card-body img {
+        height: 150px; /* Adjust image height */
+        object-fit: cover;
+        object-position: top;
+    }
+
+    /* Modal Styles for Mobile */
+    .modal-content {
+        width: 90%; /* Set width to 90% of screen */
+        max-width: none; /* Remove max width for mobile */
+        padding: 10px; /* Reduced padding */
+    }
+
+    /* Title, Date, and Description in Modal */
+    #modal-title {
+        font-size: 18px; /* Adjust title size for mobile */
+    }
+
+    #modal-date {
+        font-size: 10px; /* Adjust date size for mobile */
+    }
+
+    #modal-description {
+        font-size: 12px; /* Adjust description size */
+    }
+
+    /* Modal Image */
+    #modal-image {
+        max-width: 100%;
+        height: auto;
+    }
+
+    /* Close Button */
+    .close-btn {
+        top: 5px; /* Adjust top position */
+        right: 10px; /* Adjust right position */
+        font-size: 24px; /* Reduce font size */
+    }
+}
+
 /*****************************************************************************************************/
 
 /* Vibe Page Layout */
@@ -546,7 +987,7 @@ body {
 
 .vibe-section h2 {
     font-size: 2rem;
-    color: #8A00C4;
+    color: #6A0DAD;
     text-align: center;
 }
 
@@ -588,7 +1029,7 @@ body {
 
 /* Colors for the song names */
 .song-name:nth-child(odd) {
-    color: #8A00C4; /* Purple */
+    color: #6A0DAD; /* Purple */
 }
 
 .song-name:nth-child(even) {
@@ -606,7 +1047,7 @@ body {
 
 .music-videos-container h2 {
     font-size: 2rem;
-    color: #8A00C4;
+    color: #6A0DAD;
     text-align: left;
     margin-top: 0;
     margin-bottom: 0; 
@@ -630,7 +1071,7 @@ body {
     display: flex;
     gap: 20px;
     scrollbar-width: thin;
-    scrollbar-color: #8A00C4 #111; /* Purple color for the scrollbar */
+    scrollbar-color: #6A0DAD #111; /* Purple color for the scrollbar */
     margin-top: 10px; /* Adds space between the description and the video frame */
 }
 
@@ -639,11 +1080,11 @@ body {
 }
 
 .video-frame::-webkit-scrollbar-thumb {
-    background-color: #8A00C4; /* Purple color */
+    background-color: #6A0DAD; /* Purple color */
 }
 
 .video-frame::-webkit-scrollbar-track {
-    background-color: #8A00C4; /* Dark background for track */
+    background-color: #6A0DAD; /* Dark background for track */
 }
 
 /* Adjusting video container for better spacing */
@@ -658,9 +1099,87 @@ body {
 /* Basic styling for video name text */
 .video-item p {
     text-align: center;
-    color: #8A00C4;
+    color: #6A0DAD;
     font-size: 12px; /* Change this to your desired font size */
     font-weight: bold; /* Optional: Make the font bold */
+}
+
+/* Mobile Styles for Vibe Page */
+
+/* For screens smaller than 768px */
+@media screen and (max-width: 768px) {
+
+    /* Vibe Container */
+    .vibe-container {
+        flex-direction: column; /* Stack the sections vertically */
+        padding: 15px;
+        margin-top: 20px;
+    }
+
+    .vibe-section {
+        width: 100%; /* Full width of the container on mobile */
+        padding: 15px; /* Reduced padding */
+        margin-bottom: 20px; /* Increased margin at the bottom for spacing */
+    }
+
+    /* Vibe Section Title */
+    .vibe-section h2 {
+        font-size: 1.5rem; /* Adjusted font size */
+    }
+
+    /* Vibe Section Paragraph */
+    .vibe-section p {
+        font-size: 0.9rem; /* Smaller font size */
+        text-align: left; /* Left-align text for better readability */
+    }
+
+    /* Song Name Styling */
+    .song-name {
+        font-size: 14px; /* Adjusted font size for mobile */
+        text-shadow: 1px 1px 10px rgba(0, 0, 0, 0.6); /* Smaller shadow effect */
+        opacity: 1;
+        animation: pop-up-glow 5s ease-out forwards;
+    }
+
+    /* Music Video Container */
+    .music-videos-container {
+        padding: 15px;
+    }
+
+    .music-videos-container h2 {
+        font-size: 1.8rem; /* Adjusted header size */
+    }
+
+    .music-videos-container p {
+        font-size: 0.9rem; /* Smaller font size */
+    }
+
+    /* Video Frame */
+    .video-frame {
+        flex-direction: column; /* Stack videos vertically */
+        overflow-y: auto; /* Vertical scrolling */
+        margin-top: 15px; /* More space between video container and description */
+    }
+
+    .video-frame::-webkit-scrollbar {
+        height: 6px; /* Smaller scrollbar */
+    }
+
+    .video-frame::-webkit-scrollbar-thumb {
+        background-color: #6A0DAD; /* Purple color */
+    }
+
+    .video-frame::-webkit-scrollbar-track {
+        background-color: #111; /* Dark background for track */
+    }
+
+    .video-item {
+        margin-bottom: 15px; /* Margin to separate video items */
+    }
+
+    .video-item p {
+        font-size: 12px; /* Adjusted font size for video name */
+    }
 }
 
 /************************************************************************************************/
@@ -712,7 +1231,7 @@ body {
 /* Heading and Caption */
 .heading {
     font-size: 2.5rem;
-    color: #8A00C4;  /* Purple color */
+    color: #6A0DAD;  /* Purple color */
     margin-bottom: 20px;
 }
 
@@ -738,7 +1257,7 @@ body {
 
 /* Button Styling */
 .buy-button {
-    background-color: #8A00C4;  /* Purple background */
+    background-color: #6A0DAD;  /* Purple background */
     color: #fff;
     padding: 10px 20px;
     border: none;
@@ -783,7 +1302,77 @@ body {
     background-color: #4B0082;  /* Darker purple on hover */
 }
 
+/* Mobile Styles for Store Page */
+
+/* For screens smaller than 768px */
+@media screen and (max-width: 768px) {
+
+    /* Store Container */
+    .store-container {
+        padding: 15px;
+    }
+
+    /* Merchandise Grid */
+    .merchandise-grid {
+        grid-template-columns: 1fr; /* Stack items in a single column for mobile */
+        gap: 20px; /* Reduced gap between items */
+        margin-top: 20px;
+    }
+
+    /* Product Card */
+    .product {
+        width: 100%; /* Full width of the container */
+        max-width: none; /* Allow the product to take full width */
+        padding: 10px; /* Reduced padding */
+    }
+
+    /* Product Thumbnail */
+    .product-thumbnail {
+        height: 180px; /* Adjusted height for smaller screens */
+    }
+
+    /* Heading */
+    .heading {
+        font-size: 2rem; /* Smaller font size */
+        margin-bottom: 15px; /* Adjusted margin */
+    }
+
+    /* Caption */
+    .caption {
+        font-size: 1rem; /* Smaller font size */
+        margin-bottom: 20px;
+    }
+
+    /* Quantity Dropdown */
+    .quantity-container {
+        flex-direction: column; /* Stack label and select vertically */
+        margin: 10px 0;
+    }
+
+    .quantity-container label {
+        margin-bottom: 5px; /* Adjust spacing between label and select */
+    }
+
+    /* Buy Button */
+    .buy-button {
+        font-size: 1rem; /* Adjusted font size */
+        padding: 8px 16px; /* Reduced padding */
+    }
+
+    /* Cart Button */
+    .cart-button {
+        font-size: 1rem; /* Adjusted font size */
+        padding: 10px 20px; /* Adjusted padding */
+    }
+
+    /* Added Message */
+    #added-message {
+        font-size: 1rem; /* Adjusted font size */
+    }
+}
+
 /*****************************************************************************************/
+
 /* Cart Container */
 .cart-container {
     width: 90%;
@@ -797,7 +1386,7 @@ body {
 
 /* Promotion Banner */
 .promo-banner {
-    background-color: #8A00C4;
+    background-color: #6A0DAD;
     color: #0FFF50;
     padding: 10px 0;
     font-size: 1.2rem;
@@ -867,7 +1456,7 @@ table td {
 
 .cart-summary h2 {
     margin-bottom: 10px;
-    color: #8A00C4;
+    color: #6A0DAD;
 }
 
 .cart-summary p {
@@ -902,7 +1491,7 @@ table td {
 }
 
 .suggestions h2 {
-    color: #8A00C4;
+    color: #6A0DAD;
     margin-bottom: 15px;
     font-size: 1.5rem;
 }
@@ -941,46 +1530,93 @@ table td {
     font-weight: bold;
 }
 
-/***********************************************************************************************************************************/
+/* Mobile Styles for Cart Page */
 
-/* Responsive Design for Smaller Screens */
+/* For screens smaller than 768px */
 @media screen and (max-width: 768px) {
-    .navbar {
-        flex-direction: column; /* Stack navbar items vertically on small screens */
-    }
-    .navbar ul {
-        justify-content: flex-start; /* Align to the left */
-    }
-    .navbar a {
-        font-size: 1rem; /* Smaller font size for mobile devices */
+
+    /* Cart Container */
+    .cart-container {
+        width: 95%; /* Reduce width for mobile screens */
+        padding: 15px; /* Reduce padding for mobile */
     }
 
-    .container {
-        padding: 10px;
+    /* Promotion Banner */
+    .promo-banner {
+        font-size: 1rem; /* Smaller font size */
+        padding: 8px 0; /* Reduced padding */
+        height: 30px; /* Adjust height for mobile */
     }
 
-    .image-container img {
-        width: 90%; 
-        max-width: 100%; 
+    /* Scrolling Text */
+    .promo-banner span {
+        font-size: 1rem; /* Adjusted text size for mobile */
+        animation: scroll-text 8s linear infinite; /* Faster scroll for smaller screens */
     }
 
-    .homeheading {
-        font-size: 2rem; 
+    /* Cart Table */
+    table {
+        font-size: 0.9rem; /* Smaller font size for table on mobile */
     }
 
-    .intro-text {
-        font-size: 1rem;
+    table th, table td {
+        padding: 10px; /* Reduced padding */
     }
 
-    .store-container, .vibe-container {
-        padding: 10px;
+    /* Cart Item Thumbnail */
+    .cart-item-thumbnail {
+        width: 80px; /* Smaller image size */
+        height: 80px; /* Adjusted to maintain aspect ratio */
     }
 
-    .product img {
-        height: 150px;
+    /* Cart Summary */
+    .cart-summary {
+        padding: 15px; /* Reduced padding */
+        font-size: 1rem; /* Adjusted font size */
     }
 
-    .product {
-        width: 80%;
+    .cart-summary p {
+        font-size: 1rem; /* Adjusted font size */
+        margin: 4px 0; /* Reduced margin */
+    }
+
+    /* Checkout Button */
+    .checkout-button {
+        font-size: 1rem; /* Adjusted font size */
+        padding: 8px 16px; /* Reduced padding */
+    }
+
+    /* Suggestions Section */
+    .suggestions {
+        padding: 15px; /* Reduced padding */
+    }
+
+    .suggestions h2 {
+        font-size: 1.3rem; /* Smaller heading size */
+    }
+
+    .suggestions-grid {
+        flex-direction: column; /* Stack suggestion items vertically on mobile */
+        gap: 10px; /* Reduced gap */
+    }
+
+    .suggestion-item {
+        width: 100%; /* Full width for suggestion items */
+        padding: 8px; /* Reduced padding */
+    }
+
+    .suggestion-thumbnail {
+        width: 80px; /* Adjusted thumbnail size */
+        height: 80px; /* Adjusted thumbnail size */
+    }
+
+    .suggestion-item p {
+        font-size: 1rem; /* Adjusted font size for mobile */
+    }
+
+    .suggestion-item p:last-child {
+        font-size: 1.1rem; /* Slightly larger text for price */
     }
 }
+
+/***********************************************************************************************************************************/

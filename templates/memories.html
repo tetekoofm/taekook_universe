@@ -57,9 +57,17 @@
                     <div class="event-list" data-month="{{ month_num }}">
                         {% if events %}
                         {% for event in events %}
-                        <div class="event-item" onclick="showEventDetails('{{ event.title }}', '{{ event.date }}', '{{ event.description }}')">
-                            <span class="event-bullet">&#8226;</span> {{ event.title }}
+                        <div class="event-item"
+                            data-title="{{ event.title }}"
+                            data-date="{{ event.date }}"
+                            data-description="{{ event.description }}"
+                            data-image="{{ url_for('static', filename='images/' + event.image) }}">
+                            <span class="event-bullet">&#8226;</span>
+                            <span class="event-date">{{ event.date.split('-')[2] }}</span>
+                            <img src="{{ url_for('static', filename='images/' + event.image) }}" alt="Event Icon" class="event-icon">
+                            <span class="event-title">{{ event.title }}</span>
                         </div>
+
                         {% endfor %}
                         {% endif %}
                     </div>
@@ -72,12 +80,23 @@
     </div>
 
     <!-- Event Modal -->
-    <div id="eventModal" class="modal">
+    <div id="eventModal" class="modal" style="display: none;">
         <div class="modal-content">
+            <!-- Close Button -->
             <span class="close" onclick="closeModal()">&times;</span>
+            
+            <!-- Event Title -->
             <h2 id="eventTitle"></h2>
-            <p id="eventDate"></p>
+            
+            <!-- Event Date -->
+            <span id="eventDate"></span>
+            
+            <!-- Event Image -->
+            <img id="eventImage" src="" alt="Event Image" class="modal-event-image">
+                        
+            <!-- Event Description -->
             <p id="eventDescription"></p>
+
         </div>
     </div>
 
@@ -85,6 +104,7 @@
         document.addEventListener("DOMContentLoaded", () => {
             const yearBoxes = document.querySelectorAll(".year-box");
 
+            // Handle year click (shows months and events)
             yearBoxes.forEach(box => {
                 box.addEventListener("click", () => {
                     const year = box.dataset.year;
@@ -118,18 +138,73 @@
                     box.classList.add("active");
                 });
             });
+
+            // Handle event click (opens modal with event details)
+            const eventItems = document.querySelectorAll(".event-item");
+            eventItems.forEach(item => {
+                item.addEventListener("click", (e) => {
+                    const title = e.target.closest(".event-item").dataset.title;
+                    const date = e.target.closest(".event-item").dataset.date;
+                    const description = e.target.closest(".event-item").dataset.description;
+                    const image = e.target.closest(".event-item").dataset.image;
+
+                    showEventDetails(title, date, description, image);
+                });
+            });
         });
 
-        function showEventDetails(title = "No Title", date = "Unknown Date", description = "No Description") {
-            document.getElementById("eventTitle").textContent = title;
-            document.getElementById("eventDate").textContent = date;
-            document.getElementById("eventDescription").textContent = description;
+        function showEventDetails(title = "No Title", date = "Unknown Date", description = "No Description", image = "") {
+            const modal = document.getElementById("eventModal");
+            const menuHeight = document.querySelector("nav").offsetHeight; // Get menu height
+            modal.style.display = "flex";
+            modal.style.top = `${menuHeight}px`; // Offset the modal below the menu
+            console.log("Title:", title);
+            console.log("Raw Date:", date);
+            console.log("Description:", description);
+            console.log("Image URL:", image);
+
+            document.getElementById("eventTitle").textContent = title; // Set the event title
+            document.getElementById("eventDescription").textContent = description; // Set the event description
+            document.getElementById("eventImage").src = image; // Set the event image
+
+            // Format the date to display as "DD-MMM-YYYY"
+            let formattedDate = "Unknown Date";
+            if (date !== "Unknown Date" && date !== "") {
+                formattedDate = formatDate(date); // Format date to the correct style
+            }
+
+            // Set the formatted date and display it on the top-left
+            document.getElementById("eventDate").textContent = formattedDate;
+
+            // Show the modal
             document.getElementById("eventModal").style.display = "block";
         }
 
-        function closeModal() {
-            document.getElementById("eventModal").style.display = "none";
+        // Format the date as DD-MMM-YYYY in KST (without issues from time zone shifts)
+        function formatDate(dateString) {
+            const dateParts = dateString.split('-');
+            const year = dateParts[0];
+            const month = dateParts[1] - 1; // Months are 0-indexed in JavaScript Date
+            const day = dateParts[2];
+
+            // Manually create the Date object, without time zone issues
+            const date = new Date(Date.UTC(year, month, day));
+
+            // Get the day, month, and year
+            const dayOfMonth = date.getUTCDate(); // Use UTC to avoid time zone issues
+            const monthName = date.toLocaleString('default', { month: 'short' }); // Get abbreviated month
+            const formattedYear = date.getUTCFullYear(); // Get the year in UTC
+
+            // Return formatted date as "DD-MMM-YYYY"
+            return `${dayOfMonth}-${monthName}-${formattedYear}`;
         }
+
+
+        // Close the modal
+        function closeModal() {
+            document.getElementById("eventModal").style.display = "none"; // Hide the modal
+        }
+
     </script>
     <!-- Footer -->
     <footer>
