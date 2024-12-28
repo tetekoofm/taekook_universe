@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Purple Dreams: Taekook Edition</title>
+    <title>TaeKook Universe</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
@@ -14,7 +14,7 @@
     <nav class="navbar">
         <ul>
             <li><a href="/">Home</a></li>
-            <li><a href="/projects">Upcoming</a></li>
+            <li><a href="/upcoming">Upcoming</a></li>
             <li><a href="/memories">Memories</a></li>
             <li><a href="/milestones">Milestones</a></li>
             <li><a href="/radio">Radios</a></li>
@@ -27,7 +27,7 @@
 
     <!-- Content of Home Page -->
     <div class="container">
-        <h1 class="heading">Welcome to Purple Dreams: Taekook Edition</h1>
+        <h1 class="heading">Welcome to TaeKook Universe!</h1>
         <p class="caption">A fanpage dedicated to Kim Taehyung and Jeon Jungkook.</p>
         <p class="caption">Follow their incredible journey from their debut to their milestones, upcoming projects, achievements, and their passionate fanbase.</p>
 
@@ -94,73 +94,115 @@
                     </div>
                 </div>
             </div>
-        </div>       
-        
+        </div>        
         <!-- Fireworks container (hidden initially) -->
-        <div id="celebration" class="celebration" style="display: none;">
-            <!-- Add content for the celebration, such as images or animation -->
-            <h2>🎉 Celebration Time! 🎉</h2>
-            <!-- Optional images of Taehyung and Jungkook -->
-            <img src="{{ url_for('static', filename='images/taehyung_celebration.jpg') }}" alt="Taehyung" id="taehyung-celebration-img">
-            <img src="{{ url_for('static', filename='images/jungkook_celebration.jpg') }}" alt="Jungkook" id="jungkook-celebration-img">
+        <div id="celebration-taehyung" class="celebration hide">
+            <h2>🎉 Party Time for Taehyung!! 🎉</h2>
+            <img src="{{ url_for('static', filename='images/tae_military.jpeg') }}" alt="Taehyung" id="taehyung-celebration-img">
         </div>
 
+        <div id="celebration-jungkook" class="celebration hide">
+            <h2>🎉 Party Time for Jungkook!! 🎉</h2>
+            <img src="{{ url_for('static', filename='images/jk_military.jpeg') }}" alt="Jungkook" id="jungkook-celebration-img">
+        </div>
+    </div>    
     <!-- Footer -->
     <footer>
-        <p>Thank you for visiting Purple Dreams: Taekook Edition. Stay tuned for updates!</p>
+        <p>&copy; 2025 TaeKook Universe. All rights reserved.</p>
     </footer>
 
     <!-- JavaScript -->
     <script>
 
-        // Set the dates for both artists
+        // Set the test date (1 minute later for testing)
+        // const testDate = new Date();
+        // testDate.setSeconds(testDate.getSeconds() + 5); // 5 seconds for Taehyung
+        // const taehyungReturnDate = testDate.getTime();
+        // testDate.setSeconds(testDate.getSeconds() + 5); // 5 seconds after for Jungkook
+        // const jungkookReturnDate = testDate.getTime();
+
         const taehyungReturnDate = new Date("June 10, 2025 00:00:00").getTime();
         const jungkookReturnDate = new Date("June 11, 2025 00:00:00").getTime();
 
-        // Update the countdown every second
-        setInterval(function() {
+        console.log("Taehyung Return Date:", new Date(taehyungReturnDate));
+        console.log("Jungkook Return Date:", new Date(jungkookReturnDate));
+
+        setInterval(() => {
             const now = new Date().getTime();
 
             // Taehyung Countdown
-            let taehyungDistance = taehyungReturnDate - now;
-            let taehyungDays = Math.floor(taehyungDistance / (1000 * 60 * 60 * 24));
-            let taehyungHours = Math.floor((taehyungDistance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            let taehyungMinutes = Math.floor((taehyungDistance % (1000 * 60 * 60)) / (1000 * 60));
-            let taehyungSeconds = Math.floor((taehyungDistance % (1000 * 60)) / 1000);
-
-            // Update the countdown for Taehyung
-            document.getElementById("taehyung-days").innerHTML = taehyungDays;
-            document.getElementById("taehyung-hours").innerHTML = taehyungHours;
-            document.getElementById("taehyung-minutes").innerHTML = taehyungMinutes;
-            document.getElementById("taehyung-seconds").innerHTML = taehyungSeconds;
+            const taehyungDistance = taehyungReturnDate - now;
+            if (taehyungDistance > 0) {
+                document.getElementById("taehyung-days").innerText = Math.floor(taehyungDistance / (1000 * 60 * 60 * 24));
+                document.getElementById("taehyung-hours").innerText = Math.floor((taehyungDistance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                document.getElementById("taehyung-minutes").innerText = Math.floor((taehyungDistance % (1000 * 60 * 60)) / (1000 * 60));
+                document.getElementById("taehyung-seconds").innerText = Math.floor((taehyungDistance % (1000 * 60)) / 1000);
+            } else {
+                document.getElementById("celebration-taehyung").style.display = "flex"; // Show celebration
+                document.querySelector(".image-carousel").style.display = "none"; // Hide carousel
+                startCelebration("taehyung"); // Trigger celebration for Taehyung
+            }
 
             // Jungkook Countdown
-            let jungkookDistance = jungkookReturnDate - now;
-            let jungkookDays = Math.floor(jungkookDistance / (1000 * 60 * 60 * 24));
-            let jungkookHours = Math.floor((jungkookDistance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            let jungkookMinutes = Math.floor((jungkookDistance % (1000 * 60 * 60)) / (1000 * 60));
-            let jungkookSeconds = Math.floor((jungkookDistance % (1000 * 60)) / 1000);
-
-            // Update the countdown for Jungkook
-            document.getElementById("jungkook-days").innerHTML = jungkookDays;
-            document.getElementById("jungkook-hours").innerHTML = jungkookHours;
-            document.getElementById("jungkook-minutes").innerHTML = jungkookMinutes;
-            document.getElementById("jungkook-seconds").innerHTML = jungkookSeconds;
-
-            // Check if both countdowns have finished
-            if (taehyungDistance <= 0 && jungkookDistance <= 0) {
-                startCelebration();
+            const jungkookDistance = jungkookReturnDate - now;
+            if (jungkookDistance > 0) {
+                document.getElementById("jungkook-days").innerText = Math.floor(jungkookDistance / (1000 * 60 * 60 * 24));
+                document.getElementById("jungkook-hours").innerText = Math.floor((jungkookDistance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                document.getElementById("jungkook-minutes").innerText = Math.floor((jungkookDistance % (1000 * 60 * 60)) / (1000 * 60));
+                document.getElementById("jungkook-seconds").innerText = Math.floor((jungkookDistance % (1000 * 60)) / 1000);
+            } else {
+                document.getElementById("celebration-taehyung").style.display = "none"; // Hide previous celebration
+                document.getElementById("celebration-jungkook").style.display = "flex"; // Show Jungkook celebration
+                startCelebration("jungkook"); // Trigger celebration for Jungkook
             }
         }, 1000);
 
-        // Function to trigger the celebration (e.g., fireworks)
-        function startCelebration() {
-            const celebrationElement = document.getElementById('celebration');
-            celebrationElement.style.display = 'block';
+        // Function to start the celebration animation
+        function startCelebration(artist) {
+            const taehyungElement = document.getElementById("celebration-taehyung");
+            const jungkookElement = document.getElementById("celebration-jungkook");
 
-            // Optionally, trigger fireworks or animation here
-            const fireworks = new Fireworks();
-            fireworks.start();
+            // Do not overwrite previous content in the celebration box, just append new icons
+            if (artist === "taehyung") {
+                taehyungElement.classList.remove('hide'); // Ensure Taehyung's celebration is shown
+                generateIcons("taehyung");
+            } else if (artist === "jungkook") {
+                jungkookElement.classList.remove('hide'); // Ensure Jungkook's celebration is shown
+                generateIcons("jungkook");
+            }
+        }
+
+        // Function to generate random party icons
+        function generateIcons(artist) {
+            const totalIcons = 30; // Number of party icons
+            const celebrationContainer = document.getElementById("celebration-" + artist);
+
+            // Generate random party icons
+            for (let i = 0; i < totalIcons; i++) {
+                const icon = document.createElement("div");
+                const randomX = Math.random() * 100; // Random X position
+                const randomY = Math.random() * 100; // Random Y position
+                const iconType = ["🎉", "🎈", "🎊", "✨", "🌟"][Math.floor(Math.random() * 5)]; // Random party icon
+
+                icon.classList.add("party-icon");
+                icon.textContent = iconType;
+
+                // Set random position
+                icon.style.left = `${randomX}vw`;
+                icon.style.top = `${randomY}vh`;
+
+                // Add random animation properties
+                const randomDuration = (Math.random() * 2 + 1).toFixed(2); // 1-3 seconds
+                const randomDelay = (Math.random() * 2).toFixed(2); // 0-2 seconds
+                icon.style.animationDuration = `${randomDuration}s`;
+                icon.style.animationDelay = `${randomDelay}s`;
+
+                // Append the icon to the celebration container
+                celebrationContainer.appendChild(icon);
+
+                // Remove the icon after animation ends to prevent buildup
+                setTimeout(() => icon.remove(), (parseFloat(randomDuration) + parseFloat(randomDelay)) * 1000);
+            }
         }
 
         // Image Carousel

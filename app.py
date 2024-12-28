@@ -1,8 +1,9 @@
 from flask import Flask, render_template, request, redirect, session, url_for, jsonify
 # from flask_sqlalchemy import SQLAlchemy
 import os, secrets, random, calendar
-from models import db, Memory, Milestone, Product, Discography, MusicVideo
+from models import db, Upcoming, Memory, Milestone, Product, Discography, MusicVideo
 from collections import defaultdict
+from datetime import datetime
 
 # Initialize the Flask app
 app = Flask(__name__)
@@ -22,6 +23,15 @@ db.init_app(app)
 @app.route('/')
 def home():
     return render_template('home.html')
+
+@app.route('/upcoming')
+def upcoming():
+    upcoming_events = Upcoming.query.order_by(Upcoming.date).all()
+    # Convert date strings to datetime objects if necessary
+    for event in upcoming_events:
+        if isinstance(event.date, str):  # Check if date is a string
+            event.date = datetime.strptime(event.date, '%Y-%m-%d')  # Adjust format as per your database
+    return render_template("upcoming.html", upcoming=upcoming_events)
 
 @app.route('/memories')
 def memories():
