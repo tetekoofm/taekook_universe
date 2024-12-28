@@ -1,167 +1,4 @@
-/* Main content section */
-.main-content {
-    padding-top: 100px;  /* To ensure the content doesn't overlap with the navbar */
-}
-
-/* Reset margins and paddings to ensure no unexpected space at the top */
-html, body {
-    margin: 0;
-    padding: 0;
-}
-
-/* Footer */
-footer {
-    text-align: center;
-    font-size: 0.9rem;
-    color: #5a5a5a;
-    padding: 10px;
-    background: #000;
-    position: fixed; /* Keeps the footer fixed */
-    bottom: 0;       /* Aligns the footer to the bottom of the viewport */
-    width: 100%;     /* Ensures the footer spans the entire width */
-    z-index: 1000;   /* Ensures it stays on top of other elements */
-    box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.2); /* Optional: Adds a shadow for depth */
-}
-
-body {
-    font-family: 'Arial Narrow', sans-serif;
-    font-size: 1.8rem;
-    background-color: #000; /* Black background */
-    color: #5a5a5a;
-    margin: 0;
-    padding: 20px;
-    position: relative;
-    /* overflow: hidden; Prevent overflow from stars and snowflakes */
-    overflow-y: auto; /* Always show a vertical scrollbar */
-}
-
-/* Styling for the intro and caption */
-.intro {
-    text-align: center;
-    padding: 5px;
-}
-
-.heading {
-    font-family: 'Tangerine', serif;
-    font-size: 86px;
-    font-weight: 1200;
-    color: #6A0DAD;
-    animation: fadeIn 3s ease-out;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6), -2px -2px 4px rgba(0, 0, 0, 0.4), 0px 4px 6px rgba(0, 0, 0, 0.3);
-}
-
-.caption {
-    font-family: 'Arial Narrow', sans-serif;
-    font-size: 1.3rem !important;
-    color: #008000 !important;
-    text-shadow: 0 0 1px #6A0DAD, 0 0 1px #6A0DAD, 0 0 1px #6A0DAD;
-    text-align: center;
-    max-width: 1500px;
-    line-height: 0.1 !important;
-    margin-bottom: 0.5rem !important;
-    display: inline-block;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6), -2px -2px 4px rgba(0, 0, 0, 0.4), 0px 4px 6px rgba(0, 0, 0, 0.3);
-}
-
-/* Smooth fade-in animation for the caption */
-@keyframes fadeIn {
-    0% {
-        opacity: 0;
-    }
-    100% {
-        opacity: 1;
-    }
-}
-
-/* Styling for the navigation menu */
-.navbar {
-    background-color: #000;
-    padding: 10px 20px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    position: sticky;
-    top: 0;
-    z-index: 1000; /* Ensure it's above the night-sky */
-}
-
-.navbar ul {
-    list-style: none;
-    display: flex;
-    flex-wrap: wrap; /* Allow items to wrap on small screens */
-    justify-content: center;
-    margin: 0;
-    padding: 0;
-}
-
-.navbar li {
-    margin: 5px 15px; /* Adjust spacing for better alignment */
-}
-
-.navbar a {
-    font-family: 'Dancing Script', cursive;
-    text-decoration: none;
-    color: #6A0DAD;
-    font-size: 1.4rem;
-    font-weight: 1600;
-    transition: color 0.3s ease;
-}
-
-.navbar a:hover {
-    color: #0FFF50;
-}
-
-/* Home Page Layout */
-.container {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    text-align: center; /* Ensure text content is center-aligned */
-    padding: 10px;
-    position: relative;
-    z-index: 10; /* Ensures content stays above the stars and background */
-}
-
-/* Image Carousel Container */
-.image-carousel {
-    width: 32%;
-    height: 500px; /* Set a fixed height or adjust as needed */
-    /*overflow: hidden; /* Hide overflowing content */
-    position: relative;
-    display: flex;
-    justify-content: center; /* Center the image horizontally */
-    align-items: center; /* Center the image vertically */
-    margin-top: 45px;
-    bottom: 10px
-}
-
-/* Each individual image slide */
-.image-slide {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    opacity: 0;
-    transition: opacity 1s ease-in-out; /* Smooth fade-in/out */
-}
-
-/* Styling for images in carousel */
-.image-slide img {
-    width: 80%; /* Reduced image size to make it fit */
-    max-width: 600px; /* Set a max width for better control */
-    height: auto; /* Maintain aspect ratio */
-    border-radius: 10px; /* Rounded corners for the image */
-    border: 5px solid #6A0DAD; /* Purple border */
-    box-shadow: 3px 5px 5px #0FFF50; /* Neon Green shadow */
-}
-
-/* Make the current visible image */
-.image-slide.visible {
-    opacity: 1; /* Make the current image visible */
-}
+/************************************************ HOME ***************************************************/
 
 /* Night Sky Background */
 .night-sky {
@@ -170,7 +7,7 @@ body {
     left: 0;
     width: 100%;
     height: 100vh;
-    background-color: #1a1a1a; /* Dark night sky */
+    background-color: #000;
     z-index: 0; /* Keep it behind all content */
 }
 
@@ -179,20 +16,8 @@ body {
     position: absolute;
     width: 10px;
     height: 10px;
-    background-color: #6A0DAD; /* Default color */
     clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
-    box-shadow: 0 0 5px #6A0DAD; /* Default color */
     animation: twinkle 2s infinite ease-in-out;
-}
-
-/* Snowflake Style using Emoticons */
-.snowflake {
-    position: absolute;
-    font-size: 20px; /* Adjust the size of the snowflake */
-    color: #0FFF50;
-    animation: drift 5s linear infinite;
-    opacity: 0.8;
-    animation-delay: 0s; /* Will be overridden by JavaScript */
 }
 
 /* Animation for Stars */
@@ -214,42 +39,151 @@ body {
     }
 }
 
-/* Animation for Snowflakes (Vertical Drift Only) */
-@keyframes drift {
-    0% {
-        transform: translateY(0);
-        opacity: 0.9;
-    }
-    100% {
-        transform: translateY(200px);
-        opacity: 0.5;
-    }
+/* Main content section */
+.main-content {
+    padding-top: 20px;
+    margin-bottom: 40px;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    z-index: 10;
 }
 
-/* Optional Text Animation */
+.heading {
+    margin-top: 60px;
+    margin-bottom: 100px;
+    font-family: 'Tangerine', serif;
+    font-size: 100px;
+    font-weight: 1200;
+    color: #6A0DAD;
+    animation: fadeIn 2s ease-out;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6), -2px -2px 4px rgba(0, 0, 0, 0.4), 0px 4px 6px rgba(0, 0, 0, 0.3);
+    /* z-index: 10; */
+}
+
 @keyframes fadeIn {
     0% {
         opacity: 0;
-        transform: translateY(20px);
     }
     100% {
         opacity: 1;
-        transform: translateY(0);
     }
 }
 
-/* Countdown Styling */
-/* Countdown Container */
-.countdown-container {
-    position: fixed; /* Keeps the countdown at the bottom */
-    bottom: 28px; /* Aligns to the bottom */
-    width: 100%; /* Spans the entire width of the page */
-    /* background-color: rgba(0, 0, 0, 0.8); Optional background for visibility */
-    color: white; /* Text color for contrast */
-    padding: 10px;
+.caption {
+    font-family: 'Arial Narrow', sans-serif;
+    font-size: 20px !important;
+    color: #008000 !important;
     text-align: center;
-    z-index: 1000; /* Ensures it stays above other elements */
-    /* box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.5); Adds a shadow effect */
+    max-width: 1500px;
+    line-height: 0.1 !important;
+    margin-bottom: 0.5rem !important;
+    display: inline-block;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6), -2px -2px 4px rgba(0, 0, 0, 0.4), 0px 4px 6px rgba(0, 0, 0, 0.3);
+}
+
+/* Footer */
+footer {
+    text-align: center;
+    font-size: 0.9rem;
+    color: #5a5a5a;
+    padding: 10px;
+    background: #000;
+    position: fixed;
+    bottom: 0;
+    width: 100%; 
+    z-index: 10; 
+    box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.2);
+}
+
+/* Styling for the navigation menu */
+.navbar {
+    background-color: #000;
+    padding: 10px 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: sticky;
+    top: 0;
+    z-index: 9999; 
+}
+
+.navbar ul {
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap; /* Allow items to wrap on small screens */
+    justify-content: center;
+    margin: 0;
+    padding: 0;
+}
+
+.navbar li {
+    margin: 5px 15px; /* Adjust spacing for better alignment */
+}
+
+.navbar a {
+    font-family: 'Dancing Script', cursive;
+    text-decoration: none;
+    color: #6A0DAD;
+    font-size: 25px;
+    font-weight: bolder;
+    transition: color 0.3s ease;
+}
+
+.navbar a:hover {
+    color: #0FFF50;
+}
+
+/* Image Carousel Container */
+.image-carousel {
+    width: 30%;
+    position: relative;
+    display: flex;
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
+    margin-top: 45px;
+    bottom: 10px
+}
+
+/* Each individual image slide */
+.image-slide {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    transition: opacity 1s ease-in-out; /* Smooth fade-in/out */
+}
+
+/* Styling for images in carousel */
+.image-slide img {
+    width: 80%;
+    max-width: 600px;
+    height: auto;
+    border-radius: 10px; 
+    border: 5px solid #6A0DAD;
+    box-shadow: 3px 5px 5px #0FFF50;
+}
+
+/* Make the current visible image */
+.image-slide.visible {
+    opacity: 1; /* Make the current image visible */
+}
+
+/* Countdown Styling */
+.countdown-container {
+    position: fixed;
+    bottom: 28px;
+    width: 100%;
+    color: white; 
+    padding: 50px;
+    text-align: center;
+    z-index: 1000; 
+    box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.5);
 }
 
 /* Countdown Title */
@@ -257,15 +191,16 @@ body {
     font-family: 'Dancing Script', cursive;
     font-size: 1.9rem;
     font-weight: bold;
-    color: #FFD700; /* Gold */
+    color: #FFD700;
     bottom: 30px;
 }
 
 /* Countdown Timer Wrapper */
 .countdown-timer-wrapper {
     display: flex;
-    justify-content: center; /* Center aligns the timers */
-    gap: 20px; /* Adds space between Taehyung's and Jungkook's countdowns */
+    /* justify-content: center; */
+    justify-content: space-evenly;
+    padding: 5px 5px;
 }
 
 .countdown-timer {
@@ -290,6 +225,8 @@ body {
 }
 
 .timer-box span {
+    margin-top: 25px;
+    text-align: center;
     font-size: 2rem;
     font-weight: bold;
     color:#0FFF50
@@ -297,7 +234,8 @@ body {
 
 /* Small Text for Units */
 .timer-box p {
-    margin-top: 10px;
+    margin-top: 5px;
+    margin-bottom: 25px;
     font-size: 1rem;
     color:#0FFF50
 }

@@ -5,31 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Purple Vault</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-    <script>
-        // Function to handle form submission using AJAX
-        function addToCart(event, form) {
-            event.preventDefault();  // Prevent form from submitting the traditional way
-            
-            // Perform AJAX request
-            var formData = new FormData(form);
-            fetch("/add_to_cart", {
-                method: "POST",
-                body: formData
-            })
-            .then(response => response.json())
-            .then(data => {
-                // Show success message
-                var messageDiv = document.getElementById('added-message');
-                messageDiv.style.display = 'block';
-                setTimeout(function() {
-                    messageDiv.style.display = 'none';
-                }, 3000);  // Hide after 3 seconds
-            })
-            .catch(error => {
-                console.error('Error:', error);
-            });
-        }
-    </script>
 </head>
 <body>
     <!-- Navigation Menu -->
@@ -53,19 +28,16 @@
     </div>
 
     <!-- Store Page -->
-    <div class="store-container">
+    <div class="main-content">
         <h1 class="heading">Purple Vault</h1>
-        <p class="caption">
-            Explore exclusive fan-made merchandise! All proceeds from these sales will be used for Taekook projects and giveaways for fans. 
-            Support the fandom and take home a little piece of Taekook!
-        </p>
-
+        <p class="caption">Explore exclusive fan-made merchandise! All proceeds from these sales will be used for Taekook projects and giveaways for fans.</p>
+        <p class="caption">Support the fandom and take home a little piece of Taekook!</p>
         <!-- Merchandise Grid -->
         <div class="merchandise-grid">
             {% for product in products %}
                 <div class="product">
                     <!-- Display Product Image -->
-                    <img src="{{ url_for('static', filename='images/' + product.image) }}" alt="{{ product.name }} Thumbnail" class="product-thumbnail">
+                    <img src="{{ url_for('static', filename='images/store/' + product.image) }}" alt="{{ product.name }} Thumbnail" class="product-thumbnail">
 
                     <!-- Display Product Name -->
                     <h3>{{ product.name }}</h3>
@@ -105,5 +77,30 @@
     <footer>
         <p>&copy; 2024 Purple Dreams. All rights reserved.</p>
     </footer>
+    <script>
+        // Function to handle form submission using AJAX
+        function addToCart(event, form) {
+            event.preventDefault();  // Prevent form from submitting the traditional way
+            
+            // Perform AJAX request
+            var formData = new FormData(form);
+            fetch("/add_to_cart", {
+                method: "POST",
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                // Show success message
+                var messageDiv = document.getElementById('added-message');
+                messageDiv.style.display = 'block';
+                setTimeout(function() {
+                    messageDiv.style.display = 'none';
+                }, 3000);  // Hide after 3 seconds
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+        }
+    </script>
 </body>
 </html>

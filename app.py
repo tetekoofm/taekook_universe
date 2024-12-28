@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, session, url_for, jsonify
+from flask import Flask, render_template, request, redirect, session, url_for, jsonify, current_app
 # from flask_sqlalchemy import SQLAlchemy
 import os, secrets, random, calendar
 from models import db, Upcoming, Memory, Milestone, Product, Discography, MusicVideo
@@ -19,10 +19,18 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 # Initialize the SQLAlchemy with the app
 db.init_app(app)
 
+@app.before_request
+def force_https():
+    if not current_app.debug and not request.is_secure:
+        url = request.url.replace("http://", "https://", 1)
+        return redirect(url, code=301)
+    
 # Home route
 @app.route('/')
 def home():
-    return render_template('home.html')
+    image_folder = os.path.join(app.static_folder, 'images/home')
+    images = [f for f in os.listdir(image_folder) if f.endswith(('jpg', 'jpeg', 'png', 'gif'))]
+    return render_template('home.html', images=images)
 
 @app.route('/upcoming')
 def upcoming():
@@ -213,5 +221,5 @@ def checkout():
 
 
 # Start the Flask app
-if __name__ == '__main__':
-    app.run(debug=True, host='0.0.0.0', port=10000)
+if __name__ == "__main__":
+    app.run(debug=True, ssl_context=('cert.pem', 'cert.key'), host="0.0.0.0", port=10000)
