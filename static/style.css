@@ -121,7 +121,7 @@ footer {
 }
 
 .navbar li {
-    margin: 5px 15px; /* Adjust spacing for better alignment */
+    margin: 5px 15px;
 }
 
 .navbar a {
@@ -156,7 +156,7 @@ footer {
     width: 100%;
     height: 100%;
     opacity: 0;
-    transition: opacity 1s ease-in-out; /* Smooth fade-in/out */
+    transition: opacity 1s ease-in-out;
 }
 
 /* Styling for images in carousel */
@@ -171,7 +171,7 @@ footer {
 
 /* Make the current visible image */
 .image-slide.visible {
-    opacity: 1; /* Make the current image visible */
+    opacity: 1;
 }
 
 /* Countdown Styling */
@@ -198,7 +198,6 @@ footer {
 /* Countdown Timer Wrapper */
 .countdown-timer-wrapper {
     display: flex;
-    /* justify-content: center; */
     justify-content: space-evenly;
     padding: 5px 5px;
 }
@@ -210,13 +209,14 @@ footer {
 
 /* Individual Timer Box */
 .timer-box {
+    width: 50%;
+    max-width: 100px;
+    height: 60px;
     background-color: #6A0DAD;
     padding: 10px;
     border-radius: 10px;
     color: #fff;
     text-align: center;
-    width: 60px;
-    height: 60px;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -242,13 +242,12 @@ footer {
 
 /* Celebration styles */
 .celebration {
-    display: none; /* Initially hidden */
-    justify-content: center; /* Center content horizontally */
-    align-items: center; /* Center content vertically */
+    display: none; 
+    justify-content: center;
+    align-items: center;
     text-align: center;
-    height: 500px; /* Match the height of your carousel */
-    /* background-color: rgba(0, 0, 0, 0.8); Optional background for visibility */
-    border: 5px solid #6A0DAD; /* Optional styling */
+    height: 500px;
+    border: 5px solid #6A0DAD; 
     text-align: center;
     margin-top: 30px;
 }
@@ -270,10 +269,10 @@ footer {
 
 /* Celebration image styling */
 .celebration img {
-    width: 100%;  /* Adjust width as needed */
-    max-width: 500px;  /* Limit max width to avoid too large images */
-    object-position: top center;  /* Focus on the top part of the image */
-    object-fit: cover;  /* Ensure the image fills its container nicely */
+    width: 100%;
+    max-width: 500px;
+    object-position: top center;
+    object-fit: cover;
 }
 
 #celebration-taehyung img,
@@ -318,85 +317,67 @@ footer {
     font-weight: bold;
 }
 
-/* Mobile Styles (Max width of 768px, typically for tablets and below) */
-@media screen and (max-width: 768px) {
-    /* Adjust navbar for mobile screens */
+/* Mobile devices (up to 768px) */
+@media (max-width: 768px) {
     .navbar {
-        padding: 10px;  /* Reduce padding for mobile */
-    }
-
-    .navbar a {
-        font-size: 1.2rem;  /* Slightly smaller font size for navbar links */
-    }
-
-    /* Adjusting Image Carousel for smaller screens */
-    .image-carousel {
-        width: 80%;   /* More screen space for images */
-        height: 300px; /* Reduced height for mobile */
-    }
-
-    /* Adjust heading size */
-    .heading {
-        font-size: 2rem;  /* Slightly smaller heading font size */
-    }
-
-    /* Adjust caption font size and max width */
-    .caption {
-        font-size: 1rem;
-        max-width: 100%;  /* Allow caption to take full width on small screens */
-    }
-
-    /* Footer adjustments for mobile */
-    footer {
-        font-size: 0.8rem;
-        padding: 10px; /* Reduce footer padding on mobile */
-    }
-}
-
-/* Extra Mobile Styles (Max width of 480px, typically for phones) */
-@media screen and (max-width: 480px) {
-    /* Adjust layout for very small screens (smartphones) */
-    body {
-        padding: 20px; /* Reduce padding for smaller screens */
+        flex-direction: column; /* Stack navbar items vertically on small screens */
+        padding: 10px;
     }
 
     .image-carousel {
-        width: 100%;   /* Use full width for images */
-        height: 200px; /* Reduced height for mobile */
+        width: 80%; /* Adjust carousel to take more width on smaller screens */
     }
 
-    .navbar a {
-        font-size: 1rem; /* Make navbar items smaller for phones */
+    .main-content {
+        padding-top: 10px;
+        margin-bottom: 30px;
     }
 
     .heading {
-        font-size: 1.6rem; /* Reduce heading size for phones */
+        font-size: 60px; /* Smaller font size for smaller screens */
+        margin-top: 30px;
     }
 
     .caption {
-        font-size: 0.9rem;
-        max-width: 100%; /* Ensure caption text takes full width */
+        font-size: 16px;
+        margin-bottom: 10px;
     }
 
-    footer {
-        font-size: 0.7rem; /* Smaller footer font on phones */
+    /* Countdown section */
+    .countdown-container {
+        padding: 20px;
     }
-}
 
-/* Countdown Timer Responsive */
-@media screen and (max-width: 768px) {
     .countdown-timer-wrapper {
-        flex-direction: column;
-        gap: 20px;
+        flex-direction: column; /* Stack timers vertically on small screens */
+        gap: 10px;
     }
 
     .timer-box {
-        width: 60px;
-        height: 60px;
+        width: 50px; /* Smaller timer boxes on smaller screens */
+        height: 50px;
+    }
+}
+
+/* Tablets (768px - 1024px) */
+@media (max-width: 1024px) and (min-width: 769px) {
+    .image-carousel {
+        width: 60%; /* Adjust carousel for tablets */
     }
 
-    .timer-box span {
-        font-size: 1.5rem;
+    .heading {
+        font-size: 80px;
+    }
+}
+
+/* Large screens (1024px and above) */
+@media (min-width: 1025px) {
+    .image-carousel {
+        width: 30%; /* Carousel width for large screens */
+    }
+
+    .heading {
+        font-size: 100px;
     }
 }
 
