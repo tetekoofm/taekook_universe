@@ -41,8 +41,9 @@
 
 /* Main content section */
 .main-content {
-    padding-top: 20px;
-    margin-bottom: 40px;
+    padding-top: 5vh;
+    margin-bottom: 5vh;
+    width: 100%; 
     position: relative;
     display: flex;
     flex-direction: column;
@@ -88,7 +89,8 @@
 /* Footer */
 footer {
     text-align: center;
-    font-size: 0.9rem;
+    font-size: 1rem;
+    padding: 1rem;
     color: #5a5a5a;
     padding: 10px;
     background: #000;
@@ -139,6 +141,8 @@ footer {
 
 /* Image Carousel Container */
 .image-carousel {
+    max-width: 100%;
+    object-fit: cover;
     width: 30%;
     position: relative;
     display: flex;
