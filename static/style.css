@@ -11,7 +11,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Raleway:wght@400&display=swap');
-
+@import url('https://fonts.googleapis.com/css2?family=Tangerine:wght@700&display=swap');
 
 /* Night Sky Background */
 .night-sky {
@@ -52,6 +52,16 @@
     }
 }
 
+/* Ensure the body uses full height */
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh; /* Occupy the full height of the viewport */
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
 /* Main content section */
 .main-content {
     display: flex;
@@ -61,7 +71,9 @@
     width: 100%;
     position: relative;
     text-align: center;
-    padding: 2vh 0; /* General padding, but minimal */
+    padding: 2vh 0;
+    flex-grow: 1; /* Push the footer to the bottom */
+    margin: 0 auto;
 }
 
 .main-content .heading {
@@ -99,19 +111,17 @@
     z-index: 100;
 }
 
-/* Footer */
+/* Footer styling */
 footer {
+    padding: 10px;
+    font-size: 14px;
     text-align: center;
-    vertical-align: bottom;
-    font-size: 1rem;
-    padding: 1rem;
-    color: #5a5a5a;
-    background: #000;
-    position: fixed;
-    bottom: 0;
-    width: 100%;
-    z-index: 10;
-    box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.2);
+    width: 100%; /* Span full width */
+    margin: 0;
+    background-color: #222; /* Optional: matches your theme */
+    color: #fff; /* Optional: matches your theme */
+    box-sizing: border-box;
+    position: relative; /* Ensure normal stacking behavior */
 }
 
 /* Styling for the navigation menu */
@@ -182,7 +192,8 @@ footer {
 
 /* Countdown Styling */
 .countdown-container {
-    position: fixed;
+    margin-top: 0;
+    position: relative;
     bottom: 28px;
     width: 100%;
     color: white; 
