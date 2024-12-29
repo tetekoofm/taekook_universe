@@ -54,28 +54,25 @@
 
 /* Main content section */
 .main-content {
-    padding-top: 5vh;
-    margin-bottom: 5vh;
-    width: 100%; 
-    position: relative;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    width: 100%;
+    position: relative;
     text-align: center;
-    z-index: 10;
+    padding: 2vh 0; /* General padding, but minimal */
 }
 
-.heading {
-    margin-top: 5vh;
-    margin-bottom: 5vh;
+.main-content .heading {
+    margin-top: 2vh;
+    margin-bottom: 2vh;
     font-family: 'Tangerine', serif;
-    font-size: 2rem;
+    font-size: 3.5rem !important;
     font-weight: bold;
     color: #6A0DAD;
     animation: fadeIn 2s ease-out;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6), -2px -2px 4px rgba(0, 0, 0, 0.4), 0px 4px 6px rgba(0, 0, 0, 0.3);
-    /* z-index: 10; */
 }
 
 @keyframes fadeIn {
@@ -87,30 +84,33 @@
     }
 }
 
-.caption {
+/* Caption style */
+.main-content .caption {
     font-family: 'Arial Narrow', sans-serif;
-    font-size: 1.2rem !important;
-    color: #008000 !important;
+    font-size: 1.4rem; 
+    color: #008000;
+    margin: 0.5rem 0; 
     text-align: center;
-    max-width: 1500px;
-    line-height: 0.1 !important;
-    margin-bottom: 0.5rem !important;
-    display: inline-block;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6), -2px -2px 4px rgba(0, 0, 0, 0.4), 0px 4px 6px rgba(0, 0, 0, 0.3);
+    max-width: 100%;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6), 
+                 -2px -2px 4px rgba(0, 0, 0, 0.4), 
+                 0px 4px 6px rgba(0, 0, 0, 0.3);
+    line-height: 1; 
+    z-index: 100;
 }
 
 /* Footer */
 footer {
     text-align: center;
+    vertical-align: bottom;
     font-size: 1rem;
     padding: 1rem;
     color: #5a5a5a;
-    padding: 10px;
-    background: #fff;
+    background: #000;
     position: fixed;
     bottom: 0;
-    width: 100%; 
-    z-index: 10; 
+    width: 100%;
+    z-index: 10;
     box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.2);
 }
 
@@ -129,7 +129,7 @@ footer {
 .navbar ul {
     list-style: none;
     display: flex;
-    flex-wrap: wrap; /* Allow items to wrap on small screens */
+    flex-wrap: wrap;
     justify-content: center;
     margin: 0;
     padding: 0;
@@ -143,7 +143,7 @@ footer {
     font-family: 'Tangerine', cursive;
     text-decoration: none;
     color: #6A0DAD;
-    font-size: 1rem;
+    font-size: 1.5rem;
     font-weight: bolder;
     transition: color 0.3s ease;
 }
@@ -152,20 +152,14 @@ footer {
     color: #0FFF50;
 }
 
-/* Image Carousel Container */
+/* Container for the carousel */
 .image-carousel {
-    max-width: 100%;
-    object-fit: cover;
-    width: 30%;
     position: relative;
-    display: flex;
-    justify-content: center; /* Center horizontally */
-    align-items: center; /* Center vertically */
-    margin-top: 45px;
-    bottom: 10px
+    width: 80%;
+    height: 600px;
+    overflow: hidden;
 }
 
-/* Each individual image slide */
 .image-slide {
     position: absolute;
     top: 0;
@@ -173,20 +167,15 @@ footer {
     width: 100%;
     height: 100%;
     opacity: 0;
-    transition: opacity 1s ease-in-out;
+    transition: opacity 1s ease-in-out; 
 }
 
-/* Styling for images in carousel */
 .image-slide img {
-    width: 80%;
-    max-width: 600px;
-    height: auto;
-    border-radius: 10px; 
-    border: 5px solid #6A0DAD;
-    box-shadow: 3px 5px 5px #0FFF50;
+    width: 100%; 
+    display: block;  
 }
 
-/* Make the current visible image */
+/* Show the active slide */
 .image-slide.visible {
     opacity: 1;
 }
@@ -199,25 +188,20 @@ footer {
     color: white; 
     padding: 50px;
     text-align: center;
-    z-index: 1000; 
-    box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.5);
-    margin-bottom: 10px;
+    z-index: 1000;
 }
 
-/* Countdown Title */
 .countdown-container h2 {
     font-family: 'Tangerine', cursive;
     font-size: 1.8rem;
     font-weight: bold;
     color: #FFD700;
-    bottom: 5px;
 }
 
-/* Countdown Timer Wrapper */
 .countdown-timer-wrapper {
     display: flex;
     justify-content: space-evenly;
-    padding: 5px 5px;
+    padding: 0px 10px;
 }
 
 .countdown-timer {
@@ -225,14 +209,12 @@ footer {
     gap: 10px;
 }
 
-/* Individual Timer Box */
 .timer-box {
     width: 50px;
     max-width: 100px;
     height: 60px;
     background-color: #6A0DAD;
     padding: 10px;
-    bottom: 5px;
     border-radius: 10px;
     color: #fff;
     text-align: center;
@@ -251,23 +233,19 @@ footer {
     color:#0FFF50
 }
 
-/* Small Text for Units */
 .timer-box p {
     margin-top: 5px;
-    margin-bottom: 25px;
     font-size: 1rem;
     color:#0FFF50
 }
 
-/* Celebration styles */
+/* Celebration Styles */
 .celebration {
     display: none; 
     justify-content: center;
     align-items: center;
     text-align: center;
     height: 500px;
-    border: 5px solid #6A0DAD; 
-    text-align: center;
     margin-top: 30px;
 }
 
@@ -276,17 +254,6 @@ footer {
     color: #FFD700;
 }
 
-/* Fullscreen celebration styles */
-.countdown-container {
-    margin-bottom: 40px;
-}
-
-/* Countdown container */
-.countdown-item {
-    margin: 10px;
-}
-
-/* Celebration image styling */
 .celebration img {
     width: 100%;
     max-width: 500px;
@@ -294,23 +261,15 @@ footer {
     object-fit: cover;
 }
 
-#celebration-taehyung img,
-#celebration-jungkook img {
-    max-height: 450px; /* Scale images appropriately */
-    border-radius: 10px;
-    margin-top: 10px;
-    margin-right: 10px;
-}
-
 /* Party icons */
 .party-icon {
     position: absolute;
     font-size: 1rem;
     animation: iconZoomFade 3s ease-in-out forwards;
-    opacity: 0; /* Start hidden */
+    opacity: 0;
 }
 
-/* Animation for zoom-in and fade effect (like fireworks) */
+/* Animation for zoom-in and fade effect */
 @keyframes iconZoomFade {
     0% {
         opacity: 0;
@@ -338,192 +297,143 @@ footer {
 
 /* Ensure the viewport is responsive */
 @media screen and (max-width: 768px) {
-
-    /* Navigation Bar */
     .navbar {
         padding: 5px;
-        flex-direction: row; /* Stack items vertically */
-        align-items: center; /* Center items */
+        flex-direction: row;
+        align-items: center;
+        justify-content: center; /* Center items horizontally */
     }
 
     .navbar ul {
         display: flex;
         flex-direction: row;
         gap: 15px;
-        justify-content: center; /* Ensure the navbar items are centered */
-        margin: 0;
-        line-height: 15px;
+        justify-content: center; /* Center navbar items horizontally */
     }
 
     .navbar li {
-        margin: 5px 0; /* Adjust spacing for better alignment */
+        margin: 5px 0;
     }
 
     .navbar a {
-        font-size: 18px; /* Make text smaller */
+        font-size: 18px;
         font-weight: bold;
-        margin: 10px 0;
     }
 
-    /* Image Carousel */
-    .image-carousel {
-        width: 80%; 
-        margin-top: 30px;
-        bottom: 0;
+    .main-content .image-carousel {
+        margin-top: 20px;
+        height: 200px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
     }
 
-    .image-slide img {
-        width: 100%; 
-        max-width: 100%;
+    .main-content .image-slide img {
+        width: 100%;
         height: auto;
     }
 
-    /* Main Heading */
-    .heading {
-        font-size: 1.4rem; 
-        margin-top: 30px;
-        margin-bottom: 40px;
-    }
-
-    /* Caption */
-    .caption {
-        font-size: 0.8rem;
-        max-width: 100%;
-        padding: 10px;
-        line-height: 1px;
-    }
-
-    /* Main Content Layout */
     .main-content {
-        padding: 10px;
-        text-align: center;
-        margin: 25 auto; 
+        text-align: center; 
     }
 
-    .countdown-container {
-        display:grid;
+    .main-content .heading {
+        font-size: 1.8rem !important;
+        margin: 10px 0; 
+    }
+
+    .main-content .caption {
+        font-size: 0.8rem; 
+        line-height: 1; 
+        z-index: 100;
+    }
+
+    .main-content .countdown-container {
+        display: grid;
         justify-content: center;
         align-items: center; 
-        width: 100%;
-        margin: 25 auto; 
-        margin-top: 25px;
     }
 
-    /* Countdown Timer */
-    .countdown-timer-wrapper {
-        flex-direction: row; /* Stack the countdown timers */
-        flex-wrap: wrap; 
-        font-size: 1.5rem;
-        justify-content: center;
-        align-items: center;
-        margin-top: 10px;
-        bottom: 5px;
-        gap: 25px;
-    }
-
-    /* Countdown Title */
-    .countdown-container h2 {
-        font-family: 'Tangerine', cursive;
-        font-size: 1.2rem;
+    .main-content .countdown-container h2 {
+        font-family: 'Tangerine', cursive; 
+        font-size: 1rem !important; 
         font-weight: bold;
         color: #FFD700;
-        bottom: 5px;
     }
 
-    .timer-box {
-        width: 50px; /* Make timer boxes smaller */
-        height: 50px;
-        font-size: 0.8rem;
+    .main-content .countdown-timer-wrapper {
+        flex-direction: row !important;
+        flex-wrap: nowrap;
+        justify-content: space-evenly;
+        margin-top: 10px;
+        gap: 10px;
+    }
+
+    .main-content .timer-box {
+        width: 20px !important;
+        height: 20px !important;
         padding: 8px;
-    }
-
-    /* Celebration Image */
-    .celebration img {
-        width: 100%;  /* Make images responsive */
-        max-width: 400px;
-    }
-
-    /* Adjust footer to ensure it's not blocking content */
-    footer {
-        padding: 15px;
-        font-size: 14px;
+        display: flex;
         justify-content: center;
         align-items: center;
     }
 
-    /* For very small screens (phones in portrait) */
-    @media screen and (max-width: 480px) {
+    .main-content .timer-box span {
+        margin-top: 10px;
+        text-align: center;
+        font-size: 0.7rem;
+        font-weight: bold;
+        color:#0FFF50
+    }
+    
+    .main-content .timer-box p {
+        margin-top: 2px;
+        font-size: 0.6rem;
+        color:#0FFF50
+    }
 
-        .heading {
-            font-size: 1.4rem;  /* Make heading even smaller for very small screens */
-            margin-top: 20px;
-            margin-bottom: 20px;
-        }
+    .main-content .celebration img {
+        width: 100%;
+        max-width: 400px;
+        margin: 0 auto; 
+    }
 
-        .caption {
-            font-size: 0.8rem;
-            padding: 5px;
-            line-height: 1px;
-        }
+    footer {
+        padding: 10px;
+        font-size: 0.7rem;
+        text-align: center;
+        width: 100%;  /* Ensure it takes full width */
+        left: 0;
+        right: 0;
+        box-sizing: border-box; 
+    }
+}
 
-        .navbar a {
-            font-size: 1rem;
-            margin: 2px 0;
-        }
+/* For screens smaller than 480px */
+@media screen and (max-width: 480px) {
+    .main-content .heading {
+        font-size: 1rem;
+        text-align: center; 
+    }
 
-        .countdown-container {
-            margin-bottom: 0px;
-        }
+    .main-content .image-slide img {
+        width: 100%;
+        max-width: 300px;
+        margin: 0 auto; /* Center images */
+    }
 
-        .countdown-container h2 {
-            font-size: 1rem;
-        }
+    .navbar a {
+        font-size: 16px;
+    }
 
-        .countdown-timer-wrapper {
-            flex-wrap: wrap; 
-            padding: 10px;
-            margin-bottom: 10px;
-        }
+    .main-content .countdown-container h2 {
+        font-size: 1.5rem;
+        text-align: center; /* Ensure text is centered */
+    }
 
-        .timer-box {
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            width: 20px;
-            height: 30px;
-            /* margin-top: 5px; */
-        }
-
-        .timer-box span {
-            margin-top: 25px;
-            text-align: center;
-            font-size: 0.8rem;
-            font-weight: bold;
-            color:#0FFF50
-        }
-        
-        /* Small Text for Units */
-        .timer-box p {
-            margin-top: 5px;
-            margin-bottom: 25px;
-            font-size: 0.8rem;
-            color:#0FFF50
-        }
-
-        /* Adjust carousel image size */
-        .image-slide img {
-            width: 90%;  /* Make the images a bit smaller */
-            max-width: 100%;
-        }
-        
-        /* Adjust footer to ensure it's not blocking content */
-        footer {
-            padding: 15px;
-            font-size: 12px;
-            justify-content: center;
-            align-items: center;
-        }
+    .main-content .timer-box {
+        width: 40px;
+        height: 40px;
     }
 }
 
