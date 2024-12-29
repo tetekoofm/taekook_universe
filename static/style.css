@@ -1,5 +1,18 @@
 /************************************************ HOME ***************************************************/
 
+/* Import statements for Google Fonts */
+
+/* For Headings: Stylish and Bold */
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;300;400;500;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Raleway:wght@400&display=swap');
+
+
 /* Night Sky Background */
 .night-sky {
     position: fixed;
@@ -54,11 +67,11 @@
 }
 
 .heading {
-    margin-top: 60px;
-    margin-bottom: 100px;
+    margin-top: 5vh;
+    margin-bottom: 5vh;
     font-family: 'Tangerine', serif;
-    font-size: 100px;
-    font-weight: 1200;
+    font-size: 2rem;
+    font-weight: bold;
     color: #6A0DAD;
     animation: fadeIn 2s ease-out;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6), -2px -2px 4px rgba(0, 0, 0, 0.4), 0px 4px 6px rgba(0, 0, 0, 0.3);
@@ -76,7 +89,7 @@
 
 .caption {
     font-family: 'Arial Narrow', sans-serif;
-    font-size: 20px !important;
+    font-size: 1.2rem !important;
     color: #008000 !important;
     text-align: center;
     max-width: 1500px;
@@ -93,7 +106,7 @@ footer {
     padding: 1rem;
     color: #5a5a5a;
     padding: 10px;
-    background: #000;
+    background: #fff;
     position: fixed;
     bottom: 0;
     width: 100%; 
@@ -104,12 +117,12 @@ footer {
 /* Styling for the navigation menu */
 .navbar {
     background-color: #000;
-    padding: 10px 20px;
+    padding: 20px 20px;
     display: flex;
     justify-content: center;
     align-items: center;
     position: sticky;
-    top: 0;
+    top: 10;
     z-index: 9999; 
 }
 
@@ -127,10 +140,10 @@ footer {
 }
 
 .navbar a {
-    font-family: 'Dancing Script', cursive;
+    font-family: 'Tangerine', cursive;
     text-decoration: none;
     color: #6A0DAD;
-    font-size: 25px;
+    font-size: 1rem;
     font-weight: bolder;
     transition: color 0.3s ease;
 }
@@ -188,15 +201,16 @@ footer {
     text-align: center;
     z-index: 1000; 
     box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.5);
+    margin-bottom: 10px;
 }
 
 /* Countdown Title */
 .countdown-container h2 {
-    font-family: 'Dancing Script', cursive;
-    font-size: 1.9rem;
+    font-family: 'Tangerine', cursive;
+    font-size: 1.8rem;
     font-weight: bold;
     color: #FFD700;
-    bottom: 30px;
+    bottom: 5px;
 }
 
 /* Countdown Timer Wrapper */
@@ -213,11 +227,12 @@ footer {
 
 /* Individual Timer Box */
 .timer-box {
-    width: 50%;
+    width: 50px;
     max-width: 100px;
     height: 60px;
     background-color: #6A0DAD;
     padding: 10px;
+    bottom: 5px;
     border-radius: 10px;
     color: #fff;
     text-align: center;
@@ -321,67 +336,194 @@ footer {
     font-weight: bold;
 }
 
-/* Mobile devices (up to 768px) */
-@media (max-width: 768px) {
+/* Ensure the viewport is responsive */
+@media screen and (max-width: 768px) {
+
+    /* Navigation Bar */
     .navbar {
-        flex-direction: column; /* Stack navbar items vertically on small screens */
-        padding: 10px;
+        padding: 5px;
+        flex-direction: row; /* Stack items vertically */
+        align-items: center; /* Center items */
     }
 
+    .navbar ul {
+        display: flex;
+        flex-direction: row;
+        gap: 15px;
+        justify-content: center; /* Ensure the navbar items are centered */
+        margin: 0;
+        line-height: 15px;
+    }
+
+    .navbar li {
+        margin: 5px 0; /* Adjust spacing for better alignment */
+    }
+
+    .navbar a {
+        font-size: 18px; /* Make text smaller */
+        font-weight: bold;
+        margin: 10px 0;
+    }
+
+    /* Image Carousel */
     .image-carousel {
-        width: 80%; /* Adjust carousel to take more width on smaller screens */
-    }
-
-    .main-content {
-        padding-top: 10px;
-        margin-bottom: 30px;
-    }
-
-    .heading {
-        font-size: 60px; /* Smaller font size for smaller screens */
+        width: 80%; 
         margin-top: 30px;
+        bottom: 0;
     }
 
+    .image-slide img {
+        width: 100%; 
+        max-width: 100%;
+        height: auto;
+    }
+
+    /* Main Heading */
+    .heading {
+        font-size: 1.4rem; 
+        margin-top: 30px;
+        margin-bottom: 40px;
+    }
+
+    /* Caption */
     .caption {
-        font-size: 16px;
-        margin-bottom: 10px;
+        font-size: 0.8rem;
+        max-width: 100%;
+        padding: 10px;
+        line-height: 1px;
     }
 
-    /* Countdown section */
+    /* Main Content Layout */
+    .main-content {
+        padding: 10px;
+        text-align: center;
+        margin: 25 auto; 
+    }
+
     .countdown-container {
-        padding: 20px;
+        display:grid;
+        justify-content: center;
+        align-items: center; 
+        width: 100%;
+        margin: 25 auto; 
+        margin-top: 25px;
     }
 
+    /* Countdown Timer */
     .countdown-timer-wrapper {
-        flex-direction: column; /* Stack timers vertically on small screens */
-        gap: 10px;
+        flex-direction: row; /* Stack the countdown timers */
+        flex-wrap: wrap; 
+        font-size: 1.5rem;
+        justify-content: center;
+        align-items: center;
+        margin-top: 10px;
+        bottom: 5px;
+        gap: 25px;
+    }
+
+    /* Countdown Title */
+    .countdown-container h2 {
+        font-family: 'Tangerine', cursive;
+        font-size: 1.2rem;
+        font-weight: bold;
+        color: #FFD700;
+        bottom: 5px;
     }
 
     .timer-box {
-        width: 50px; /* Smaller timer boxes on smaller screens */
+        width: 50px; /* Make timer boxes smaller */
         height: 50px;
-    }
-}
-
-/* Tablets (768px - 1024px) */
-@media (max-width: 1024px) and (min-width: 769px) {
-    .image-carousel {
-        width: 60%; /* Adjust carousel for tablets */
+        font-size: 0.8rem;
+        padding: 8px;
     }
 
-    .heading {
-        font-size: 80px;
-    }
-}
-
-/* Large screens (1024px and above) */
-@media (min-width: 1025px) {
-    .image-carousel {
-        width: 30%; /* Carousel width for large screens */
+    /* Celebration Image */
+    .celebration img {
+        width: 100%;  /* Make images responsive */
+        max-width: 400px;
     }
 
-    .heading {
-        font-size: 100px;
+    /* Adjust footer to ensure it's not blocking content */
+    footer {
+        padding: 15px;
+        font-size: 14px;
+        justify-content: center;
+        align-items: center;
+    }
+
+    /* For very small screens (phones in portrait) */
+    @media screen and (max-width: 480px) {
+
+        .heading {
+            font-size: 1.4rem;  /* Make heading even smaller for very small screens */
+            margin-top: 20px;
+            margin-bottom: 20px;
+        }
+
+        .caption {
+            font-size: 0.8rem;
+            padding: 5px;
+            line-height: 1px;
+        }
+
+        .navbar a {
+            font-size: 1rem;
+            margin: 2px 0;
+        }
+
+        .countdown-container {
+            margin-bottom: 0px;
+        }
+
+        .countdown-container h2 {
+            font-size: 1rem;
+        }
+
+        .countdown-timer-wrapper {
+            flex-wrap: wrap; 
+            padding: 10px;
+            margin-bottom: 10px;
+        }
+
+        .timer-box {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            width: 20px;
+            height: 30px;
+            /* margin-top: 5px; */
+        }
+
+        .timer-box span {
+            margin-top: 25px;
+            text-align: center;
+            font-size: 0.8rem;
+            font-weight: bold;
+            color:#0FFF50
+        }
+        
+        /* Small Text for Units */
+        .timer-box p {
+            margin-top: 5px;
+            margin-bottom: 25px;
+            font-size: 0.8rem;
+            color:#0FFF50
+        }
+
+        /* Adjust carousel image size */
+        .image-slide img {
+            width: 90%;  /* Make the images a bit smaller */
+            max-width: 100%;
+        }
+        
+        /* Adjust footer to ensure it's not blocking content */
+        footer {
+            padding: 15px;
+            font-size: 12px;
+            justify-content: center;
+            align-items: center;
+        }
     }
 }
 
