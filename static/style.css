@@ -7,6 +7,11 @@
 @import url('https://fonts.googleapis.com/css2?family=Tangerine:wght@700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Fira+Sans+Condensed:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&display=swap');
 
+/* Hide elements by default */
+.hide {
+    display: none;
+}
+
 /* Night Sky Background */
 .night-sky {
     position: fixed;
@@ -290,11 +295,6 @@ footer {
     }
 }
 
-/* Hide elements by default */
-.hide {
-    display: none;
-}
-
 /* Countdown text */
 .countdown span {
     font-weight: bold;
@@ -523,26 +523,77 @@ footer {
 /****************************************************************************************************/
 
 /* Memories*/
-.timeline-container {
+/* Unique Animation for the Timeline Page */
+
+.timeline-page {
     display: flex;
     flex-direction: column;
     align-items: center;
+    width: 100%;
+    margin: 0 auto;
+    padding: 0;
+}
+
+.timeline-intro {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    --nav-height: 60px; /* Adjust to your nav bar height */
+}
+
+/* Zoom In Animation */
+@keyframes zoomIn {
+    0% {
+        transform: scale(0.5);
+        opacity: 0;
+    }
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+/* Slide Up Animation */
+@keyframes slideUp {
+    0% {
+        transform: translateY(0); /* Start at original position */
+    }
+    100% {
+        transform: translateY(calc(-25vh - var(--nav-height))); /* Stop below nav bar */
+    }
+}
+
+/* Apply Animations */
+.timeline-intro .main-content {
+    animation: zoomIn 1.5s ease-out, slideUp 2s ease-in 1.5s forwards; 
+    opacity: 1; 
+    position: absolute; }
+
+.timeline-container.hide {
+    display: none; 
 }
 
 /* Year Boxes */
 .years-container {
     display: flex;
     justify-content: center;
-    margin-bottom: 20px;
+    /* margin-top: 0px; */
+    margin: 20px auto; /* Adjust spacing from caption */
     position: relative;
+    z-index: 10;
 }
 
 .year-box {
     font-size: 20px;
     position: relative;
     cursor: pointer;
-    padding: 10px 30px;
-    margin-top: 50px;
+    padding: 10px 20px;
+    /* margin-top: 20px; */
+    margin: 0 10px;
     background-color: #000;
     color: #008000;
     border-radius: 3px;
@@ -564,17 +615,8 @@ footer {
     bottom: -40px;
     left: 50%;
     transform: translateX(-50%);
-    display: none; /* Hidden by default */
-}
-
-/* Months Container */
-.months-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin-top: 30px;
-    position: relative;
-    width: 100%;
+    display: none;
+    z-index: 1; /* Ensure it appears above other elements */
 }
 
 .horizontal-tree-line {
@@ -583,8 +625,18 @@ footer {
     width: 100%;
     position: absolute;
     top: -10px;
-    z-index: -1;
-    display: none; /* Hidden by default */
+    z-index: 1; /* Ensure it's above the background */
+    display: none; 
+}
+
+/* Months Container */
+.months-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 0px;
+    position: relative;
+    width: 100%;
 }
 
 /* Months Box (Horizontal Layout for Months) */
@@ -594,7 +646,8 @@ footer {
     justify-content: center;
     gap: 10px;
     width: 100%;
-    padding: 0 10px; /* Padding to create space on the edges */
+    padding: 0 10px;
+    overflow-x: auto;
 }
 
 .month-box-container {
@@ -602,21 +655,26 @@ footer {
     flex-direction: column;
     align-items: space-between;
     position: relative;
-    min-width: 80px; /* Prevents months from shrinking too much */
+    min-width: 80px;
 }
 
 .month-box {
     background-color: #6A0DAD;
-    top: 10px;
     color: white;
     padding: 10px 15px;
     border-radius: 5px;
     text-align: center;
     position: relative;
-    width: 50px;
-    min-height: 10px;
-    font-size: 16px; /* Smaller font size */
+    width: 35px;
+    height: 10px;
+    font-size: 14px;
+    white-space: nowrap;
+    overflow: hidden; 
+    text-overflow: ellipsis;
     box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .month-vertical-branch {
@@ -627,12 +685,12 @@ footer {
     top: -20px;
     left: 50%;
     transform: translateX(-50%);
-    display: none; /* Hidden by default */
+    display: none;
 }
 
 /* Event List */
 .event-list {
-    margin-top: 20px; /* Reduce top margin of the list */
+    margin-top: 20px;
     list-style-type: none;
     line-height: 10px;
     padding: 0;
@@ -643,7 +701,7 @@ footer {
     grid-template-columns: auto auto auto 1fr;
     gap: 3px;
     align-items: center; 
-    margin: 2px 2px!important; /* Reduce vertical spacing between items */
+    margin: 2px 2px!important;
     cursor: pointer;
     color: white;
     padding: 0;
@@ -653,15 +711,14 @@ footer {
 
 .event-bullet {
     font-size: 14px;
-    margin-right: 3px; /* Adjust bullet spacing */
-    color: #008000;
+    margin-right: 3px;     color: #008000;
     text-align: left;
     vertical-align: middle;
 }
 
 .event-date {
     font-size: 14px;
-    margin-right: 3px; /* Adjust date spacing */
+    margin-right: 3px;
     color: #008000;
     font-weight: bold;
     text-align: left;
@@ -669,36 +726,36 @@ footer {
 }
 
 .event-title {
-    font-size: 14px;
+    font-size: 12px;
     text-align: left;
     margin-top: 0;
 }
 
 /* Event Icon */
 .event-icon {
-    width: 15px; /* Adjust the size of the icon */
-    height: 15px; /* Ensure it is square */
-    margin: 0 3px; /* Add space on both sides */
-    vertical-align: middle; /* Align it vertically with the text */
-    border-radius: 50%; /* Optional: Make it circular */
-    object-fit: cover; /* Ensure the image fits nicely */
+    width: 15px; 
+    height: 15px; 
+    margin: 0 3px; 
+    vertical-align: middle; 
+    border-radius: 50%; 
+    object-fit: cover; 
 }
 
 /* Modal Container */
 .modal {
-    display: flex; /* Hidden by default */
+    display: flex;
     position: fixed;
     z-index: 1000;
     top: 0;
     left: 0;
     width: 100vw;
     height: 100vh;
-    background-color: rgba(0, 0, 0, 0.8); /* Dark overlay */
-    overflow-y: auto; /* Enable scrolling for tall modals */
+    background-color: rgba(0, 0, 0, 0.8); 
+    overflow-y: auto; 
     display: flex;
     justify-content: center;
-    align-items: flex-start; /* Align modal at the top */
-    padding-top: 200px; /* Ensure it's below the nav menu */
+    align-items: flex-start; 
+    padding-top: 200px; 
 }
 
 /* Modal Content */
@@ -707,19 +764,19 @@ footer {
     max-width: 600px;
     background-color: #111 !important;
     color: #000000;
-    padding: 15px 20px; /* Reduced padding */
+    padding: 15px 20px; 
     border: 3px solid #6A0DAD;
     border-radius: 10px;
     text-align: center;
     position: relative;
     overflow: hidden;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5); /* Optional for better appearance */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
 }
 
 /* Close Button */
 .close {
     position: absolute;
-    top: 10px; /* Reduced top margin */
+    top: 10px;
     right: 15px;
     font-size: 24px;
     color: #6A0DAD;
@@ -736,23 +793,16 @@ footer {
 /* Title */
 #eventTitle {
     font-size: 28px;
-    color: #6A0DAD;
-    font-family: 'Arial', sans-serif;
-    margin-top: 60px;
-}
-
-/* Title Style */
-#eventTitle {
-    font-size: 22px;
     font-weight: bold;
     color: #6A0DAD;
-    /* margin: 10px 0; Reduced margin */
+    /* font-family: 'Arial', sans-serif; */
+    margin-top: 60px;
 }
 
 /* Event Date */
 #eventDate {
     position: absolute;
-    top: 10px; /* Aligns with the close button */
+    top: 10px; 
     left: 15px;
     font-size: 14px;
     font-weight: bold;
@@ -762,7 +812,7 @@ footer {
 /* Event Description */
 #eventDescription {
     font-size: 16px;
-    margin-top: 15px; /* Reduced margin */
+    margin-top: 15px;
     color: #0FFF50;
 }
 
@@ -770,49 +820,107 @@ footer {
 .modal-event-image {
     width: 100%;
     max-width: 400px;
-    margin: 10px auto; /* Reduced top margin */
+    margin: 10px auto; 
     border-radius: 10px;
     object-fit: cover;
 }
 
 /* Mobile Styles */
-@media screen and (max-width: 768px) {
-    .timeline-container {
-        flex-direction: column;
-        align-items: center;
+@media (max-width: 768px) {
+    .timeline-intro {
+        height: 80vh;
+        padding: 10px;
     }
 
-    .years-container {
-        flex-direction: column;
-        margin-bottom: 10px;
-    }
-
-    .year-box {
-        margin: 10px 0;
-        padding: 8px 15px;
-        font-size: 14px;
-    }
-
-    .month-box {
-        width: 40px;
-        padding: 8px 10px;
-        font-size: 10px;
-    }
-
-    .event-item {
-        font-size: 14px;
-    }
-
-    /* Adjust modal for smaller screens */
-    .modal-content {
-        width: 90%;
-        padding: 10px 15px;
-    }
-
-    #eventTitle {
+    .timeline-intro .main-content {
         font-size: 18px;
     }
 
+    .years-container {
+        flex-wrap: wrap;
+        gap: 2px;
+    }
+
+    .year-box {
+        font-size: 10px;
+        padding: 4px 2px;
+        margin-top: 30px;
+    }
+
+    .months-container {
+        background-color: transparent;
+        position: relative;
+        width: 100%;
+    }
+
+    .months-box {
+        display: flex;
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        scrollbar-width: thin;
+        scrollbar-color: #6A0DAD transparent;
+        padding: 5px 0;
+        gap: 5px;
+        justify-content: flex-start;
+        scroll-behavior: smooth;
+    }
+
+    .month-box {
+        width: 10px;
+        height: 5px;
+        font-size: 8px;
+    }
+
+    .months-box::-webkit-scrollbar {
+        height: 8px;
+    }
+    
+    .months-box::-webkit-scrollbar-thumb {
+        background-color: #6A0DAD;
+        border-radius: 10px;
+    }
+    
+    .event-list {
+        line-height: 1.5;
+        max-width: 90%;
+    }
+
+    .event-item {
+        font-size: 8cqb;
+        max-width: 100%;
+    }
+
+    .event-bullet {
+        font-size: 10px;
+        margin-right: 3px;     color: #008000;
+        text-align: left;
+        vertical-align: middle;
+    }
+    
+    .event-date {
+        font-size: 8px;
+        margin-right: 1px;
+        color: #008000;
+        font-weight: bold;
+        text-align: left;
+        vertical-align: middle;
+    }
+    
+    .event-title {
+        font-size: 8px;
+        text-align: left;
+        margin-top: 0;
+    }
+
+    .modal-content {
+        width: 95%;
+        padding: 10px;
+    }
+
+    #eventTitle {
+        font-size: 20px;
+    }
+
     #eventDate {
         font-size: 12px;
     }
@@ -822,48 +930,16 @@ footer {
     }
 
     .modal-event-image {
-        width: 80%;
-        margin: 10px auto;
+        max-width: 100%;
+    }
+
+    .close {
+        font-size: 20px;
+        top: 8px;
+        right: 10px;
     }
 }
 
-@media screen and (max-width: 480px) {
-    .year-box {
-        font-size: 12px;
-        padding: 6px 12px;
-    }
-
-    .month-box {
-        width: 30px;
-        font-size: 8px;
-        padding: 5px 8px;
-    }
-
-    .event-item {
-        font-size: 12px;
-    }
-
-    /* Further reduce modal padding on very small screens */
-    .modal-content {
-        padding: 5px 10px;
-    }
-
-    #eventTitle {
-        font-size: 16px;
-    }
-
-    #eventDate {
-        font-size: 10px;
-    }
-
-    #eventDescription {
-        font-size: 12px;
-    }
-
-    .modal-event-image {
-        width: 70%;
-    }
-}
 /****************************************************************************************************/
 
 /* Card Container (Flex layout to arrange cards next to each other) */

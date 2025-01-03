@@ -38,7 +38,7 @@
                     <p class="event-date">{{ event.date.strftime('%B %d, %Y') }}</p>
                 </div>
                 <div class="event-body">
-                    <img src="{{ url_for('static', filename='images/' + event.image) }}" alt="{{ event.title }}" class="event-image">
+                    <img src="{{ url_for('static', filename='images/upcoming/' + event.image) }}" alt="{{ event.title }}" class="event-image">
                     <div class="event-content">
                         <p class="event-description">{{ event.description }}</p>
                     </div>

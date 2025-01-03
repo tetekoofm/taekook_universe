@@ -11,100 +11,105 @@
     <div class="night-sky" id="night-sky"></div>
     
     <!-- Navigation Menu -->
-    <nav class="navbar">
-        <ul>
-            <li><a href="/">Home</a></li>
-            <li><a href="/upcoming">Upcoming</a></li>
-            <li><a href="/memories">Memories</a></li>
-            <li><a href="/milestones">Milestones</a></li>
-            <li><a href="/radio">Radios</a></li>
-            <li><a href="/vibe">Vibe</a></li>
-            <li><a href="/fanbases">Fanbases</a></li>
-            <li><a href="/fanprojects">Projects</a></li>
-            <li><a href="/store">Store</a></li>
-        </ul>
-    </nav>
+    <div class="timeline-page">
+        <nav class="navbar">
+            <ul>
+                <li><a href="/">Home</a></li>
+                <li><a href="/upcoming">Upcoming</a></li>
+                <li><a href="/memories">Memories</a></li>
+                <li><a href="/milestones">Milestones</a></li>
+                <li><a href="/radio">Radios</a></li>
+                <li><a href="/vibe">Vibe</a></li>
+                <li><a href="/fanbases">Fanbases</a></li>
+                <li><a href="/fanprojects">Projects</a></li>
+                <li><a href="/store">Store</a></li>
+            </ul>
+        </nav>
 
-    <!-- Main Content Section -->
-    <div class="main-content">
-        <h1 class="heading">Memories</h1>
-        <p class="caption">Few memories through their timeline!</p>
-    </div>
-
-    <div class="timeline-container">
-        <!-- Years Container -->
-        <div class="years-container">
-            {% for year in timeline_data.keys() | sort %}
-            <div class="year-box" data-year="{{ year }}" role="button" aria-expanded="false">
-                {{ year }}
-                <div class="year-vertical-line"></div> <!-- Vertical line from the year -->
+        <!-- Main Content Section -->
+        <div class="timeline-intro">
+            <div class="main-content">
+                <h1 class="heading">Memories</h1>
+                <p class="caption">Few memories through their timeline!</p>
             </div>
-            {% endfor %}
         </div>
 
-        <!-- Months and Events for Each Year -->
-        {% for year, months in timeline_data.items() %}
-        <div class="months-container" data-year="{{ year }}" style="display: none;">
-            <div class="horizontal-tree-line"></div> <!-- Horizontal line connecting months -->
-            <div class="months-box">
-                {% for month_num, events in months.items() %}
-                <div class="month-box-container">
-                    <!-- Month Box -->
-                    <div class="month-box" data-month="{{ month_num }}">
-                        <div class="month-vertical-branch"></div> <!-- Short branch above month -->
-                        <div class="month-name">{{ calendar.month_abbr[month_num] }} '{{ formatted_years[year] }}'</div>
-                    </div>
-        
-                    <!-- Event list positioned below the month -->
-                    <div class="event-list" data-month="{{ month_num }}">
-                        {% if events %}
-                        {% for event in events %}
-                        <div class="event-item"
-                            data-title="{{ event.title }}"
-                            data-date="{{ event.date }}"
-                            data-description="{{ event.description }}"
-                            data-image="{{ url_for('static', filename='images/' + event.image) }}">
-                            <span class="event-bullet">&#8226;</span>
-                            <span class="event-date">{{ event.date.split('-')[2] }}</span>
-                            <img src="{{ url_for('static', filename='images/' + event.image) }}" alt="Event Icon" class="event-icon">
-                            <span class="event-title">{{ event.title }}</span>
-                        </div>
-
-                        {% endfor %}
-                        {% endif %}
-                    </div>
+        <!-- Timeline Container (Hidden by Default) -->
+        <div class="timeline-container hide">
+            <!-- Years Container -->
+            <div class="years-container">
+                {% for year in timeline_data.keys() | sort %}
+                <div class="year-box" data-year="{{ year }}" role="button" aria-expanded="false">
+                    {{ year }}
+                    <div class="year-vertical-line"></div>
                 </div>
                 {% endfor %}
             </div>
-        </div>
-        
-        {% endfor %}
-    </div>
 
-    <!-- Event Modal -->
-    <div id="eventModal" class="modal" style="display: none;">
-        <div class="modal-content">
-            <!-- Close Button -->
-            <span class="close" onclick="closeModal()">&times;</span>
-            
-            <!-- Event Title -->
-            <h2 id="eventTitle"></h2>
-            
-            <!-- Event Date -->
-            <span id="eventDate"></span>
-            
-            <!-- Event Image -->
-            <img id="eventImage" src="" alt="Event Image" class="modal-event-image">
-                        
-            <!-- Event Description -->
-            <p id="eventDescription"></p>
-
+            <!-- Months and Events for Each Year -->
+            {% for year, months in timeline_data.items() %}
+            <div class="months-container" data-year="{{ year }}" style="display: none;">
+                <div class="horizontal-tree-line"></div>
+                <div class="months-box">
+                    {% for month_num, events in months.items() %}
+                    <div class="month-box-container">
+                        <div class="month-box" data-month="{{ month_num }}">
+                            <div class="month-vertical-branch"></div>
+                            <div class="month-name">{{ calendar.month_abbr[month_num] }} '{{ formatted_years[year] }}'</div>
+                        </div>
+                        <div class="event-list" data-month="{{ month_num }}">
+                            {% for event in events %}
+                            <div class="event-item" data-title="{{ event.title }}" data-date="{{ event.date }}"
+                                data-description="{{ event.description }}" 
+                                data-image="{{ url_for('static', filename='images/memories/' + event.image) }}">
+                                <span class="event-bullet">&#8226;</span>
+                                <span class="event-date">{{ event.date.split('-')[2] }}</span>
+                                <img src="{{ url_for('static', filename='images/memories/' + event.image) }}" alt="Event Icon" class="event-icon">
+                                <span class="event-title">{{ event.title }}</span>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+            {% endfor %}
         </div>
     </div>
+        <!-- Event Modal -->
+        <div id="eventModal" class="modal" style="display: none;">
+            <div class="modal-content">
+                <!-- Close Button -->
+                <span class="close" onclick="closeModal()">&times;</span>
+                
+                <!-- Event Title -->
+                <h2 id="eventTitle"></h2>
+                
+                <!-- Event Date -->
+                <span id="eventDate"></span>
+                
+                <!-- Event Image -->
+                <img id="eventImage" src="" alt="Event Image" class="modal-event-image">
+                            
+                <!-- Event Description -->
+                <p id="eventDescription"></p>
+
+            </div>
+        </div>
 
     <script>
         document.addEventListener("DOMContentLoaded", () => {
+            const timelineIntro = document.querySelector(".timeline-intro");
+            const timelineContainer = document.querySelector(".timeline-container");
             const yearBoxes = document.querySelectorAll(".year-box");
+
+            // Listen for the animation end of the slide-up effect
+            timelineIntro.addEventListener("animationend", (event) => {
+                if (event.animationName === "slideUp") { // Ensure it's the slide-up animation
+                    // Remove the 'hide' class from the timeline container
+                    timelineContainer.classList.remove("hide");
+                }
+            });
 
             // Handle year click (shows months and events)
             yearBoxes.forEach(box => {
