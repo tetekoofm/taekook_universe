@@ -4,7 +4,7 @@ from app import app
 
 def insert_data_from_excel():
     # Load the Excel file
-    excel_file = 'purple_dreams.xlsx'
+    excel_file = 'taekook_universe.xlsx'
 
     with app.app_context():  # Ensure Flask app context is active
 

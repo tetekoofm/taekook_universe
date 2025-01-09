@@ -62,7 +62,7 @@
             <div class="video-frame">
                 {% for video in music_videos %}
                     <div class="video-item">
-                        <iframe width="300" height="200" 
+                        <iframe width="450" height="250" 
                         src="https://www.youtube.com/embed/{{ video.youtube_url.split('v=')[1].split('&')[0] if 'v=' in video.youtube_url else video.youtube_url.split('youtu.be/')[1] }}?rel=0&autohide=1&showinfo=0&modestbranding=1" 
                         frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" 
                         allowfullscreen loading="lazy"></iframe>
@@ -133,5 +133,6 @@
     <footer>
         <p>&copy; 2025 TaeKook Universe. All rights reserved.</p>
     </footer>
+        
 </body>
 </html>
