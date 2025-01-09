@@ -7,10 +7,7 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
-    <!-- Night Sky -->
     <div class="night-sky" id="night-sky"></div>
-    
-    <!-- Navigation Menu -->
     <nav class="navbar">
         <ul>
             <li><a href="/">Home</a></li>
@@ -24,14 +21,10 @@
             <li><a href="/store">Store</a></li>
         </ul>
     </nav>
-
-    <!-- Main Content Section -->
     <div class="main-content">
         <h1 class="heading">Milestones</h1>
         <p class="caption">Explore the milestones of their careers!</p>
     </div>
-
-    <!-- Stacked Cards for Milestones -->
     <div class="milestone-cards">
         {% for milestone in milestones %}
         <div class="milestone-card">
@@ -39,21 +32,17 @@
                 <h2 class="title">{{ milestone.title }}</h2>
                 <p class="date">{{ milestone.date }}</p>
             </div>
-            
-            <!-- Card Body with only header and image displayed -->
             <div class="card-body">
-                <img src="{{ url_for('static', filename='images/' + milestone.image) }}" 
+                <img src="{{ url_for('static', filename='images/milestones/' + milestone.image) }}" 
                     alt="{{ milestone.title }}"
                     data-title="{{ milestone.title }}"
                     data-date="{{ milestone.date }}"
                     data-image="{{ milestone.image }}"
                     data-description="{{ milestone.description }}">
-            </div>            
+            </div>
         </div>
         {% endfor %}
     </div>
-
-    <!-- Modal for Expanded Description -->
     <div id="milestone-modal" class="modal">
         <div class="modal-content">
             <span class="close-btn" onclick="closeModal()">×</span>
@@ -63,46 +52,32 @@
             <p id="modal-description"></p>
         </div>
     </div>
-
     <script>
-        // Function to open the modal
         function openModal(title, date, image, description) {
-            // Populate the modal with the data passed from the milestone card
             document.getElementById('modal-title').textContent = title;
             document.getElementById('modal-date').textContent = date;
-            document.getElementById('modal-image').src = '/static/images/' + image;
+            document.getElementById('modal-image').src = '/static/images/milestones/' + image;
             document.getElementById('modal-description').textContent = description;
-
-            // Show the modal
-            document.getElementById('milestone-modal').style.display = 'block'; // Make sure it's visible
+            document.getElementById('milestone-modal').style.display = 'block';
         }
-
         function closeModal() {
-            document.getElementById('milestone-modal').style.display = 'none'; // Hide the modal
+            document.getElementById('milestone-modal').style.display = 'none';
         }
-
-        // Listen for click events on milestone cards to open the modal
         document.querySelectorAll('.milestone-card img').forEach(img => {
             img.addEventListener('click', function() {
-                // Get data from the image's custom attributes
                 const title = this.getAttribute('data-title');
                 const date = this.getAttribute('data-date');
                 const image = this.getAttribute('data-image');
                 const description = this.getAttribute('data-description');
-
-                // Open the modal with the data
                 openModal(title, date, image, description);
             });
         });
-
-        // Listen for clicks outside the modal content to close it
         window.onclick = function(event) {
             if (event.target == document.getElementById('milestone-modal')) {
                 closeModal();
             }
         }
     </script>
-    <!-- Footer -->
     <footer>
         <p>&copy; 2025 TaeKook Universe. All rights reserved.</p>
     </footer>

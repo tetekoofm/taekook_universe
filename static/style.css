@@ -85,6 +85,7 @@ body {
     color: #6A0DAD;
     animation: fadeIn 2s ease-out;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6), -2px -2px 4px rgba(0, 0, 0, 0.4), 0px 4px 6px rgba(0, 0, 0, 0.3);
+    z-index: 100;
 }
 
 @keyframes fadeIn {
@@ -118,11 +119,10 @@ footer {
     text-align: center;
     width: 100%;
     background-color: #000;
-    color: #5a5a5a; 
+    color: #5a5a5a;
     box-sizing: border-box;
-    position: fixed; 
-    bottom: 0; 
-    left: 0;
+    position: relative;
+    margin-top: auto;
 }
 
 /* Styling for the navigation menu */
@@ -848,7 +848,6 @@ footer {
 }
 
 /* Mobile Styles */
-/* Mobile Styles */
 @media (max-width: 768px) {
     .timeline-intro {
         height: 80vh;
@@ -988,160 +987,124 @@ footer {
 
 /************************************************* MILESTONES ***************************************************/
 
-/* Card Container (Flex layout to arrange cards next to each other) */
+/* Milestone Cards */
 .milestone-cards {
     display: flex;
-    flex-wrap: wrap; /* Allow cards to wrap if they don't fit in one row */
-    justify-content: space-between; /* Even space between cards */
-    gap: 20px; /* Space between cards */
-    margin-top: 20px;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+    padding: 20px;
 }
 
-/* Memory Card Styles */
 .milestone-card {
-    background-color: #000; /* Black background */
-    border: 2px solid #6A0DAD; /* Purple border */
-    border-radius: 15px;
-    width: 300px; /* Width of each card */
+    background-color: #222; /* Dark grey for cards */
+    border: 2px solid #6a0dad; /* Purple border */
+    border-radius: 10px;
+    width: 300px; /* Fixed card width */
     padding: 15px;
-    cursor: pointer;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
-    transition: transform 0.3s ease-in-out;
-    margin-bottom: 20px; /* Margin at the bottom of each card */
+    text-align: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+    transition: transform 0.3s, box-shadow 0.3s;
+    z-index: 10;
 }
 
-/* Hover effect for cards */
 .milestone-card:hover {
     transform: scale(1.05);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.7);
 }
 
-/* Card Header Styles */
 .card-header {
-    display: flex;
-    justify-content: space-between;
-    padding: 10px 10px;
-    background-color: #6A0DAD; /* Purple background */
-    color: #fff;
-    font-size: 16px;
-    border-radius: 8px;
-    position: relative;
+    margin-bottom: 10px;
 }
 
-/* Title and Date Styling */
-.card-header .title {
-    font-size: 18px; /* Make title slightly bigger */
-    font-weight: bold;
-    top: 40px;
-    text-align: left;
-    left: 10px;
+.card-header h2 {
+    font-size: 1.5em;
+    color: #6a0dad;
+    margin: 0;
 }
 
-.card-header .date {
-    font-size: 12px; /* Smaller font for date */
-    position: absolute;
-    top: 0px;
-    left: 10px; /* Align date to the top left */
+.card-header p {
+    font-size: 1em;
+    color: #ccc;
 }
 
-/* Card Body (Image and Hidden Description) */
-.card-body {
-    padding-top: 10px;
-    text-align: center;
-}
-
-/* Ensure the image is cropped from the bottom, prioritizing the top part */
 .card-body img {
     width: 100%;
-    height: 200px; /* Set a fixed height for the image */
-    object-fit: cover; /* Crop the image */
-    object-position: top; /* Make sure the top part is shown */
-    border-radius: 8px;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: opacity 0.3s;
 }
 
-/* Modal Styles */
+.card-body img:hover {
+    opacity: 0.8;
+}
+
+/* Modal */
 .modal {
     display: none;
     position: fixed;
-    z-index: 1;
+    z-index: 1000;
     left: 0;
-    top: 0;
+    top: -20%;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.7); /* Dark background with transparency */
-    overflow: auto; /* Enable scrolling for the modal itself */
-    padding: 0;
+    /* overflow: auto; */
+    background-color: rgba(0, 0, 0, 0.8);
 }
 
-/* Modal Content Styles */
+/* Apply the slide-in animation to the modal */
 .modal-content {
-    background-color: #fff; /* White background for modal content */
-    margin: 5% auto;
-    padding: 20px;
+    background-color: #333;
+    margin: 10% auto;
+    border: 1px solid #6A0DAD;
+    width: 90%;
+    max-width: 1200px;
+    color: #fff;
+    text-align: center;
     border-radius: 10px;
-    position: relative;
-    width: 80%; /* Adjust the width as needed (e.g., 80% of the screen width) */
-    max-width: 1000px; /* Optional: Set a maximum width for larger screens */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Add some shadow for better aesthetics */
-    overflow-y: auto; /* Enable vertical scrolling within the modal content */
-    /*max-height: 90vh;  Limit height to 80% of the viewport height */
 }
 
-/* Title, Date, and Description */
-#modal-title {
-    font-size: 24px;
-    color: #6A0DAD; /* Purple color for title */
+.modal-content h2 {
+    font-family: 'Tangerine', serif;
+    font-size: 3.5em;
+    color: #6A0DAD;
+    margin-bottom: 5px;
 }
 
-#modal-date {
-    font-size: 10px;
-    color: #6A0DAD; /* White color for date */
+.modal-content p#modal-date {
+    font-family: 'Fira Sans Condensed', serif;
+    font-size: 1.2em;
+    color: #008000;
+    margin-top: 2px;
 }
 
-#modal-description {
-    font-size: 12px;
-    color: #6A0DAD; /* White color for description */
-}
-
-/* Image */
-#modal-image {
+.modal-content img {
     width: 100%;
+    max-width: 400px;
     border-radius: 10px;
+    margin: 20px 0;
 }
 
-/* Scrollbar Styling (optional, to style the scrollbar) */
-.modal-content::-webkit-scrollbar {
-    width: 10px;
+.modal-content p#modal-description {
+    font-family: 'Fira Sans Condensed', serif;
+    font-size: 1.2em;
+    text-align: justify;
+    color: #008000;
 }
 
-.modal-content::-webkit-scrollbar-thumb {
-    background-color: #888;
-    border-radius: 5px;
-}
-
-.modal-content::-webkit-scrollbar-thumb:hover {
-    background-color: #555;
-}
-
-/* Close Button */
 .close-btn {
-    position: absolute;
-    top: 10px;
-    right: 25px;
-    font-size: 30px;
-    color: #aaa;
+    color: #fff;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
     cursor: pointer;
 }
 
-.close-btn:hover,
-.close-btn:focus {
-    color: black;
-    text-decoration: none;
-    cursor: pointer;
+.close-btn:hover {
+    color: #6a0dad;
 }
 
 /* Mobile Styles for Milestone Cards */
-
-/* For screens smaller than 768px */
 @media screen and (max-width: 768px) {
 
     /* Milestone Cards */
@@ -1214,11 +1177,10 @@ footer {
     }
 }
 
-/*****************************************************************************************************/
+/****************************************************** VIBE *****************************************************/
 
 /* Vibe Page Layout */
 .vibe-container {
-    font-family: 'Poppins', cursive;
     display: flex;
     justify-content: space-between;
     padding: 20px;
@@ -1234,19 +1196,23 @@ footer {
     padding: 20px;
     border-radius: 10px;
     margin: 10px 0;
+    /* border: 2px solid #6A0DAD; */
     box-shadow: 0px 0px 10px rgba(0, 255, 80, 0.6);
 }
 
 .vibe-section h2 {
-    font-size: 2rem;
+    font-family: 'Tangerine', serif;
+    font-size: 4rem;
     color: #6A0DAD;
     text-align: center;
+    margin-bottom: 20px;
 }
 
 .vibe-section p {
-    font-size: 1rem;
-    color: #fff;
-    margin-top: 10px;
+    font-family: 'Fira Sans Condensed', serif;
+    font-size: 1.2rem;
+    color: #008000;
+    margin-top: 5px;
     text-align: center;
 }
 
@@ -1257,7 +1223,7 @@ footer {
     font-size: 16px;
     color: white;
     text-shadow: 2px 2px 15px rgba(0, 0, 0, 0.8);
-    opacity: 1;
+    opacity: 0.6;
     pointer-events: none;
     animation: pop-up-glow 5s ease-out forwards;
     z-index: 0; /* Behind the main content */
@@ -1285,12 +1251,11 @@ footer {
 }
 
 .song-name:nth-child(even) {
-    color: #0FFF50; /* Green */
+    color: #008000; /* Green */
 }
 
 /* Music Video styles */
 .music-videos-container {
-    font-family: 'Poppins', cursive;
     padding: 20px;
     flex-wrap: wrap;
     position: relative;
@@ -1298,23 +1263,25 @@ footer {
 }
 
 .music-videos-container h2 {
-    font-size: 2rem;
+    font-family: 'Tangerine', serif;
+    font-size: 3rem;
     color: #6A0DAD;
     text-align: left;
-    margin-top: 0;
-    margin-bottom: 0; 
+    margin-top: 10px;
+    margin-bottom: 8px; 
 }
 
 .music-videos-container p {
-    font-size: 1rem;
-    color: #0FFF50;
+    font-family: 'Fira Sans Condensed', serif;
+    font-size: 1.2rem;
+    color: #008000;
     margin-top: 0; 
-    margin-bottom: 20px;
+    margin-bottom: 30px;
 }
 
 .arrow-left, 
 .arrow-right {
-    margin-top: 0; /* Ensures that arrows are not shifted down by any margin */
+    margin-top: 0; 
 }
 
 /* Custom scrollbar style */
@@ -1323,8 +1290,8 @@ footer {
     display: flex;
     gap: 20px;
     scrollbar-width: thin;
-    scrollbar-color: #6A0DAD #111; /* Purple color for the scrollbar */
-    margin-top: 10px; /* Adds space between the description and the video frame */
+    scrollbar-color: #6A0DAD #111;
+    margin-top: 10px; 
 }
 
 .video-frame::-webkit-scrollbar {
@@ -1332,109 +1299,120 @@ footer {
 }
 
 .video-frame::-webkit-scrollbar-thumb {
-    background-color: #6A0DAD; /* Purple color */
+    background-color: #6A0DAD; 
 }
 
 .video-frame::-webkit-scrollbar-track {
-    background-color: #6A0DAD; /* Dark background for track */
+    background-color: #6A0DAD;
 }
 
 /* Adjusting video container for better spacing */
 .video-item {
-    font-family: 'Poppins', sans-serif;
+    font-family: 'Tangerine', serif;
     display: flex;
     flex-direction: column;
     align-items: center;
-    /* font-weight: bold; */
+}
+
+.video-item iframe {
+    margin-top: 10px;
+    border-radius: 10px;
+    border: 3px solid #6A0DAD; 
+    /* box-shadow: 0px 0px 15px #0FFF50;  */
 }
 
 /* Basic styling for video name text */
 .video-item p {
     text-align: center;
     color: #6A0DAD;
-    font-size: 12px; /* Change this to your desired font size */
-    font-weight: bold; /* Optional: Make the font bold */
+    font-size: 14px; 
+    font-weight: bold;
+    margin-top: 20px;
 }
 
-/* Mobile Styles for Vibe Page */
-
-/* For screens smaller than 768px */
+/* Mobile styles for Vibe Page Layout */
 @media screen and (max-width: 768px) {
-
-    /* Vibe Container */
+    /* Adjust container to stack sections vertically */
     .vibe-container {
-        flex-direction: column; /* Stack the sections vertically */
-        padding: 15px;
+        flex-direction: column;
+        padding: 10px;
         margin-top: 20px;
     }
 
     .vibe-section {
-        width: 100%; /* Full width of the container on mobile */
-        padding: 15px; /* Reduced padding */
-        margin-bottom: 20px; /* Increased margin at the bottom for spacing */
-    }
-
-    /* Vibe Section Title */
-    .vibe-section h2 {
-        font-size: 1.5rem; /* Adjusted font size */
-    }
-
-    /* Vibe Section Paragraph */
-    .vibe-section p {
-        font-size: 0.9rem; /* Smaller font size */
-        text-align: left; /* Left-align text for better readability */
-    }
-
-    /* Song Name Styling */
-    .song-name {
-        font-size: 14px; /* Adjusted font size for mobile */
-        text-shadow: 1px 1px 10px rgba(0, 0, 0, 0.6); /* Smaller shadow effect */
-        opacity: 1;
-        animation: pop-up-glow 5s ease-out forwards;
-    }
-
-    /* Music Video Container */
-    .music-videos-container {
+        width: 100%; /* Full width for smaller screens */
+        margin: 10px 0;
         padding: 15px;
     }
 
+    .vibe-section h2 {
+        font-size: 3rem; /* Smaller font size for headings */
+    }
+
+    .vibe-section p {
+        font-size: 1rem; /* Reduce paragraph font size */
+    }
+
+    /* Adjust Music Video container */
+    .music-videos-container {
+        padding: 10px;
+    }
+
     .music-videos-container h2 {
-        font-size: 1.8rem; /* Adjusted header size */
+        font-size: 2.5rem; /* Smaller headings */
+        text-align: center; /* Center align headings */
     }
 
     .music-videos-container p {
-        font-size: 0.9rem; /* Smaller font size */
+        font-size: 1rem; /* Adjust text size */
+        margin-bottom: 20px; /* Reduce spacing */
+        text-align: center; /* Center align text */
     }
 
-    /* Video Frame */
+    /* Video frame adjustments */
     .video-frame {
         flex-direction: column; /* Stack videos vertically */
-        overflow-y: auto; /* Vertical scrolling */
-        margin-top: 15px; /* More space between video container and description */
+        gap: 15px;
+        margin-top: 5px;
+        overflow-x: hidden; /* Avoid horizontal scrolling on small screens */
     }
 
-    .video-frame::-webkit-scrollbar {
-        height: 6px; /* Smaller scrollbar */
+    .video-item iframe {
+        width: 100%; /* Full width for videos */
+        max-width: 100%; /* Ensure no overflow */
     }
 
-    .video-frame::-webkit-scrollbar-thumb {
-        background-color: #6A0DAD; /* Purple color */
-    }
-
-    .video-frame::-webkit-scrollbar-track {
-        background-color: #111; /* Dark background for track */
-    }
-
-    .video-item {
-        margin-bottom: 15px; /* Margin to separate video items */
-    }
-
+    /* Adjust video name text */
     .video-item p {
-        font-size: 12px; /* Adjusted font size for video name */
+        font-size: 12px; /* Smaller font size */
+        margin-top: 10px;
     }
 }
 
-/************************************************************************************************/
+/* Additional styles for smaller screens */
+@media screen and (max-width: 480px) {
+    .vibe-section h2 {
+        font-size: 2.5rem; /* Further reduce heading size */
+    }
+
+    .vibe-section p {
+        font-size: 0.9rem; /* Smaller paragraph text */
+    }
+
+    .music-videos-container h2 {
+        font-size: 2rem; /* Further reduce heading size */
+    }
+
+    .video-item iframe {
+        border-radius: 5px; /* Smaller rounded corners */
+    }
+
+    .video-item p {
+        font-size: 10px; /* Smallest text size for video names */
+    }
+}
+
+/***************************************************** STORE *****************************************************/
 
 /* Store Page Container */
 .store-container {
@@ -1623,7 +1601,7 @@ footer {
     }
 }
 
-/*****************************************************************************************/
+/****************************************************** CART *****************************************************/
 
 /* Cart Container */
 .cart-container {
