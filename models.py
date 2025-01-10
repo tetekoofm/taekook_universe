@@ -1,5 +1,6 @@
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
+
 # Initialize the SQLAlchemy object
 db = SQLAlchemy()
 
@@ -61,6 +62,30 @@ class MusicVideo(db.Model):
 
     def __repr__(self):
         return f'<MusicVideo {self.name}>'
+
+class Fanbase(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    logo = db.Column(db.String(200), nullable=True)
+    fb_name = db.Column(db.String(100), nullable=False)
+    location = db.Column(db.String(100), nullable=False)
+    focus = db.Column(db.String(200), nullable=False)
+    description = db.Column(db.Text, nullable=True)
+
+    def __repr__(self):
+        return f"<Fanbase {self.fb_name}>"
+
+class Project(db.Model):
+    __tablename__ = 'projects'
+    id = db.Column(db.Integer, primary_key=True)
+    title = db.Column(db.String(255), nullable=False)
+    date = db.Column(db.String(50), nullable=False)
+    location = db.Column(db.String(100), nullable=False)
+    image = db.Column(db.String(255), nullable=True)
+    description = db.Column(db.Text, nullable=True)
+    link = db.Column(db.String(255), nullable=True)  # Optional
+
+    def __repr__(self):
+        return f"<Project {self.title}>"
 
 class Product(db.Model):
     __tablename__ = 'product'

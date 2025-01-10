@@ -1,7 +1,7 @@
 from flask import Flask, render_template, request, redirect, session, url_for, jsonify, current_app
 # from flask_sqlalchemy import SQLAlchemy
 import os, secrets, random, calendar
-from models import db, Upcoming, Memory, Milestone, Product, Discography, MusicVideo
+from models import db, Upcoming, Memory, Milestone, Product, Discography, MusicVideo, Fanbase, Project
 from collections import defaultdict
 from datetime import datetime
 
@@ -104,7 +104,10 @@ def milestones():
     # Pass the memories data to the template
     return render_template('milestones.html', milestones=milestones)
 
-# Vibe route: Displays embedded songs and related content
+@app.route('/radio')
+def radio():
+    return render_template('radio.html')
+
 @app.route('/vibe')
 def vibe():
     # Fetch all the song names from the Discography table
@@ -124,7 +127,20 @@ def vibe():
     # Pass both song_names and music_videos to the template
     return render_template('vibe.html', song_names=song_names, music_videos=music_video)
 
-# Store route: Displays products dynamically from the database
+@app.route("/fanbases")
+def fanbases():
+    fanbases = Fanbase.query.all()
+    return render_template("fanbases.html", fanbases=fanbases)
+
+@app.route('/projects')
+def projects():
+    projects = Project.query.all()  
+    return render_template('projects.html', projects=projects)
+
+@app.route("/guide")
+def guide_page():
+    return render_template("guide.html")
+
 @app.route('/store')
 def store():
     # Fetch all products from the Product table
