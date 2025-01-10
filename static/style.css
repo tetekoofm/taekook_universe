@@ -14,6 +14,7 @@
 
 /* Night Sky Background */
 .night-sky {
+    display: none; 
     position: fixed;
     top: 0;
     left: 0;
@@ -123,6 +124,8 @@ footer {
     box-sizing: border-box;
     position: relative;
     margin-top: auto;
+    bottom: 0;
+    margin-bottom: 0;
 }
 
 /* Styling for the navigation menu */
@@ -446,6 +449,12 @@ footer {
 
 /************************************************** UPCOMING ****************************************************/
 
+.upcoming-page {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh; /* Ensures the page takes at least the height of the viewport */
+}
+
 /* Upcoming Events*/
 .events-container {
     width: 80%;
@@ -476,16 +485,16 @@ footer {
 }
 
 .event-title {
-    font-family: 'Arial Narrow', sans-serif;
+    font-family: 'Tangerine', serif;
     font-weight: bold;
-    font-size: 32px;
+    font-size: 2rem !important;
     color: #6A0DAD;
     margin: 0;
 }
 
 .event-date {
-    font-family: 'Roboto Condensed', sans-serif;
-    font-size: 16px;
+    font-family: 'Fira Sans Condensed', serif;
+    font-size: 1em !important;
     color: #6A0DAD;
     margin: 0;
 }
@@ -513,8 +522,8 @@ footer {
 }
 
 .event-description {
-    font-family: 'Arial Narrow', sans-serif;
-    font-size: 18px;
+    font-family: 'Fira Sans Condensed', serif;
+    font-size: 1.2em;
     letter-spacing: 1px;
     line-height: 1.6;
     color: #5a5a5a;
@@ -527,10 +536,12 @@ footer {
 .timeline-page {
     display: flex;
     flex-direction: column;
-    align-items: center;
-    width: 100%;
-    margin: 0 auto;
+    min-height: 100vh; 
+    margin: 0;
     padding: 0;
+    width: 100%;
+    background-color: #000;
+    position: relative; 
 }
 
 .timeline-intro {
@@ -768,8 +779,8 @@ footer {
 .modal {
     display: flex;
     position: fixed;
-    z-index: 99999;
-    top: 0;
+    z-index: 1000;
+    top: -20%;
     left: 0;
     width: 100vw;
     height: 100vh;
@@ -858,14 +869,14 @@ footer {
     /* Keep years container aligned */
     .years-container {
         margin-top: 240px;
-        justify-content: flex-start; /* Align to the start for scrolling */
-        position: relative; /* Relative to container */
+        justify-content: flex-start; 
+        position: relative; 
         left: 0;
         transform: none;
         z-index: 200;
-        padding: 0 10px; /* Add horizontal padding for spacing */
-        display: flex; /* Ensure flexbox layout */
-        gap: 5px; /* Maintain gap between year boxes */
+        padding: 0 10px; 
+        display: flex; 
+        gap: 5px;
     }
 
     /* Ensure individual year boxes don't shrink */
@@ -873,7 +884,7 @@ footer {
         margin: 5px;
         padding: 5px;
         font-size: 10px;
-        flex-shrink: 0; /* Prevent shrinking */
+        flex-shrink: 0; 
         width: auto;
     }
 
@@ -881,10 +892,10 @@ footer {
     .months-container {
         background-color: transparent;
         width: 100%;
-        display: flex; /* Ensure flexbox layout */
-        gap: 5px; /* Keep spacing consistent */
-        padding: 0 10px; /* Add horizontal padding */
-        justify-content: flex-start; /* Align to the start */
+        display: flex; 
+        gap: 5px; 
+        padding: 0 10px; 
+        justify-content: flex-start; 
         top: 50px;
     }
 
@@ -895,13 +906,13 @@ footer {
         width: 25px;
         height: 10px;
         font-size: 10px;
-        flex-shrink: 0; /* Prevent shrinking */
+        flex-shrink: 0; 
     }
 
     /* Make sure months box is scrollable */
     .months-box {
         display: flex;
-        justify-content: flex-start; /* Align items at the start */
+        justify-content: flex-start; 
         gap: 5px;
         padding: 0 10px;
         margin-bottom: 10px;
@@ -1177,6 +1188,116 @@ footer {
     }
 }
 
+/****************************************************** RADIO *****************************************************/
+
+/* Radio Stations Section */
+.radio-stations {
+    margin-bottom: 30px;
+}
+
+.station-card {
+    background-color: #333;
+    padding: 20px;
+    border-radius: 10px;
+    margin: 10px 0;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+.station-card h3 {
+    color: #9b59b6;
+}
+
+.station-card p {
+    font-size: 1.1em;
+    color: #00e6b8;
+}
+
+.station-card a {
+    display: inline-block;
+    margin-top: 10px;
+    padding: 10px 20px;
+    background-color: #9b59b6;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+}
+
+.station-card a:hover {
+    background-color: #7a40b3;
+}
+
+/* Track Highlights Section */
+.track-highlights {
+    margin-bottom: 30px;
+}
+
+.track-card {
+    background-color: #333;
+    padding: 20px;
+    border-radius: 10px;
+    margin: 10px 0;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+.track-card h3 {
+    color: #9b59b6;
+}
+
+.track-card p {
+    font-size: 1.1em;
+    color: #00e6b8;
+}
+
+/* Audio Player */
+.audio-player iframe {
+    margin-top: 10px;
+    border: none;
+    border-radius: 5px;
+}
+
+/* Radio Map Section */
+.radio-map {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.radio-map .map-placeholder img {
+    width: 80%;
+    max-width: 800px;
+    border-radius: 10px;
+}
+
+/* Fan Interaction Section */
+.fan-interaction {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.fan-interaction textarea {
+    width: 80%;
+    padding: 10px;
+    border-radius: 10px;
+    border: 1px solid #9b59b6;
+    background-color: #333;
+    color: white;
+}
+
+.fan-interaction button {
+    margin-top: 10px;
+    padding: 10px 20px;
+    background-color: #9b59b6;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.fan-interaction button:hover {
+    background-color: #7a40b3;
+}
+
 /****************************************************** VIBE *****************************************************/
 
 /* Vibe Page Layout */
@@ -1410,6 +1531,252 @@ footer {
     .video-item p {
         font-size: 10px; /* Smallest text size for video names */
     }
+}
+
+/*********************************************** FANBASES ********************************************************/
+
+/* Fanbase Cards */
+.fanbase-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    gap: 20px;
+    padding: 20px;
+}
+
+.fanbase-card {
+    background-color: #333;
+    padding: 20px;
+    border-radius: 8px;
+    width: 320px; /* Increased width */
+    height: 250px; /* Reduced height for better balance */
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.fanbase-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+.fanbase-logo {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%; /* round */
+    object-fit: cover;
+    margin-bottom: 20px;
+}
+
+.fanbase-name {
+    font-size: 24px;
+    font-weight: bold;
+    color: #7a4bc3; /* Purple */
+    margin-bottom: 10px;
+}
+
+.location {
+    font-size: 16px;
+    color: #ccc;
+    margin-bottom: 10px;
+}
+
+.work {
+    font-size: 16px;
+    color: #bbb;
+    margin-bottom: 10px;
+}
+
+.description {
+    font-size: 14px;
+    color: #ddd;
+    overflow: hidden; /* Prevents overflow */
+    text-overflow: ellipsis; /* Adds "..." if the text is too long */
+    flex-grow: 1; /* Ensures the description doesn't overflow */
+    display: -webkit-box;
+    -webkit-line-clamp: 3; /* Limits the description to 3 lines */
+    -webkit-box-orient: vertical;
+}
+
+/***************************************************** PROJECT *****************************************************/
+
+/* Styles specific to the Projects page */
+.projects-page {
+    background-color: #111;
+    color: white;
+    padding-bottom: 50px;
+}
+
+.project-cards {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    margin: 20px;
+}
+
+.project-card {
+    background-color: #333;
+    width: 300px;
+    padding: 20px;
+    margin: 10px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    text-align: center;
+}
+
+.project-card .title {
+    font-size: 24px;
+    color: #a5d6a7;
+}
+
+.project-card .date {
+    font-size: 14px;
+    color: #bbb;
+}
+
+.project-card img {
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: transform 0.3s;
+}
+
+.project-card img:hover {
+    transform: scale(1.05);
+}
+
+.modal-content {
+    background-color: #222;
+    color: white;
+    padding: 30px;
+    border-radius: 10px;
+    text-align: center;
+}
+
+.modal-content h2, .modal-content p {
+    margin: 10px 0;
+}
+
+.modal-content a {
+    padding: 10px 20px;
+    background-color: #a5d6a7;
+    border-radius: 5px;
+    color: #111;
+    text-decoration: none;
+    font-size: 16px;
+    margin-top: 20px;
+}
+
+.modal-content a:hover {
+    background-color: #81c784;
+}
+
+/***************************************************** GUIDE *****************************************************/
+
+/* Ways to Help Container */
+.ways-to-help {
+    padding: 30px;
+    border-radius: 8px;
+    margin-top: 10px;
+    margin-bottom: 30px;
+    max-width: 800px; 
+    margin: 0 auto;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    text-align: left; 
+}
+
+/* Title for Help Container */
+.ways-to-help h2 {
+    font-family: 'Tangerine', serif;
+    font-size: 3.5em;
+    color: #6A0DAD;
+    margin-bottom: 10px;
+    font-weight: bold;
+    text-align: center;
+    border-bottom: 2px solid #6A0DAD;
+    padding-bottom: 10px;
+}
+
+/* Individual Help Section Styles */
+.section {
+    background-color: #110f11;
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 20px;
+    transition: background-color 0.3s ease;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Section Heading Styles */
+.section h3 {
+    font-family: 'Fira Sans Condensed', serif;
+    font-size: 2em;
+    color: #6A0DAD;
+    margin-bottom: 10px;
+    font-weight: bold;
+}
+
+/* Section Paragraphs */
+.section p {
+    font-family: 'Fira Sans Condensed', serif;
+    font-size: 1em;
+    color: #bfbfbf;
+    line-height: 1.6;
+    margin-bottom: 15px;
+}
+
+/* Sticky Notes Container Styles */
+.sticky-notes {
+    font-family: 'Fira Sans Condensed', serif;
+    /* background-color: #6A0DAD; */
+    padding: 10px;
+    border-radius: 8px;
+    margin-top: 15px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); 
+}
+
+/* Sticky Notes List */
+.sticky-notes ul {
+    list-style: none;
+    padding: 0;
+}
+
+.sticky-notes li {
+    font-size: 0.9em;
+    color: #bfbfbf;
+    margin-bottom: 8px;
+    padding-left: 10px;
+    position: relative;
+}
+
+/* Sticky Notes List Item Icon */
+.sticky-notes li::before {
+    content: "•";
+    position: absolute;
+    left: 0;
+    color: #fff;
+    font-size: 1.2em;
+}
+
+/* Link Styles in Sticky Notes */
+.sticky-notes a {
+    color: #fff;
+    text-decoration: underline;
+}
+
+.sticky-notes a:hover {
+    color: #d6d6d6; /* Slightly lighter color on hover */
+}
+
+/* Footer */
+footer {
+    text-align: center;
+    margin-top: 50px;
+    font-size: 0.9em;
+    color: #bfbfbf;
 }
 
 /***************************************************** STORE *****************************************************/

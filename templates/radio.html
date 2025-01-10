@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Radio Play</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <!-- Night Sky -->
+    <div class="night-sky" id="night-sky"></div>
+
+    <!-- Navigation Menu -->
+    <div class="radio-page">
+        <nav class="navbar">
+            <ul>
+                <li><a href="/">Home</a></li>
+                <li><a href="/upcoming">Upcoming</a></li>
+                <li><a href="/memories">Memories</a></li>
+                <li><a href="/milestones">Milestones</a></li>
+                <li><a href="/radio">Radios</a></li>
+                <li><a href="/vibe">Vibe</a></li>
+                <li><a href="/fanbases">Fanbases</a></li>
+                <li><a href="/projects">Projects</a></li>
+                <li><a href="/guide">Guide</a></li>
+                <li><a href="/store">Store</a></li>
+            </ul>
+        </nav>
+
+        <!-- Main Content Section -->
+        <div class="main-content">
+            <h1 class="heading">TaeKook On Air</h1>
+            <p class="caption">Taehyung and Jungkook's songs have captured hearts around the world, and they are frequently played on major radio stations. Here’s where you can catch them live on air!</p>
+            <p class="caption">Explore the global radio stations playing their songs.</p>
+        </div>
+
+        <section class="radio-stations">
+            <h2>Featured Radio Stations</h2>
+            <div class="station-card">
+                <h3>Station Name</h3>
+                <p><strong>Song Played:</strong> Song Title</p>
+                <p><strong>Time/Date:</strong> January 1, 2025</p>
+                <a href="https://link-to-radio-station.com" target="_blank">Listen Live</a>
+            </div>
+            <!-- Repeat this card for other stations -->
+        </section>
+
+        <section class="track-highlights">
+            <h2>Track Highlights</h2>
+            <div class="track-card">
+                <h3>Song Title</h3>
+                <p><strong>Played on:</strong> Radio Station</p>
+                <p><strong>Date:</strong> January 1, 2025</p>
+                <div class="audio-player">
+                    <iframe src="https://open.spotify.com/embed/track/track-id" width="300" height="80" frameborder="0" allow="encrypted-media"></iframe>
+                </div>
+            </div>
+            <!-- Repeat for other tracks -->
+        </section>
+
+        <section class="radio-map">
+            <h2>Radio Stations Around the World</h2>
+            <div class="map-placeholder">
+                <!-- Embed a world map here, or use a placeholder image -->
+                <img src="map-placeholder.jpg" alt="Radio Map">
+            </div>
+        </section>
+
+        <section class="fan-interaction">
+            <h2>Share Your Radio Play Experience</h2>
+            <textarea placeholder="Share your experience of hearing Taehyung or Jungkook on the radio..." rows="4"></textarea>
+            <button type="submit">Submit</button>
+        </section>
+
+        <footer>
+            <p>&copy; 2025 TaeKook Universe. All rights reserved.</p>
+        </footer>
+    </div>
+    </body>
+</html>

@@ -3,14 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Upcoming Projects</title>
+    <title>Fanbases - TaeKook Universe</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
-    <!-- Night Sky -->
     <div class="night-sky" id="night-sky"></div>
-    <div class="upcoming-page">
-        <!-- Navigation Menu -->
+    <div class="fanbases-page">
         <nav class="navbar">
             <ul>
                 <li><a href="/">Home</a></li>
@@ -25,30 +23,25 @@
                 <li><a href="/store">Store</a></li>
             </ul>
         </nav>
-        <!-- Heading and Intro Section -->
         <div class="main-content">
-            <h1 class="heading">Upcoming Projects</h1>
-            <p class="caption">
-                Coming up next for Taehyung and Jungkook! Exciting projects ahead!
-            </p>
-            <div class="events-container">
-                {% for event in upcoming %}
-                <div class="event-card">
-                    <div class="event-header">
-                        <h2 class="event-title">{{ event.title }}</h2>
-                        <p class="event-date">{{ event.date.strftime('%B %d, %Y') }}</p>
+            <h1 class="heading">Fanbases Supporting TaeKook</h1>
+            <p class="caption">These fanbases work tirelessly to support Taehyung and Jungkook!</p>
+
+            <div class="fanbase-container">
+                {% for fanbase in fanbases %}
+                    <div class="fanbase-card">
+                        {% if fanbase.logo %}
+                            <img src="{{ url_for('static', filename='images/fanbases/' + fanbase.logo) }}" alt="Logo" class="fanbase-logo">
+                        {% endif %}
+                        <h2 class="fanbase-name">{{ fanbase.fb_name }}</h2>
+                        <p class="location">{{ fanbase.location }}</p>
+                        <p class="work">{{ fanbase.focus }}</p>
+                        <p class="description">{{ fanbase.description }}</p>
                     </div>
-                    <div class="event-body">
-                        <img src="{{ url_for('static', filename='images/upcoming/' + event.image) }}" alt="{{ event.title }}" class="event-image">
-                        <div class="event-content">
-                            <p class="event-description">{{ event.description }}</p>
-                        </div>
-                    </div>
-                </div>
                 {% endfor %}
             </div>
-        <div>
-        <!-- Footer -->
+        </div>
+        
         <footer>
             <p>&copy; 2025 TaeKook Universe. All rights reserved.</p>
         </footer>
