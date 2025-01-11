@@ -11,70 +11,74 @@
     <div class="night-sky" id="night-sky"></div>
 
     <!-- Navigation Menu -->
-    <div class="radio-page">
-        <nav class="navbar">
-            <ul>
-                <li><a href="/">Home</a></li>
-                <li><a href="/upcoming">Upcoming</a></li>
-                <li><a href="/memories">Memories</a></li>
-                <li><a href="/milestones">Milestones</a></li>
-                <li><a href="/radio">Radios</a></li>
-                <li><a href="/vibe">Vibe</a></li>
-                <li><a href="/fanbases">Fanbases</a></li>
-                <li><a href="/projects">Projects</a></li>
-                <li><a href="/guide">Guide</a></li>
-                <li><a href="/store">Store</a></li>
-            </ul>
-        </nav>
+    <nav class="navbar">
+        <ul>
+            <li><a href="/">Home</a></li>
+            <li><a href="/upcoming">Upcoming</a></li>
+            <li><a href="/memories">Memories</a></li>
+            <li><a href="/milestones">Milestones</a></li>
+            <li><a href="/radio">Radios</a></li>
+            <li><a href="/vibe">Vibe</a></li>
+            <li><a href="/fanbases">Fanbases</a></li>
+            <li><a href="/projects">Projects</a></li>
+            <li><a href="/guide">Guide</a></li>
+            <li><a href="/store">Store</a></li>
+        </ul>
+    </nav>
 
-        <!-- Main Content Section -->
-        <div class="main-content">
-            <h1 class="heading">TaeKook On Air</h1>
-            <p class="caption">Taehyung and Jungkook's songs have captured hearts around the world, and they are frequently played on major radio stations. Here’s where you can catch them live on air!</p>
-            <p class="caption">Explore the global radio stations playing their songs.</p>
-        </div>
-
-        <section class="radio-stations">
-            <h2>Featured Radio Stations</h2>
-            <div class="station-card">
-                <h3>Station Name</h3>
-                <p><strong>Song Played:</strong> Song Title</p>
-                <p><strong>Time/Date:</strong> January 1, 2025</p>
-                <a href="https://link-to-radio-station.com" target="_blank">Listen Live</a>
-            </div>
-            <!-- Repeat this card for other stations -->
-        </section>
-
-        <section class="track-highlights">
-            <h2>Track Highlights</h2>
-            <div class="track-card">
-                <h3>Song Title</h3>
-                <p><strong>Played on:</strong> Radio Station</p>
-                <p><strong>Date:</strong> January 1, 2025</p>
-                <div class="audio-player">
-                    <iframe src="https://open.spotify.com/embed/track/track-id" width="300" height="80" frameborder="0" allow="encrypted-media"></iframe>
-                </div>
-            </div>
-            <!-- Repeat for other tracks -->
-        </section>
-
-        <section class="radio-map">
-            <h2>Radio Stations Around the World</h2>
-            <div class="map-placeholder">
-                <!-- Embed a world map here, or use a placeholder image -->
-                <img src="map-placeholder.jpg" alt="Radio Map">
-            </div>
-        </section>
-
-        <section class="fan-interaction">
-            <h2>Share Your Radio Play Experience</h2>
-            <textarea placeholder="Share your experience of hearing Taehyung or Jungkook on the radio..." rows="4"></textarea>
-            <button type="submit">Submit</button>
-        </section>
-
-        <footer>
-            <p>&copy; 2025 TaeKook Universe. All rights reserved.</p>
-        </footer>
+    <!-- Main Content -->
+    <div class="main-content">
+        <h1 class="heading">TaeKook On Air</h1>
+        <p class="caption">Explore how to support Taehyung and Jungkook by tuning in and requesting their songs on radio stations worldwide.</p>
     </div>
-    </body>
+
+    <!-- Featured Radio Stations -->
+    <section class="radio-stations">
+        <h2>Featured Radio Stations</h2>
+        {% for station in radio_stations %}
+        <div class="station-card">
+            {% if station.station_logo %}
+            <img src="{{ url_for('static', filename='images/radio/' + station.station_logo) }}" alt="{{ station.station_name }}" class="station-logo">
+            {% endif %}
+            <h3>{{ station.station_name }}</h3>
+            <p><strong>Location:</strong> {{ station.location }}</p>
+            {% if station.description %}
+            <p>{{ station.description }}</p>
+            {% endif %}
+            <a href="{{ station.station_link }}" target="_blank" class="button-link">Tune In</a>
+            {% if station.request_link %}
+            <a href="{{ station.request_link }}" target="_blank" class="button-link">Request a Song</a>
+            {% endif %}
+        </div>
+        {% endfor %}
+    </section>
+
+    <!-- Additional Content for Fans -->
+    <section class="fan-guide">
+        <h2>How to Tune In</h2>
+        <p>Streaming online is easy! Click the "Tune In" link for the radio station of your choice, and enjoy the music live.</p>
+
+        <h2>How to Request a Song</h2>
+        <p>Use the "Request a Song" link to ask for Taehyung or Jungkook's songs. Keep your request simple and polite, like: "Please play <strong>[Song Name]</strong> by <strong>[Artist Name]</strong>. Thank you!"</p>
+
+        <h2>Why Tune In?</h2>
+        <p>Every stream helps! By tuning in, you contribute to Taehyung and Jungkook's global visibility, chart placements, and fan support.</p>
+
+        <h2>Popular Time Slots</h2>
+        <p>Check when the station is most active, usually during morning or evening drive times. This is when they are more likely to play popular requests.</p>
+
+        <h2>Regional or Global Impact</h2>
+        <p>Fans worldwide support Taehyung and Jungkook. By tuning into global stations, you join a movement that connects fans everywhere!</p>
+    </section>
+
+    <!-- Why Radio is Important -->
+    <section class="radio-importance">
+        <h2>Why Tuning In Matters</h2>
+        <p>Listening to Taehyung and Jungkook's songs on radio stations helps increase their global reach, contributes to their chart placements, and connects fans worldwide. It's a powerful way to support their artistry and show the world their incredible talent.</p>
+    </section>
+
+    <footer>
+        <p>&copy; 2025 TaeKook Universe. All rights reserved.</p>
+    </footer>
+</body>
 </html>

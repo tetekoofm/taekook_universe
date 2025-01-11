@@ -1,7 +1,7 @@
 from flask import Flask, render_template, request, redirect, session, url_for, jsonify, current_app
 # from flask_sqlalchemy import SQLAlchemy
 import os, secrets, random, calendar
-from models import db, Upcoming, Memory, Milestone, Product, Discography, MusicVideo, Fanbase, Project
+from models import db, Upcoming, Memory, Milestone, Product, Radio, Discography, MusicVideo, Fanbase, Project
 from collections import defaultdict
 from datetime import datetime
 
@@ -106,25 +106,20 @@ def milestones():
 
 @app.route('/radio')
 def radio():
-    return render_template('radio.html')
+    radio_stations = Radio.query.all() 
+    return render_template('radio.html', radio_stations=radio_stations)
 
 @app.route('/vibe')
 def vibe():
-    # Fetch all the song names from the Discography table
     song_names = [song.song_name for song in Discography.query.all() if song.song_name]
-    
-    # Fetch all the music videos from the MusicVideos table
     music_video = MusicVideo.query.all()
-    # Shuffle the list of videos to display them in a random order
     random.shuffle(music_video)
 
-    # Debugging info
     if not song_names:
         print("No song names found.")
     if not music_video:
         print("No music videos found.")
     
-    # Pass both song_names and music_videos to the template
     return render_template('vibe.html', song_names=song_names, music_videos=music_video)
 
 @app.route("/fanbases")
