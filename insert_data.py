@@ -1,5 +1,5 @@
 import pandas as pd
-from models import db, Upcoming, Memory, Milestone, Product, Discography, MusicVideo, Fanbase, Project
+from models import db, Upcoming, Memory, Milestone, Product, Discography, MusicVideo, Radio, Fanbase, Project
 from app import app
 
 def insert_data_from_excel():
@@ -67,6 +67,24 @@ def insert_data_from_excel():
                 db.session.add(milestone)
         db.session.commit()
         print("Milestones updated from Excel!")
+
+        radio_df = pd.read_excel(excel_file, sheet_name="Radio")
+        for _, row in radio_df.iterrows():
+            existing = Radio.query.filter_by(station_name=row['station_name']).first()
+
+            if not existing:
+                radio = Radio(
+                    station_name=row['station_name'],
+                    location=row['location'],
+                    station_logo=row['station_logo'],
+                    station_link=row['station_link'],
+                    request_link=row['request_link'],
+                    description=row['description']
+                )
+                db.session.add(radio)
+
+        db.session.commit()
+        print("Radio stations data updated from Excel!")
 
         discography_df = pd.read_excel(excel_file, sheet_name='Discography')
         for _, row in discography_df.iterrows():

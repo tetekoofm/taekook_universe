@@ -38,6 +38,19 @@ class Milestone(db.Model):
 
     def __repr__(self):
         return f'<Milestone {self.title}>'
+
+
+class Radio(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    station_logo = db.Column(db.String(255), nullable=True) 
+    station_name = db.Column(db.String(100), nullable=False)
+    location = db.Column(db.String(100), nullable=False) 
+    station_link = db.Column(db.String(255), nullable=False) 
+    request_link = db.Column(db.String(255), nullable=True) 
+    description = db.Column(db.Text, nullable=True)
+
+    def __repr__(self):
+        return f'<Radio {self.station_name}>'
     
 class Discography(db.Model):
     __tablename__ = 'discography'

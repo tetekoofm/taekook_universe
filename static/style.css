@@ -122,10 +122,11 @@ footer {
     background-color: #000;
     color: #5a5a5a;
     box-sizing: border-box;
-    position: relative;
+    position:relative;
     margin-top: auto;
     bottom: 0;
     margin-bottom: 0;
+    z-index: 1;
 }
 
 /* Styling for the navigation menu */
@@ -415,7 +416,10 @@ footer {
         width: 100%;
         left: 0;
         right: 0;
+        bottom: 0;
+        min-height: 100vh;
         box-sizing: border-box; 
+        position: fixed;
     }
 }
 
@@ -1190,112 +1194,115 @@ footer {
 
 /****************************************************** RADIO *****************************************************/
 
-/* Radio Stations Section */
+/* Featured Radio Stations */
 .radio-stations {
-    margin-bottom: 30px;
+    padding: 40px 20px;
+    text-align: center;
+}
+
+.radio-stations h2 {
+    font-family: 'Tangerine', serif;
+    color: #6A0DAD; 
+    font-size: 3rem;
+    margin-bottom: 20px;
 }
 
 .station-card {
-    background-color: #333;
-    padding: 20px;
+    background: #222;
     border-radius: 10px;
-    margin: 10px 0;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    padding: 20px;
+    width: 280px;
+    margin: 15px;
+    display: inline-block;
+    text-align: center;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.6);
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.station-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 5px 25px rgba(75, 0, 130, 0.8);
+}
+
+.station-logo {
+    width: 100px;
+    height: 100px;
+    margin-bottom: 15px;
+    border-radius: 50%;
 }
 
 .station-card h3 {
-    color: #9b59b6;
+    font-family: 'Fira Sans Condensed', serif;
+    color: #fff; 
+    margin: 10px 0;
+    font-size: 1.2rem;
 }
 
 .station-card p {
-    font-size: 1.1em;
-    color: #00e6b8;
+    font-family: 'Fira Sans Condensed', serif;
+    color: #ccc;
+    font-size: 1rem;
+    margin: 5px 0;
 }
 
-.station-card a {
+.button-link {
     display: inline-block;
-    margin-top: 10px;
+    background: #00ff00; 
+    color: #222;
     padding: 10px 20px;
-    background-color: #9b59b6;
-    color: white;
+    border-radius: 5px;
+    margin-top: 10px;
     text-decoration: none;
-    border-radius: 5px;
+    font-weight: bold;
     transition: background-color 0.3s;
 }
 
-.station-card a:hover {
-    background-color: #7a40b3;
+.button-link:hover {
+    background-color: #6A0DAD;  
+    color: #fff;
 }
 
-/* Track Highlights Section */
-.track-highlights {
-    margin-bottom: 30px;
+/* Fan Guide Section */
+.fan-guide {
+    padding: 40px 20px;
+    text-align: left;
 }
 
-.track-card {
+.fan-guide h2 {
+    font-family: 'Fira Sans Condensed', serif;
+    color: #6A0DAD;
+    font-size: 2rem;
+    margin-bottom: 20px;
+}
+
+.fan-guide p {
+    font-family: 'Fira Sans Condensed', serif;
+    font-size: 1rem;
+    margin-bottom: 20px;
+    color: #ddd; 
+}
+
+.fan-guide strong {
+    color: #008000; 
+}
+
+/* Radio Importance Section */
+.radio-importance {
+    padding: 40px 20px;
     background-color: #333;
-    padding: 20px;
-    border-radius: 10px;
-    margin: 10px 0;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-}
-
-.track-card h3 {
-    color: #9b59b6;
-}
-
-.track-card p {
-    font-size: 1.1em;
-    color: #00e6b8;
-}
-
-/* Audio Player */
-.audio-player iframe {
-    margin-top: 10px;
-    border: none;
-    border-radius: 5px;
-}
-
-/* Radio Map Section */
-.radio-map {
+    margin-top: 40px;
     text-align: center;
-    margin-bottom: 30px;
 }
 
-.radio-map .map-placeholder img {
-    width: 80%;
-    max-width: 800px;
-    border-radius: 10px;
+.radio-importance h2 {
+    color: #6A0DAD;  
+    margin-bottom: 20px;
 }
 
-/* Fan Interaction Section */
-.fan-interaction {
-    text-align: center;
-    margin-bottom: 30px;
-}
-
-.fan-interaction textarea {
-    width: 80%;
-    padding: 10px;
-    border-radius: 10px;
-    border: 1px solid #9b59b6;
-    background-color: #333;
-    color: white;
-}
-
-.fan-interaction button {
-    margin-top: 10px;
-    padding: 10px 20px;
-    background-color: #9b59b6;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s;
-}
-
-.fan-interaction button:hover {
-    background-color: #7a40b3;
+.radio-importance p {
+    font-size: 1.2rem;
+    line-height: 1.8;
+    color: #ddd;  /* Light gray for content */
 }
 
 /****************************************************** VIBE *****************************************************/
@@ -1769,14 +1776,6 @@ footer {
 
 .sticky-notes a:hover {
     color: #d6d6d6; /* Slightly lighter color on hover */
-}
-
-/* Footer */
-footer {
-    text-align: center;
-    margin-top: 50px;
-    font-size: 0.9em;
-    color: #bfbfbf;
 }
 
 /***************************************************** STORE *****************************************************/
