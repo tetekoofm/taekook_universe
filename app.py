@@ -136,6 +136,50 @@ def projects():
 def guide_page():
     return render_template("guide.html")
 
+# Streaming page route
+@app.route('/streaming')
+def streaming():
+    return render_template('streaming.html')
+
+# Buying page route
+@app.route('/buying')
+def buying():
+    return render_template('buying.html')
+
+# Voting page route
+@app.route('/voting')
+def voting():
+    return render_template('voting.html')
+
+# Promotion page route
+@app.route('/promotions')
+def promotions():
+    return render_template('promotions.html')
+
+# Endorsements page route
+@app.route('/endorsements')
+def endorsements():
+    return render_template('endorsements.html')
+
+# Endorsements page route
+@app.route('/naver')
+def naver():
+    return render_template('naver.html')
+
+# Charity page route
+@app.route('/donations')
+def charity():
+    return render_template('donations.html')
+
+# Reporting page route
+@app.route('/reporting')
+def reporting():
+    return render_template('reporting.html')
+
+# Events page route
+@app.route('/events')
+def events():
+    return render_template('events.html')
 @app.route('/store')
 def store():
     # Fetch all products from the Product table
