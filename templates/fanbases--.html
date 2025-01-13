@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fanbases - TaeKook Universe</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="night-sky" id="night-sky"></div>
+    <div class="fanbases-page">
+        <nav class="navbar">
+            <ul>
+                <li><a href="/">Home</a></li>
+                <li><a href="/upcoming">Upcoming</a></li>
+                <li><a href="/memories">Memories</a></li>
+                <li><a href="/milestones">Milestones</a></li>
+                <li><a href="/radio">Radios</a></li>
+                <li><a href="/vibe">Vibe</a></li>
+                <li><a href="/fanbases">Fanbases</a></li>
+                <li><a href="/projects">Projects</a></li>
+                <li><a href="/guide">Guide</a></li>
+                <li><a href="/store">Store</a></li>
+            </ul>
+        </nav>
+        <div class="main-content">
+            <h1 class="heading">Fanbases Supporting TaeKook</h1>
+            <p class="caption">These fanbases work tirelessly to support Taehyung and Jungkook!</p>
+
+            <div class="fanbase-container">
+                {% for fanbase in fanbases %}
+                    <div class="fanbase-card">
+                        {% if fanbase.logo %}
+                            <img src="{{ url_for('static', filename='images/fanbases/' + fanbase.logo) }}" alt="Logo" class="fanbase-logo">
+                        {% endif %}
+                        <h2 class="fanbase-name">{{ fanbase.fb_name }}</h2>
+                        <p class="location">{{ fanbase.location }}</p>
+                        <p class="work">{{ fanbase.focus }}</p>
+                        <p class="description">{{ fanbase.description }}</p>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+        
+        <footer>
+            <p>&copy; 2025 TaeKook Universe. All rights reserved.</p>
+        </footer>
+    </div>
+</body>
+</html>

@@ -318,7 +318,7 @@ footer {
         display: flex;
         flex-direction: row;
         gap: 15px;
-        justify-content: center; /* Center navbar items horizontally */
+        justify-content: center; 
     }
 
     .navbar li {
@@ -328,6 +328,18 @@ footer {
     .navbar a {
         font-size: 18px;
         font-weight: bold;
+    }
+
+    .navbar li.show .submenu {
+        display: block;
+    }
+    
+    .navbar .submenu li {
+        margin: 10px 0;
+    }
+    
+    .navbar .submenu a {
+        font-size: 16px; 
     }
 
     .main-content .image-carousel {
@@ -410,16 +422,18 @@ footer {
     }
 
     footer {
-        padding: 5px;
-        font-size: 0.5rem;
+        padding: 10px;
+        font-size: 1rem;
         text-align: center;
         width: 100%;
-        left: 0;
-        right: 0;
+        background-color: #000;
+        color: #5a5a5a;
+        box-sizing: border-box;
+        position:relative;
+        margin-top: auto;
         bottom: 0;
-        min-height: 100vh;
-        box-sizing: border-box; 
-        position: fixed;
+        margin-bottom: 0;
+        z-index: 1;
     }
 }
 
@@ -739,7 +753,7 @@ footer {
     grid-template-columns: auto auto auto 1fr;
     gap: 3px;
     align-items: center; 
-    margin: 2px 2px!important;
+    margin: 3px 2px!important;
     cursor: pointer;
     color: white;
     padding: 0;
@@ -755,7 +769,8 @@ footer {
 }
 
 .event-date {
-    font-size: 12px;
+    font-family: 'Fira Sans Condensed', serif;
+    font-size: 0.8em !important;
     margin-right: 3px;
     color: #008000;
     font-weight: bold;
@@ -764,7 +779,8 @@ footer {
 }
 
 .event-title {
-    font-size: 12px;
+    font-family: 'Fira Sans Condensed', serif;
+    font-size: 0.8em !important;
     text-align: left;
     margin-top: 0;
 }
@@ -782,17 +798,16 @@ footer {
 /* Modal Container */
 .modal {
     display: flex;
-    position: fixed;
+    position: fixed; /* Ensures fixed positioning relative to the viewport */
     z-index: 1000;
-    top: -20%;
+    top: 0 !important; /* Start from the top */
     left: 0;
     width: 100vw;
     height: 100vh;
     background-color: rgba(0, 0, 0, 0.8);
     overflow-y: auto;
-    justify-content: center;
-    align-items: flex-start;
-    padding-top: 200px;
+    justify-content: center; /* Center horizontally */
+    align-items: flex-start; /* Align content at the top */
 }
 
 /* Modal Content */
@@ -1776,6 +1791,99 @@ footer {
 
 .sticky-notes a:hover {
     color: #d6d6d6; /* Slightly lighter color on hover */
+}
+
+/***************************************************** STANDALONE PAGES *****************************************************/
+
+/***** General Page Styles *****/
+.page {
+    padding: 30px;
+    max-width: 1200px;
+    margin: 0 auto;
+    border-radius: 8px;
+    background-color: #222; /* Dark background for all pages */
+}
+
+/* Header Styling */
+.page h1, .page h2 {
+    font-family: 'Tangerine', serif;
+    font-size: 3.5rem;
+    color: #6A0DAD;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+/* Section Styling */
+.page .section {
+    margin-bottom: 30px;
+    padding: 20px;
+    border-radius: 8px;
+    background-color: #333; /* Dark background for sections */
+}
+
+/* Section Subtitles */
+.page .section h3 {
+    font-size: 2rem;
+    color: #6A0DAD;
+    margin-bottom: 15px;
+}
+
+/* Paragraph Text */
+.page p {
+    font-size: 1.1rem;
+    color: #ccc; /* Lighter grey text for paragraphs */
+    line-height: 1.6;
+}
+
+/* List Styling */
+.page ul {
+    list-style-type: disc;
+    padding-left: 40px;
+}
+
+.page ul li {
+    font-size: 1.1rem;
+    color: #008000; /* Green for list items */
+    margin-bottom: 10px;
+}
+
+/* Sticky Notes Box Styling */
+.page .sticky-notes {
+    background-color: #008000; /* Green for sticky notes */
+    padding: 20px;
+    border-radius: 8px;
+    margin-top: 15px;
+    color: #fff;
+}
+
+.page .sticky-notes ul {
+    list-style-type: none;
+    padding-left: 0;
+}
+
+.page .sticky-notes li {
+    font-size: 1rem;
+    color: #fff;
+}
+
+/* Links Styling */
+.page a {
+    color: #6A0DAD; /* Purple for links */
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.page a:hover {
+    color: #FF6F00; /* Tangerine on hover for links */
+    text-decoration: underline;
+}
+
+/* Captions Styling */
+.page .caption {
+    color: #bbb; /* Light grey for captions */
+    font-size: 1rem;
+    margin-bottom: 20px;
+    text-align: center;
 }
 
 /***************************************************** STORE *****************************************************/

@@ -3,48 +3,86 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Fanbases - TaeKook Universe</title>
+    <title>Joining Fanbases</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
-    <div class="night-sky" id="night-sky"></div>
-    <div class="fanbases-page">
-        <nav class="navbar">
-            <ul>
-                <li><a href="/">Home</a></li>
-                <li><a href="/upcoming">Upcoming</a></li>
-                <li><a href="/memories">Memories</a></li>
-                <li><a href="/milestones">Milestones</a></li>
-                <li><a href="/radio">Radios</a></li>
-                <li><a href="/vibe">Vibe</a></li>
-                <li><a href="/fanbases">Fanbases</a></li>
-                <li><a href="/projects">Projects</a></li>
-                <li><a href="/guide">Guide</a></li>
-                <li><a href="/store">Store</a></li>
-            </ul>
-        </nav>
-        <div class="main-content">
-            <h1 class="heading">Fanbases Supporting TaeKook</h1>
-            <p class="caption">These fanbases work tirelessly to support Taehyung and Jungkook!</p>
+    <!-- Navigation Menu -->
+    <nav class="navbar">
+        <ul>
+            <li><a href="/">Home</a></li>
+            <li><a href="/guide">Back to Guide</a></li>
+        </ul>
+    </nav>
 
-            <div class="fanbase-container">
-                {% for fanbase in fanbases %}
-                    <div class="fanbase-card">
-                        {% if fanbase.logo %}
-                            <img src="{{ url_for('static', filename='images/fanbases/' + fanbase.logo) }}" alt="Logo" class="fanbase-logo">
-                        {% endif %}
-                        <h2 class="fanbase-name">{{ fanbase.fb_name }}</h2>
-                        <p class="location">{{ fanbase.location }}</p>
-                        <p class="work">{{ fanbase.focus }}</p>
-                        <p class="description">{{ fanbase.description }}</p>
-                    </div>
-                {% endfor %}
-            </div>
+    <!-- Main Content -->
+    <div class="page guide-page">
+        <h1>Joining Fanbases</h1>
+        <p class="caption">Fanbases are the backbone of any fandom, uniting fans globally and working tirelessly to support Taehyung and Jungkook. Here's how you can be part of these amazing communities!</p>
+
+        <div class="section">
+            <h3>What Are Fanbases?</h3>
+            <p>Fanbases are organized groups of fans dedicated to supporting artists like Taehyung and Jungkook. These groups promote their work, organize events, manage projects, and provide a sense of community for fans.</p>
         </div>
-        
-        <footer>
-            <p>&copy; 2025 TaeKook Universe. All rights reserved.</p>
-        </footer>
+
+        <div class="section">
+            <h3>Why Should You Join a Fanbase?</h3>
+            <ul>
+                <li><strong>Global Connection:</strong> Connect with fans from around the world who share your passion.</li>
+                <li><strong>Stay Informed:</strong> Get the latest updates, schedules, and news about Taehyung and Jungkook.</li>
+                <li><strong>Collaborate:</strong> Participate in projects, events, and campaigns to show your support.</li>
+                <li><strong>Give Back:</strong> Many fanbases engage in charitable activities inspired by the artists.</li>
+            </ul>
+        </div>
+
+        <div class="section">
+            <h3>How to Join a Fanbase</h3>
+            <ol>
+                <li><strong>Search for Local or Global Fanbases:</strong> Look for fanbases dedicated to Taehyung, Jungkook, or BTS in your region or globally. Platforms like Twitter, Instagram, and Facebook often host active fanbase communities.</li>
+                <li><strong>Follow Their Social Media:</strong> Stay updated with fanbases by following their accounts on platforms such as Twitter, Instagram, or TikTok.</li>
+                <li><strong>Participate Actively:</strong> Engage in discussions, contribute to campaigns, and support fan projects.</li>
+                <li><strong>Join Messaging Groups:</strong> Many fanbases have WhatsApp, Discord, or Telegram groups for more interactive communication.</li>
+            </ol>
+        </div>
+
+        <div class="section">
+            <h3>Popular Taekook Fanbases</h3>
+            <ul>
+                <li>
+                    <strong>Taekook Global:</strong> A worldwide fanbase dedicated to supporting Taehyung and Jungkook’s individual and joint projects.
+                </li>
+                <li>
+                    <strong>Kim Taehyung Universe:</strong> Focused on celebrating Taehyung's work and milestones.
+                </li>
+                <li>
+                    <strong>Golden Maknae Support:</strong> A fanbase centered around promoting Jungkook's artistic journey.
+                </li>
+                <li>
+                    <strong>Taekook USA:</strong> A US-based fanbase organizing local events and projects.
+                </li>
+                <li>
+                    <strong>European Taekookers:</strong> Fans in Europe coordinating efforts to promote Taekook's work across the continent.
+                </li>
+            </ul>
+        </div>
+
+        <div class="section">
+            <h3>Tips for Being an Active Fanbase Member</h3>
+            <ul>
+                <li>Regularly engage with fanbase posts and updates.</li>
+                <li>Participate in donation drives or streaming parties organized by the fanbase.</li>
+                <li>Help spread awareness of fan projects by sharing them on your social media.</li>
+                <li>Be respectful and supportive of fellow members and other fanbases.</li>
+            </ul>
+        </div>
+
+        <div class="sticky-notes">
+            <h4>Did You Know?</h4>
+            <ul>
+                <li>Many fanbases organize charity events and drives inspired by Taehyung and Jungkook’s philanthropy.</li>
+                <li>Fanbases often collaborate globally to ensure major achievements for Taekook.</li>
+            </ul>
+        </div>
     </div>
 </body>
 </html>
