@@ -125,6 +125,8 @@ def vibe():
 @app.route("/fanbases")
 def fanbases():
     fanbases = Fanbase.query.all()
+    for fanbase in fanbases:
+        print(fanbase.fb_name, fanbase.x, fanbase.instagram, fanbase.facebook)
     return render_template("fanbases.html", fanbases=fanbases)
 
 @app.route('/projects')
