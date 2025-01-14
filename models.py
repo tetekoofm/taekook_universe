@@ -78,11 +78,18 @@ class MusicVideo(db.Model):
 
 class Fanbase(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    logo = db.Column(db.String(200), nullable=True)
-    fb_name = db.Column(db.String(100), nullable=False)
-    location = db.Column(db.String(100), nullable=False)
-    focus = db.Column(db.String(200), nullable=False)
+    logo = db.Column(db.String(255), nullable=True)
+    fb_name = db.Column(db.String(255), nullable=False)
+    location = db.Column(db.String(255), nullable=True)
+    focus = db.Column(db.String(255), nullable=True)
     description = db.Column(db.Text, nullable=True)
+    x = db.Column(db.String(255), nullable=True)  # Social media links
+    instagram = db.Column(db.String(255), nullable=True)
+    facebook = db.Column(db.String(255), nullable=True)
+    bluesky = db.Column(db.String(255), nullable=True)
+    tiktok = db.Column(db.String(255), nullable=True)
+    spotify = db.Column(db.String(255), nullable=True)
+    applemusic = db.Column(db.String(255), nullable=True)
 
     def __repr__(self):
         return f"<Fanbase {self.fb_name}>"

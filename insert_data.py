@@ -136,7 +136,14 @@ def insert_data_from_excel():
                     fb_name=row['fb_name'],
                     location=row['location'],
                     focus=row['focus'],
-                    description=row['description']
+                    description=row['description'],
+                    x=row['x'],  # Ensure these are the correct column names
+                    instagram=row['instagram'],
+                    facebook=row['facebook'],
+                    bluesky=row['bluesky'],
+                    tiktok=row['tiktok'],
+                    spotify=row['spotify'],
+                    applemusic=row['applemusic']
                 )
                 db.session.add(fanbase)
         

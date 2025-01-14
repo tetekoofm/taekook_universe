@@ -1555,73 +1555,6 @@ footer {
     }
 }
 
-/*********************************************** FANBASES ********************************************************/
-
-/* Fanbase Cards */
-.fanbase-container {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-around;
-    gap: 20px;
-    padding: 20px;
-}
-
-.fanbase-card {
-    background-color: #333;
-    padding: 20px;
-    border-radius: 8px;
-    width: 320px; /* Increased width */
-    height: 250px; /* Reduced height for better balance */
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: space-between;
-}
-
-.fanbase-card:hover {
-    transform: translateY(-10px);
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
-}
-
-.fanbase-logo {
-    width: 80px;
-    height: 80px;
-    border-radius: 50%; /* round */
-    object-fit: cover;
-    margin-bottom: 20px;
-}
-
-.fanbase-name {
-    font-size: 24px;
-    font-weight: bold;
-    color: #7a4bc3; /* Purple */
-    margin-bottom: 10px;
-}
-
-.location {
-    font-size: 16px;
-    color: #ccc;
-    margin-bottom: 10px;
-}
-
-.work {
-    font-size: 16px;
-    color: #bbb;
-    margin-bottom: 10px;
-}
-
-.description {
-    font-size: 14px;
-    color: #ddd;
-    overflow: hidden; /* Prevents overflow */
-    text-overflow: ellipsis; /* Adds "..." if the text is too long */
-    flex-grow: 1; /* Ensures the description doesn't overflow */
-    display: -webkit-box;
-    -webkit-line-clamp: 3; /* Limits the description to 3 lines */
-    -webkit-box-orient: vertical;
-}
-
 /***************************************************** PROJECT *****************************************************/
 
 /* Styles specific to the Projects page */
@@ -1801,7 +1734,7 @@ footer {
     max-width: 1200px;
     margin: 0 auto;
     border-radius: 8px;
-    background-color: #222; /* Dark background for all pages */
+    background-color: #222;
 }
 
 /* Header Styling */
@@ -1813,12 +1746,26 @@ footer {
     text-align: center;
 }
 
+.page .caption {
+    font-family: 'Fira Sans Condensed', serif;
+    font-size: 1.2rem !important; 
+    color: #008000 !important;
+    margin: 0.5rem 0; 
+    text-align: center;
+    max-width: 100%;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6), 
+                 -2px -2px 4px rgba(0, 0, 0, 0.4), 
+                 0px 4px 6px rgba(0, 0, 0, 0.3);
+    line-height: 0.8; 
+    z-index: 100;
+}
+
 /* Section Styling */
 .page .section {
     margin-bottom: 30px;
     padding: 20px;
     border-radius: 8px;
-    background-color: #333; /* Dark background for sections */
+    background-color: #333;
 }
 
 /* Section Subtitles */
@@ -1829,9 +1776,10 @@ footer {
 }
 
 /* Paragraph Text */
-.page p {
+.page p, .page ul {
+    font-family: 'Fira Sans Condensed', serif;
     font-size: 1.1rem;
-    color: #ccc; /* Lighter grey text for paragraphs */
+    color: #ccc; 
     line-height: 1.6;
 }
 
@@ -1842,18 +1790,16 @@ footer {
 }
 
 .page ul li {
-    font-size: 1.1rem;
-    color: #008000; /* Green for list items */
     margin-bottom: 10px;
 }
 
 /* Sticky Notes Box Styling */
 .page .sticky-notes {
-    background-color: #008000; /* Green for sticky notes */
+    background-color: #008000;
     padding: 20px;
     border-radius: 8px;
     margin-top: 15px;
-    color: #fff;
+    color: #ccc;
 }
 
 .page .sticky-notes ul {
@@ -1863,27 +1809,115 @@ footer {
 
 .page .sticky-notes li {
     font-size: 1rem;
-    color: #fff;
+    color: #ccc;
 }
 
 /* Links Styling */
 .page a {
-    color: #6A0DAD; /* Purple for links */
+    color: #6A0DAD;
     text-decoration: none;
     font-weight: bold;
 }
 
 .page a:hover {
-    color: #FF6F00; /* Tangerine on hover for links */
+    color: #FF6F00; 
     text-decoration: underline;
 }
 
 /* Captions Styling */
 .page .caption {
-    color: #bbb; /* Light grey for captions */
+    color: #ccc;
     font-size: 1rem;
     margin-bottom: 20px;
     text-align: center;
+}
+
+/*********************************************** FANBASES ********************************************************/
+
+/* Fanbase Cards */
+.fanbase-container {
+    /* display: flex;
+    flex-wrap: wrap; */
+    display: grid; 
+    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+    justify-content: space-around;
+    gap: 50px;
+    padding: 20px;
+}
+
+.fanbase-card {
+    background-color: #333;
+    padding: 10px;
+    border-radius: 8px;
+    width: 120px; 
+    height: 350px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.fanbase-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+.fanbase-logo {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 20px;
+}
+
+.fanbase-name {
+    font-size: 2.2em !important;
+    font-weight: bold;
+    color: #7a4bc3; 
+    margin-bottom: 10px;
+}
+
+.location {
+    font-size: 0.8em !important;
+    color: #ccc;
+    margin-bottom: 0px !important;
+}
+
+.work {
+    font-size: 0.8em !important;
+    color: #bbb;
+    margin-top: 1px !important;
+    margin-bottom: 0px !important;
+}
+
+.description {
+    font-size: 0.8em !important;
+    color: #ddd;
+    overflow: hidden; 
+    text-overflow: ellipsis; 
+    flex-grow: 1; 
+    display: -webkit-box;
+    -webkit-line-clamp: 3; 
+    -webkit-box-orient: vertical;
+}
+
+.social-icons {
+    position: relative; 
+    bottom: 30px;
+    display: flex;
+    gap: 10px;
+}
+
+.social-icons img {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    transition: transform 0.3s ease;
+}
+
+.social-icons img:hover {
+    transform: scale(1.2);
 }
 
 /***************************************************** STORE *****************************************************/
