@@ -668,7 +668,17 @@ footer {
     position: absolute;
     opacity: 0;
     z-index: 10;
+    transform: translate(-50%, -50%);
     animation: zoomInOut 15s forwards;
+}
+
+#videos-container {
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+    margin: 0 auto; /* Center the container if necessary */
+    padding: 0;
+    overflow: hidden;
 }
 
 @keyframes zoomInOut {
