@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}">
     <title>Memories Timeline</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
@@ -32,17 +33,31 @@
             <div class="main-content">
                 <h1 class="heading">Memories</h1>
                 <p class="caption">Few memories through their timeline!</p>
+                <button id="playButton" class="btn">Ready to Smile?</button>
+                <a href="#" id="skipLink" class="skip-link" style="display: none;">Skip to Timeline</a>
             </div>
         </div>
 
-        <!-- Timeline Container (Hidden by Default) -->
+        <!-- Audio Section -->
+        <div id="audio-container">
+            <audio id="memories-audio" muted>
+                <source src="{{ url_for('static', filename='audio/memories.mp3') }}" type="audio/mp3">
+                Your browser does not support the audio tag.
+            </audio>
+        </div>
+
+        <!-- Video Memories Section -->
+        <div id="videos-container"></div>
+
+        <!-- Timeline Container -->
         <div class="timeline-container hide">
+
             <!-- Years Container -->
             <div class="years-container">
                 {% for year in timeline_data.keys() | sort %}
                 <div class="year-box" data-year="{{ year }}" role="button" aria-expanded="false">
                     {{ year }}
-                    <div class="year-vertical-line"></div> <!-- Year vertical line -->
+                    <div class="year-vertical-line"></div>
                 </div>
                 {% endfor %}
             </div>
@@ -79,19 +94,10 @@
         <!-- Event Modal -->
         <div id="eventModal" class="modal" style="display: none;">
             <div class="modal-content">
-                <!-- Close Button -->
                 <span class="close" onclick="closeModal()">&times;</span>
-                
-                <!-- Event Title -->
                 <h2 id="eventTitle"></h2>
-                
-                <!-- Event Date -->
                 <span id="eventDate"></span>
-                
-                <!-- Event Image -->
                 <img id="eventImage" src="" alt="Event Image" class="modal-event-image">
-                            
-                <!-- Event Description -->
                 <p id="eventDescription"></p>
             </div>
         </div>
@@ -100,26 +106,99 @@
         </footer>
     </div>
     <script>
+        let videosContainer;
         document.addEventListener("DOMContentLoaded", () => {
-            const timelineIntro = document.querySelector(".timeline-intro");
-            const timelineContainer = document.querySelector(".timeline-container");
-            const yearBoxes = document.querySelectorAll(".year-box");
-    
-            // Listen for the animation end of the slide-up effect
-            timelineIntro.addEventListener("animationend", (event) => {
-                if (event.animationName === "slideUp") { // Ensure it's the slide-up animation
-                    // Remove the 'hide' class from the timeline container
-                    timelineContainer.classList.remove("hide");
-                }
+            const playButton = document.getElementById("playButton");
+            const skipLink = document.getElementById("skipLink");
+            const memoriesAudio = document.getElementById("memories-audio");
+            videosContainer = document.getElementById("videos-container");
+            const videoFiles = {{ video_files|tojson }};
+            const batchSize = 6;  
+            const delayIncrement = 2;
+
+            // Initially hide the button
+            playButton.style.display = "none";
+
+            // Show the play button after a delay (adjust as needed)
+            setTimeout(() => {
+                playButton.style.display = "block";
+            }, 2000);
+
+            // Play audio and videos on button click
+            playButton.addEventListener("click", () => {
+                memoriesAudio.muted = false;
+                memoriesAudio.play().catch(console.error);
+                playButton.style.display = "none";
+                skipLink.style.display = "inline";
+                startVideosLoop(); // Start looping videos
             });
-    
-            // Handle year click (shows months and events)
-            yearBoxes.forEach(box => {
+
+            // Event listener for audio ending
+            memoriesAudio.addEventListener("ended", () => {
+                showTimeline();
+            });
+
+            // Skip link functionality
+            skipLink.addEventListener("click", (event) => {
+                event.preventDefault();
+                memoriesAudio.pause();
+                showTimeline();
+            });
+
+            // Function to play a batch of videos at non-overlapping random positions
+            function playBatchOfVideos() {
+                const usedPositions = []; // Track used positions
+                for (let i = 0; i < videoFiles.length; i += batchSize) {
+                    setTimeout(() => {
+                        videoFiles.slice(i, i + batchSize).forEach((video, index) => {
+                            let top, left;
+
+                            // Ensure the new position does not overlap with used positions
+                            do {
+                                top = Math.random() * 80 + 10; // Random top within 10% to 90%
+                                left = Math.random() * 80 + 10; // Random left within 10% to 90%
+                            } while (usedPositions.some(pos => Math.abs(pos.top - top) < 10 && Math.abs(pos.left - left) < 10)); // Minimum distance of 10%
+
+                            // Save the new position
+                            usedPositions.push({ top, left });
+
+                            const videoContainer = document.createElement("div");
+                            videoContainer.className = "video-container";
+                            videoContainer.style.top = `${top}%`;
+                            videoContainer.style.left = `${left}%`;
+                            videoContainer.style.animationDelay = `${index * delayIncrement}s`;
+
+                            const videoElement = document.createElement("video");
+                            videoElement.src = `/static/videos/${video}`;
+                            videoElement.autoplay = true;
+                            videoElement.loop = true;
+                            videoElement.muted = true;
+
+                            videoContainer.appendChild(videoElement);
+                            videosContainer.appendChild(videoContainer);
+                        });
+                    }, i * delayIncrement * 1000);
+                }
+            }
+
+            // Function to continuously loop videos while the audio is playing
+            function startVideosLoop() {
+                function repeatVideos() {
+                    if (!memoriesAudio.paused) {
+                        playBatchOfVideos(); // Play videos
+                        setTimeout(repeatVideos, videoFiles.length * delayIncrement * 1000); // Schedule the next batch
+                    }
+                }
+                repeatVideos();
+            }
+
+            // Handle year box click (show months and events)
+            yearBoxes.forEach((box) => {
                 box.addEventListener("click", () => {
                     const year = box.dataset.year;
     
-                    // Hide all months and reset line visibility
-                    document.querySelectorAll(".months-container").forEach(container => {
+                    // Hide all months and reset lines
+                    document.querySelectorAll(".months-container").forEach((container) => {
                         const isActive = container.dataset.year === year;
                         container.style.display = isActive ? "flex" : "none";
     
@@ -128,7 +207,6 @@
                             horizontalLine.style.display = isActive ? "block" : "none";
                         }
     
-                        // Reset year-box lines
                         const yearBox = document.querySelector(`[data-year="${container.dataset.year}"]`);
                         if (yearBox) {
                             const yearLine = yearBox.querySelector(".year-vertical-line");
@@ -137,81 +215,77 @@
                     });
     
                     // Display vertical branches for the active month's box
-                    document.querySelectorAll(".month-box-container").forEach(monthBox => {
+                    document.querySelectorAll(".month-box-container").forEach((monthBox) => {
                         const branch = monthBox.querySelector(".month-vertical-branch");
-                        branch.style.display = branch.closest(".months-container").dataset.year === year ? "block" : "none";
+                        branch.style.display =
+                            branch.closest(".months-container").dataset.year === year ? "block" : "none";
                     });
     
-                    // Set active state for the year clicked
-                    yearBoxes.forEach(yb => yb.classList.remove("active"));
+                    // Set active state for the clicked year
+                    yearBoxes.forEach((yb) => yb.classList.remove("active"));
                     box.classList.add("active");
                 });
             });
     
-            // Handle event click (opens modal with event details)
+            // Handle event click (show modal with event details)
             const eventItems = document.querySelectorAll(".event-item");
-            eventItems.forEach(item => {
+            eventItems.forEach((item) => {
                 item.addEventListener("click", (e) => {
-                    const title = e.target.closest(".event-item").dataset.title;
-                    const date = e.target.closest(".event-item").dataset.date;
-                    const description = e.target.closest(".event-item").dataset.description;
-                    const image = e.target.closest(".event-item").dataset.image;
-    
+                    const { title, date, description, image } = e.target.closest(".event-item").dataset;
                     showEventDetails(title, date, description, image);
                 });
             });
-        });
-    
-        function showEventDetails(title = "No Title", date = "Unknown Date", description = "No Description", image = "") {
-            const modal = document.getElementById("eventModal");
-            const menuHeight = document.querySelector("nav").offsetHeight; // Get menu height
-            modal.style.display = "flex";
-            modal.style.top = `${menuHeight}px`; // Offset the modal below the menu
-            console.log("Title:", title);
-            console.log("Raw Date:", date);
-            console.log("Description:", description);
-            console.log("Image URL:", image);
-    
-            document.getElementById("eventTitle").textContent = title; // Set the event title
-            document.getElementById("eventDescription").textContent = description; // Set the event description
-            document.getElementById("eventImage").src = image; // Set the event image
-            document.querySelector('.months-box').scrollLeft = 0;
-            // Format the date to display as "DD-MMM-YYYY"
-            let formattedDate = "Unknown Date";
-            if (date !== "Unknown Date" && date !== "") {
-                formattedDate = formatDate(date); // Format date to the correct style
+
+            // Display event details in a modal
+            function showEventDetails(title = "No Title", date = "Unknown Date", description = "No Description", image = "") {
+                const modal = document.getElementById("eventModal");
+                const menuHeight = document.querySelector("nav").offsetHeight;
+        
+                modal.style.display = "flex";
+                modal.style.top = `${menuHeight}px`;
+        
+                document.getElementById("eventTitle").textContent = title;
+                document.getElementById("eventDescription").textContent = description;
+                document.getElementById("eventImage").src = image;
+        
+                let formattedDate = "Unknown Date";
+                if (date) formattedDate = formatDate(date);
+        
+                document.getElementById("eventDate").textContent = formattedDate;
+        
+                modal.style.display = "block";
             }
     
-            // Set the formatted date and display it on the top-left
-            document.getElementById("eventDate").textContent = formattedDate;
-    
-            // Show the modal
-            document.getElementById("eventModal").style.display = "block";
-        }
-    
-        // Format the date as DD-MMM-YYYY in KST (without issues from time zone shifts)
-        function formatDate(dateString) {
-            const dateParts = dateString.split('-');
-            const year = dateParts[0];
-            const month = dateParts[1] - 1; // Months are 0-indexed in JavaScript Date
-            const day = dateParts[2];
-    
-            // Manually create the Date object, without time zone issues
-            const date = new Date(Date.UTC(year, month, day));
-    
-            // Get the day, month, and year
-            const dayOfMonth = date.getUTCDate(); // Use UTC to avoid time zone issues
-            const monthName = date.toLocaleString('default', { month: 'short' }); // Get abbreviated month
-            const formattedYear = date.getUTCFullYear(); // Get the year in UTC
-    
-            // Return formatted date as "DD-MMM-YYYY"
-            return `${dayOfMonth}-${monthName}-${formattedYear}`;
-        }
-    
-        // Close the modal
-        function closeModal() {
-            document.getElementById("eventModal").style.display = "none"; // Hide the modal
-        }
-    </script>
+            // Format date as DD-MMM-YYYY
+            function formatDate(dateString) {
+                const [year, month, day] = dateString.split("-");
+                const date = new Date(Date.UTC(year, month - 1, day));
+                const dayOfMonth = date.getUTCDate();
+                const monthName = date.toLocaleString("default", { month: "short" });
+                const formattedYear = date.getUTCFullYear();
+        
+                return `${dayOfMonth}-${monthName}-${formattedYear}`;
+            }
+        
+            // Function to load the timeline
+            function showTimeline() {
+                const timelineContainer = document.querySelector(".timeline-container");
+                const videosContainer = document.getElementById("videos-container");
+
+                if (timelineContainer && videosContainer) {
+                    videosContainer.style.display = "none"; // Hide videos
+                    timelineContainer.classList.remove("hide"); // Show timeline
+                    timelineContainer.style.display = "block"; // Ensure it's visible
+                } else {
+                    console.error("Timeline or videos container not found");
+                }
+            }
+
+            // Close modal
+            function closeModal() {
+                document.getElementById("eventModal").style.display = "none";
+            }
+        });
+    </script>    
 </body>
 </html>

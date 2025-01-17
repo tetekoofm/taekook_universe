@@ -43,10 +43,11 @@ def upcoming():
 
 @app.route('/memories')
 def memories():
-    # Fetch all memories from the database
+    video_dir = os.path.join(app.static_folder, 'videos')
+    video_files = os.listdir(video_dir)
+
     memories_data = Memory.query.all()
 
-    # Organize data by year and month using a defaultdict
     timeline_data = defaultdict(lambda: defaultdict(list))
 
     for memory in memories_data:
@@ -75,7 +76,7 @@ def memories():
     # Format years for display (e.g., '20' for 2020)
     formatted_years = {year: str(year)[-2:] for year in timeline_data.keys()}
 
-    return render_template('memories.html', 
+    return render_template('memories.html', video_files=video_files,
                            timeline_data=timeline_data, 
                            calendar=calendar, 
                            formatted_years=formatted_years)
@@ -169,9 +170,9 @@ def naver():
     return render_template('naver.html')
 
 # Charity page route
-@app.route('/donations')
-def charity():
-    return render_template('donations.html')
+@app.route('/donating')
+def donating():
+    return render_template('donating.html')
 
 # Reporting page route
 @app.route('/reporting')

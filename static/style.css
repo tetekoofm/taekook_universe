@@ -614,8 +614,183 @@ footer {
 .timeline-container {
     display: flex;
     flex-direction: column;
-    margin-top: 250px;
+    margin-top: 350px;
 }
+
+.hide {
+    display: none;
+}
+
+/* Style for the "Ready to Smile?" button */
+#playButton {
+    background-color: #6A0DAD; /* Purple background */
+    color: #fff; /* White text */
+    font-size: 18px;
+    font-family: 'Fira Sans Condensed', sans-serif;
+    padding: 15px 30px;
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+    position: absolute; /* Positioning relative to the container */
+    bottom: -80px; /* Place below the caption */
+    left: 50%;
+    transform: translateX(-50%);
+    text-align: center;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    opacity: 0;
+    visibility: hidden; /* Hidden initially */
+    animation: fadeIn 1s forwards 2s; /* Fade in after animations finish */
+}
+
+#playButton:hover {
+    background-color: #008000; /* Green on hover */
+}
+
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+        visibility: hidden;
+    }
+    100% {
+        opacity: 1;
+        visibility: visible;
+    }
+}
+
+.video-container video {
+    max-width: 500px;
+    max-height: 400px;
+    border-radius: 10px;
+    z-index: 9999;
+}
+
+.video-container {
+    position: absolute;
+    opacity: 0;
+    z-index: 10;
+    animation: zoomInOut 15s forwards;
+}
+
+@keyframes zoomInOut {
+    0% {
+        transform: scale(0);
+        opacity: 1;
+    }
+    50% {
+        transform: scale(1);
+        opacity: 1;
+    }
+    100% {
+        transform: scale(0);
+        opacity: 0;
+    }
+}
+
+/* Style for the skip link */
+.skip-link {
+    display: none; /* Initially hidden */
+    font-size: 16px;
+    color: #6A0DAD; /* Purple color */
+    text-decoration: underline;
+    cursor: pointer;
+    margin-top: 10px;
+    font-family: 'Fira Sans Condensed', sans-serif;
+}
+
+.skip-link:hover {
+    color: #008000; /* Green on hover */
+}
+
+/* #audio-container {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+#unmute-audio {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    background-color: rgba(0, 0, 0, 0.5);
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    z-index: 1;
+}
+
+#unmute-audio:hover {
+    background-color: rgba(0, 0, 0, 0.8);
+} */
+
+/* Centering the video */
+/* #video-container {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1000;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: rgba(0, 0, 0, 0.8);
+    padding: 20px;
+    border-radius: 10px;
+}
+
+.hide {
+    display: none;
+} */
+
+/* #video-container.show {
+    display: block;
+} */
+
+@keyframes videozoomIn {
+    0% {
+        transform: scale(0); /* Starts at 0% zoom */
+        opacity: 0;          /* Starts invisible */
+    }
+    100% {
+        transform: scale(1); /* Ends at 100% zoom */
+        opacity: 1;          /* Fully visible */
+    }
+}
+
+/* #memories-video {
+    animation: videozoomIn 5s ease-out forwards; 
+    transform-origin: center;
+    display: block; 
+} */
+
+/* #skip-video, #unmute-video {
+    position: absolute;
+    bottom: 10px;
+    background-color: rgba(0, 0, 0, 0.5);
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    z-index: 1;
+}
+
+#skip-video {
+    left: 10px;
+}
+
+#unmute-video {
+    right: 10px;
+} */
+
+/* #unmute-video.hide {
+    display: none;
+} */
+
+/* #skip-video:hover, #unmute-video:hover {
+    background-color: rgba(0, 0, 0, 0.8);
+} */
 
 /* Year Boxes Container */
 .years-container {
@@ -1765,7 +1940,7 @@ footer {
     margin-bottom: 30px;
     padding: 20px;
     border-radius: 8px;
-    background-color: #333;
+    background-color: #000;
 }
 
 /* Section Subtitles */
@@ -1841,20 +2016,22 @@ footer {
     display: grid; 
     grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
     justify-content: space-around;
-    gap: 50px;
+    gap: 85px;
     padding: 20px;
 }
 
 .fanbase-card {
-    background-color: #333;
+    background-color: #000;
     padding: 10px;
     border-radius: 8px;
-    width: 120px; 
-    height: 350px;
+    width: 160px; 
+    height: 250px;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
     display: flex;
     flex-direction: column;
     align-items: center;
+    left: 0;
+    right: 0;
     justify-content: space-between;
 }
 
@@ -1864,35 +2041,37 @@ footer {
 }
 
 .fanbase-logo {
+    margin-top: 15px;
     width: 80px;
     height: 80px;
     border-radius: 50%;
     object-fit: cover;
-    margin-bottom: 20px;
+    margin-bottom: 0px;
 }
 
 .fanbase-name {
-    font-size: 2.2em !important;
+    font-size: 2.5em !important;
     font-weight: bold;
     color: #7a4bc3; 
-    margin-bottom: 10px;
+    margin-top: 0px !important;
+    margin-bottom: 0px !important;
 }
 
 .location {
-    font-size: 0.8em !important;
+    font-size: 1em !important;
     color: #ccc;
     margin-bottom: 0px !important;
 }
 
 .work {
-    font-size: 0.8em !important;
+    font-size: 1em !important;
     color: #bbb;
-    margin-top: 1px !important;
+    margin-top: 0px !important;
     margin-bottom: 0px !important;
 }
 
 .description {
-    font-size: 0.8em !important;
+    font-size: 1em !important;
     color: #ddd;
     overflow: hidden; 
     text-overflow: ellipsis; 
@@ -1904,14 +2083,14 @@ footer {
 
 .social-icons {
     position: relative; 
-    bottom: 30px;
+    bottom: 0px;
     display: flex;
     gap: 10px;
 }
 
 .social-icons img {
-    width: 20px;
-    height: 20px;
+    width: 25px;
+    height: 25px;
     border-radius: 50%;
     transition: transform 0.3s ease;
 }
