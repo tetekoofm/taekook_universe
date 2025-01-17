@@ -108,6 +108,7 @@
     <script>
         let videosContainer;
         document.addEventListener("DOMContentLoaded", () => {
+            const yearBoxes = document.querySelectorAll(".year-box");
             const playButton = document.getElementById("playButton");
             const skipLink = document.getElementById("skipLink");
             const memoriesAudio = document.getElementById("memories-audio");
@@ -280,12 +281,12 @@
                     console.error("Timeline or videos container not found");
                 }
             }
-
+        });
             // Close modal
             function closeModal() {
                 document.getElementById("eventModal").style.display = "none";
             }
-        });
+
     </script>    
 </body>
 </html>
