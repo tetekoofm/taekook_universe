@@ -117,6 +117,19 @@
             const batchSize = 6;  
             const delayIncrement = 2;
 
+            // Predefined positions for videos to avoid overlap
+            const positions = [
+                { top: 50, left: 50 }, // Center
+                { top: 75, left: 75 }, // Bottom-right
+                { top: 25, left: 25 }, // Top-left
+                { top: 25, left: 75 }, // Top-right
+                { top: 75, left: 25 }, // Bottom-left
+                { top: 50, left: 25 }, // Center-left
+                { top: 50, left: 75 }, // Center-right
+                //{ top: 25, left: 50 }, // Top-center
+                { top: 75, left: 50 }, // Bottom-center
+            ];
+
             // Initially hide the button
             playButton.style.display = "none";
 
@@ -146,27 +159,20 @@
                 showTimeline();
             });
 
-            // Function to play a batch of videos at non-overlapping random positions
+            // Function to play a batch of videos in predefined zones
             function playBatchOfVideos() {
-                const usedPositions = []; // Track used positions
+                let positionIndex = 0; // Start from the first position
                 for (let i = 0; i < videoFiles.length; i += batchSize) {
                     setTimeout(() => {
                         videoFiles.slice(i, i + batchSize).forEach((video, index) => {
-                            let top, left;
-
-                            // Ensure the new position does not overlap with used positions
-                            do {
-                                top = Math.random() * 80 + 10; // Random top within 10% to 90%
-                                left = Math.random() * 80 + 10; // Random left within 10% to 90%
-                            } while (usedPositions.some(pos => Math.abs(pos.top - top) < 10 && Math.abs(pos.left - left) < 10)); // Minimum distance of 10%
-
-                            // Save the new position
-                            usedPositions.push({ top, left });
+                            const position = positions[positionIndex % positions.length]; // Cycle through predefined positions
+                            positionIndex++;
 
                             const videoContainer = document.createElement("div");
                             videoContainer.className = "video-container";
-                            videoContainer.style.top = `${top}%`;
-                            videoContainer.style.left = `${left}%`;
+                            videoContainer.style.position = "absolute";
+                            videoContainer.style.top = `calc(${position.top}% - 250px)`; // Adjust for centering
+                            videoContainer.style.left = `calc(${position.left}% - 250px)`; // Adjust for centering
                             videoContainer.style.animationDelay = `${index * delayIncrement}s`;
 
                             const videoElement = document.createElement("video");
