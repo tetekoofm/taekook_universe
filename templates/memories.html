@@ -118,16 +118,26 @@
             const delayIncrement = 2;
 
             // Predefined positions for videos to avoid overlap
-            const positions = [
-                { top: 50, left: 50 }, // Center
+            const positions = window.innerWidth < 768 ? [
+                { top: 50, left: 35 }, // Center
+                { top: 65, left: 55 }, // Bottom-right
+                { top: 35, left: 5 }, // Top-left
+                { top: 35, left: 55 }, // Top-right
+                { top: 65, left: 5 }, // Bottom-left
+                { top: 50, left: 65 }, // Center-right
+                { top: 50, left: 5 }, // Center-left
+                { top: 65, left: 40 }, // Bottom-center
+                // { top: 25, left: 50 }, // Top-center
+            ] : [
+                { top: 50, left: 40 }, // Center
                 { top: 75, left: 75 }, // Bottom-right
-                { top: 25, left: 25 }, // Top-left
+                { top: 25, left: 5 }, // Top-left
                 { top: 25, left: 75 }, // Top-right
-                { top: 75, left: 25 }, // Bottom-left
-                { top: 50, left: 25 }, // Center-left
-                { top: 50, left: 75 }, // Center-right
-                //{ top: 25, left: 50 }, // Top-center
-                { top: 75, left: 50 }, // Bottom-center
+                { top: 75, left: 5 }, // Bottom-left
+                { top: 50, left: 65 }, // Center-right
+                { top: 50, left: 15 }, // Center-left
+                // { top: 25, left: 50 }, // Top-center
+                { top: 75, left: 40 }, // Bottom-center
             ];
 
             // Initially hide the button
@@ -171,8 +181,9 @@
                             const videoContainer = document.createElement("div");
                             videoContainer.className = "video-container";
                             videoContainer.style.position = "absolute";
-                            videoContainer.style.top = `calc(${position.top}% - 250px)`; // Adjust for centering
-                            videoContainer.style.left = `calc(${position.left}% - 250px)`; // Adjust for centering
+                            videoContainer.style.top = `${position.top}%`;
+                            videoContainer.style.left = `${position.left}%`;
+                            videoContainer.style.transform = "translate(-50%, -50%)"; 
                             videoContainer.style.animationDelay = `${index * delayIncrement}s`;
 
                             const videoElement = document.createElement("video");
@@ -180,6 +191,9 @@
                             videoElement.autoplay = true;
                             videoElement.loop = true;
                             videoElement.muted = true;
+                            videoElement.playsInline = true; // Prevent full-screen on mobile
+                            videoElement.setAttribute("playsinline", "true"); // For older browsers
+                            videoElement.setAttribute("webkit-playsinline", "true"); // For iOS Safari
 
                             videoContainer.appendChild(videoElement);
                             videosContainer.appendChild(videoContainer);

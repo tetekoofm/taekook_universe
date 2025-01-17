@@ -698,9 +698,9 @@ footer {
 
 /* Style for the skip link */
 .skip-link {
-    display: none; /* Initially hidden */
-    font-size: 16px;
-    color: #6A0DAD; /* Purple color */
+    display: none; 
+    font-size: 20px;
+    color: #6A0DAD; 
     text-decoration: underline;
     cursor: pointer;
     margin-top: 10px;
@@ -708,99 +708,8 @@ footer {
 }
 
 .skip-link:hover {
-    color: #008000; /* Green on hover */
+    color: #008000; 
 }
-
-/* #audio-container {
-    position: relative;
-    width: 100%;
-    height: 100%;
-}
-
-#unmute-audio {
-    position: absolute;
-    bottom: 10px;
-    right: 10px;
-    background-color: rgba(0, 0, 0, 0.5);
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    font-size: 16px;
-    cursor: pointer;
-    z-index: 1;
-}
-
-#unmute-audio:hover {
-    background-color: rgba(0, 0, 0, 0.8);
-} */
-
-/* Centering the video */
-/* #video-container {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    z-index: 1000;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    background: rgba(0, 0, 0, 0.8);
-    padding: 20px;
-    border-radius: 10px;
-}
-
-.hide {
-    display: none;
-} */
-
-/* #video-container.show {
-    display: block;
-} */
-
-@keyframes videozoomIn {
-    0% {
-        transform: scale(0); /* Starts at 0% zoom */
-        opacity: 0;          /* Starts invisible */
-    }
-    100% {
-        transform: scale(1); /* Ends at 100% zoom */
-        opacity: 1;          /* Fully visible */
-    }
-}
-
-/* #memories-video {
-    animation: videozoomIn 5s ease-out forwards; 
-    transform-origin: center;
-    display: block; 
-} */
-
-/* #skip-video, #unmute-video {
-    position: absolute;
-    bottom: 10px;
-    background-color: rgba(0, 0, 0, 0.5);
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    font-size: 16px;
-    cursor: pointer;
-    z-index: 1;
-}
-
-#skip-video {
-    left: 10px;
-}
-
-#unmute-video {
-    right: 10px;
-} */
-
-/* #unmute-video.hide {
-    display: none;
-} */
-
-/* #skip-video:hover, #unmute-video:hover {
-    background-color: rgba(0, 0, 0, 0.8);
-} */
 
 /* Year Boxes Container */
 .years-container {
@@ -1070,6 +979,79 @@ footer {
         margin-top: 0px;
     }
 
+    .video-container {
+        position: absolute;
+        top: 50%; /* Center vertically within the .timeline-intro */
+        left: 50%; /* Center horizontally within the .timeline-intro */
+        transform: translate(-50%, -50%); /* Ensure proper centering */
+        width: auto;
+        height: auto;
+        z-index: 9999;
+    }
+
+    #videos-container {
+        position: relative;
+        overflow: hidden;
+        width: 100vw; /* Full screen width */
+        height: 100vh; /* Full screen height */
+        background-color: #000; /* Background for contrast */
+    }
+
+    .video-container video {
+        max-width: 200px; /* Adjust video size for mobile */
+        max-height: 100px; /* Maintain size and aspect ratio */
+        width: 100%; /* Make sure the video scales properly */
+        height: auto;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3); /* Add shadow for visibility */
+    }
+
+    /* Style adjustments for the play button */
+    #playButton {
+        display: block;
+        position: absolute;
+        bottom: -80px;
+        left: 50%;
+        transform: translateX(-50%);
+        background-color: #6A0DAD; /* Purple color from the theme */
+        color: #fff;
+        font-family: 'Fira Sans Condensed', sans-serif;
+        font-size: 12px;
+        text-align: center;
+        padding: 12px 24px;
+        border-radius: 25px;
+        border: none;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+        cursor: pointer;
+        z-index: 10000;
+        transition: background-color 0.3s ease, transform 0.3s ease;
+        opacity: 0;
+        visibility: hidden; 
+        animation: fadeIn 1s forwards 2s; 
+    }
+
+    #playButton:hover {
+        background-color: #008000; /* Green hover effect */
+        transform: scale(1.1);
+    }
+
+    /* Style adjustments for the skip link */
+    #skipLink {
+        display: inline-block;
+        position: absolute;
+        bottom: -80px;
+        left: 50%;
+        transform: translateX(-50%);
+        font-size: 12px;
+        color: #008000; /* Green from the theme */
+        text-decoration: underline;
+        z-index: 10000;
+    }
+
+    #skipLink:hover {
+        color: #6A0DAD; /* Purple hover effect */
+        text-decoration: none;
+    }
+
     /* Keep years container aligned */
     .years-container {
         margin-top: 240px;
@@ -1137,7 +1119,6 @@ footer {
         background: #555;
     }
 
-    
     .event-list {
         margin: 10px auto;
         line-height: 1.5;
