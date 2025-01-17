@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}">
     <title>Endorsements</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
@@ -15,6 +16,22 @@
         </ul>
     </nav>
 
+    <!-- Sub Navigation -->
+    <nav class="navbar sub-nav">
+        <ul>
+            <li><a href="/streaming">Streaming</a></li>
+            <li><a href="/buying">Buying</a></li>
+            <li><a href="/voting">Voting</a></li>
+            <li><a href="/radio">Radio</a></li>
+            <li><a href="/naver">Naver</a></li>
+            <li><a href="/fanbases">Fanbases</a></li>
+            <li><a href="/promotions">Promotions</a></li>
+            <li><a href="/donating">Donating</a></li>
+            <li><a href="/reporting">Reporting</a></li>
+            <li><a href="/events">Events</a></li>
+        </ul>
+    </nav>
+    
     <!-- Main Content -->
     <div class="page guide-page">
         <h1>Endorsements</h1>
