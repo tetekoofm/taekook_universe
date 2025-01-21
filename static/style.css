@@ -79,7 +79,7 @@ body {
 
 .main-content .heading {
     margin-top: 2vh;
-    margin-bottom: 2vh;
+    /* margin-bottom: 2vh; */
     font-family: 'Tangerine', serif;
     font-size: 5.5rem !important;
     font-weight: bold;
@@ -123,10 +123,15 @@ footer {
     color: #5a5a5a;
     box-sizing: border-box;
     position:relative;
-    margin-top: auto;
+    margin-top: 10px;
     bottom: 0;
     margin-bottom: 0;
     z-index: 1;
+}
+
+footer a:hover {
+    text-decoration: underline;
+    opacity: 0.8;
 }
 
 /* Styling for the navigation menu */
@@ -199,9 +204,9 @@ footer {
 .countdown-container {
     margin-top: 0;
     position: relative;
-    bottom: 28px;
+    bottom: 20px;
     width: 100%;
-    padding: 30px;
+    padding: 10px;
     text-align: center;
     z-index: 1000;
 }
@@ -423,14 +428,14 @@ footer {
 
     footer {
         padding: 10px;
-        font-size: 1rem;
+        font-size: 0.6rem;
         text-align: center;
         width: 100%;
         background-color: #000;
         color: #5a5a5a;
         box-sizing: border-box;
         position:relative;
-        margin-top: auto;
+        /* margin-top: auto; */
         bottom: 0;
         margin-bottom: 0;
         z-index: 1;
@@ -546,6 +551,24 @@ footer {
     line-height: 1.6;
     color: #5a5a5a;
     text-align: justify;
+}
+
+/* For screens smaller than 480px */
+@media (max-width: 768px) {
+    .event-card {
+        padding: 10px;
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+    }
+    
+    .event-description {
+        font-family: 'Fira Sans Condensed', serif;
+        font-size: 0.6rem;
+        letter-spacing: 0.5px;
+        line-height: 1.2;
+        text-align: justify;
+    }
 }
 
 /*************************************************** MEMORIES ***************************************************/
@@ -981,28 +1004,28 @@ footer {
 
     .video-container {
         position: absolute;
-        top: 50%; /* Center vertically within the .timeline-intro */
-        left: 50%; /* Center horizontally within the .timeline-intro */
-        transform: translate(-50%, -50%); /* Ensure proper centering */
+        top: 50%; 
+        left: 50%; 
+        transform: translate(-50%, -50%);
         width: auto;
         height: auto;
-        z-index: 9999;
+        z-index: 100;
     }
 
     #videos-container {
         position: relative;
         overflow: hidden;
-        width: 100vw; /* Full screen width */
-        height: 100vh; /* Full screen height */
-        background-color: #000; /* Background for contrast */
+        width: 100vw; 
+        height: 100vh; 
+        background-color: #000; 
     }
 
     .video-container video {
-        max-width: 200px; /* Adjust video size for mobile */
-        max-height: 100px; /* Maintain size and aspect ratio */
-        width: 100%; /* Make sure the video scales properly */
+        max-width: 200px; 
+        max-height: 100px; 
+        width: 100%; 
         height: auto;
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3); /* Add shadow for visibility */
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3); 
     }
 
     /* Style adjustments for the play button */
@@ -1012,7 +1035,7 @@ footer {
         bottom: -80px;
         left: 50%;
         transform: translateX(-50%);
-        background-color: #6A0DAD; /* Purple color from the theme */
+        background-color: #6A0DAD; 
         color: #fff;
         font-family: 'Fira Sans Condensed', sans-serif;
         font-size: 12px;
@@ -1022,7 +1045,7 @@ footer {
         border: none;
         box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
         cursor: pointer;
-        z-index: 10000;
+        z-index: 999;
         transition: background-color 0.3s ease, transform 0.3s ease;
         opacity: 0;
         visibility: hidden; 
@@ -1030,31 +1053,22 @@ footer {
     }
 
     #playButton:hover {
-        background-color: #008000; /* Green hover effect */
+        background-color: #008000; 
         transform: scale(1.1);
     }
 
-    /* Style adjustments for the skip link */
     #skipLink {
-        display: inline-block;
-        position: absolute;
-        bottom: -80px;
-        left: 50%;
-        transform: translateX(-50%);
         font-size: 12px;
-        color: #008000; /* Green from the theme */
-        text-decoration: underline;
-        z-index: 10000;
     }
-
-    #skipLink:hover {
-        color: #6A0DAD; /* Purple hover effect */
-        text-decoration: none;
+    
+    #skipLink.hidden {
+        visibility: hidden;
+        opacity: 0;
     }
 
     /* Keep years container aligned */
     .years-container {
-        margin-top: 240px;
+        top: -140px;
         justify-content: flex-start; 
         position: relative; 
         left: 0;
@@ -1102,7 +1116,7 @@ footer {
         gap: 5px;
         padding: 0 10px;
         margin-bottom: 10px;
-        white-space: nowrap; /* Prevent wrapping */
+        white-space: nowrap; 
     }
 
     /* Handle scrollbar style */
@@ -2527,4 +2541,282 @@ table td {
     }
 }
 
+/**************************************************** MEET TAEKOOK ***************************************************************/
+
+.back-home-button {
+    background-color: #6A0DAD;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-size: 18px;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+}
+
+.back-home-button:hover {
+    background-color: #008000; 
+}
+
+.back-home-container-tae, .back-home-container-kook {
+    position: fixed; 
+    top: 20px; 
+    z-index: 100; 
+}
+
+.back-home-container-tae {
+    right: 20px;
+}
+
+.back-home-container-kook {
+    left: 20px;
+}
+
+.tae-heading, .tae-subheading, .tae-section-wrapper, .kook-heading, .kook-subheading, .kook-section-wrapper {
+    font-family: 'Fira Sans Condensed', sans-serif;
+    position: relative;
+    width: 100%;
+    text-align: center;
+}
+
+.tae-heading, .tae-subheading, .tae-section-wrapper {
+    right: -20%;
+}
+
+.kook-heading, .kook-subheading, .kook-section-wrapper {
+    left: -20%;
+}
+
+.tae-heading, .kook-heading {
+    font-family: 'Tangerine', serif;
+    font-size: 6rem;
+    margin-top: 50px;
+    letter-spacing: 2px;
+    animation: fadeIn 2s ease-in-out;
+}
+
+.tae-subheading, .kook-subheading {
+    font-size: 2.4rem;
+    margin: 15px 0;
+    font-weight: 300;
+}
+
+.tae-heading, .kook-subheading, .tae-section-wrapper, .tae-section h3, .kook-section p, .kook-section li {
+    color: #008000;
+}
+
+.kook-heading, .tae-subheading, .kook-section h3, .tae-section p, .tae-section li{
+    color: #6A0DAD;
+}
+
+/* Tae Full Page Image */
+.tae-full-page-image-side, .kook-full-page-image-side {
+    position: fixed;
+    top: 0;
+    width: 30%;
+    height: 100vh;
+    background-size: cover;
+    background-position: center;
+    z-index: 100;
+    filter: brightness(70%) contrast(90%);
+    opacity: 0.95;
+    flex-shrink: 0;
+}
+
+.tae-full-page-image-side {
+    left: 0;
+}
+
+.kook-full-page-image-side {
+    right: 0;
+}
+
+.tae-section, .kook-section {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    text-align: center;
+    padding: 20px;
+    margin: 0 auto;
+    width: auto; 
+    box-sizing: border-box;
+    overflow: hidden;
+    flex-wrap: wrap; 
+}
+
+.tae-section h3, .kook-section h3{
+    font-size: 2.4rem;
+    margin-bottom: 15px;
+}
+
+.tae-section p, .tae-section li, .taekook-emoji, .kook-section p, .kook-section li{
+    font-size: 1.4rem;
+    margin: 0;
+    margin-bottom: 5px;
+    display: flex;
+    align-items: center;
+    padding-right: 10px;
+    box-sizing: border-box; 
+}
+
+.tae-image-container, .kook-image-container {
+    width: 20vw;
+    height: 20vw; 
+    max-width: 250px;
+    max-height: 250px;
+    min-width: 100px;
+    min-height: 100px;
+    border: 5px solid #008000;
+    border-radius: 50%;
+    overflow: hidden;
+    margin: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.tae-image-container {
+    border: 5px solid #008000;
+}
+
+.kook-image-container {
+    border: 5px solid #6A0DAD;
+}
+
+.taekook-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: top center;
+}
+
+.taekook-bio {
+    max-width: 1200px;
+    margin: 40px auto;
+    color: #fff;
+    padding: 20px;
+}
+
+.taekook-weverse-life, .taekook-cover-song-section {
+    background-color: #000;
+    padding: 30px;
+    margin: 40px 0;
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+}
+
+.taekook-social-links {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 20px;
+    transition: transform 0.3s ease;
+}
+
+.tae-social-links a {
+    color: #008000;
+    font-size: 1.4rem;
+}
+
+.tae-social-links a:hover {
+    transform: scale(1.2);
+    color: #6A0DAD;
+}
+
+.kook-social-links a {
+    color: #6A0DAD;
+    font-size: 1.4rem;
+}
+
+.kook-social-links a:hover {
+    transform: scale(1.2);
+    color: #008000;
+}
+
+/* Scroll Animation */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes zoomIn {
+    from {
+        transform: scale(0.8);
+        opacity: 0;
+    }
+    to {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+/* Scroll Animations */
+@keyframes fadeInRight {
+    from {
+        opacity: 0;
+        transform: translateX(50px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+/* Responsive Layout for Smaller Screens */
+@media (max-width: 1024px) {
+    .tae-full-page-image-side, .kook-full-page-image-side {
+        width: 25%; /* Shrink the side sections */
+    }
+    .taekook-section {
+        padding: 10px; /* Adjust padding */
+    }
+    .tae-image-container, .kook-image-container {
+        width: 200px; /* Reduce image container size */
+        height: 200px;
+    }
+}
+
+@media (max-width: 768px) {
+    .tae-full-page-image-side, .kook-full-page-image-side {
+        width: 20%; /* Further shrink the side sections */
+    }
+    .taekook-section {
+        padding: 5px; /* Minimize padding */
+    }
+    .tae-image-container, .kook-image-container {
+        width: 150px; /* Further reduce image container size */
+        height: 150px;
+    }
+}
+
+@media (max-width: 480px) {
+    .tae-full-page-image-side, .kook-full-page-image-side {
+        width: 100%; /* Make the side sections full-width for small screens */
+        height: 50vh; /* Adjust height */
+    }
+    .taekook-section {
+        flex-direction: column;
+        padding: 5px;
+    }
+    .tae-image-container, .kook-image-container {
+        width: 120px; /* Further shrink for very small screens */
+        height: 120px;
+    }
+}
 /***********************************************************************************************************************************/
