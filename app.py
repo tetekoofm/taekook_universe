@@ -1,5 +1,5 @@
-from flask import Flask, render_template, request, redirect, session, url_for, jsonify, current_app
-# from flask_sqlalchemy import SQLAlchemy
+from flask import Flask, render_template, request, redirect, session, url_for, jsonify, current_app, send_from_directory
+from taekook import taekook_content
 import os, secrets, random, calendar
 from models import db, Upcoming, Memory, Milestone, Product, Radio, Discography, MusicVideo, Fanbase, Project
 from collections import defaultdict
@@ -276,6 +276,15 @@ def checkout():
         return render_template('thank_you.html', name=name, email=email, address=address, total_price=total_price)
 
     return render_template('checkout.html', total_price=total_price)
+
+# Route for 'gettoknow.html'
+@app.route('/meet-tae')
+def meet_tae():
+    return render_template('meettae.html')
+
+@app.route('/meet-koo')
+def meet_jk():
+    return render_template('meetkoo.html')
 
 
 # Start the Flask app

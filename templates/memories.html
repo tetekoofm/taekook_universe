@@ -34,7 +34,8 @@
                 <h1 class="heading">Memories</h1>
                 <p class="caption">Few memories through their timeline!</p>
                 <button id="playButton" class="btn">Ready to Smile?</button>
-                <a href="#" id="skipLink" class="skip-link" style="display: none;">Skip to Timeline</a>
+                <a id="skipLink" class="skip-link" role="button" style="display: none;">Skip to Timeline</a>
+
             </div>
         </div>
 
@@ -162,11 +163,14 @@
                 showTimeline();
             });
 
-            // Skip link functionality
             skipLink.addEventListener("click", (event) => {
                 event.preventDefault();
+                event.stopPropagation();
+                skipLink.style.display = "none"; 
                 memoriesAudio.pause();
-                showTimeline();
+                setTimeout(() => {
+                    showTimeline(); // Show the timeline immediately after a short delay
+                }, 50); 
             });
 
             // Function to play a batch of videos in predefined zones
@@ -297,6 +301,7 @@
                     videosContainer.style.display = "none"; // Hide videos
                     timelineContainer.classList.remove("hide"); // Show timeline
                     timelineContainer.style.display = "block"; // Ensure it's visible
+                    skipLink.style.display = "none";
                 } else {
                     console.error("Timeline or videos container not found");
                 }
