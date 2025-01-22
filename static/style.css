@@ -2544,7 +2544,7 @@ table td {
 /**************************************************** MEET TAEKOOK ***************************************************************/
 
 .back-home-button {
-    background-color: #6A0DAD;
+    background-color: #8A00C4;
     color: white;
     padding: 10px 20px;
     border-radius: 5px;
@@ -2606,7 +2606,7 @@ table td {
 }
 
 .kook-heading, .tae-subheading, .kook-section h3, .tae-section p, .tae-section li{
-    color: #6A0DAD;
+    color: #9354ce;
 }
 
 /* Tae Full Page Image */
@@ -2680,7 +2680,7 @@ table td {
 }
 
 .kook-image-container {
-    border: 5px solid #6A0DAD;
+    border: 5px solid #9A6DD7;
 }
 
 .taekook-image {
@@ -2704,11 +2704,11 @@ table td {
 
 .tae-social-links a:hover {
     transform: scale(1.2);
-    color: #6A0DAD;
+    color: #9A6DD7;
 }
 
 .kook-social-links a {
-    color: #6A0DAD;
+    color: #9A6DD7;
     font-size: 1.4rem;
 }
 
@@ -2820,7 +2820,7 @@ table td {
     }
     
     .kook-image-container {
-        border: 2px solid #6A0DAD;
+        border: 2px solid #9A6DD7;
     }
 
     .taekook-bio, .taekook-weverse-life, .taekook-cover-song-section, .taekook-social-links {
