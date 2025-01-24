@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}">
+    <title>Milestones</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="night-sky" id="night-sky"></div>
+    <div class="milestone-page">
+        <nav class="navbar">
+            <ul>
+                <li><a href="/">Home</a></li>
+                <li><a href="/upcoming">Upcoming</a></li>
+                <li><a href="/memories">Memories</a></li>
+                <li><a href="/milestones">Milestones</a></li>
+                <li><a href="/radio">Radios</a></li>
+                <li><a href="/vibe">Vibe</a></li>
+                <li><a href="/fanbases">Fanbases</a></li>
+                <li><a href="/projects">Projects</a></li>
+                <li><a href="/guide">Guide</a></li>
+                <li><a href="/store">Store</a></li>
+            </ul>
+        </nav>
+        <div class="main-content">
+            <h1 class="heading">Milestones</h1>
+            <p class="caption">Explore the milestones of their careers!</p>
+        </div>
+        <div class="milestone-cards">
+            {% for milestone in milestones %}
+            <div class="milestone-card">
+                <div class="card-header">
+                    <h2 class="title">{{ milestone.title }}</h2>
+                    <p class="date">{{ milestone.date }}</p>
+                </div>
+                <div class="card-body">
+                    <img src="{{ url_for('static', filename='images/milestones/' + milestone.image) }}" 
+                        alt="{{ milestone.title }}"
+                        data-title="{{ milestone.title }}"
+                        data-date="{{ milestone.date }}"
+                        data-image="{{ milestone.image }}"
+                        data-description="{{ milestone.description }}">
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        <div id="milestone-modal" class="modal">
+            <div class="modal-content">
+                <span class="close-btn" onclick="closeModal()">×</span>
+                <h2 id="modal-title"></h2>
+                <p id="modal-date"></p>
+                <img id="modal-image" src="" alt="">
+                <p id="modal-description"></p>
+            </div>
+        </div>
+    </div>
+    {% include '09.footer.html' %}
+    <script>
+        function openModal(title, date, image, description) {
+            document.getElementById('modal-title').textContent = title;
+            document.getElementById('modal-date').textContent = date;
+            document.getElementById('modal-image').src = '/static/images/milestones/' + image;
+            document.getElementById('modal-description').textContent = description;
+            document.getElementById('milestone-modal').style.display = 'block';
+        }
+        function closeModal() {
+            document.getElementById('milestone-modal').style.display = 'none';
+        }
+        document.querySelectorAll('.milestone-card img').forEach(img => {
+            img.addEventListener('click', function() {
+                const title = this.getAttribute('data-title');
+                const date = this.getAttribute('data-date');
+                const image = this.getAttribute('data-image');
+                const description = this.getAttribute('data-description');
+                openModal(title, date, image, description);
+            });
+        });
+        window.onclick = function(event) {
+            if (event.target == document.getElementById('milestone-modal')) {
+                closeModal();
+            }
+        }
+    </script>
+</body>
+</html>
