@@ -1387,119 +1387,6 @@ footer a:hover {
     }
 }
 
-/****************************************************** RADIO *****************************************************/
-
-/* Featured Radio Stations */
-.radio-stations {
-    padding: 40px 20px;
-    text-align: center;
-}
-
-.radio-stations h2 {
-    font-family: 'Tangerine', serif;
-    color: #6A0DAD; 
-    font-size: 3rem;
-    margin-bottom: 20px;
-}
-
-.station-card {
-    background: #222;
-    border-radius: 10px;
-    padding: 20px;
-    width: 280px;
-    margin: 15px;
-    display: inline-block;
-    text-align: center;
-    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.6);
-    transition: transform 0.3s, box-shadow 0.3s;
-}
-
-.station-card:hover {
-    transform: translateY(-10px);
-    box-shadow: 0 5px 25px rgba(75, 0, 130, 0.8);
-}
-
-.station-logo {
-    width: 100px;
-    height: 100px;
-    margin-bottom: 15px;
-    border-radius: 50%;
-}
-
-.station-card h3 {
-    font-family: 'Fira Sans Condensed', serif;
-    color: #fff; 
-    margin: 10px 0;
-    font-size: 1.2rem;
-}
-
-.station-card p {
-    font-family: 'Fira Sans Condensed', serif;
-    color: #ccc;
-    font-size: 1rem;
-    margin: 5px 0;
-}
-
-.button-link {
-    display: inline-block;
-    background: #00ff00; 
-    color: #222;
-    padding: 10px 20px;
-    border-radius: 5px;
-    margin-top: 10px;
-    text-decoration: none;
-    font-weight: bold;
-    transition: background-color 0.3s;
-}
-
-.button-link:hover {
-    background-color: #6A0DAD;  
-    color: #fff;
-}
-
-/* Fan Guide Section */
-.fan-guide {
-    padding: 40px 20px;
-    text-align: left;
-}
-
-.fan-guide h2 {
-    font-family: 'Fira Sans Condensed', serif;
-    color: #6A0DAD;
-    font-size: 2rem;
-    margin-bottom: 20px;
-}
-
-.fan-guide p {
-    font-family: 'Fira Sans Condensed', serif;
-    font-size: 1rem;
-    margin-bottom: 20px;
-    color: #ddd; 
-}
-
-.fan-guide strong {
-    color: #008000; 
-}
-
-/* Radio Importance Section */
-.radio-importance {
-    padding: 40px 20px;
-    background-color: #333;
-    margin-top: 40px;
-    text-align: center;
-}
-
-.radio-importance h2 {
-    color: #6A0DAD;  
-    margin-bottom: 20px;
-}
-
-.radio-importance p {
-    font-size: 1.2rem;
-    line-height: 1.8;
-    color: #ddd;  /* Light gray for content */
-}
-
 /****************************************************** VIBE *****************************************************/
 
 /* Vibe Page Layout */
@@ -1811,105 +1698,8 @@ footer a:hover {
 
 /***************************************************** GUIDE *****************************************************/
 
-/* Ways to Help Container */
-.ways-to-help {
-    padding: 30px;
-    border-radius: 8px;
-    margin-top: 10px;
-    margin-bottom: 30px;
-    max-width: 800px; 
-    margin: 0 auto;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-    text-align: left; 
-}
-
-/* Title for Help Container */
-.ways-to-help h2 {
-    font-family: 'Tangerine', serif;
-    font-size: 3.5em;
-    color: #6A0DAD;
-    margin-bottom: 10px;
-    font-weight: bold;
-    text-align: center;
-    border-bottom: 2px solid #6A0DAD;
-    padding-bottom: 10px;
-}
-
-/* Individual Help Section Styles */
-.section {
-    background-color: #110f11;
-    border-radius: 8px;
-    padding: 20px;
-    margin-bottom: 20px;
-    transition: background-color 0.3s ease;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
-
-/* Section Heading Styles */
-.section h3 {
-    font-family: 'Fira Sans Condensed', serif;
-    font-size: 2em;
-    color: #6A0DAD;
-    margin-bottom: 10px;
-    font-weight: bold;
-}
-
-/* Section Paragraphs */
-.section p {
-    font-family: 'Fira Sans Condensed', serif;
-    font-size: 1em;
-    color: #bfbfbf;
-    line-height: 1.6;
-    margin-bottom: 15px;
-}
-
-/* Sticky Notes Container Styles */
-.sticky-notes {
-    font-family: 'Fira Sans Condensed', serif;
-    /* background-color: #6A0DAD; */
-    padding: 10px;
-    border-radius: 8px;
-    margin-top: 15px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); 
-}
-
-/* Sticky Notes List */
-.sticky-notes ul {
-    list-style: none;
-    padding: 0;
-}
-
-.sticky-notes li {
-    font-size: 0.9em;
-    color: #bfbfbf;
-    margin-bottom: 8px;
-    padding-left: 10px;
-    position: relative;
-}
-
-/* Sticky Notes List Item Icon */
-.sticky-notes li::before {
-    content: "•";
-    position: absolute;
-    left: 0;
-    color: #fff;
-    font-size: 1.2em;
-}
-
-/* Link Styles in Sticky Notes */
-.sticky-notes a {
-    color: #fff;
-    text-decoration: underline;
-}
-
-.sticky-notes a:hover {
-    color: #d6d6d6; /* Slightly lighter color on hover */
-}
-
-/***************************************************** STANDALONE PAGES *****************************************************/
-
-/***** General Page Styles *****/
 .page {
+    position: relative;
     padding: 30px;
     max-width: 1200px;
     margin: 0 auto;
@@ -1973,25 +1763,6 @@ footer a:hover {
     margin-bottom: 10px;
 }
 
-/* Sticky Notes Box Styling */
-.page .sticky-notes {
-    background-color: #008000;
-    padding: 20px;
-    border-radius: 8px;
-    margin-top: 15px;
-    color: #ccc;
-}
-
-.page .sticky-notes ul {
-    list-style-type: none;
-    padding-left: 0;
-}
-
-.page .sticky-notes li {
-    font-size: 1rem;
-    color: #ccc;
-}
-
 /* Links Styling */
 .page a {
     color: #6A0DAD;
@@ -2000,7 +1771,7 @@ footer a:hover {
 }
 
 .page a:hover {
-    color: #FF6F00; 
+    color: #008000; 
     text-decoration: underline;
 }
 
@@ -2012,12 +1783,511 @@ footer a:hover {
     text-align: center;
 }
 
+/* Ways to Help Container */
+.ways-to-help {
+    padding: 30px;
+    border-radius: 8px;
+    margin-top: 10px;
+    margin-bottom: 30px;
+    max-width: 800px; 
+    margin: 0 auto;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    text-align: left; 
+}
+
+/* Title for Help Container */
+.ways-to-help h2 {
+    font-family: 'Tangerine', serif;
+    font-size: 3.5em;
+    color: #6A0DAD;
+    margin-bottom: 10px;
+    font-weight: bold;
+    text-align: center;
+    border-bottom: 2px solid #6A0DAD;
+    padding-bottom: 10px;
+}
+
+/* Individual Help Section Styles */
+.section {
+    background-color: #110f11;
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 20px;
+    transition: background-color 0.3s ease;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Section Heading Styles */
+.section h3 {
+    font-family: 'Fira Sans Condensed', serif;
+    font-size: 2em;
+    color: #6A0DAD;
+    margin-bottom: 10px;
+    font-weight: bold;
+}
+
+/* Section Paragraphs */
+.section p {
+    font-family: 'Fira Sans Condensed', serif;
+    font-size: 1em;
+    color: #bfbfbf;
+    line-height: 1.6;
+    margin-bottom: 15px;
+}
+
+/* Positioning and Styling for the Sticky Note Button */
+.sticky-note-btn {
+    position: fixed;
+    top: 420px;
+    right: -80px;
+    width: 200px;
+    height: 60px;
+    background-color: #008000;
+    color: #f3f3f3;
+    border: none;
+    border-radius: 10px;
+    font-family: 'Fira Sans Condensed', serif;
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    transform: rotate(90deg);
+    z-index: 1000;
+    transition: background-color 0.3s ease;
+}
+
+/* Styling for the sticky note (Initially hidden off-screen) */
+.sticky-notes {
+    font-family: 'Fira Sans Condensed', serif;
+    position: fixed;
+    right: -350px; 
+    top: 550px;
+    transform: translateY(-50%); 
+    width: 300px;
+    background-color: #008000; 
+    padding: 20px;
+    border-radius: 10px; 
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    z-index: 999;
+    transition: right 0.3s ease-in-out;
+}
+
+/* When the sticky note is open, slide it into view */
+.sticky-notes.open {
+    right: 30px; 
+}
+
+.pin-icon {
+    font-size: 35px; 
+    margin-right: 10px; 
+}
+
+/* Styling for the sticky note contents */
+.sticky-notes h4 {
+    font-size: 20px;
+    font-weight: bold;
+    margin-top: 0;
+    margin-bottom: 10px;
+    color: #f3f3f3;
+    text-align: center;
+}
+
+.sticky-notes ul {
+    padding-left: 20px;
+    list-style-type: none;
+}
+
+.sticky-notes ul li::before {
+    content: '~'; 
+    font-size: 18px;
+    color: #f3f3f3; 
+    margin-right: 10px; 
+    vertical-align: middle; 
+}
+
+.sticky-notes li {
+    margin: 10px 0;
+    font-size: 18px;
+    color: #f3f3f3;
+    line-height: 1.5;
+}
+
+/* Button hover effect */
+.sticky-note-btn:hover {
+    background-color: #6A0DAD;
+    transition: background-color 0.3s ease;
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+    .page {
+        padding: 20px; 
+        max-width: 100%; 
+        border-radius: 6px; 
+    }
+
+    /* Header Styling */
+    .page h1, .page h2 {
+        font-size: 2.5rem; 
+        margin-bottom: 15px; 
+    }
+
+    .page .caption {
+        font-size: 1rem !important; 
+        line-height: 1.2; 
+        padding: 0 10px; 
+    }
+
+    /* Section Styling */
+    .page .section {
+        padding: 15px; 
+        margin-bottom: 20px;
+    }
+
+    .page .section h3 {
+        font-size: 1.5rem; 
+        margin-bottom: 10px;
+    }
+
+    .page p, .page ul {
+        font-size: 1rem; 
+        line-height: 1.4;
+    }
+
+    .page ul {
+        padding-left: 20px; 
+    }
+
+    .page ul li {
+        margin-bottom: 8px; 
+    }
+
+    /* Links Styling */
+    .page a {
+        font-size: 0.95rem;
+    }
+
+    /* Ways to Help Container */
+    .ways-to-help {
+        padding: 20px; 
+        margin: 10px auto; 
+        max-width: 100%; 
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15); 
+    }
+
+    .ways-to-help h2 {
+        font-size: 2.5rem; 
+        margin-bottom: 10px;
+        padding-bottom: 5px; 
+    }
+
+    /* Individual Help Section Styles */
+    .section {
+        padding: 15px; 
+        margin-bottom: 15px; 
+    }
+
+    .section h3 {
+        font-size: 1.2rem;
+        margin-bottom: 8px;
+    }
+
+    .section p {
+        font-size: 0.9rem; 
+        line-height: 1.3;
+    }
+
+    /* Adjust sticky note button */
+    .sticky-note-btn {
+        width: 100px; 
+        height: 30px; 
+        right: -40px; 
+        font-size: 16px; 
+        top: 300px; 
+        transform: rotate(90deg); 
+        z-index: 99999;
+    }
+
+    /* Adjust sticky note layout for mobile */
+    .sticky-notes {
+        width: 250px; 
+        right: -300px; 
+        top: 400px; 
+    }
+
+    .sticky-notes.open {
+        right: 5px; 
+    }
+
+    .sticky-notes h4 {
+        font-size: 16px;
+    }
+
+    .sticky-notes ul li {
+        font-size: 14px; 
+    }
+}
+
+
+/* Mobile style for very small screens */
+@media (max-width: 480px) {
+    .page {
+        padding: 15px;
+    }
+
+    .page h1, .page h2 {
+        font-size: 2rem; 
+    }
+
+    .page .caption {
+        font-size: 0.9rem !important; 
+    }
+
+    .page .section {
+        padding: 10px; 
+    }
+
+    .page .section h3 {
+        font-size: 1rem; 
+    }
+
+    .page p, .page ul {
+        font-size: 0.85rem; 
+    }
+
+    .ways-to-help h2 {
+        font-size: 2rem;
+    }
+
+    .ways-to-help {
+        padding: 15px; 
+    }
+
+    .sticky-note-btn {
+        width: 100px; 
+        height: 30px; 
+        right: -40px; 
+        font-size: 14px; 
+        top: 300px; 
+        transform: rotate(90deg); 
+        z-index: 99999;
+    }
+
+    .sticky-notes {
+        width: 220px; 
+        right: -300px; 
+        top: 400px; 
+    }
+
+    .sticky-notes.open {
+        right: 10px; 
+    }
+
+    .sticky-notes h4 {
+        font-size: 14px; 
+    }
+
+    .sticky-notes ul li {
+        font-size: 12px; 
+    }
+}
+
+/****************************************************** RADIO *****************************************************/
+
+.radio-stations-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); 
+    gap: 20px;
+    padding: 20px;
+    justify-content: space-around; 
+}
+
+.station-card {
+    display: flex;
+    flex-direction: column;
+    background-color: transparent;
+    padding: 10px;
+    border-radius: 8px;
+    width: 100%; 
+    max-width: 280px; 
+    height: auto; 
+    left: 0;
+    right: 0;
+    align-items: center;
+    justify-content: space-between; 
+    text-align: center; 
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.6);
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.station-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 5px 25px rgba(75, 0, 130, 0.8);
+}
+
+.station-logo {
+    width: 100px;
+    height: 100px;
+    margin-bottom: 15px;
+    border-radius: 50%;
+}
+
+.station-card h3 {
+    font-family: 'Fira Sans Condensed', serif;
+    color: #fff; 
+    margin: 10px 0;
+    font-size: 1.4rem !important;
+}
+
+.station-card p {
+    font-family: 'Fira Sans Condensed', serif;
+    color: #ccc;
+    font-size: 1rem;
+    margin: 5px 0;
+}
+
+.button-container {
+    display: flex; 
+    justify-content: center;
+    gap: 10px; 
+    width: 100%;
+}
+
+.button-link {
+    background: #0FFF50; 
+    color: #222;
+    padding: 10px 20px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-weight: bold;
+    text-align: center;
+    transition: background-color 0.3s;
+    min-width: 60px; 
+}
+
+.button-link:hover {
+    background-color: #6A0DAD;  
+    color: #fff;
+}
+
+/* Styles for devices up to 768px */
+@media (max-width: 768px) {
+    .radio-stations-container {
+        grid-template-columns: repeat(3, auto);
+        gap: 45px;
+        padding: 6px;
+    }
+
+    .station-card {
+        max-width: 100px;
+        padding: 4px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+        border-radius: 4px;
+    }
+
+    .station-logo {
+        width: 40px;
+        height: 40px;
+        margin-bottom: 2px;
+    }
+
+    .station-card h3 {
+        font-size: 0.8rem !important;
+        margin: 4px 0;
+        color: #fff;
+    }
+
+    .station-card p {
+        font-size: 0.7rem;
+        margin: 2px 5px;
+        color: #ccc;
+    }
+
+    .button-container {
+        gap: 10px;
+    }
+
+    .button-link {
+        display: flex;
+        font-size: 0.5rem !important;
+        width: 45px;
+        height: 15px; 
+        padding: 2px;
+        min-width: unset;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .page {
+        padding: 6px;
+    }
+
+    .section {
+        padding: 6px;
+        margin-bottom: 8px;
+    }
+}
+
+/* Styles for devices up to 480px */
+@media (max-width: 480px) {
+    .radio-stations-container {
+        grid-template-columns: repeat(2, auto);
+        gap: 20px;
+        padding: 4px;
+    }
+
+    .station-card {
+        max-width: 80px;
+        padding: 2px;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+        border-radius: 3px;
+    }
+
+    .station-logo {
+        width: 30px;
+        height: 30px;
+        margin-bottom: 2px;
+    }
+
+    .station-card h3 {
+        font-size: 0.6rem;
+        margin: 1px 0;
+        color: #fff;
+    }
+
+    .station-card p {
+        font-size: 0.5rem;
+        margin: 1px 0;
+        color: #ccc;
+    }
+
+    .button-container {
+        gap: 1px;
+    }
+
+    .button-link {
+        font-size: 0.5rem;
+        padding: 1px 4px;
+        min-width: 25px;
+    }
+
+    .page {
+        padding: 4px;
+    }
+
+    .section {
+        padding: 4px;
+        margin-bottom: 6px;
+    }
+}
+
 /*********************************************** FANBASES ********************************************************/
 
 /* Fanbase Cards */
 .fanbase-container {
-    /* display: flex;
-    flex-wrap: wrap; */
     display: grid; 
     grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
     justify-content: space-around;
@@ -2026,7 +2296,7 @@ footer a:hover {
 }
 
 .fanbase-card {
-    background-color: #000;
+    background-color: transparent;
     padding: 10px;
     border-radius: 8px;
     width: 160px; 
@@ -2086,21 +2356,21 @@ footer a:hover {
     -webkit-box-orient: vertical;
 }
 
-.social-icons {
+.fb-social-icons {
     position: relative; 
     bottom: 0px;
     display: flex;
     gap: 10px;
 }
 
-.social-icons img {
+.fb-social-icons img {
     width: 25px;
     height: 25px;
     border-radius: 50%;
     transition: transform 0.3s ease;
 }
 
-.social-icons img:hover {
+.fb-social-icons img:hover {
     transform: scale(1.2);
 }
 
@@ -2558,7 +2828,7 @@ table td {
     background-color: #008000; 
 }
 
-.back-home-container-tae, .back-home-container-kook {
+.back-home-container-tae, .back-home-container-koo {
     position: fixed; 
     top: 20px; 
     z-index: 100; 
@@ -2568,11 +2838,11 @@ table td {
     right: 20px;
 }
 
-.back-home-container-kook {
+.back-home-container-koo {
     left: 20px;
 }
 
-.tae-heading, .tae-subheading, .tae-section-wrapper, .kook-heading, .kook-subheading, .kook-section-wrapper {
+.tae-heading, .tae-subheading, .tae-section-wrapper, .koo-heading, .koo-subheading, .koo-section-wrapper {
     font-family: 'Fira Sans Condensed', sans-serif;
     position: relative;
     width: 100%;
@@ -2583,11 +2853,11 @@ table td {
     right: -20%;
 }
 
-.kook-heading, .kook-subheading, .kook-section-wrapper {
+.koo-heading, .koo-subheading, .koo-section-wrapper {
     left: -20%;
 }
 
-.tae-heading, .kook-heading {
+.tae-heading, .koo-heading {
     font-family: 'Tangerine', serif;
     font-size: 6rem;
     margin-top: 50px;
@@ -2595,22 +2865,22 @@ table td {
     animation: meetfadeIn 2s ease-in-out;
 }
 
-.tae-subheading, .kook-subheading {
+.tae-subheading, .koo-subheading {
     font-size: 2.4rem;
     margin: 15px 0;
     font-weight: 300;
 }
 
-.tae-heading, .kook-subheading, .tae-section-wrapper, .tae-section h3, .kook-section p, .kook-section li {
+.tae-heading, .koo-subheading, .tae-section-wrapper, .tae-section h3, .koo-section p, .koo-section li {
     color: #3b9e3b;
 }
 
-.kook-heading, .tae-subheading, .kook-section h3, .tae-section p, .tae-section li{
+.koo-heading, .tae-subheading, .koo-section h3, .tae-section p, .tae-section li{
     color: #9354ce;
 }
 
 /* Tae Full Page Image */
-.tae-full-page-image-side, .kook-full-page-image-side {
+.tae-full-page-image-side, .koo-full-page-image-side {
     position: fixed;
     top: 0;
     width: 30%;
@@ -2627,40 +2897,49 @@ table td {
     left: 0;
 }
 
-.kook-full-page-image-side {
+.koo-full-page-image-side {
     right: 0;
 }
 
-.tae-section, .kook-section, .taekook-weverse-life, .taekook-cover-song-section {
+.tae-section, .koo-section, .taekook-weverse-life, .taekook-cover-song-section {
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
-    flex-direction: column;
     text-align: center;
     padding: 20px;
-    margin: 0 auto;
-    width: auto; 
+    margin: 0 auto 5px; 
     box-sizing: border-box;
-    overflow: hidden;
-    flex-wrap: wrap; 
+    word-wrap: break-word;
+    overflow: visible;
+    max-width: 1200px; 
 }
 
-.tae-section h3, .kook-section h3{
+.tae-section h3, .koo-section h3 {
     font-size: 2.4rem;
     margin-bottom: 15px;
 }
 
-.tae-section p, .tae-section li, .taekook-emoji, .kook-section p, .kook-section li{
+.tae-section p, .tae-section li, .taekook-emoji, .koo-section p, .koo-section li {
     font-size: 1.4rem;
     margin: 0;
     margin-bottom: 5px;
-    display: flex;
-    align-items: center;
     text-align: justify;
-    box-sizing: border-box; 
+    box-sizing: border-box;
+    line-height: 1.6;
 }
 
-.tae-image-container, .kook-image-container {
+.tae-section li, .koo-section li {
+    display: list-item;
+    list-style-position: inside;
+}
+
+.tae-section p, .koo-section p {
+    display: block;
+    overflow-wrap: break-word;
+}
+
+.tae-image-container, .koo-image-container {
     width: 20vw;
     height: 20vw; 
     max-width: 250px;
@@ -2679,7 +2958,7 @@ table td {
     border: 5px solid #008000;
 }
 
-.kook-image-container {
+.koo-image-container {
     border: 5px solid #9A6DD7;
 }
 
@@ -2690,31 +2969,30 @@ table td {
     object-position: top center;
 }
 
-.taekook-bio {
-    max-width: 1200px;
+.taekoo-bio {
+    max-width: 90%;
     margin: 40px auto;
-    color: #fff;
     padding: 20px;
+    box-sizing: border-box; 
+    overflow: hidden;
 }
 
-.tae-social-links a {
-    color: #008000;
-    font-size: 1.4rem;
+.taekook-social-links {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 0;
 }
 
-.tae-social-links a:hover {
+.taekook-social-icon {
+    width: 40px;
+    height: 40px;
+    transition: transform 0.2s ease;
+}
+
+.taekook-social-icon:hover {
     transform: scale(1.2);
-    color: #9A6DD7;
-}
-
-.kook-social-links a {
-    color: #9A6DD7;
-    font-size: 1.4rem;
-}
-
-.kook-social-links a:hover {
-    transform: scale(1.2);
-    color: #008000;
 }
 
 /* Scroll Animation */
@@ -2732,11 +3010,10 @@ table td {
     body {
         margin: 0;
         padding: 0;
-        overflow-x: hidden; /* Prevent horizontal scrolling */
+        overflow-x: hidden; 
     }
 
-    .back-home-container-tae, .back-home-container-kook {
-        /* position: fixed; */
+    .back-home-container-tae, .back-home-container-koo {
         top: 10px;
         z-index: 2;
         width: auto; 
@@ -2746,7 +3023,7 @@ table td {
         right: 10px;
     }
 
-    .back-home-container-kook {
+    .back-home-container-koo {
         left: 10px;
     }
 
@@ -2756,7 +3033,7 @@ table td {
         border-radius: 4px;
     }
 
-    .tae-full-page-image-side, .kook-full-page-image-side {
+    .tae-full-page-image-side, .koo-full-page-image-side {
         position: fixed;
         top: 0;
         left: 0;
@@ -2770,7 +3047,7 @@ table td {
         pointer-events: none;
     }
 
-    .tae-section, .kook-section, .tae-section-wrapper, .kook-section-wrapper {
+    .tae-section, .koo-section, .tae-section-wrapper, .koo-section-wrapper {
         display: flex;
         position: relative;
         flex-direction: column;
@@ -2782,7 +3059,7 @@ table td {
         width: 100%;
     }
 
-    .tae-heading, .kook-heading {
+    .tae-heading, .koo-heading {
         font-size: 2rem;
         margin-top: 50px !important;
         margin: 0px auto;
@@ -2794,7 +3071,7 @@ table td {
         word-wrap: break-word;
     }
 
-    .tae-subheading, .kook-subheading {
+    .tae-subheading, .koo-subheading {
         font-size: 0.8rem;
         justify-content: center;
         margin: 10px 0;
@@ -2802,7 +3079,7 @@ table td {
         right: 0;
     }
 
-    .tae-image-container, .kook-image-container {
+    .tae-image-container, .koo-image-container {
         width: 40vw;
         height: 40vw;
         max-width: 150px;
@@ -2819,11 +3096,11 @@ table td {
         border: 2px solid #008000;
     }
     
-    .kook-image-container {
+    .koo-image-container {
         border: 2px solid #9A6DD7;
     }
 
-    .taekook-bio, .taekook-weverse-life, .taekook-cover-song-section, .taekook-social-links {
+    .taekook-bio, .taekook-weverse-life, .taekook-cover-song-section {
         max-width: 100%;
         margin: 0;
     }
@@ -2839,7 +3116,7 @@ table td {
         padding-left: 0;
     }
 
-    .taekook-bio p, .taekook-weverse-life li, .taekook-cover-song-section li, .tae-social-links a, .kook-social-links a, .taekook-emoji {
+    .taekook-bio p, .taekook-weverse-life li, .taekook-cover-song-section li, .taekook-emoji {
         font-size: 0.8rem;
         text-align: justify;        
         justify-content: center;
