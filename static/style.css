@@ -7,6 +7,12 @@
 @import url('https://fonts.googleapis.com/css2?family=Tangerine:wght@700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Fira+Sans+Condensed:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&display=swap');
 
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
 /* Hide elements by default */
 .hide {
     display: none;
@@ -21,7 +27,7 @@
     width: 100%;
     height: 100vh;
     background-color: #000;
-    z-index: 0; /* Keep it behind all content */
+    z-index: 0;
 }
 
 /* Star Style */
@@ -73,13 +79,12 @@ body {
     position: relative;
     text-align: center;
     padding: 2vh 0;
-    flex-grow: 0;
+    flex: 1;
     margin: 0 auto;
 }
 
 .main-content .heading {
     margin-top: 2vh;
-    /* margin-bottom: 2vh; */
     font-family: 'Tangerine', serif;
     font-size: 5.5rem !important;
     font-weight: bold;
@@ -98,7 +103,6 @@ body {
     }
 }
 
-/* Caption style */
 .main-content .caption {
     font-family: 'Fira Sans Condensed', serif;
     font-size: 1.4rem; 
@@ -113,7 +117,6 @@ body {
     z-index: 100;
 }
 
-/* Footer styling */
 footer {
     padding: 10px;
     font-size: 1rem;
@@ -134,7 +137,6 @@ footer a:hover {
     opacity: 0.8;
 }
 
-/* Styling for the navigation menu */
 .navbar {
     background-color: #000;
     padding: 20px 20px;
@@ -573,7 +575,6 @@ footer a:hover {
 
 /*************************************************** MEMORIES ***************************************************/
 
-/* Unique Animation for the Timeline Page */
 .timeline-page {
     display: flex;
     flex-direction: column;
@@ -589,26 +590,24 @@ footer a:hover {
     display: flex;
     align-items: center;
     justify-content: center;
-    height: 100vh;
     text-align: center;
-    position: absolute; 
-    top: 50%; 
-    left: 50%; 
-    transform: translate(-50%, -50%); 
-    overflow: hidden;
-    --nav-height: 60px;
+    position: absolute;
+    top: 400px; 
+    transform: translateX(-50%); /* Adjust only for horizontal centering */
     flex-direction: column;
-    z-index: 100; 
+    z-index: 100;
+    animation: zoomIn 1.5s ease-out, slideUp 2s ease-in 1.5s forwards;
+    opacity: 1;
 }
 
 /* Zoom In Animation */
 @keyframes zoomIn {
     0% {
-        transform: translateY(-50px) scale(0.5);
+        transform: scale(0.5); 
         opacity: 0;
     }
     100% {
-        transform: translateY(-50%) scale(1);
+        transform: scale(1); 
         opacity: 1;
     }
 }
@@ -616,32 +615,27 @@ footer a:hover {
 /* Slide Up Animation */
 @keyframes slideUp {
     0% {
-        transform: translateY(-50%); 
+        transform: translateY(0); 
     }
     100% {
-        transform: translateY(calc(-25vh - var(--nav-height))); 
+        transform: translateY(-25vh); 
     }
 }
 
-/* Apply Animations */
-.timeline-intro .main-content {
-    animation: zoomIn 1.5s ease-out, slideUp 2s ease-in 1.5s forwards;
-    opacity: 1;
-    margin-bottom: 10px;
+.timeline-intro .btn {
+    background-color: #6A0DAD;
+    color: white;
+    border: none;
+    padding: 15px 30px;
+    border-radius: 25px;
+    cursor: pointer;
+    margin-top: 20px;
+    animation: fadeIn 1s ease-in 3s forwards;
+    opacity: 0;
 }
 
-.timeline-container.hide {
-    display: none; 
-}
-
-.timeline-container {
-    display: flex;
-    flex-direction: column;
-    margin-top: 350px;
-}
-
-.hide {
-    display: none;
+.timeline-intro .btn:hover {
+    background-color: #008000; /* Green on hover */
 }
 
 /* Style for the "Ready to Smile?" button */
@@ -719,19 +713,30 @@ footer a:hover {
     }
 }
 
-/* Style for the skip link */
-.skip-link {
-    display: none; 
-    font-size: 20px;
-    color: #6A0DAD; 
-    text-decoration: underline;
-    cursor: pointer;
+/* Skip Link */
+.timeline-intro .skip-link {
+    display: none; /* Hidden initially */
     margin-top: 10px;
-    font-family: 'Fira Sans Condensed', sans-serif;
+    color: #6A0DAD;
+    cursor: pointer;
+    text-decoration: underline;
+    animation: fadeIn 1s ease-in 3s forwards;
 }
 
-.skip-link:hover {
-    color: #008000; 
+.timeline-intro .skip-link:hover {
+    color: #008000;
+}
+
+/* Fade In Animation */
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+        visibility: hidden;
+    }
+    100% {
+        opacity: 1;
+        visibility: visible;
+    }
 }
 
 /* Year Boxes Container */
@@ -739,6 +744,14 @@ footer a:hover {
     display: flex;
     justify-content: center;
     align-items: center;
+    position: relative;
+    margin-top: 200px;
+    width: 100%;  /* Ensure the container takes up full width */
+    padding: 10px;
+    z-index: 100;
+    background-color: rgba(0, 0, 0, 0.1); /* For debugging visibility */
+    overflow: hidden; /* Prevent content from overflowing */
+    flex-wrap: wrap; /* Allow items to wrap if necessary */
 }
 
 .year-box {
@@ -787,11 +800,11 @@ footer a:hover {
 
 /* Horizontal Line */
 .horizontal-tree-line {
-    width: 100%;
+    width: 80%;
     height: 2px;
     background-color: white;
     position: absolute; 
-    top: 30px;
+    top: 20px;
     z-index: 100;
     display: none;
 }
@@ -800,11 +813,11 @@ footer a:hover {
 .month-vertical-branch {
     position: absolute;
     width: 3px;
-    height: 30px;
+    height: 35px;
     background-color: white;
     display: none;
     z-index: 100;
-    top: 20px;
+    top: 10px;
 }
 
 /* Months Container */
@@ -815,6 +828,7 @@ footer a:hover {
     position: relative;
     margin-top: -20px;
     z-index: 100;
+    top: 0px;
 }
 
 /* Months Box (Horizontal Layout for Months) */
@@ -825,7 +839,6 @@ footer a:hover {
     gap: 20px;
     width: 100%;
     padding: 0 10px;
-    top: 25px;
 }
 
 .month-box-container {
@@ -843,10 +856,10 @@ footer a:hover {
     border-radius: 5px;
     text-align: center;
     position: relative;
-    width: 35px;
-    height: 10px;
-    top: 50px;
-    font-size: 14px;
+    width: 60px;
+    height: 20px;
+    top: 45px;
+    font-size: 18px;
     white-space: nowrap;
     overflow: hidden; 
     text-overflow: ellipsis;
@@ -867,19 +880,20 @@ footer a:hover {
 
 .event-item {
     display: grid;
-    grid-template-columns: auto auto auto 1fr;
-    gap: 3px;
-    align-items: center; 
-    margin: 3px 2px!important;
+    grid-template-columns: auto auto auto 5fr;
+    gap: 8px; 
+    align-items: center;
+    margin: 10px 5px!important; 
     cursor: pointer;
     color: white;
     padding: 0;
     max-width: 200px;
-    word-wrap: break-word; 
+    word-wrap: break-word;
+    line-height: 15px;
 }
 
 .event-bullet {
-    font-size: 14px;
+    font-size: 1rem;
     margin-right: 3px;     color: #008000;
     text-align: left;
     vertical-align: middle;
@@ -887,7 +901,7 @@ footer a:hover {
 
 .event-date {
     font-family: 'Fira Sans Condensed', serif;
-    font-size: 0.8em !important;
+    font-size: 1em !important;
     margin-right: 3px;
     color: #008000;
     font-weight: bold;
@@ -897,7 +911,7 @@ footer a:hover {
 
 .event-title {
     font-family: 'Fira Sans Condensed', serif;
-    font-size: 0.8em !important;
+    font-size: 1em !important;
     text-align: left;
     margin-top: 0;
 }
@@ -915,16 +929,16 @@ footer a:hover {
 /* Modal Container */
 .modal {
     display: flex;
-    position: fixed; /* Ensures fixed positioning relative to the viewport */
+    position: fixed;
     z-index: 1000;
-    top: 0 !important; /* Start from the top */
+    top: 0 !important; 
     left: 0;
     width: 100vw;
     height: 100vh;
     background-color: rgba(0, 0, 0, 0.8);
     overflow-y: auto;
-    justify-content: center; /* Center horizontally */
-    align-items: flex-start; /* Align content at the top */
+    justify-content: center; 
+    align-items: flex-start; 
 }
 
 /* Modal Content */
@@ -997,44 +1011,23 @@ footer a:hover {
 /* Mobile Styles */
 @media (max-width: 768px) {
     .timeline-intro {
-        height: 80vh;
-        padding: 10px;
-        margin-top: 0px;
-    }
-
-    .video-container {
         position: absolute;
-        top: 50%; 
-        left: 50%; 
-        transform: translate(-50%, -50%);
-        width: auto;
-        height: auto;
+        height: auto;  /* Remove height restrictions */
+        margin-top: 0;
+        top: 180px;
+        transform: translate(-50%, -50%); 
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
         z-index: 100;
+        opacity: 1; /* Ensure visibility */
     }
 
-    #videos-container {
-        position: relative;
-        overflow: hidden;
-        width: 100vw; 
-        height: 100vh; 
-        background-color: #000; 
-    }
-
-    .video-container video {
-        max-width: 200px; 
-        max-height: 100px; 
-        width: 100%; 
-        height: auto;
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3); 
-    }
-
-    /* Style adjustments for the play button */
     #playButton {
         display: block;
-        position: absolute;
-        bottom: -80px;
-        left: 50%;
-        transform: translateX(-50%);
+        margin-top: 20px; 
         background-color: #6A0DAD; 
         color: #fff;
         font-family: 'Fira Sans Condensed', sans-serif;
@@ -1047,151 +1040,132 @@ footer a:hover {
         cursor: pointer;
         z-index: 999;
         transition: background-color 0.3s ease, transform 0.3s ease;
-        opacity: 0;
-        visibility: hidden; 
-        animation: fadeIn 1s forwards 2s; 
-    }
-
-    #playButton:hover {
-        background-color: #008000; 
-        transform: scale(1.1);
+        opacity: 1; /* Ensure visibility */
+        visibility: visible; /* Ensure visibility */
     }
 
     #skipLink {
         font-size: 12px;
-    }
-    
-    #skipLink.hidden {
-        visibility: hidden;
-        opacity: 0;
+        visibility: visible; /* Ensure visibility */
+        opacity: 1; /* Ensure visibility */
+        z-index: 200; /* Make sure it's on top */
     }
 
-    /* Keep years container aligned */
+    /* Year Boxes Container */
     .years-container {
-        top: -140px;
-        justify-content: flex-start; 
-        position: relative; 
-        left: 0;
-        transform: none;
-        z-index: 200;
-        padding: 0 10px; 
-        display: flex; 
-        gap: 5px;
-    }
-
-    /* Ensure individual year boxes don't shrink */
-    .year-box {
-        margin: 5px;
-        padding: 5px;
-        font-size: 10px;
-        flex-shrink: 0; 
-        width: auto;
-    }
-
-    /* Keep months container aligned */
-    .months-container {
-        background-color: transparent;
-        width: 100%;
-        display: flex; 
-        gap: 5px; 
-        padding: 0 10px; 
-        justify-content: flex-start; 
-        top: 50px;
-    }
-
-    /* Ensure months inside box don't shrink */
-    .month-box {
-        margin: 5px;
-        padding: 5px;
-        width: 25px;
-        height: 10px;
-        font-size: 10px;
-        flex-shrink: 0; 
-    }
-
-    /* Make sure months box is scrollable */
-    .months-box {
-        display: flex;
-        justify-content: flex-start; 
-        gap: 5px;
-        padding: 0 10px;
-        margin-bottom: 10px;
-        white-space: nowrap; 
-    }
-
-    /* Handle scrollbar style */
-    .months-box::-webkit-scrollbar {
-        height: 6px;
-    }
-
-    .months-box::-webkit-scrollbar-thumb {
-        background-color: #6A0DAD;
-        border-radius: 10px;
-    }
-
-    .months-box::-webkit-scrollbar-thumb:hover {
-        background: #555;
-    }
-
-    .event-list {
-        margin: 10px auto;
-        line-height: 1.5;
-        max-width: 90%;
-    }
-
-    .event-item {
-        font-size: 8cqb;
-        max-width: 100%;
-    }
-
-    .event-bullet {
-        font-size: 10px;
-        margin-right: 3px;     color: #008000;
-        text-align: left;
-        vertical-align: middle;
-    }
-    
-    .event-date {
-        font-size: 8px;
-        margin-right: 1px;
-        color: #008000;
-        font-weight: bold;
-        text-align: left;
-        vertical-align: middle;
-    }
-    
-    .event-title {
-        white-space: normal;
-        font-size: 8px;
-        text-align: left;
-        margin-top: 0;
-    }
-
-    .modal-content {
-        width: 95%;
+        flex-direction: column;  /* Stack the year boxes vertically on mobile */
+        margin-top: 100px;
         padding: 10px;
     }
 
-    #eventTitle {
-        font-size: 20px;
+    .year-box {
+        font-size: 16px; /* Smaller font size for mobile */
+        padding: 8px 15px;
+        margin: 10px 0;
+        width: 80%; /* Allow year boxes to take up most of the screen */
     }
 
-    #eventDate {
-        font-size: 12px;
+    /* For Year Box Active States */
+    .year-box.active {
+        background-color: #6A0DAD;
     }
 
-    #eventDescription {
-        font-size: 14px;
+    /* Horizontal Line Adjustment */
+    .horizontal-tree-line {
+        width: 60%; /* Decrease width on mobile */
     }
 
-    .modal-event-image {
+    /* Month Container Adjustments */
+    .months-container {
+        flex-direction: column;
+        align-items: center;
+        margin-top: -20px;
+    }
+
+    .month-box {
+        font-size: 14px; /* Smaller font for months */
+        padding: 8px;
+        width: 50px; /* Smaller month boxes */
+        height: 25px;
+    }
+
+    .month-box-container {
+        margin: 8px;
+        text-align: center;
+    }
+
+    /* Event List Items Adjustments */
+    .event-list {
+        padding: 0 10px;
+    }
+
+    .event-item {
+        display: flex;
+        flex-direction: column; /* Stack event details vertically on mobile */
+        gap: 5px;
+        margin: 8px;
         max-width: 100%;
+        line-height: 18px; /* Adjust line height for readability */
     }
 
+    .event-bullet,
+    .event-date {
+        font-size: 14px; /* Smaller font size for event bullet and date */
+    }
+
+    .event-title {
+        font-size: 14px; /* Smaller font size for event title */
+    }
+
+    /* Event Icon Size Adjustments */
+    .event-icon {
+        width: 12px; /* Reduce the size of event icons */
+        height: 12px;
+    }
+
+    /* Modal Layout Adjustments */
+    .modal-content {
+        width: 95%;
+        max-width: 500px; /* Adjust modal content width */
+        padding: 10px 15px;
+    }
+
+    /* Event Title in Modal */
+    #eventTitle {
+        font-size: 24px; /* Adjust font size for mobile */
+    }
+
+    /* Event Description in Modal */
+    #eventDescription {
+        font-size: 14px; /* Smaller text for descriptions */
+    }
+
+    /* Adjust Close Button in Modal */
     .close {
-        font-size: 20px;
-        top: 8px;
-        right: 10px;
+        font-size: 22px;
+    }
+
+    /* Event Image */
+    .modal-event-image {
+        width: 90%;
+        max-width: 350px;
+        margin: 10px auto;
+    }
+}
+
+/* For Tablets (Portrait View) */
+@media (max-width: 1024px) {
+    .year-box {
+        font-size: 18px; /* Slightly larger font for tablets */
+    }
+
+    .month-box {
+        font-size: 16px;
+        padding: 10px;
+    }
+
+    .event-item {
+        font-size: 16px; /* Slightly larger font for event items */
     }
 }
 

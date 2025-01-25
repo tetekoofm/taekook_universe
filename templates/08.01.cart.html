@@ -1,125 +1,109 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}">
-    <title>Cart</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-</head>
-<body>
-    <div class="main-content">
-        <!-- Promotion Banner -->
-        <div class="promo-banner">
-            <span>Exclusive Offer: Free shipping on orders above $50! Shop now and support Taekook fandom!</span>
-        </div>
+{% extends "00.base.html" %}
+{% block title %}Cart{% endblock %}
+{% block content %}
+<div class="main-content">
+    <div class="promo-banner">
+        <span>Exclusive Offer: Free shipping on orders above $50! Shop now and support Taekook fandom!</span>
+    </div>
 
-        <!-- Heading -->
-        <h1>Your Shopping Cart</h1>
+    <h1>Your Shopping Cart</h1>
 
-        {% if cart_items %}
-        <!-- Cart Table -->
-<!-- Cart Page -->
-<form action="/cart" method="POST">
-    <table>
-        <thead>
-            <tr>
-                <th>Thumbnail</th>
-                <th>Name</th>
-                <th>Quantity</th>
-                <th>Price x Quantity</th>
-                <th>Total</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for item, details in cart_items.items() %}
-                {% set product = products | selectattr('name', 'equalto', item) | first %}
-                <tr id="cart-item-{{ item }}">
-                    <td>
-                        <img src="{{ url_for('static', filename='images/' + product.image) }}" 
-                             alt="{{ item }} Thumbnail" 
-                             class="cart-item-thumbnail" 
-                             style="width: 100px; height: 100px; object-fit: cover;">
-                    </td>
-                    <td>{{ item }}</td>
-                    <td>
-                        <select name="quantity_{{ item }}" class="quantity-dropdown" data-item="{{ item }}" required>
-                            {% for i in range(101) %}
-                                <option value="{{ i }}" {% if details.quantity == i %}selected{% endif %}>
-                                    {{ i }}
-                                </option>
-                            {% endfor %}
-                        </select>
-                    </td>
-                    <td class="price-x-quantity">
-                        ${{ details.price }} x <span class="quantity-display">{{ details.quantity }}</span>
-                    </td>
-                    <td class="total-price">
-                        ${{ "%.2f"|format(details.quantity * details.price) }}
-                    </td>
+    {% if cart_items %}
+    <form action="/cart" method="POST">
+        <table>
+            <thead>
+                <tr>
+                    <th>Thumbnail</th>
+                    <th>Name</th>
+                    <th>Quantity</th>
+                    <th>Price x Quantity</th>
+                    <th>Total</th>
                 </tr>
-            {% endfor %}
-        </tbody>
-    </table>
-
-    <!-- Summary Section -->
-    <div class="cart-summary">
-        <h2>Order Summary</h2>
-        <p><strong>Subtotal:</strong> $<span id="subtotal">{{ "%.2f"|format(total_price) }}</span></p>
-        <p><strong>Shipping:</strong> Free</p>
-        <p><strong>Grand Total:</strong> $<span id="grand-total">{{ "%.2f"|format(total_price) }}</span></p>
-
-        <!-- Ensure the form action points to /checkout -->
-        <button type="submit" class="checkout-button" formaction="/checkout">Proceed to Checkout</button>
-    </div>
-</form>
-
-        
-        <script>
-            // JavaScript to update total dynamically when quantity changes
-            document.querySelectorAll('.quantity-dropdown').forEach(function(select) {
-                select.addEventListener('change', function() {
-                    var item = this.dataset.item;
-                    var newQuantity = parseInt(this.value);
-                    var price = parseFloat(this.closest('tr').querySelector('.price-x-quantity').textContent.split(' x ')[0].replace('$', ''));
-                    var newTotal = (price * newQuantity).toFixed(2);
-                    
-                    // Update the quantity display and total price for the item
-                    this.closest('tr').querySelector('.quantity-display').textContent = newQuantity;
-                    this.closest('tr').querySelector('.total-price').textContent = '$' + newTotal;
-        
-                    // Update the subtotal and grand total
-                    var subtotal = 0;
-                    document.querySelectorAll('.total-price').forEach(function(td) {
-                        subtotal += parseFloat(td.textContent.replace('$', ''));
-                    });
-                    document.getElementById('subtotal').textContent = subtotal.toFixed(2);
-                    document.getElementById('grand-total').textContent = subtotal.toFixed(2);
-                });
-            });
-        </script>       
-        
-        <!-- Product Suggestions -->
-        <div class="suggestions">
-            <h2>You may also like</h2>
-            <div class="suggestions-grid">
-                {% for product in suggested_products %}
-                    <div class="suggestion-item">
-                        <img src="{{ url_for('static', filename='images/' + product.image) }}" 
-                             alt="{{ product.name }}" 
-                             class="suggestion-thumbnail" 
-                             style="width: 80px; height: 80px; object-fit: cover;">
-                        <p>{{ product.name }}</p>
-                        <p>${{ product.price }}</p>
-                    </div>
+            </thead>
+            <tbody>
+                {% for item, details in cart_items.items() %}
+                    {% set product = products | selectattr('name', 'equalto', item) | first %}
+                    <tr id="cart-item-{{ item }}">
+                        <td>
+                            <img src="{{ url_for('static', filename='images/' + product.image) }}" 
+                                alt="{{ item }} Thumbnail" 
+                                class="cart-item-thumbnail" 
+                                style="width: 100px; height: 100px; object-fit: cover;">
+                        </td>
+                        <td>{{ item }}</td>
+                        <td>
+                            <select name="quantity_{{ item }}" class="quantity-dropdown" data-item="{{ item }}" required>
+                                {% for i in range(101) %}
+                                    <option value="{{ i }}" {% if details.quantity == i %}selected{% endif %}>
+                                        {{ i }}
+                                    </option>
+                                {% endfor %}
+                            </select>
+                        </td>
+                        <td class="price-x-quantity">
+                            ${{ details.price }} x <span class="quantity-display">{{ details.quantity }}</span>
+                        </td>
+                        <td class="total-price">
+                            ${{ "%.2f"|format(details.quantity * details.price) }}
+                        </td>
+                    </tr>
                 {% endfor %}
-            </div>
-        </div>
+            </tbody>
+        </table>
 
-        {% else %}
-        <p>Your cart is empty. <a href="{{ url_for('store') }}" style="color: #39ff14;">Go back to the store</a></p>
-        {% endif %}  
+        <!-- Summary Section -->
+        <div class="cart-summary">
+            <h2>Order Summary</h2>
+            <p><strong>Subtotal:</strong> $<span id="subtotal">{{ "%.2f"|format(total_price) }}</span></p>
+            <p><strong>Shipping:</strong> Free</p>
+            <p><strong>Grand Total:</strong> $<span id="grand-total">{{ "%.2f"|format(total_price) }}</span></p>
+
+            <!-- Ensure the form action points to /checkout -->
+            <button type="submit" class="checkout-button" formaction="/checkout">Proceed to Checkout</button>
+        </div>
+    </form>   
+    <script>
+        // JavaScript to update total dynamically when quantity changes
+        document.querySelectorAll('.quantity-dropdown').forEach(function(select) {
+            select.addEventListener('change', function() {
+                var item = this.dataset.item;
+                var newQuantity = parseInt(this.value);
+                var price = parseFloat(this.closest('tr').querySelector('.price-x-quantity').textContent.split(' x ')[0].replace('$', ''));
+                var newTotal = (price * newQuantity).toFixed(2);
+                
+                // Update the quantity display and total price for the item
+                this.closest('tr').querySelector('.quantity-display').textContent = newQuantity;
+                this.closest('tr').querySelector('.total-price').textContent = '$' + newTotal;
+
+                // Update the subtotal and grand total
+                var subtotal = 0;
+                document.querySelectorAll('.total-price').forEach(function(td) {
+                    subtotal += parseFloat(td.textContent.replace('$', ''));
+                });
+                document.getElementById('subtotal').textContent = subtotal.toFixed(2);
+                document.getElementById('grand-total').textContent = subtotal.toFixed(2);
+            });
+        });
+    </script>       
+            
+    <!-- Product Suggestions -->
+    <div class="suggestions">
+        <h2>You may also like</h2>
+        <div class="suggestions-grid">
+            {% for product in suggested_products %}
+                <div class="suggestion-item">
+                    <img src="{{ url_for('static', filename='images/' + product.image) }}" 
+                            alt="{{ product.name }}" 
+                            class="suggestion-thumbnail" 
+                            style="width: 80px; height: 80px; object-fit: cover;">
+                    <p>{{ product.name }}</p>
+                    <p>${{ product.price }}</p>
+                </div>
+            {% endfor %}
+        </div>
     </div>
-    {% include '09.footer.html' %} 
-</body>
-</html>
+    {% else %}
+    <p>Your cart is empty. <a href="{{ url_for('store') }}" style="color: #39ff14;">Go back to the store</a></p>
+    {% endif %}  
+</div>
+{% endblock %}

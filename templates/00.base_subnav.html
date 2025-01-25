@@ -1,0 +1,54 @@
+<!-- templates/base.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}">
+    <title>{% block title %}My Website{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="wrapper">
+        <!-- Night Sky Effect -->
+        <div class="night-sky" id="night-sky"></div>
+
+        <!-- Navigation Menu -->
+        <nav class="navbar">
+            <ul>
+                <li><a href="/">Home</a></li>
+                <li><a href="/guide">Back to Guide</a></li>
+            </ul>
+        </nav>
+
+        <!-- Sub Navigation -->
+        <nav class="navbar sub-nav">
+            <ul>
+                <li><a href="/streaming">Streaming</a></li>
+                <li><a href="/buying">Buying</a></li>
+                <li><a href="/voting">Voting</a></li>
+                <li><a href="/radio">Radio</a></li>
+                <li><a href="/naver">Naver</a></li>
+                <li><a href="/fanbases">Fanbases</a></li>
+                <li><a href="/promotions">Promotions</a></li>
+                <li><a href="/donating">Donating</a></li>
+                <li><a href="/events">Events</a></li>
+                <li><a href="/endorsements">Endorsements</a></li>
+            </ul>
+        </nav>
+
+        <!-- Main Content -->
+        <main>
+            {% block content %}{% endblock %}
+        </main>
+
+        <footer>
+            <p>&copy; 2025 TaeKook Universe. All rights reserved.</p>
+            <p>
+                <a href="/meet-tae" style="color: #008000; text-decoration: none; margin-right: 15px;">🐻 Meet Tae 🐯</a>
+                <a href="/meet-koo" style="color: #6A0DAD; text-decoration: none;">🐰 Meet Koo 🐰</a>
+            </p>
+        </footer>
+    </div>
+</body>
+</html>

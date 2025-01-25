@@ -1,115 +1,83 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}">
-    <title>Events</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-</head>
-<body>
-    <!-- Navigation Menu -->
-    <nav class="navbar">
-        <ul>
-            <li><a href="/">Home</a></li>
-            <li><a href="/guide">Back to Guide</a></li>
-        </ul>
-    </nav>
-
-    <!-- Sub Navigation -->
-    <nav class="navbar sub-nav">
-        <ul>
-            <li><a href="/streaming">Streaming</a></li>
-            <li><a href="/buying">Buying</a></li>
-            <li><a href="/voting">Voting</a></li>
-            <li><a href="/radio">Radio</a></li>
-            <li><a href="/naver">Naver</a></li>
-            <li><a href="/fanbases">Fanbases</a></li>
-            <li><a href="/promotions">Promotions</a></li>
-            <li><a href="/donating">Donating</a></li>
-            <li><a href="/reporting">Reporting</a></li>
-            <li><a href="/endorsements">Endorsements</a></li>
-        </ul>
-    </nav>
+{% extends "00.base.html" %}
+{% block title %}Events{% endblock %}
+{% block content %}
     
-    <!-- Main Content -->
-    <div class="page guide-page">
-        <h1>Events</h1>
-        <p class="caption">Stay updated with all the exciting events, concerts, interviews, and virtual fan meetings for Taehyung and Jung Kook!</p>
+<!-- Main Content -->
+<div class="page guide-page">
+    <h1>Events</h1>
+    <p class="caption">Stay updated with all the exciting events, concerts, interviews, and virtual fan meetings for Taehyung and Jung Kook!</p>
 
-        <div class="section">
-            <h3>Upcoming Events</h3>
-            <p>Taehyung and Jung Kook are constantly working on new projects and appearances. Check out the upcoming events and mark your calendars to show your support!</p>
-            <ul>
-                <li>
-                    <strong>Virtual Fan Meeting</strong>
-                    <br>
-                    <em>February 25, 2025</em>
-                    <p>This special fan meeting will allow you to interact with Taehyung and Jung Kook directly. Tickets go live on Weverse, so stay tuned for updates!</p>
-                </li>
-                <li>
-                    <strong>Concert in Seoul</strong>
-                    <br>
-                    <em>March 15, 2025</em>
-                    <p>The first concert post-military service! This will be an event to remember, with an intimate setting and exclusive performances. Tickets will be available soon.</p>
-                </li>
-                <li>
-                    <strong>TV Interview Special</strong>
-                    <br>
-                    <em>April 10, 2025</em>
-                    <p>Catch Taehyung and Jung Kook on a TV special talking about their new album and experiences during their time apart. The interview will be aired on SBS.</p>
-                </li>
-            </ul>
-        </div>
-
-        <div class="section">
-            <h3>Past Events</h3>
-            <p>Check out some of the memorable past events where Taehyung and Jung Kook captured our hearts with their incredible performances and engaging interactions!</p>
-            <ul>
-                <li>
-                    <strong>BTS Permission to Dance Concert</strong>
-                    <br>
-                    <em>October 2022</em>
-                    <p>This was a historic concert for BTS, and Taehyung and Jung Kook’s performances were truly exceptional. If you missed it, catch the replays on platforms like YouTube.</p>
-                </li>
-                <li>
-                    <strong>BTS 2021 Festa</strong>
-                    <br>
-                    <em>June 2021</em>
-                    <p>A spectacular online event featuring BTS' personal stories and behind-the-scenes moments. Taehyung and Jung Kook shared their thoughts on the group's journey and future plans.</p>
-                </li>
-            </ul>
-        </div>
-
-        <div class="section">
-            <h3>How You Can Participate</h3>
-            <p>Fans can participate in these events in several ways:</p>
-            <ul>
-                <li><strong>Buy Tickets:</strong> Most events offer ticket sales through Weverse or official partner platforms. Always get your tickets from official sources to avoid scams.</li>
-                <li><strong>Virtual Events:</strong> Participate in fan meetings, livestreams, and other virtual events by purchasing access through platforms like Weverse or V Live.</li>
-                <li><strong>Fan Support:</strong> Show your support during events by streaming their music, voting for them in polls, and engaging with other fans on social media.</li>
-                <li><strong>Merchandise:</strong> Many events will have exclusive merchandise. Be sure to grab these items as a souvenir from these memorable occasions.</li>
-            </ul>
-        </div>
-
-        <div class="section">
-            <h3>Event Alerts</h3>
-            <p>To make sure you never miss an important event, sign up for event alerts and get notified about tickets, event schedules, and live streams:</p>
-            <ul>
-                <li><strong>Weverse:</strong> Sign up for notifications and set your preferences for upcoming events.</li>
-                <li><strong>Social Media:</strong> Follow Taehyung, Jung Kook, and BTS on platforms like Twitter, Instagram, and Facebook for real-time updates.</li>
-                <li><strong>Fan Clubs:</strong> Join fan clubs and fan groups on Discord or Weverse for notifications on events and meetups.</li>
-            </ul>
-        </div>
-
-        <div class="sticky-notes">
-            <h4>Quick Tip:</h4>
-            <ul>
-                <li>Mark your calendars for the upcoming concert – it will be a special event after their military service!</li>
-                <li>Be sure to check for exclusive merchandise and limited-time access to virtual events!</li>
-            </ul>
-        </div>
+    <div class="section">
+        <h3>Upcoming Events</h3>
+        <p>Taehyung and Jung Kook are constantly working on new projects and appearances. Check out the upcoming events and mark your calendars to show your support!</p>
+        <ul>
+            <li>
+                <strong>Virtual Fan Meeting</strong>
+                <br>
+                <em>February 25, 2025</em>
+                <p>This special fan meeting will allow you to interact with Taehyung and Jung Kook directly. Tickets go live on Weverse, so stay tuned for updates!</p>
+            </li>
+            <li>
+                <strong>Concert in Seoul</strong>
+                <br>
+                <em>March 15, 2025</em>
+                <p>The first concert post-military service! This will be an event to remember, with an intimate setting and exclusive performances. Tickets will be available soon.</p>
+            </li>
+            <li>
+                <strong>TV Interview Special</strong>
+                <br>
+                <em>April 10, 2025</em>
+                <p>Catch Taehyung and Jung Kook on a TV special talking about their new album and experiences during their time apart. The interview will be aired on SBS.</p>
+            </li>
+        </ul>
     </div>
-    {% include '09.footer.html' %}   
-</body>
-</html>
+
+    <div class="section">
+        <h3>Past Events</h3>
+        <p>Check out some of the memorable past events where Taehyung and Jung Kook captured our hearts with their incredible performances and engaging interactions!</p>
+        <ul>
+            <li>
+                <strong>BTS Permission to Dance Concert</strong>
+                <br>
+                <em>October 2022</em>
+                <p>This was a historic concert for BTS, and Taehyung and Jung Kook’s performances were truly exceptional. If you missed it, catch the replays on platforms like YouTube.</p>
+            </li>
+            <li>
+                <strong>BTS 2021 Festa</strong>
+                <br>
+                <em>June 2021</em>
+                <p>A spectacular online event featuring BTS' personal stories and behind-the-scenes moments. Taehyung and Jung Kook shared their thoughts on the group's journey and future plans.</p>
+            </li>
+        </ul>
+    </div>
+
+    <div class="section">
+        <h3>How You Can Participate</h3>
+        <p>Fans can participate in these events in several ways:</p>
+        <ul>
+            <li><strong>Buy Tickets:</strong> Most events offer ticket sales through Weverse or official partner platforms. Always get your tickets from official sources to avoid scams.</li>
+            <li><strong>Virtual Events:</strong> Participate in fan meetings, livestreams, and other virtual events by purchasing access through platforms like Weverse or V Live.</li>
+            <li><strong>Fan Support:</strong> Show your support during events by streaming their music, voting for them in polls, and engaging with other fans on social media.</li>
+            <li><strong>Merchandise:</strong> Many events will have exclusive merchandise. Be sure to grab these items as a souvenir from these memorable occasions.</li>
+        </ul>
+    </div>
+
+    <div class="section">
+        <h3>Event Alerts</h3>
+        <p>To make sure you never miss an important event, sign up for event alerts and get notified about tickets, event schedules, and live streams:</p>
+        <ul>
+            <li><strong>Weverse:</strong> Sign up for notifications and set your preferences for upcoming events.</li>
+            <li><strong>Social Media:</strong> Follow Taehyung, Jung Kook, and BTS on platforms like Twitter, Instagram, and Facebook for real-time updates.</li>
+            <li><strong>Fan Clubs:</strong> Join fan clubs and fan groups on Discord or Weverse for notifications on events and meetups.</li>
+        </ul>
+    </div>
+
+    <div class="sticky-notes">
+        <h4>Quick Tip:</h4>
+        <ul>
+            <li>Mark your calendars for the upcoming concert – it will be a special event after their military service!</li>
+            <li>Be sure to check for exclusive merchandise and limited-time access to virtual events!</li>
+        </ul>
+    </div>
+</div>
+{% endblock %}

@@ -23,7 +23,11 @@ def force_https():
     if not current_app.debug and not request.is_secure:
         url = request.url.replace("http://", "https://", 1)
         return redirect(url, code=301)
-    
+
+@app.route('/test')
+def test():
+    return render_template('test.html')
+
 @app.route('/')
 def home():
     image_folder = os.path.join(app.static_folder, 'images/home')
