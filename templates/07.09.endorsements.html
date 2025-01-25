@@ -1,111 +1,79 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}">
-    <title>Endorsements</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-</head>
-<body>
-    <!-- Navigation Menu -->
-    <nav class="navbar">
+{% extends "00.base.html" %}
+{% block title %}Endorsements{% endblock %}
+{% block content %}
+
+<!-- Main Content -->
+<div class="page guide-page">
+    <h1>Endorsements</h1>
+    <p class="caption">Taehyung and Jung Kook are not only musicians but also powerful brand ambassadors, known for endorsing various products and causes. Their endorsements have a significant influence on the global market!</p>
+
+    <div class="section">
+        <h3>Current Brand Endorsements</h3>
+        <p>Taehyung and Jung Kook are the faces of several high-profile brands across various industries. Here are some of their current partnerships:</p>
         <ul>
-            <li><a href="/">Home</a></li>
-            <li><a href="/guide">Back to Guide</a></li>
+            <li>
+                <strong>Celine</strong>
+                <br>
+                <em>Fashion Brand</em>
+                <p>Taehyung has been the global ambassador for Celine, bringing a unique and stylish edge to the brand with his fashion sense.</p>
+            </li>
+            <li>
+                <strong>Hublot</strong>
+                <br>
+                <em>Luxury Watch Brand</em>
+                <p>Jung Kook's partnership with Hublot showcases his classy and sophisticated taste, making him a perfect fit for the brand's high-end timepieces.</p>
+            </li>
+            <li>
+                <strong>Puma</strong>
+                <br>
+                <em>Sportswear Brand</em>
+                <p>BTS's collaboration with Puma continues to grow, with Jung Kook being one of the key faces of the brand's athletic wear and shoes.</p>
+            </li>
         </ul>
-    </nav>
-
-    <!-- Sub Navigation -->
-    <nav class="navbar sub-nav">
-        <ul>
-            <li><a href="/streaming">Streaming</a></li>
-            <li><a href="/buying">Buying</a></li>
-            <li><a href="/voting">Voting</a></li>
-            <li><a href="/radio">Radio</a></li>
-            <li><a href="/naver">Naver</a></li>
-            <li><a href="/fanbases">Fanbases</a></li>
-            <li><a href="/promotions">Promotions</a></li>
-            <li><a href="/donating">Donating</a></li>
-            <li><a href="/reporting">Reporting</a></li>
-            <li><a href="/events">Events</a></li>
-        </ul>
-    </nav>
-    
-    <!-- Main Content -->
-    <div class="page guide-page">
-        <h1>Endorsements</h1>
-        <p class="caption">Taehyung and Jung Kook are not only musicians but also powerful brand ambassadors, known for endorsing various products and causes. Their endorsements have a significant influence on the global market!</p>
-
-        <div class="section">
-            <h3>Current Brand Endorsements</h3>
-            <p>Taehyung and Jung Kook are the faces of several high-profile brands across various industries. Here are some of their current partnerships:</p>
-            <ul>
-                <li>
-                    <strong>Celine</strong>
-                    <br>
-                    <em>Fashion Brand</em>
-                    <p>Taehyung has been the global ambassador for Celine, bringing a unique and stylish edge to the brand with his fashion sense.</p>
-                </li>
-                <li>
-                    <strong>Hublot</strong>
-                    <br>
-                    <em>Luxury Watch Brand</em>
-                    <p>Jung Kook's partnership with Hublot showcases his classy and sophisticated taste, making him a perfect fit for the brand's high-end timepieces.</p>
-                </li>
-                <li>
-                    <strong>Puma</strong>
-                    <br>
-                    <em>Sportswear Brand</em>
-                    <p>BTS's collaboration with Puma continues to grow, with Jung Kook being one of the key faces of the brand's athletic wear and shoes.</p>
-                </li>
-            </ul>
-        </div>
-
-        <div class="section">
-            <h3>Past Endorsements</h3>
-            <p>Throughout their careers, Taehyung and Jung Kook have also partnered with a range of brands, some of which they continue to support in their ongoing influence. Here's a look at their past endorsements:</p>
-            <ul>
-                <li>
-                    <strong>Samsung</strong>
-                    <br>
-                    <em>Electronics Brand</em>
-                    <p>Taehyung and Jung Kook were featured in campaigns for Samsung, promoting their latest phones and smartwatches.</p>
-                </li>
-                <li>
-                    <strong>Coca-Cola</strong>
-                    <br>
-                    <em>Soft Drink Brand</em>
-                    <p>Their collaboration with Coca-Cola involved exclusive commercials and limited edition products, bringing a refreshing twist to the brand's image.</p>
-                </li>
-                <li>
-                    <strong>McDonald's</strong>
-                    <br>
-                    <em>Fast Food Brand</em>
-                    <p>The BTS Meal collaboration with McDonald's was a global phenomenon, introducing a special menu with exclusive packaging featuring the band.</p>
-                </li>
-            </ul>
-        </div>
-
-        <div class="section">
-            <h3>Endorsement Impact</h3>
-            <p>Their endorsements not only promote the brands but also create huge buzz among fans and consumers worldwide. Every time Taehyung or Jung Kook partners with a new brand, it generates significant attention across social media platforms, often leading to increased sales and visibility for the brands they represent.</p>
-
-            <ul>
-                <li><strong>Global Reach:</strong> Their partnerships often result in brands seeing a significant rise in awareness, especially in South Korea, Japan, and other regions with large BTS fanbases.</li>
-                <li><strong>Trendsetting:</strong> Fans of Taehyung and Jung Kook often flock to purchase endorsed products, setting trends in the fashion, tech, and lifestyle sectors.</li>
-                <li><strong>Long-term Relationships:</strong> BTS's enduring popularity has resulted in several long-term brand relationships, making them among the most influential celebrity endorsers worldwide.</li>
-            </ul>
-        </div>
-
-        <div class="sticky-notes">
-            <h4>Quick Tip:</h4>
-            <ul>
-                <li>Follow official brand pages and social media accounts to stay updated on new Taehyung and Jung Kook endorsements and exclusive collaborations!</li>
-                <li>Don't miss out on limited-edition products featuring BTS! Keep an eye out for special releases tied to these collaborations.</li>
-            </ul>
-        </div> 
     </div>
-    {% include '09.footer.html' %}  
-</body>
-</html>
+
+    <div class="section">
+        <h3>Past Endorsements</h3>
+        <p>Throughout their careers, Taehyung and Jung Kook have also partnered with a range of brands, some of which they continue to support in their ongoing influence. Here's a look at their past endorsements:</p>
+        <ul>
+            <li>
+                <strong>Samsung</strong>
+                <br>
+                <em>Electronics Brand</em>
+                <p>Taehyung and Jung Kook were featured in campaigns for Samsung, promoting their latest phones and smartwatches.</p>
+            </li>
+            <li>
+                <strong>Coca-Cola</strong>
+                <br>
+                <em>Soft Drink Brand</em>
+                <p>Their collaboration with Coca-Cola involved exclusive commercials and limited edition products, bringing a refreshing twist to the brand's image.</p>
+            </li>
+            <li>
+                <strong>McDonald's</strong>
+                <br>
+                <em>Fast Food Brand</em>
+                <p>The BTS Meal collaboration with McDonald's was a global phenomenon, introducing a special menu with exclusive packaging featuring the band.</p>
+            </li>
+        </ul>
+    </div>
+
+    <div class="section">
+        <h3>Endorsement Impact</h3>
+        <p>Their endorsements not only promote the brands but also create huge buzz among fans and consumers worldwide. Every time Taehyung or Jung Kook partners with a new brand, it generates significant attention across social media platforms, often leading to increased sales and visibility for the brands they represent.</p>
+
+        <ul>
+            <li><strong>Global Reach:</strong> Their partnerships often result in brands seeing a significant rise in awareness, especially in South Korea, Japan, and other regions with large BTS fanbases.</li>
+            <li><strong>Trendsetting:</strong> Fans of Taehyung and Jung Kook often flock to purchase endorsed products, setting trends in the fashion, tech, and lifestyle sectors.</li>
+            <li><strong>Long-term Relationships:</strong> BTS's enduring popularity has resulted in several long-term brand relationships, making them among the most influential celebrity endorsers worldwide.</li>
+        </ul>
+    </div>
+
+    <div class="sticky-notes">
+        <h4>Quick Tip:</h4>
+        <ul>
+            <li>Follow official brand pages and social media accounts to stay updated on new Taehyung and Jung Kook endorsements and exclusive collaborations!</li>
+            <li>Don't miss out on limited-edition products featuring BTS! Keep an eye out for special releases tied to these collaborations.</li>
+        </ul>
+    </div> 
+</div>
+{% endblock %}

@@ -1,315 +1,285 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}">
-    <title>Memories Timeline</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-</head>
-<body>
-    <!-- Night Sky -->
-    <div class="night-sky" id="night-sky"></div>
+{% extends "00.base.html" %}
+{% block title %}Memories Timeline{% endblock %}
+{% block content %}
+
+<!-- Main Content Section -->
+<div class="main-content">
+    <div class="timeline-intro">
+        <h1 class="heading">Memories</h1>
+        <p class="caption">Few memories through their timeline!</p>
+        <button id="playButton" class="btn">Ready to Smile?</button>
+        <a id="skipLink" class="skip-link" role="button" style="display: none;">Skip to Timeline</a>
+    </div>
+</div>
+
+<!-- Audio Section -->
+<div id="audio-container">
+    <audio id="memories-audio" muted>
+        <source src="{{ url_for('static', filename='audio/memories.mp3') }}" type="audio/mp3">
+        Your browser does not support the audio tag.
+    </audio>
+</div>
+
+<!-- Video Memories Section -->
+<div id="videos-container"></div>
+
+<!-- Timeline Container -->
+<div class="timeline-container hide">
+
+    <!-- Years Container -->
+    <div class="years-container">
+        {% for year in timeline_data.keys() | sort %}
+        <div class="year-box" data-year="{{ year }}" role="button" aria-expanded="false">
+            {{ year }}
+            <div class="year-vertical-line"></div>
+        </div>
+        {% endfor %}
+    </div>
     
-    <!-- Navigation Menu -->
-    <div class="timeline-page">
-        <nav class="navbar">
-            <ul>
-                <li><a href="/">Home</a></li>
-                <li><a href="/upcoming">Upcoming</a></li>
-                <li><a href="/memories">Memories</a></li>
-                <li><a href="/milestones">Milestones</a></li>
-                <li><a href="/radio">Radios</a></li>
-                <li><a href="/vibe">Vibe</a></li>
-                <li><a href="/fanbases">Fanbases</a></li>
-                <li><a href="/projects">Projects</a></li>
-                <li><a href="/guide">Guide</a></li>
-                <li><a href="/store">Store</a></li>
-            </ul>
-        </nav>
-
-        <!-- Main Content Section -->
-        <div class="timeline-intro">
-            <div class="main-content">
-                <h1 class="heading">Memories</h1>
-                <p class="caption">Few memories through their timeline!</p>
-                <button id="playButton" class="btn">Ready to Smile?</button>
-                <a id="skipLink" class="skip-link" role="button" style="display: none;">Skip to Timeline</a>
-
-            </div>
-        </div>
-
-        <!-- Audio Section -->
-        <div id="audio-container">
-            <audio id="memories-audio" muted>
-                <source src="{{ url_for('static', filename='audio/memories.mp3') }}" type="audio/mp3">
-                Your browser does not support the audio tag.
-            </audio>
-        </div>
-
-        <!-- Video Memories Section -->
-        <div id="videos-container"></div>
-
-        <!-- Timeline Container -->
-        <div class="timeline-container hide">
-
-            <!-- Years Container -->
-            <div class="years-container">
-                {% for year in timeline_data.keys() | sort %}
-                <div class="year-box" data-year="{{ year }}" role="button" aria-expanded="false">
-                    {{ year }}
-                    <div class="year-vertical-line"></div>
+    <!-- Months and Events for Each Year -->
+    {% for year, months in timeline_data.items() %}
+    <div class="months-container" data-year="{{ year }}" style="display: none;">
+        <div class="horizontal-tree-line"></div> <!-- Horizontal line -->
+        <div class="months-box">
+            {% for month_num, events in months.items() %}
+            <div class="month-box-container">
+                <div class="month-vertical-branch"></div> <!-- Month vertical line -->
+                <div class="month-box" data-month="{{ month_num }}">
+                    <div class="month-name">{{ calendar.month_abbr[month_num] }} '{{ formatted_years[year] }}'</div>
                 </div>
-                {% endfor %}
-            </div>
-        
-            <!-- Months and Events for Each Year -->
-            {% for year, months in timeline_data.items() %}
-            <div class="months-container" data-year="{{ year }}" style="display: none;">
-                <div class="horizontal-tree-line"></div> <!-- Horizontal line -->
-                <div class="months-box">
-                    {% for month_num, events in months.items() %}
-                    <div class="month-box-container">
-                        <div class="month-vertical-branch"></div> <!-- Month vertical line -->
-                        <div class="month-box" data-month="{{ month_num }}">
-                            <div class="month-name">{{ calendar.month_abbr[month_num] }} '{{ formatted_years[year] }}'</div>
-                        </div>
-                        <div class="event-list" data-month="{{ month_num }}">
-                            {% for event in events %}
-                            <div class="event-item" data-title="{{ event.title }}" data-date="{{ event.date }}"
-                                data-description="{{ event.description }}" 
-                                data-image="{{ url_for('static', filename='images/memories/' + event.image) }}">
-                                <span class="event-bullet">&#8226;</span>
-                                <span class="event-date">{{ event.date.split('-')[2] }}</span>
-                                <img src="{{ url_for('static', filename='images/memories/' + event.image) }}" alt="Event Icon" class="event-icon">
-                                <span class="event-title">{{ event.title }}</span>
-                            </div>
-                            {% endfor %}
-                        </div>
+                <div class="event-list" data-month="{{ month_num }}">
+                    {% for event in events %}
+                    <div class="event-item" data-title="{{ event.title }}" data-date="{{ event.date }}"
+                        data-description="{{ event.description }}" 
+                        data-image="{{ url_for('static', filename='images/memories/' + event.image) }}">
+                        <span class="event-bullet">&#8226;</span>
+                        <span class="event-date">{{ event.date.split('-')[2] }}</span>
+                        <img src="{{ url_for('static', filename='images/memories/' + event.image) }}" alt="Event Icon" class="event-icon">
+                        <span class="event-title">{{ event.title }}</span>
                     </div>
                     {% endfor %}
                 </div>
             </div>
             {% endfor %}
         </div>
-        <!-- Event Modal -->
-        <div id="eventModal" class="modal" style="display: none;">
-            <div class="modal-content">
-                <span class="close" onclick="closeModal()">&times;</span>
-                <h2 id="eventTitle"></h2>
-                <span id="eventDate"></span>
-                <img id="eventImage" src="" alt="Event Image" class="modal-event-image">
-                <p id="eventDescription"></p>
-            </div>
+    </div>
+        {% endfor %}
+    </div>
+    <!-- Event Modal -->
+    <div id="eventModal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <h2 id="eventTitle"></h2>
+            <span id="eventDate"></span>
+            <img id="eventImage" src="" alt="Event Image" class="modal-event-image">
+            <p id="eventDescription"></p>
         </div>
     </div>
-    {% include '09.footer.html' %}
-    <script>
-        let videosContainer;
-        document.addEventListener("DOMContentLoaded", () => {
-            const yearBoxes = document.querySelectorAll(".year-box");
-            const playButton = document.getElementById("playButton");
-            const skipLink = document.getElementById("skipLink");
-            const memoriesAudio = document.getElementById("memories-audio");
-            videosContainer = document.getElementById("videos-container");
-            const videoFiles = {{ video_files|tojson }};
-            const batchSize = 6;  
-            const delayIncrement = 2;
+</div>
+<script>
+    let videosContainer;
+    document.addEventListener("DOMContentLoaded", () => {
+        const yearBoxes = document.querySelectorAll(".year-box");
+        const playButton = document.getElementById("playButton");
+        const skipLink = document.getElementById("skipLink");
+        const memoriesAudio = document.getElementById("memories-audio");
+        videosContainer = document.getElementById("videos-container");
+        const videoFiles = {{ video_files|tojson }};
+        const batchSize = 6;  
+        const delayIncrement = 2;
 
-            // Predefined positions for videos to avoid overlap
-            const positions = window.innerWidth < 768 ? [
-                { top: 50, left: 35 }, // Center
-                { top: 65, left: 55 }, // Bottom-right
-                { top: 35, left: 5 }, // Top-left
-                { top: 35, left: 55 }, // Top-right
-                { top: 65, left: 5 }, // Bottom-left
-                { top: 50, left: 65 }, // Center-right
-                { top: 50, left: 5 }, // Center-left
-                { top: 65, left: 40 }, // Bottom-center
-                // { top: 25, left: 50 }, // Top-center
-            ] : [
-                { top: 50, left: 40 }, // Center
-                { top: 75, left: 75 }, // Bottom-right
-                { top: 25, left: 5 }, // Top-left
-                { top: 25, left: 75 }, // Top-right
-                { top: 75, left: 5 }, // Bottom-left
-                { top: 50, left: 65 }, // Center-right
-                { top: 50, left: 15 }, // Center-left
-                // { top: 25, left: 50 }, // Top-center
-                { top: 75, left: 40 }, // Bottom-center
-            ];
+        // Predefined positions for videos to avoid overlap
+        const positions = window.innerWidth < 768 ? [
+            { top: 50, left: 35 }, // Center
+            { top: 65, left: 55 }, // Bottom-right
+            { top: 35, left: 5 }, // Top-left
+            { top: 35, left: 55 }, // Top-right
+            { top: 65, left: 5 }, // Bottom-left
+            { top: 50, left: 65 }, // Center-right
+            { top: 50, left: 5 }, // Center-left
+            { top: 65, left: 40 }, // Bottom-center
+            // { top: 25, left: 50 }, // Top-center
+        ] : [
+            { top: 50, left: 40 }, // Center
+            { top: 75, left: 75 }, // Bottom-right
+            { top: 25, left: 5 }, // Top-left
+            { top: 25, left: 75 }, // Top-right
+            { top: 75, left: 5 }, // Bottom-left
+            { top: 50, left: 65 }, // Center-right
+            { top: 50, left: 15 }, // Center-left
+            // { top: 25, left: 50 }, // Top-center
+            { top: 75, left: 40 }, // Bottom-center
+        ];
 
-            // Initially hide the button
+        // Initially hide the button
+        playButton.style.display = "none";
+
+        // Show the play button after a delay (adjust as needed)
+        setTimeout(() => {
+            playButton.style.display = "block";
+        }, 2000);
+
+        // Play audio and videos on button click
+        playButton.addEventListener("click", () => {
+            memoriesAudio.muted = false;
+            memoriesAudio.play().catch(console.error);
             playButton.style.display = "none";
-
-            // Show the play button after a delay (adjust as needed)
-            setTimeout(() => {
-                playButton.style.display = "block";
-            }, 2000);
-
-            // Play audio and videos on button click
-            playButton.addEventListener("click", () => {
-                memoriesAudio.muted = false;
-                memoriesAudio.play().catch(console.error);
-                playButton.style.display = "none";
-                skipLink.style.display = "inline";
-                startVideosLoop(); // Start looping videos
-            });
-
-            // Event listener for audio ending
-            memoriesAudio.addEventListener("ended", () => {
-                showTimeline();
-            });
-
-            skipLink.addEventListener("click", (event) => {
-                event.preventDefault();
-                event.stopPropagation();
-                skipLink.style.display = "none"; 
-                memoriesAudio.pause();
-                setTimeout(() => {
-                    showTimeline(); // Show the timeline immediately after a short delay
-                }, 50); 
-            });
-
-            // Function to play a batch of videos in predefined zones
-            function playBatchOfVideos() {
-                let positionIndex = 0; // Start from the first position
-                for (let i = 0; i < videoFiles.length; i += batchSize) {
-                    setTimeout(() => {
-                        videoFiles.slice(i, i + batchSize).forEach((video, index) => {
-                            const position = positions[positionIndex % positions.length]; // Cycle through predefined positions
-                            positionIndex++;
-
-                            const videoContainer = document.createElement("div");
-                            videoContainer.className = "video-container";
-                            videoContainer.style.position = "absolute";
-                            videoContainer.style.top = `${position.top}%`;
-                            videoContainer.style.left = `${position.left}%`;
-                            videoContainer.style.transform = "translate(-50%, -50%)"; 
-                            videoContainer.style.animationDelay = `${index * delayIncrement}s`;
-
-                            const videoElement = document.createElement("video");
-                            videoElement.src = `/static/videos/${video}`;
-                            videoElement.autoplay = true;
-                            videoElement.loop = true;
-                            videoElement.muted = true;
-                            videoElement.playsInline = true; // Prevent full-screen on mobile
-                            videoElement.setAttribute("playsinline", "true"); // For older browsers
-                            videoElement.setAttribute("webkit-playsinline", "true"); // For iOS Safari
-
-                            videoContainer.appendChild(videoElement);
-                            videosContainer.appendChild(videoContainer);
-                        });
-                    }, i * delayIncrement * 1000);
-                }
-            }
-
-            // Function to continuously loop videos while the audio is playing
-            function startVideosLoop() {
-                function repeatVideos() {
-                    if (!memoriesAudio.paused) {
-                        playBatchOfVideos(); // Play videos
-                        setTimeout(repeatVideos, videoFiles.length * delayIncrement * 1000); // Schedule the next batch
-                    }
-                }
-                repeatVideos();
-            }
-
-            // Handle year box click (show months and events)
-            yearBoxes.forEach((box) => {
-                box.addEventListener("click", () => {
-                    const year = box.dataset.year;
-    
-                    // Hide all months and reset lines
-                    document.querySelectorAll(".months-container").forEach((container) => {
-                        const isActive = container.dataset.year === year;
-                        container.style.display = isActive ? "flex" : "none";
-    
-                        const horizontalLine = container.querySelector(".horizontal-tree-line");
-                        if (horizontalLine) {
-                            horizontalLine.style.display = isActive ? "block" : "none";
-                        }
-    
-                        const yearBox = document.querySelector(`[data-year="${container.dataset.year}"]`);
-                        if (yearBox) {
-                            const yearLine = yearBox.querySelector(".year-vertical-line");
-                            yearLine.style.display = isActive ? "block" : "none";
-                        }
-                    });
-    
-                    // Display vertical branches for the active month's box
-                    document.querySelectorAll(".month-box-container").forEach((monthBox) => {
-                        const branch = monthBox.querySelector(".month-vertical-branch");
-                        branch.style.display =
-                            branch.closest(".months-container").dataset.year === year ? "block" : "none";
-                    });
-    
-                    // Set active state for the clicked year
-                    yearBoxes.forEach((yb) => yb.classList.remove("active"));
-                    box.classList.add("active");
-                });
-            });
-    
-            // Handle event click (show modal with event details)
-            const eventItems = document.querySelectorAll(".event-item");
-            eventItems.forEach((item) => {
-                item.addEventListener("click", (e) => {
-                    const { title, date, description, image } = e.target.closest(".event-item").dataset;
-                    showEventDetails(title, date, description, image);
-                });
-            });
-
-            // Display event details in a modal
-            function showEventDetails(title = "No Title", date = "Unknown Date", description = "No Description", image = "") {
-                const modal = document.getElementById("eventModal");
-                const menuHeight = document.querySelector("nav").offsetHeight;
-        
-                modal.style.display = "flex";
-                modal.style.top = `${menuHeight}px`;
-        
-                document.getElementById("eventTitle").textContent = title;
-                document.getElementById("eventDescription").textContent = description;
-                document.getElementById("eventImage").src = image;
-        
-                let formattedDate = "Unknown Date";
-                if (date) formattedDate = formatDate(date);
-        
-                document.getElementById("eventDate").textContent = formattedDate;
-        
-                modal.style.display = "block";
-            }
-    
-            // Format date as DD-MMM-YYYY
-            function formatDate(dateString) {
-                const [year, month, day] = dateString.split("-");
-                const date = new Date(Date.UTC(year, month - 1, day));
-                const dayOfMonth = date.getUTCDate();
-                const monthName = date.toLocaleString("default", { month: "short" });
-                const formattedYear = date.getUTCFullYear();
-        
-                return `${dayOfMonth}-${monthName}-${formattedYear}`;
-            }
-        
-            // Function to load the timeline
-            function showTimeline() {
-                const timelineContainer = document.querySelector(".timeline-container");
-                const videosContainer = document.getElementById("videos-container");
-
-                if (timelineContainer && videosContainer) {
-                    videosContainer.style.display = "none"; // Hide videos
-                    timelineContainer.classList.remove("hide"); // Show timeline
-                    timelineContainer.style.display = "block"; // Ensure it's visible
-                    skipLink.style.display = "none";
-                } else {
-                    console.error("Timeline or videos container not found");
-                }
-            }
+            skipLink.style.display = "inline";
+            startVideosLoop(); // Start looping videos
         });
-            // Close modal
-            function closeModal() {
-                document.getElementById("eventModal").style.display = "none";
-            }
 
-    </script>    
-</body>
-</html>
+        // Event listener for audio ending
+        memoriesAudio.addEventListener("ended", () => {
+            showTimeline();
+        });
+
+        skipLink.addEventListener("click", (event) => {
+            event.preventDefault();
+            event.stopPropagation();
+            skipLink.style.display = "none"; 
+            memoriesAudio.pause();
+            setTimeout(() => {
+                showTimeline(); // Show the timeline immediately after a short delay
+            }, 50); 
+        });
+
+        // Function to play a batch of videos in predefined zones
+        function playBatchOfVideos() {
+            let positionIndex = 0; // Start from the first position
+            for (let i = 0; i < videoFiles.length; i += batchSize) {
+                setTimeout(() => {
+                    videoFiles.slice(i, i + batchSize).forEach((video, index) => {
+                        const position = positions[positionIndex % positions.length]; // Cycle through predefined positions
+                        positionIndex++;
+
+                        const videoContainer = document.createElement("div");
+                        videoContainer.className = "video-container";
+                        videoContainer.style.position = "absolute";
+                        videoContainer.style.top = `${position.top}%`;
+                        videoContainer.style.left = `${position.left}%`;
+                        videoContainer.style.transform = "translate(-50%, -50%)"; 
+                        videoContainer.style.animationDelay = `${index * delayIncrement}s`;
+
+                        const videoElement = document.createElement("video");
+                        videoElement.src = `/static/videos/${video}`;
+                        videoElement.autoplay = true;
+                        videoElement.loop = true;
+                        videoElement.muted = true;
+                        videoElement.playsInline = true; // Prevent full-screen on mobile
+                        videoElement.setAttribute("playsinline", "true"); // For older browsers
+                        videoElement.setAttribute("webkit-playsinline", "true"); // For iOS Safari
+
+                        videoContainer.appendChild(videoElement);
+                        videosContainer.appendChild(videoContainer);
+                    });
+                }, i * delayIncrement * 1000);
+            }
+        }
+
+        // Function to continuously loop videos while the audio is playing
+        function startVideosLoop() {
+            function repeatVideos() {
+                if (!memoriesAudio.paused) {
+                    playBatchOfVideos(); // Play videos
+                    setTimeout(repeatVideos, videoFiles.length * delayIncrement * 1000); // Schedule the next batch
+                }
+            }
+            repeatVideos();
+        }
+
+        // Handle year box click (show months and events)
+        yearBoxes.forEach((box) => {
+            box.addEventListener("click", () => {
+                const year = box.dataset.year;
+
+                // Hide all months and reset lines
+                document.querySelectorAll(".months-container").forEach((container) => {
+                    const isActive = container.dataset.year === year;
+                    container.style.display = isActive ? "flex" : "none";
+
+                    const horizontalLine = container.querySelector(".horizontal-tree-line");
+                    if (horizontalLine) {
+                        horizontalLine.style.display = isActive ? "block" : "none";
+                    }
+
+                    const yearBox = document.querySelector(`[data-year="${container.dataset.year}"]`);
+                    if (yearBox) {
+                        const yearLine = yearBox.querySelector(".year-vertical-line");
+                        yearLine.style.display = isActive ? "block" : "none";
+                    }
+                });
+
+                // Display vertical branches for the active month's box
+                document.querySelectorAll(".month-box-container").forEach((monthBox) => {
+                    const branch = monthBox.querySelector(".month-vertical-branch");
+                    branch.style.display =
+                        branch.closest(".months-container").dataset.year === year ? "block" : "none";
+                });
+
+                // Set active state for the clicked year
+                yearBoxes.forEach((yb) => yb.classList.remove("active"));
+                box.classList.add("active");
+            });
+        });
+
+        // Handle event click (show modal with event details)
+        const eventItems = document.querySelectorAll(".event-item");
+        eventItems.forEach((item) => {
+            item.addEventListener("click", (e) => {
+                const { title, date, description, image } = e.target.closest(".event-item").dataset;
+                showEventDetails(title, date, description, image);
+            });
+        });
+
+        // Display event details in a modal
+        function showEventDetails(title = "No Title", date = "Unknown Date", description = "No Description", image = "") {
+            const modal = document.getElementById("eventModal");
+            const menuHeight = document.querySelector("nav").offsetHeight;
+    
+            modal.style.display = "flex";
+            modal.style.top = `${menuHeight}px`;
+    
+            document.getElementById("eventTitle").textContent = title;
+            document.getElementById("eventDescription").textContent = description;
+            document.getElementById("eventImage").src = image;
+    
+            let formattedDate = "Unknown Date";
+            if (date) formattedDate = formatDate(date);
+    
+            document.getElementById("eventDate").textContent = formattedDate;
+    
+            modal.style.display = "block";
+        }
+
+        // Format date as DD-MMM-YYYY
+        function formatDate(dateString) {
+            const [year, month, day] = dateString.split("-");
+            const date = new Date(Date.UTC(year, month - 1, day));
+            const dayOfMonth = date.getUTCDate();
+            const monthName = date.toLocaleString("default", { month: "short" });
+            const formattedYear = date.getUTCFullYear();
+    
+            return `${dayOfMonth}-${monthName}-${formattedYear}`;
+        }
+    
+        // Function to load the timeline
+        function showTimeline() {
+            const timelineContainer = document.querySelector(".timeline-container");
+            const videosContainer = document.getElementById("videos-container");
+
+            if (timelineContainer && videosContainer) {
+                videosContainer.style.display = "none"; // Hide videos
+                timelineContainer.classList.remove("hide"); // Show timeline
+                timelineContainer.style.display = "block"; // Ensure it's visible
+                skipLink.style.display = "none";
+            } else {
+                console.error("Timeline or videos container not found");
+            }
+        }
+    });
+        // Close modal
+        function closeModal() {
+            document.getElementById("eventModal").style.display = "none";
+        }
+</script>  
+{% endblock %}

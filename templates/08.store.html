@@ -1,108 +1,81 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}">
-    <title>Purple Vault</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-</head>
-<body>
-    <!-- Night Sky -->
-    <div class="night-sky" id="night-sky"></div>
+{% extends "00.base.html" %}
+{% block title %}Streaming{% endblock %}
+{% block content %}
+
+<!-- Temporary Added to Cart Message -->
+<div id="added-message" style="display: none; color: green; text-align: center; margin-bottom: 20px;">
+    Item added to cart!
+</div>
+
+<!-- Store Page -->
+<div class="main-content">
+    <h1 class="heading">TaeKook Vault</h1>
+    <p class="caption">Explore exclusive fan-made merchandise! All proceeds from these sales will be used for Taekook projects and giveaways for fans.</p>
+    <p class="caption">Support the fandom and take home a little piece of Taekook!</p>
+    <!-- Merchandise Grid -->
+    <div class="merchandise-grid">
+        {% for product in products %}
+            <div class="product">
+                <!-- Display Product Image -->
+                <img src="{{ url_for('static', filename='images/store/' + product.image) }}" alt="{{ product.name }} Thumbnail" class="product-thumbnail">
+
+                <!-- Display Product Name -->
+                <h3>{{ product.name }}</h3>
+                
+                <!-- Display Product Price -->
+                <p>${{ product.price }}</p>
+                
+                <!-- Add to Cart Form with AJAX submission -->
+                <form action="/add_to_cart" method="POST" onsubmit="addToCart(event, this)">
+                    <input type="hidden" name="item" value="{{ product.name }}">
+                    <input type="hidden" name="price" value="{{ product.price }}">
+                    
+                    <!-- Quantity Dropdown -->
+                    <div class="quantity-container">
+                        <label for="quantity">Quantity:</label>
+                        <select name="quantity" id="quantity" required style="max-height: 200px; overflow-y: auto; overflow-x: hidden; display: block; width: 50px;">
+                            {% for i in range(101) %}
+                                <option value="{{ i }}" {% if selected_quantities.get(product.name, 0) == i %}selected{% endif %}>
+                                    {{ i }}
+                                </option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    
+                    <button type="submit" class="buy-button">Add to Cart</button>
+                </form>
+            </div>
+        {% endfor %}
+    </div>
     
-    <!-- Navigation Menu -->
-    <nav class="navbar">
-        <ul>
-            <li><a href="/">Home</a></li>
-            <li><a href="/upcoming">Upcoming</a></li>
-            <li><a href="/memories">Memories</a></li>
-            <li><a href="/milestones">Milestones</a></li>
-            <li><a href="/radio">Radios</a></li>
-            <li><a href="/vibe">Vibe</a></li>
-            <li><a href="/fanbases">Fanbases</a></li>
-            <li><a href="/projects">Projects</a></li>
-            <li><a href="/guide">Guide</a></li>
-            <li><a href="/store">Store</a></li>
-        </ul>
-    </nav>
-
-    <!-- Temporary Added to Cart Message -->
-    <div id="added-message" style="display: none; color: green; text-align: center; margin-bottom: 20px;">
-        Item added to cart!
+    <!-- Common Checkout Button -->
+    <div class="cart-container">
+        <a href="/cart"><button class="cart-button">Go to Cart</button></a>
     </div>
-
-    <!-- Store Page -->
-    <div class="main-content">
-        <h1 class="heading">TaeKook Vault</h1>
-        <p class="caption">Explore exclusive fan-made merchandise! All proceeds from these sales will be used for Taekook projects and giveaways for fans.</p>
-        <p class="caption">Support the fandom and take home a little piece of Taekook!</p>
-        <!-- Merchandise Grid -->
-        <div class="merchandise-grid">
-            {% for product in products %}
-                <div class="product">
-                    <!-- Display Product Image -->
-                    <img src="{{ url_for('static', filename='images/store/' + product.image) }}" alt="{{ product.name }} Thumbnail" class="product-thumbnail">
-
-                    <!-- Display Product Name -->
-                    <h3>{{ product.name }}</h3>
-                    
-                    <!-- Display Product Price -->
-                    <p>${{ product.price }}</p>
-                    
-                    <!-- Add to Cart Form with AJAX submission -->
-                    <form action="/add_to_cart" method="POST" onsubmit="addToCart(event, this)">
-                        <input type="hidden" name="item" value="{{ product.name }}">
-                        <input type="hidden" name="price" value="{{ product.price }}">
-                        
-                        <!-- Quantity Dropdown -->
-                        <div class="quantity-container">
-                            <label for="quantity">Quantity:</label>
-                            <select name="quantity" id="quantity" required style="max-height: 200px; overflow-y: auto; overflow-x: hidden; display: block; width: 50px;">
-                                {% for i in range(101) %}
-                                    <option value="{{ i }}" {% if selected_quantities.get(product.name, 0) == i %}selected{% endif %}>
-                                        {{ i }}
-                                    </option>
-                                {% endfor %}
-                            </select>
-                        </div>
-                        
-                        <button type="submit" class="buy-button">Add to Cart</button>
-                    </form>
-                </div>
-            {% endfor %}
-        </div>
+</div>
+<script>
+    // Function to handle form submission using AJAX
+    function addToCart(event, form) {
+        event.preventDefault();  // Prevent form from submitting the traditional way
         
-        <!-- Common Checkout Button -->
-        <div class="cart-container">
-            <a href="/cart"><button class="cart-button">Go to Cart</button></a>
-        </div>
-    </div>
-    {% include '09.footer.html' %}   
-    <script>
-        // Function to handle form submission using AJAX
-        function addToCart(event, form) {
-            event.preventDefault();  // Prevent form from submitting the traditional way
-            
-            // Perform AJAX request
-            var formData = new FormData(form);
-            fetch("/add_to_cart", {
-                method: "POST",
-                body: formData
-            })
-            .then(response => response.json())
-            .then(data => {
-                // Show success message
-                var messageDiv = document.getElementById('added-message');
-                messageDiv.style.display = 'block';
-                setTimeout(function() {
-                    messageDiv.style.display = 'none';
-                }, 3000);  // Hide after 3 seconds
-            })
-            .catch(error => {
-                console.error('Error:', error);
-            });
-        }
-    </script>
-</body>
-</html>
+        // Perform AJAX request
+        var formData = new FormData(form);
+        fetch("/add_to_cart", {
+            method: "POST",
+            body: formData
+        })
+        .then(response => response.json())
+        .then(data => {
+            // Show success message
+            var messageDiv = document.getElementById('added-message');
+            messageDiv.style.display = 'block';
+            setTimeout(function() {
+                messageDiv.style.display = 'none';
+            }, 3000);  // Hide after 3 seconds
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
+    }
+</script>
+{% endblock %}
