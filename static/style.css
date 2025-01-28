@@ -624,7 +624,7 @@ footer a:hover {
 
 .timeline-intro .btn {
     background-color: #6A0DAD;
-    color: white;
+    color: #3dcf64;
     border: none;
     padding: 15px 30px;
     border-radius: 25px;
@@ -635,32 +635,32 @@ footer a:hover {
 }
 
 .timeline-intro .btn:hover {
-    background-color: #008000; /* Green on hover */
+    background-color: #008000;
 }
 
-/* Style for the "Ready to Smile?" button */
 #playButton {
-    background-color: #6A0DAD; /* Purple background */
-    color: #fff; /* White text */
+    background-color: #6A0DAD; 
+    color: #3dcf64;
     font-size: 18px;
     font-family: 'Fira Sans Condensed', sans-serif;
     padding: 15px 30px;
     border: none;
     border-radius: 25px;
     cursor: pointer;
-    position: absolute; /* Positioning relative to the container */
-    bottom: -80px; /* Place below the caption */
+    position: absolute; 
+    bottom: -80px; 
     left: 50%;
     transform: translateX(-50%);
     text-align: center;
     transition: background-color 0.3s ease, transform 0.3s ease;
     opacity: 0;
-    visibility: hidden; /* Hidden initially */
-    animation: fadeIn 1s forwards 2s; /* Fade in after animations finish */
+    visibility: hidden; 
+    animation: fadeIn 1s forwards 2s; 
 }
 
 #playButton:hover {
-    background-color: #008000; /* Green on hover */
+    background-color: #008000;
+    color: #6A0DAD;
 }
 
 @keyframes fadeIn {
@@ -693,7 +693,7 @@ footer a:hover {
     position: relative;
     width: 100vw;
     height: 100vh;
-    margin: 0 auto; /* Center the container if necessary */
+    margin: 0 auto; 
     padding: 0;
     overflow: hidden;
 }
@@ -715,7 +715,7 @@ footer a:hover {
 
 /* Skip Link */
 .timeline-intro .skip-link {
-    display: none; /* Hidden initially */
+    display: none;
     margin-top: 10px;
     color: #6A0DAD;
     cursor: pointer;
@@ -739,19 +739,31 @@ footer a:hover {
     }
 }
 
+.timeline-container, .skip-link {
+    font-family: 'Fira Sans Condensed', sans-serif;
+    font-size: 1.2rem;
+}
+
 /* Year Boxes Container */
 .years-container {
     display: flex;
+    flex-direction: row; 
+    flex-wrap: nowrap; 
     justify-content: center;
     align-items: center;
     position: relative;
     margin-top: 200px;
-    width: 100%;  /* Ensure the container takes up full width */
-    padding: 10px;
+    width: 100%;  
+    padding: 20px;
+    padding-left: 0; 
     z-index: 100;
-    background-color: rgba(0, 0, 0, 0.1); /* For debugging visibility */
-    overflow: hidden; /* Prevent content from overflowing */
-    flex-wrap: wrap; /* Allow items to wrap if necessary */
+    background-color: rgba(0, 0, 0, 0.1); 
+    overflow-x: auto; 
+    overflow: hidden; 
+}
+
+.years-container::-webkit-scrollbar {
+    display: none; 
 }
 
 .year-box {
@@ -762,12 +774,13 @@ footer a:hover {
     padding: 10px 20px;
     margin: 20px;
     background-color: #000;
-    color: #008000;
+    color: #3dcf64;
     text-align: center;
 }
 
 .year-box.active {
     background-color: #6A0DAD;
+    border-radius: 10px;
 }
 
 .month-box-container.active .horizontal-tree-line {
@@ -851,7 +864,7 @@ footer a:hover {
 
 .month-box {
     background-color: #6A0DAD;
-    color: white;
+    color: #3dcf64;
     padding: 10px;
     border-radius: 5px;
     text-align: center;
@@ -975,26 +988,28 @@ footer a:hover {
 
 /* Title */
 #eventTitle {
-    font-size: 28px;
+    font-size: 3.5rem;
     font-weight: bold;
-    color: #6A0DAD;
+    color: #9354ce;
     font-family: 'Tangerine', cursive;
     margin-top: 60px;
 }
 
 /* Event Date */
 #eventDate {
+    font-family: 'Fira Sans Condensed', sans-serif;
     position: absolute;
     top: 10px; 
     left: 15px;
-    font-size: 14px;
+    font-size: 1.2rem;
     font-weight: bold;
-    color: #6A0DAD;
+    color: #9354ce;
 }
 
 /* Event Description */
 #eventDescription {
-    font-size: 16px;
+    font-family: 'Fira Sans Condensed', sans-serif;
+    font-size: 1.2rem;
     margin-top: 15px;
     color: #0FFF50;
 }
@@ -1008,164 +1023,173 @@ footer a:hover {
     object-fit: cover;
 }
 
-/* Mobile Styles */
-@media (max-width: 768px) {
-    .timeline-intro {
-        position: absolute;
-        height: auto;  /* Remove height restrictions */
-        margin-top: 0;
-        top: 180px;
-        transform: translate(-50%, -50%); 
-        display: flex;
+/* Mobile Layout Styles */
+@media screen and (max-width: 768px) {
+    .timeline-page {
         flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        text-align: center;
-        z-index: 100;
-        opacity: 1; /* Ensure visibility */
-    }
-
-    #playButton {
-        display: block;
-        margin-top: 20px; 
-        background-color: #6A0DAD; 
-        color: #fff;
-        font-family: 'Fira Sans Condensed', sans-serif;
-        font-size: 12px;
-        text-align: center;
-        padding: 12px 24px;
-        border-radius: 25px;
-        border: none;
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
-        cursor: pointer;
-        z-index: 999;
-        transition: background-color 0.3s ease, transform 0.3s ease;
-        opacity: 1; /* Ensure visibility */
-        visibility: visible; /* Ensure visibility */
-    }
-
-    #skipLink {
-        font-size: 12px;
-        visibility: visible; /* Ensure visibility */
-        opacity: 1; /* Ensure visibility */
-        z-index: 200; /* Make sure it's on top */
-    }
-
-    /* Year Boxes Container */
-    .years-container {
-        flex-direction: column;  /* Stack the year boxes vertically on mobile */
-        margin-top: 100px;
+        min-height: 100vh;
         padding: 10px;
+        overflow: visible !important;
+        width: 100%;
+    }
+
+    .timeline-intro {
+        top: 200px;
+        padding: 0 20px;
+        animation: zoomIn 1.5s ease-out, slideUp 2s ease-in 1.5s forwards;
+    }
+
+    .timeline-intro .btn, #playButton, .skip-link {
+        font-size: 0.7rem; 
+        padding: 8px 6px; 
+        border-radius: 10px;
+        margin-top: 5px; 
+        display: block; 
+    }
+
+    .years-container {
+        display: flex;         
+        flex-direction: row;  
+        justify-content: flex-start;
+        gap: 2px;
+        margin-top: 100px;
+        flex-wrap: nowrap;     
+        width: 100%;          
+        overflow-x: auto; 
+        padding-left: 0; 
+    }
+
+    .years-container::-webkit-scrollbar {
+        display: none; 
     }
 
     .year-box {
-        font-size: 16px; /* Smaller font size for mobile */
+        font-size: 0.7rem;
         padding: 8px 15px;
-        margin: 10px 0;
-        width: 80%; /* Allow year boxes to take up most of the screen */
+        margin: 10px;
     }
-
-    /* For Year Box Active States */
-    .year-box.active {
-        background-color: #6A0DAD;
-    }
-
-    /* Horizontal Line Adjustment */
+   
     .horizontal-tree-line {
-        width: 60%; /* Decrease width on mobile */
+        position: fixed; 
+        top: 42.5%; 
+        height: 2px;
+        z-index: 100;
+        left: 50%;
+        transform: translateX(-52%);
+        width: 100vw;
+    }
+    
+    /* Month Vertical Line */
+    .month-vertical-branch {
+        position: absolute;
+        width: 3px;
+        height: 20px;
+        background-color: white;
+        display: none;
+        z-index: 100;
+        top: -10px;
     }
 
-    /* Month Container Adjustments */
+    /* Month Container */
     .months-container {
-        flex-direction: column;
-        align-items: center;
-        margin-top: -20px;
+        display: flex;
+        flex-direction: row;  
+        justify-content: flex-start; 
+        gap: 2px;
+        margin-top: 100px;
+        /* flex-wrap: nowrap;
+        width: 100%;
+        overflow-x: auto;
+        padding-left: 0;   */
+        top: 20px;
     }
-
-    .month-box {
-        font-size: 14px; /* Smaller font for months */
-        padding: 8px;
-        width: 50px; /* Smaller month boxes */
-        height: 25px;
+    
+    .months-container::-webkit-scrollbar {
+        display: none; 
     }
 
     .month-box-container {
-        margin: 8px;
-        text-align: center;
-    }
-
-    /* Event List Items Adjustments */
-    .event-list {
-        padding: 0 10px;
-    }
-
-    .event-item {
         display: flex;
-        flex-direction: column; /* Stack event details vertically on mobile */
-        gap: 5px;
-        margin: 8px;
-        max-width: 100%;
-        line-height: 18px; /* Adjust line height for readability */
+        flex-direction: row;  
+        justify-content: flex-start; 
+        gap: 2px;
+        margin-top: 100px;
+        flex-wrap: nowrap;
+        width: 100%;
+        overflow-x: auto;
+        /* scroll-snap-type: x mandatory;  */
+        padding-left: 0; 
+        top: 20px;
     }
 
-    .event-bullet,
+    /* Hide Scrollbar */
+    .months-container::-webkit-scrollbar {
+        display: none;
+    }
+
+    /* Month Box */
+    .month-box {
+        background-color: #6A0DAD;
+        color: #3dcf64;
+        padding: 6px 4px;
+        margin: 4px;
+        flex-shrink: 0; 
+        min-width: 30px; 
+        max-width: 40px;
+        text-align: center;
+        border-radius: 5px;
+        font-size: 0.7rem;
+        position: relative;
+        top: 6px; 
+    }
+
+    /* Event List Styling */
+    .event-list {
+        display: block;
+        margin-top: 15px;
+    }
+
+    /* Adjust for Event Boxes */
+    .event-item {
+        display: block;
+        margin: 5px 0;
+        font-size: 0.7rem;
+    }
+
+    /* Adjust for Event Boxes */
+    .event-item {
+        display: block; 
+        margin: 5px 0;
+        font-size: 0.7rem;
+    }
+
+    /* .event-item {
+        grid-template-columns: auto auto auto 3fr;
+        gap: 5px;
+        font-size: 12px;
+    } */
+
+    .event-bullet {
+        font-size: 0.8rem;
+    }
+
     .event-date {
-        font-size: 14px; /* Smaller font size for event bullet and date */
+        font-size: 0.8em !important;
     }
 
     .event-title {
-        font-size: 14px; /* Smaller font size for event title */
+        font-size: 0.8em !important;
     }
 
-    /* Event Icon Size Adjustments */
-    .event-icon {
-        width: 12px; /* Reduce the size of event icons */
-        height: 12px;
-    }
-
-    /* Modal Layout Adjustments */
     .modal-content {
-        width: 95%;
-        max-width: 500px; /* Adjust modal content width */
-        padding: 10px 15px;
-    }
-
-    /* Event Title in Modal */
-    #eventTitle {
-        font-size: 24px; /* Adjust font size for mobile */
-    }
-
-    /* Event Description in Modal */
-    #eventDescription {
-        font-size: 14px; /* Smaller text for descriptions */
-    }
-
-    /* Adjust Close Button in Modal */
-    .close {
-        font-size: 22px;
-    }
-
-    /* Event Image */
-    .modal-event-image {
         width: 90%;
-        max-width: 350px;
-        margin: 10px auto;
-    }
-}
-
-/* For Tablets (Portrait View) */
-@media (max-width: 1024px) {
-    .year-box {
-        font-size: 18px; /* Slightly larger font for tablets */
+        padding: 15px;
+        max-width: 95%;
     }
 
-    .month-box {
-        font-size: 16px;
-        padding: 10px;
-    }
-
-    .event-item {
-        font-size: 16px; /* Slightly larger font for event items */
+    /* Adjusting modal for mobile */
+    .modal-content {
+        font-size: 14px;
     }
 }
 
@@ -2258,6 +2282,146 @@ footer a:hover {
     }
 }
 
+/*********************************************** Shazam **********************************************************/
+
+.tracks-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); 
+    gap: 20px;
+    padding: 20px;
+    justify-content: space-around; 
+}
+
+.track-card {
+    display: flex;
+    flex-direction: column;
+    background-color: transparent;
+    padding: 10px;
+    border-radius: 8px;
+    width: 100%; 
+    max-width: 280px; 
+    height: auto; 
+    left: 0;
+    right: 0;
+    align-items: center;
+    justify-content: space-between; 
+    text-align: center; 
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.6);
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.track-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 5px 25px rgba(75, 0, 130, 0.8);
+}
+
+.track-image {
+    width: 100px;
+    height: 100px;
+    margin-bottom: 15px;
+    border-radius: 5px;
+}
+
+.track-card h3 {
+    font-family: 'Fira Sans Condensed', serif;
+    color: #fff; 
+    margin: 10px 0;
+    font-size: 1.4rem !important;
+}
+
+.track-card p {
+    font-family: 'Fira Sans Condensed', serif;
+    color: #ccc;
+    font-size: 1rem;
+    margin: 5px 0;
+}
+
+.button-container {
+    display: flex; 
+    justify-content: center;
+    gap: 10px; 
+    width: 100%;
+}
+
+.button-link {
+    background: #0FFF50; 
+    color: #222;
+    padding: 10px 20px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-weight: bold;
+    text-align: center;
+    transition: background-color 0.3s;
+    min-width: 60px; 
+}
+
+.button-link:hover {
+    background-color: #6A0DAD;  
+    color: #fff;
+}
+
+/*********************************************** SHAZAM STATS **********************************************/
+
+/* Vibe Section Styling */
+.shazam-container {
+    font-family: 'Fira Sans Condensed', sans-serif;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: space-around;
+    padding: 20px 0;
+}
+
+.shazam-section {
+    width: 45%;
+    background-color: #000000;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+.shazam-section h2 {
+    margin-top: 10px;
+    color: #6A0DAD; /* Purple */
+    font-size: 3em;
+    margin-bottom: 20px;
+}
+
+/* Table Styling */
+.shazam-stats-table table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 0 auto;
+}
+
+.shazam-stats-table th, .stats-table td {
+    padding: 12px 15px;
+    text-align: center;
+    border-bottom: 1px solid #ddd;
+}
+
+.shazam-stats-table th {
+    background-color: #6A0DAD;
+    color: #3dcf64;
+    font-size: 1.3em;
+    white-space: nowrap;
+}
+
+.shazam-stats-table td {
+    font-size: 1.3em;
+    color: #3dcf64;
+    background-color: #000;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .shazam-container {
+        flex-direction: column;
+        align-items: center;
+    }
+
+}
 /*********************************************** FANBASES ********************************************************/
 
 /* Fanbase Cards */

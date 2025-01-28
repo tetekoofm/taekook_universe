@@ -1,0 +1,114 @@
+{% extends "00.base_subnav.html" %}
+{% block title %}Shazam{% endblock %}
+{% block content %}
+
+<!-- Main Content -->
+<div class="page guide-page">
+    <h1>TaeKook On Shazam</h1>
+    <p class="caption">Shazam plays a crucial role in tracking music popularity. Help increase their recognition and make Taehyung and Jung Kook the top artists on Shazam!</p>
+
+    <div class="section">
+        <h3>Importance of Shazam</h3>
+        <p>Shazam allows users to discover music instantly. As more people Shazam Taehyung and Jung Kook’s tracks, their popularity increases, and the songs are ranked on Shazam charts. This visibility helps increase their streaming numbers and attracts new fans globally.</p>
+    </div>
+
+    <div class="section">
+        <h3>How to Shazam Their Songs</h3>
+        <p>It’s easy to Shazam Taehyung and Jung Kook’s music!</p>
+        <ul>
+            <li><strong style="color: #3dcf64;">Open Shazam:</strong> Open the Shazam app or use the Shazam feature on your phone.</li>
+            <li><strong style="color: #3dcf64;">Shazam the Song:</strong> When you hear a song by Taehyung or Jung Kook, tap the Shazam button to identify it.</li>
+            <li><strong style="color: #3dcf64;">Share the Song:</strong> After identifying the song, share it on your social media to inspire others to Shazam too!</li>
+        </ul>
+    </div>
+
+    <div class="section">
+        <h3>Effective Shazam Tips</h3>
+        <ul>
+            <li>Shazam multiple tracks to increase their ranking.</li>
+            <li>Shazam the songs in different locations to spread the word globally.</li>
+            <li>Encourage your friends and followers to Shazam their songs too!</li>
+            <li>Stay updated with new Taehyung and Jung Kook releases and Shazam them as soon as possible.</li>
+        </ul>
+    </div>
+
+    <div class="section">
+        <h3>Shazaming Taehyung and Jung Kook Discography</h3>
+        <p><strong>For Mobile Users:</strong></p>
+        <p><strong>Manual Shazam:</strong></p>
+        <ul>
+            <li>Install Shazam App from AppStore or PlayStore:
+                <ul>
+                    <li>iOS: <a href="https://apps.apple.com/us/app/shazam-find-music-concerts/id284993459?amp%3Bat=11l3eE&amp%3Bct=5348615A-616D-3235-3830-44754D6D5973" target="_blank">Shazam on iOS</a></li>
+                    <li>Android: <a href="https://play.google.com/store/apps/details?id=com.shazam.android&pli=1" target="_blank">Shazam on Android</a></li>
+                </ul>
+            </li>
+            <li>Open TeteKooFM Stationhead or your preferred streaming platform and start playing Taehyung and JungKook songs.</li>
+            <li>Launch Shazam on your phone and tap the button to identify the song.</li>
+            <li>Repeat the process for each song to help their ranking!</li>
+        </ul>
+
+        <p><strong>Auto Shazam:</strong></p>
+        <ul>
+            <li>Long press the Shazam icon to activate Auto Shazam.</li>
+            <li>Play their discography on your mobile and let Shazam automatically detect and save the songs to your library.</li>
+            <li>Remove songs from the library once all Taehyung and JungKook tracks are detected.</li>
+        </ul>
+
+        <p><strong>For Computer/Laptop Users:</strong></p>
+        <p><strong>Using Desktop App:</strong> Follow the same steps as mobile users to Shazam songs through the desktop app.</p>
+        <p><strong>Using Chrome Browser Extension:</strong></p>
+        <ul>
+            <li>Install the Shazam Chrome Extension: <a href="https://chromewebstore.google.com/detail/shazam-find-song-names-fr/mmioliijnhnoblpgimnlajmefafdfilb" target="_blank">Shazam Extension</a></li>
+            <li>Click on the Shazam extension icon in your browser and pin it for easy access.</li>
+            <li>Start playing Taehyung and JungKook’s music and click the Shazam button in the extension to identify the song.</li>
+            <li>Keep the browser tab active while playing the song for Shazam to recognize it.</li>
+        </ul>
+    </div>
+
+    <div class="section">
+        <h3>Popular Tracks on Shazam</h3>
+        <p>Check out the tracks by Taehyung and Jung Kook that are currently trending on Shazam!</p>
+        <section class="tracks-container">
+            {% for track in popular_tracks %}
+            <div class="track-card">
+                {% if track.track_image %}
+                <img src="{{ url_for('static', filename='images/shazam/' + track.track_image) }}" alt="{{ track.song_name }}" class="track-image">
+                {% endif %}
+                <h3>{{ track.song_name }}</h3>
+                <p><strong>Artist:</strong> {{ track.artist }}</p>
+                <p><strong>Shazam Count:</strong> {{ track.shazam_count }}</p>
+            </div>
+            {% endfor %}
+        </section>
+    </div>
+
+    <!-- Shazam Stats Link -->
+    <div class="section">
+        <!-- <h3>Current Shazam Stats</h3> -->
+        <p>To get the detailed statistics of every song of Taehyung and Jung Kook, refer to the <a href="{{ url_for('shazamstats') }}">Shazam Stats Page</a>.</p>
+        <p>As of: {{ date_as_of }}</p>
+    </div>
+
+</div>
+
+<!-- Button to trigger sticky note slide-in -->
+<button id="toggle-sticky-note" class="sticky-note-btn">Quick Tips</button>
+
+<div class="sticky-notes">
+    <h4><span class="pin-icon">📌</span>Pro Tips</h4>
+    <ul>
+        <li>Collaborate with fanbases to encourage mass Shazam campaigns.</li>
+        <li>Share your Shazam activity on social media and inspire others to join in.</li>
+        <li>Track which songs are trending and Shazam those to boost their visibility.</li>
+    </ul>
+</div>
+<script>
+    const stickyNote = document.querySelector('.sticky-notes');
+    const toggleButton = document.querySelector('#toggle-sticky-note');
+
+    toggleButton.addEventListener('click', function () {
+        stickyNote.classList.toggle('open');
+    });
+</script>
+{% endblock %}
