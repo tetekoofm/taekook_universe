@@ -39,19 +39,6 @@ class Milestone(db.Model):
     def __repr__(self):
         return f'<Milestone {self.title}>'
 
-
-class Radio(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    station_logo = db.Column(db.String(255), nullable=True) 
-    station_name = db.Column(db.String(100), nullable=False)
-    location = db.Column(db.String(100), nullable=False) 
-    station_link = db.Column(db.String(255), nullable=False) 
-    request_link = db.Column(db.String(255), nullable=True) 
-    description = db.Column(db.Text, nullable=True)
-
-    def __repr__(self):
-        return f'<Radio {self.station_name}>'
-    
 class Discography(db.Model):
     __tablename__ = 'discography'
 
@@ -75,7 +62,30 @@ class MusicVideo(db.Model):
 
     def __repr__(self):
         return f'<MusicVideo {self.name}>'
+    
+class Radio(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    station_logo = db.Column(db.String(255), nullable=True) 
+    station_name = db.Column(db.String(100), nullable=False)
+    location = db.Column(db.String(100), nullable=False) 
+    station_link = db.Column(db.String(255), nullable=False) 
+    request_link = db.Column(db.String(255), nullable=True) 
+    description = db.Column(db.Text, nullable=True)
 
+    def __repr__(self):
+        return f'<Radio {self.station_name}>'
+
+class ShazamStats(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    artist = db.Column(db.String(100), nullable=False)  # Added artist column
+    song_name = db.Column(db.String(255), nullable=False)
+    shazam_count = db.Column(db.Integer, nullable=False)
+    popular = db.Column(db.Boolean, default=False)
+    date = db.Column(db.String(10), nullable=False)
+    
+    def __repr__(self):
+        return f'<ShazamStats {self.song_name} by {self.artist}>'
+    
 class Fanbase(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     logo = db.Column(db.String(255), nullable=True)

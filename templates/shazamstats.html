@@ -1,0 +1,65 @@
+{% extends "00.base_subnav.html" %}
+{% block title %}Shazam Stats{% endblock %}
+{% block content %}
+
+<div class="page guide-page">
+    <h1>Shazam Stats</h1>
+    <p class="caption">Here are the most recent stats for Taehyung and Jungkook’s songs on Shazam. See how they are performing!</p>
+
+    <div class="shazam-container">
+        <!-- Taehyung's Section -->
+        <div class="shazam-section">
+            <h2>Taehyung</h2>
+            <!-- <p>Taehyung's Shazam list</p> -->
+            <div class="shazam-stats-table">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Song Name</th>
+                            <th>Shazam Count</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for stat in stats if stat.artist == "Taehyung" %}
+                            <tr>
+                                <td>{{ stat.song_name }}</td>
+                                <td>{{ stat.shazam_count }}</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Jungkook's Section -->
+        <div class="shazam-section">
+            <h2>Jung Kook</h2>
+            <!-- <p>Jung Kook's 's Shazam list</p> -->
+            <div class="shazam-stats-table">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Song Name</th>
+                            <th>Shazam Count</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for stat in stats if stat.artist == "Jungkook" %}
+                            <tr>
+                                <td>{{ stat.song_name }}</td>
+                                <td>{{ stat.shazam_count }}</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <div class="section">
+        <h3>Last Updated</h3>
+        <p>Stats updated as of: <strong>{{ date_as_of }}</strong></p>
+    </div>
+</div>
+
+{% endblock %}

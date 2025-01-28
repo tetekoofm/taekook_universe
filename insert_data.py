@@ -1,6 +1,7 @@
 import pandas as pd
-from models import db, Upcoming, Memory, Milestone, Product, Discography, MusicVideo, Radio, Fanbase, Project
+from models import db, Upcoming, Memory, Milestone, Product, Discography, MusicVideo, Radio, ShazamStats, Fanbase, Project
 from app import app
+from datetime import datetime, time
 
 def insert_data_from_excel():
     excel_file = 'taekook_universe.xlsx'
@@ -68,24 +69,6 @@ def insert_data_from_excel():
         db.session.commit()
         print("Milestones updated from Excel!")
 
-        radio_df = pd.read_excel(excel_file, sheet_name="Radio")
-        for _, row in radio_df.iterrows():
-            existing = Radio.query.filter_by(station_name=row['station_name']).first()
-
-            if not existing:
-                radio = Radio(
-                    station_name=row['station_name'],
-                    location=row['location'],
-                    station_logo=row['station_logo'],
-                    station_link=row['station_link'],
-                    request_link=row['request_link'],
-                    description=row['description']
-                )
-                db.session.add(radio)
-
-        db.session.commit()
-        print("Radio stations data updated from Excel!")
-
         discography_df = pd.read_excel(excel_file, sheet_name='Discography')
         for _, row in discography_df.iterrows():
             existing = Discography.query.filter_by(
@@ -123,6 +106,53 @@ def insert_data_from_excel():
         db.session.commit()
         print("Music Videos updated from Excel!")
 
+        radio_df = pd.read_excel(excel_file, sheet_name="Radio")
+        for _, row in radio_df.iterrows():
+            existing = Radio.query.filter_by(station_name=row['station_name']).first()
+
+            if not existing:
+                radio = Radio(
+                    station_name=row['station_name'],
+                    location=row['location'],
+                    station_logo=row['station_logo'],
+                    station_link=row['station_link'],
+                    request_link=row['request_link'],
+                    description=row['description']
+                )
+                db.session.add(radio)
+
+        db.session.commit()
+        print("Radio stations data updated from Excel!")
+
+        # Read data from the Excel file
+        shazam_df = pd.read_excel(excel_file, sheet_name="shazamstats")
+        data_as_of = pd.read_excel(excel_file, sheet_name="shazamstats", header=None).iloc[0, 5]  # F1 is in row 0, column 5 (0-indexed)
+
+        # Check if the value is a datetime object
+        if isinstance(data_as_of, datetime):
+            data_as_of = data_as_of.strftime('%Y-%m-%d %H:%M:%S')
+        elif isinstance(data_as_of, time):
+            today = datetime.today()
+            data_as_of = datetime.combine(today, data_as_of).strftime('%Y-%m-%d %H:%M:%S')
+        else:
+            data_as_of = datetime.strptime(data_as_of, '%m/%d/%Y').strftime('%Y-%m-%d %H:%M:%S')
+        for _, row in shazam_df.iterrows():
+            existing = ShazamStats.query.filter_by(song_name=row['song_name'], artist=row['artist'], shazam_count=row['shazam_count'], popular=row['popular']).first()
+            popular = row['popular'] if 'popular' in row else 0
+
+            if not existing:
+                shazam_stat = ShazamStats(
+                    artist=row['artist'],
+                    song_name=row['song_name'],
+                    shazam_count=row['shazam_count'],
+                    popular=popular,
+                    date=data_as_of
+                )
+                db.session.add(shazam_stat)
+
+        db.session.commit()
+        print("Shazam stats data updated from Excel!")
+
         fanbases_df = pd.read_excel(excel_file, sheet_name="Fanbase")
         for _, row in fanbases_df.iterrows():
             existing = Fanbase.query.filter_by(
@@ -137,7 +167,7 @@ def insert_data_from_excel():
                     location=row['location'],
                     focus=row['focus'],
                     description=row['description'],
-                    x=row['x'],  # Ensure these are the correct column names
+                    x=row['x'],  
                     instagram=row['instagram'],
                     facebook=row['facebook'],
                     bluesky=row['bluesky'],
@@ -153,9 +183,8 @@ def insert_data_from_excel():
         projects_df = pd.read_excel(excel_file, sheet_name="Project")
         projects_df['date'] = projects_df['date'].dt.strftime('%Y-%m-%d')
         for _, row in projects_df.iterrows():
-            # Check if the project already exists (based on title or another unique field)
             existing = Project.query.filter_by(
-                title=row['title'],  # Assuming title is unique
+                title=row['title'], 
                 date=row['date']
             ).first()
 
@@ -166,7 +195,7 @@ def insert_data_from_excel():
                     location=row['location'],
                     image=row['image'], 
                     description=row['description'],
-                    link=row['link']  # Assuming there's a 'link' column in your Excel sheet
+                    link=row['link']  
                 )
                 db.session.add(project)
         

@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request, redirect, session, url_for, jsonify, current_app, send_from_directory
-import os, secrets, random, calendar
-from models import db, Upcoming, Memory, Milestone, Product, Radio, Discography, MusicVideo, Fanbase, Project
+import os, secrets, random, calendar, subprocess
+from models import db, Upcoming, Memory, Milestone, Product, Discography, MusicVideo,  Radio, ShazamStats, Fanbase, Project
 from collections import defaultdict
 from datetime import datetime
 
@@ -23,10 +23,6 @@ def force_https():
     if not current_app.debug and not request.is_secure:
         url = request.url.replace("http://", "https://", 1)
         return redirect(url, code=301)
-
-@app.route('/test')
-def test():
-    return render_template('test.html')
 
 @app.route('/')
 def home():
@@ -135,6 +131,10 @@ def fanbases():
         print(fanbase.fb_name, fanbase.x, fanbase.instagram, fanbase.facebook)
     return render_template("07.01.fanbases.html", fanbases=fanbases)
 
+@app.route('/donating')
+def donating():
+    return render_template('07.07.donating.html')
+
 @app.route('/streaming')
 def streaming():
     return render_template('07.02.streaming.html')
@@ -152,18 +152,22 @@ def radio():
     radio_stations = Radio.query.all() 
     return render_template('07.05.radio.html', radio_stations=radio_stations)
 
-@app.route('/radio1')
-def radio1():
-    radio_stations1 = Radio.query.all() 
-    return render_template('radio1.html', radio_stations=radio_stations1)
+@app.route('/shazam')
+def shazam():
+    shazam_stats = ShazamStats.query.all()
+    popular_tracks = ShazamStats.query.filter_by(popular=True).all()  # Only popular tracks
+    date_as_of = shazam_stats[0].date if shazam_stats else None
+    return render_template('07.06.shazam.html', shazam_stats=shazam_stats, popular_tracks=popular_tracks, date_as_of=date_as_of)
+
+@app.route('/shazamstats')
+def shazamstats():
+    stats = ShazamStats.query.all()
+    date_as_of = stats[0].date if stats else None
+    return render_template('shazamstats.html', stats=stats, date_as_of=date_as_of)
 
 @app.route('/naver')
 def naver():
     return render_template('07.06.naver.html')
-
-@app.route('/donating')
-def donating():
-    return render_template('07.07.donating.html')
 
 @app.route('/promotions')
 def promotions():
