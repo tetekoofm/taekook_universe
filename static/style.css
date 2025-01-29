@@ -1743,6 +1743,30 @@ footer a:hover {
     margin-bottom: 15px;
 }
 
+.section img {
+    max-width: 100%; 
+    max-height: 300px;
+    border: 2px solid #3dcf64; 
+    margin: 10px;
+    cursor: pointer; 
+    transition: transform 0.3s ease; 
+}
+
+.section img:hover {
+    transform: scale(1.05); 
+}
+
+.image-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+}
+
+.lightbox {
+    text-decoration: none; /* Remove underline for links */
+}
+
 /* Paragraph Text */
 .page p, .page ul {
     font-family: 'Fira Sans Condensed', serif;
