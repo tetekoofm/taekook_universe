@@ -1697,6 +1697,7 @@ footer a:hover {
 /***************************************************** GUIDE *****************************************************/
 
 .page {
+    font-family: 'Fira Sans Condensed', serif;
     position: relative;
     padding: 30px;
     max-width: 1200px;
@@ -1708,7 +1709,7 @@ footer a:hover {
 /* Header Styling */
 .page h1, .page h2 {
     font-family: 'Tangerine', serif;
-    font-size: 3.5rem;
+    font-size: 5rem;
     color: #6A0DAD;
     margin-bottom: 20px;
     text-align: center;
@@ -1716,15 +1717,15 @@ footer a:hover {
 
 .page .caption {
     font-family: 'Fira Sans Condensed', serif;
-    font-size: 1.2rem !important; 
+    font-size: 1.5rem !important; 
     color: #008000 !important;
-    margin: 0.5rem 0; 
+    margin-bottom: 20px;
     text-align: center;
     max-width: 100%;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6), 
                  -2px -2px 4px rgba(0, 0, 0, 0.4), 
                  0px 4px 6px rgba(0, 0, 0, 0.3);
-    line-height: 0.8; 
+    line-height: 0.5; 
     z-index: 100;
 }
 
@@ -1743,36 +1744,11 @@ footer a:hover {
     margin-bottom: 15px;
 }
 
-.section img {
-    max-width: 100%; 
-    max-height: 300px;
-    border: 2px solid #3dcf64; 
-    margin: 10px;
-    cursor: pointer; 
-    transition: transform 0.3s ease; 
-}
-
-.section img:hover {
-    transform: scale(1.05); 
-}
-
-.image-container {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 20px;
-}
-
-.lightbox {
-    text-decoration: none; /* Remove underline for links */
-}
-
 /* Paragraph Text */
 .page p, .page ul {
-    font-family: 'Fira Sans Condensed', serif;
-    font-size: 1.1rem;
-    color: #ccc; 
-    line-height: 1.6;
+    font-size: 1.3rem;
+    color: #bfbfbf; 
+    line-height: 1.4;
 }
 
 /* List Styling */
@@ -1795,14 +1771,6 @@ footer a:hover {
 .page a:hover {
     color: #008000; 
     text-decoration: underline;
-}
-
-/* Captions Styling */
-.page .caption {
-    color: #ccc;
-    font-size: 1rem;
-    margin-bottom: 20px;
-    text-align: center;
 }
 
 /* Ways to Help Container */
@@ -1829,8 +1797,10 @@ footer a:hover {
     padding-bottom: 10px;
 }
 
+
 /* Individual Help Section Styles */
 .section {
+    font-family: 'Fira Sans Condensed', serif;
     background-color: #110f11;
     border-radius: 8px;
     padding: 20px;
@@ -1841,7 +1811,6 @@ footer a:hover {
 
 /* Section Heading Styles */
 .section h3 {
-    font-family: 'Fira Sans Condensed', serif;
     font-size: 2em;
     color: #6A0DAD;
     margin-bottom: 10px;
@@ -1850,19 +1819,42 @@ footer a:hover {
 
 /* Section Paragraphs */
 .section p {
-    font-family: 'Fira Sans Condensed', serif;
-    font-size: 1em;
+    font-size: 1.3em;
     color: #bfbfbf;
     line-height: 1.6;
     margin-bottom: 15px;
+}
+
+.section img {
+    max-width: 100%; 
+    max-height: 300px;
+    border: 2px solid #3dcf64; 
+    margin: 10px;
+    cursor: pointer; 
+    transition: transform 0.3s ease; 
+}
+
+.section img:hover {
+    transform: scale(1.05); 
+}
+
+.image-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+}
+
+.lightbox {
+    text-decoration: none;
 }
 
 /* Positioning and Styling for the Sticky Note Button */
 .sticky-note-btn {
     position: fixed;
     top: 420px;
-    right: -80px;
-    width: 200px;
+    right: -50px;
+    width: 120px;
     height: 60px;
     background-color: #008000;
     color: #f3f3f3;
@@ -1876,6 +1868,7 @@ footer a:hover {
     justify-content: center;
     align-items: center;
     text-align: center;
+    padding-top: 15px;
     transform: rotate(90deg);
     z-index: 1000;
     transition: background-color 0.3s ease;
@@ -1886,9 +1879,9 @@ footer a:hover {
     font-family: 'Fira Sans Condensed', serif;
     position: fixed;
     right: -350px; 
-    top: 550px;
+    top: 480px;
     transform: translateY(-50%); 
-    width: 300px;
+    width: 250px;
     background-color: #008000; 
     padding: 20px;
     border-radius: 10px; 
@@ -1912,19 +1905,20 @@ footer a:hover {
     font-size: 20px;
     font-weight: bold;
     margin-top: 0;
-    margin-bottom: 10px;
+    margin-bottom: 20px;
     color: #f3f3f3;
     text-align: center;
 }
 
 .sticky-notes ul {
-    padding-left: 20px;
+    padding-left: 10px;
+    padding-right: 20px;
     list-style-type: none;
 }
 
 .sticky-notes ul li::before {
-    content: '~'; 
-    font-size: 18px;
+    content: '📌'; 
+    font-size: 14px;
     color: #f3f3f3; 
     margin-right: 10px; 
     vertical-align: middle; 
