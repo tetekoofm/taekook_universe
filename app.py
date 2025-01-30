@@ -165,9 +165,9 @@ def shazamstats():
     date_as_of = stats[0].date if stats else None
     return render_template('shazamstats.html', stats=stats, date_as_of=date_as_of)
 
-@app.route('/naver')
+@app.route('/brandreputation')
 def naver():
-    return render_template('07.06.naver.html')
+    return render_template('07.06.brand_reputation.html')
 
 @app.route('/promotions')
 def promotions():
