@@ -124,40 +124,40 @@ def projects():
 def guide_page():
     return render_template("07.guide.html")
 
+@app.route('/donating')
+def donating():
+    return render_template('07.01.donating.html')
+
 @app.route("/fanbases")
 def fanbases():
     fanbases = Fanbase.query.all()
     for fanbase in fanbases:
         print(fanbase.fb_name, fanbase.x, fanbase.instagram, fanbase.facebook)
-    return render_template("07.01.fanbases.html", fanbases=fanbases)
-
-@app.route('/donating')
-def donating():
-    return render_template('07.07.donating.html')
+    return render_template("07.02.fanbases.html", fanbases=fanbases)
 
 @app.route('/streaming')
 def streaming():
-    return render_template('07.02.streaming.html')
+    return render_template('07.03.streaming.html')
 
 @app.route('/buying')
 def buying():
-    return render_template('07.03.buying.html')
+    return render_template('07.04.buying.html')
 
 @app.route('/voting')
 def voting():
-    return render_template('07.04.voting.html')
+    return render_template('07.05.voting.html')
 
 @app.route('/radio')
 def radio():
     radio_stations = Radio.query.all() 
-    return render_template('07.05.radio.html', radio_stations=radio_stations)
+    return render_template('07.06.radio.html', radio_stations=radio_stations)
 
 @app.route('/shazam')
 def shazam():
     shazam_stats = ShazamStats.query.all()
     popular_tracks = ShazamStats.query.filter_by(popular=True).all()  # Only popular tracks
     date_as_of = shazam_stats[0].date if shazam_stats else None
-    return render_template('07.06.shazam.html', shazam_stats=shazam_stats, popular_tracks=popular_tracks, date_as_of=date_as_of)
+    return render_template('07.07.shazam.html', shazam_stats=shazam_stats, popular_tracks=popular_tracks, date_as_of=date_as_of)
 
 @app.route('/shazamstats')
 def shazamstats():
@@ -167,11 +167,11 @@ def shazamstats():
 
 @app.route('/brandreputation')
 def naver():
-    return render_template('07.06.brand_reputation.html')
+    return render_template('07.08.brand_reputation.html')
 
 @app.route('/promotions')
 def promotions():
-    return render_template('07.08.promotions.html')
+    return render_template('07.09.promotions.html')
 
 @app.route('/endorsements')
 def endorsements():

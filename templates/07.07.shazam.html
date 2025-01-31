@@ -39,7 +39,7 @@
             <li>Shazam the songs in different locations to spread the word globally.</li>
             <li>Encourage your friends and family to Shazam their songs too!</li>
             <li>Stay updated with their new releases and Shazam them as soon as they are out.</li>
-            <li>Our beloved fanbase <a href="https://x.com/TaeKook_USA">TK USA</a> organizes Daily Shazam Challenges on X at two different timezones to accomondate global fans. Join them!</li>
+            <li>Our beloved fanbase <a href="https://x.com/TaeKook_USA">TK USA</a> organizes Daily Shazam Challenges on X at two different timezones to accomodate global fans. Join them!</li>
             
         </ul>
     </div>
@@ -95,9 +95,9 @@
             {% for track in popular_tracks %}
             <div class="track-card">
                 {% if track.image %}
-                <img src="{{ url_for('static', filename='images/songs/' + track.image) }}" alt="{{ track.song_name }}" class="track-image">
+                <img src="{{ url_for('static', filename='images/songs/' ~ track.image) }}" alt="{{ track.orig_song_name }}" class="track-image">
                 {% endif %}
-                <h3>{{ track.song_name }}</h3>
+                <h3>{{ track.orig_song_name }}</h3>
                 <p><strong>Artist:</strong> {{ track.artist }}</p>
                 <p><strong>Shazam Count:</strong> {{ track.shazam_count }}</p>
             </div>
