@@ -124,9 +124,9 @@ def insert_data_from_excel():
         db.session.commit()
         print("Radio stations data updated from Excel!")
 
-        shazam_df = pd.read_excel(excel_file, sheet_name="shazamstats")
+        shazam_df = pd.read_excel(excel_file, sheet_name="shazamstats", dtype={'image': str})
         data_as_of = pd.read_excel(excel_file, sheet_name="shazamstats", header=None).iloc[0, 8]  # I1 is in row 0, column 8 (0-indexed)
-
+       
         # Convert date format
         if isinstance(data_as_of, datetime):
             data_as_of = data_as_of.strftime('%Y-%m-%d %H:%M:%S')
@@ -139,7 +139,7 @@ def insert_data_from_excel():
         # Insert into database
         for _, row in shazam_df.iterrows():
             popular = row['popular'] if 'popular' in row else 0
-            image = row['image'] if pd.notna(row['image']) else None  # Convert NaN to None
+            image = row['image'] if pd.notna(row['image']) else None
 
             existing = ShazamStats.query.filter_by(
                 orig_song_name=row['orig_song_name'], 
