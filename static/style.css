@@ -1817,12 +1817,19 @@ footer a:hover {
     font-weight: bold;
 }
 
+.section h4 {
+    font-size: 1.6em;
+    color: #6A0DAD;
+    font-weight: bold;
+    margin-bottom: 0;
+}
+
 /* Section Paragraphs */
 .section p {
     font-size: 1.3em;
     color: #bfbfbf;
     line-height: 1.6;
-    margin-bottom: 15px;
+    margin-bottom: 10px;
 }
 
 .section img {

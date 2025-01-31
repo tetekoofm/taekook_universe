@@ -125,7 +125,7 @@ def insert_data_from_excel():
         print("Radio stations data updated from Excel!")
 
         shazam_df = pd.read_excel(excel_file, sheet_name="shazamstats")
-        data_as_of = pd.read_excel(excel_file, sheet_name="shazamstats", header=None).iloc[0, 7]  # H1 is in row 0, column 7 (0-indexed)
+        data_as_of = pd.read_excel(excel_file, sheet_name="shazamstats", header=None).iloc[0, 8]  # I1 is in row 0, column 8 (0-indexed)
 
         # Convert date format
         if isinstance(data_as_of, datetime):
@@ -134,13 +134,15 @@ def insert_data_from_excel():
             today = datetime.today()
             data_as_of = datetime.combine(today, data_as_of).strftime('%Y-%m-%d %H:%M:%S')
         else:
-            data_as_of = datetime.strptime(data_as_of, '%m/%d/%Y').strftime('%Y-%m-%d %H:%M:%S')
+            data_as_of = datetime.strptime(data_as_of, '%Y-%m-%d %H:%M:%S').strftime('%Y-%m-%d %H:%M:%S')
 
         # Insert into database
         for _, row in shazam_df.iterrows():
             popular = row['popular'] if 'popular' in row else 0
-            
+            image = row['image'] if pd.notna(row['image']) else None  # Convert NaN to None
+
             existing = ShazamStats.query.filter_by(
+                orig_song_name=row['orig_song_name'], 
                 song_name=row['song_name'], 
                 artist=row['artist'], 
                 shazam_count=row['shazam_count'], 
@@ -150,7 +152,8 @@ def insert_data_from_excel():
             if not existing:
                 shazam_stat = ShazamStats(
                     artist=row['artist'],
-                    image=row['image'],
+                    image=image,  # Use None if image is NaN
+                    orig_song_name=row['orig_song_name'],
                     song_name=row['song_name'],
                     shazam_count=row['shazam_count'],
                     popular=popular,
@@ -160,7 +163,6 @@ def insert_data_from_excel():
 
         db.session.commit()
         print("Shazam stats data updated from Excel!")
-
 
         fanbases_df = pd.read_excel(excel_file, sheet_name="Fanbase")
         for _, row in fanbases_df.iterrows():
