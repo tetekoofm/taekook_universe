@@ -22,7 +22,7 @@
                     <tbody>
                         {% for stat in stats if stat.artist == "Taehyung" %}
                             <tr>
-                                <td>{{ stat.song_name }}</td>
+                                <td>{{ stat.orig_song_name }}</td>
                                 <td>{{ stat.shazam_count }}</td>
                             </tr>
                         {% endfor %}
@@ -46,7 +46,7 @@
                     <tbody>
                         {% for stat in stats if stat.artist == "Jungkook" %}
                             <tr>
-                                <td>{{ stat.song_name }}</td>
+                                <td>{{ stat.orig_song_name }}</td>
                                 <td>{{ stat.shazam_count }}</td>
                             </tr>
                         {% endfor %}
