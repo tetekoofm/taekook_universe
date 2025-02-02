@@ -924,15 +924,15 @@ footer a:hover {
 
 .event-title {
     font-family: 'Fira Sans Condensed', serif;
-    font-size: 1em !important;
+    font-size: 0.8em !important;
     text-align: left;
     margin-top: 0;
 }
 
 /* Event Icon */
 .event-icon {
-    width: 15px; 
-    height: 15px; 
+    width: 20px; 
+    height: 20px; 
     margin: 0 3px; 
     vertical-align: middle; 
     border-radius: 50%; 
@@ -1696,6 +1696,66 @@ footer a:hover {
 
 /***************************************************** GUIDE *****************************************************/
 
+
+.help-container {
+    max-width: 1200px;
+    margin: auto;
+}
+
+.grid-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+    gap: 120px;
+    padding: 20px;
+    justify-items: center;
+}
+
+.card {
+    background: linear-gradient(135deg, #6A0DAD, #008000);
+    padding: 25px;
+    border-radius: 12px;
+    text-align: center;
+    box-shadow: 0px 4px 10px rgba(255, 255, 255, 0.2);
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+    width: 350px;
+    height: 250px;
+    position: relative;
+    margin-bottom: 30px;
+}
+
+.card a.card-link {
+    color: inherit; 
+    text-decoration: none;
+    display: block; 
+    height: 100%; 
+    width: 100%; 
+    position: relative; 
+}
+
+.t-shape .card:hover {
+    transform: translateX(-100px); 
+    box-shadow: 0px 6px 15px rgba(255, 255, 255, 0.3);
+}
+
+.k-shape .card:hover {
+    transform: translateX(100px); 
+    box-shadow: 0px 6px 15px rgba(255, 255, 255, 0.3);
+}
+
+.card h3 {
+    font-family: 'Tangerine', serif;
+    font-size: 3rem;
+    margin-top: 5px;
+    margin-bottom: 25px;
+    color: #9354ce;
+}
+
+.card p {
+    font-family: 'Fira Sans Condensed', serif;
+    font-size: 1.2rem;
+    color: #ccc;
+}
+
 .page {
     font-family: 'Fira Sans Condensed', serif;
     position: relative;
@@ -1717,7 +1777,7 @@ footer a:hover {
 
 .page .caption {
     font-family: 'Fira Sans Condensed', serif;
-    font-size: 1.5rem !important; 
+    font-size: 1.5rem !important;
     color: #008000 !important;
     margin-bottom: 20px;
     text-align: center;
@@ -1725,7 +1785,7 @@ footer a:hover {
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6), 
                  -2px -2px 4px rgba(0, 0, 0, 0.4), 
                  0px 4px 6px rgba(0, 0, 0, 0.3);
-    line-height: 0.5; 
+    line-height: 0.5;
     z-index: 100;
 }
 
@@ -1735,6 +1795,12 @@ footer a:hover {
     padding: 20px;
     border-radius: 8px;
     background-color: #000;
+    transition: transform 0.3s ease, background-color 0.3s ease;
+}
+
+.page .section:hover {
+    background-color: #1a1a1a;
+    transform: scale(1.02);
 }
 
 /* Section Subtitles */
@@ -1747,7 +1813,7 @@ footer a:hover {
 /* Paragraph Text */
 .page p, .page ul {
     font-size: 1.3rem;
-    color: #bfbfbf; 
+    color: #bfbfbf;
     line-height: 1.4;
 }
 
@@ -1766,10 +1832,11 @@ footer a:hover {
     color: #6A0DAD;
     text-decoration: none;
     font-weight: bold;
+    transition: color 0.3s ease;
 }
 
 .page a:hover {
-    color: #008000; 
+    color: #008000;
     text-decoration: underline;
 }
 
@@ -1779,10 +1846,10 @@ footer a:hover {
     border-radius: 8px;
     margin-top: 10px;
     margin-bottom: 30px;
-    max-width: 800px; 
+    max-width: 800px;
     margin: 0 auto;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-    text-align: left; 
+    text-align: left;
 }
 
 /* Title for Help Container */
@@ -1797,6 +1864,13 @@ footer a:hover {
     padding-bottom: 10px;
 }
 
+/* Grid Layout for Sections */
+.section-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+    margin-top: 20px;
+}
 
 /* Individual Help Section Styles */
 .section {
@@ -1805,8 +1879,13 @@ footer a:hover {
     border-radius: 8px;
     padding: 20px;
     margin-bottom: 20px;
-    transition: background-color 0.3s ease;
+    transition: background-color 0.3s ease, transform 0.3s ease;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.section:hover {
+    background-color: #1a1a1a;
+    transform: scale(1.03);
 }
 
 /* Section Heading Styles */
@@ -1833,15 +1912,16 @@ footer a:hover {
 }
 
 .section img {
-    max-width: 100%; 
+    max-width: 100%;
     max-height: 300px;
     margin: 10px;
-    cursor: pointer; 
-    transition: transform 0.3s ease; 
+    cursor: pointer;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .section img:hover {
-    transform: scale(1.05); 
+    transform: scale(1.05);
+    box-shadow: 0 4px 10px rgba(255, 255, 255, 0.2);
 }
 
 .image-container {
