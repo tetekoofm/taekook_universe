@@ -139,7 +139,7 @@ def insert_data_from_excel():
         # Insert into database
         for _, row in shazam_df.iterrows():
             popular = row['popular'] if 'popular' in row else 0
-            image = row['image'] if pd.notna(row['image']) else None
+            image = row['image'].strip() if isinstance(row['image'], str) else 'default_image.png'
 
             existing = ShazamStats.query.filter_by(
                 orig_song_name=row['orig_song_name'], 
@@ -148,11 +148,13 @@ def insert_data_from_excel():
                 shazam_count=row['shazam_count'], 
                 popular=popular
             ).first()
+            
+            # print(f"Row Image Value: {row['image']}, Type: {type(row['image'])}")
 
             if not existing:
                 shazam_stat = ShazamStats(
                     artist=row['artist'],
-                    image=image,  # Use None if image is NaN
+                    image=image,
                     orig_song_name=row['orig_song_name'],
                     song_name=row['song_name'],
                     shazam_count=row['shazam_count'],

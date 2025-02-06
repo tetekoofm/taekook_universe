@@ -38,16 +38,23 @@ class Milestone(db.Model):
 
     def __repr__(self):
         return f'<Milestone {self.title}>'
-
+ 
 class Discography(db.Model):
     __tablename__ = 'discography'
 
     id = db.Column(db.Integer, primary_key=True)
     artist = db.Column(db.String(100), nullable=False)
+    image = db.Column(db.String(255), nullable=False) 
     album_name = db.Column(db.String(200), nullable=False)
     song_name = db.Column(db.String(200), nullable=False)
     release_date = db.Column(db.Date, nullable=False)
-    duration = db.Column(db.String(10), nullable=False)  # Store duration as a string
+    duration = db.Column(db.String(10), nullable=False)
+    spotify_url = db.Column(db.String(255), nullable=True)
+    apple_music_url = db.Column(db.String(255), nullable=True)
+    youtube_url = db.Column(db.String(255), nullable=True)
+    shazam_url = db.Column(db.String(255), nullable=True)
+    pandora_url = db.Column(db.String(255), nullable=True)
+    tidal_url = db.Column(db.String(255), nullable=True)
 
     def __repr__(self):
         return f'<Discography {self.song_name}>'
