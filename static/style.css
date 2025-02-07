@@ -2299,10 +2299,11 @@ footer a:hover {
 .streaming-links {
     display: flex;
     align-items: center;
-    justify-content: center; /* Center icons */
-    gap: 1px; /* Small gap between icons */
+    justify-content: center;
+    gap: 2px;
     width: 100%;
     margin-top: 10px;
+    margin-left: -15px;
 }
 
 .stream-icon {
