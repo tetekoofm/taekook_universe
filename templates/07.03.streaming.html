@@ -67,16 +67,50 @@
             {% for track in trending_tracks %}
             <div class="track-card">
                 {% if track.image %}
-                <img src="{{ url_for('static', filename='images/songs/' ~ track.image) }}" alt="{{ track.orig_song_name }}" class="track-image">
+                <img src="{{ url_for('static', filename='images/songs/' ~ track.image) }}" alt="{{ track.song_name }}" class="track-image">
                 {% endif %}
-                <h3>{{ track.orig_song_name }}</h3>
+                <h3>{{ track.song_name }}</h3>
                 <p><strong>Artist:</strong> {{ track.artist }}</p>
                 <p><strong>Streams:</strong> {{ track.stream_count }}</p>
-            </div>
+            
+                <!-- Streaming Platform Icons -->
+                <div class="streaming-links">
+                    {% if track.spotify_url %}
+                    <a href="{{ track.spotify_url }}" target="_blank">
+                        <img src="{{ url_for('static', filename='images/icons/spotify.jpeg') }}" alt="Spotify" class="stream-icon">
+                    </a>
+                    {% endif %}
+                    {% if track.apple_music_url %}
+                    <a href="{{ track.apple_music_url }}" target="_blank">
+                        <img src="{{ url_for('static', filename='images/icons/applemusic.jpeg') }}" alt="Apple Music" class="stream-icon">
+                    </a>
+                    {% endif %}
+                    {% if track.youtube_url %}
+                    <a href="{{ track.youtube_url }}" target="_blank">
+                        <img src="{{ url_for('static', filename='images/icons/youtube.jpeg') }}" alt="YouTube" class="stream-icon">
+                    </a>
+                    {% endif %}
+                    {% if track.shazam_url %}
+                    <a href="{{ track.shazam_url }}" target="_blank">
+                        <img src="{{ url_for('static', filename='images/icons/shazam.jpeg') }}" alt="Shazam" class="stream-icon">
+                    </a>
+                    {% endif %}
+                    {% if track.pandora_url %}
+                    <a href="{{ track.pandora_url }}" target="_blank">
+                        <img src="{{ url_for('static', filename='images/icons/pandora.jpeg') }}" alt="Pandora" class="stream-icon">
+                    </a>
+                    {% endif %}
+                    {% if track.tidal_url %}
+                    <a href="{{ track.tidal_url }}" target="_blank">
+                        <img src="{{ url_for('static', filename='images/icons/tidal.jpeg') }}" alt="Tidal" class="stream-icon">
+                    </a>
+                    {% endif %}
+                </div>
+            </div>                    
             {% endfor %}
         </section>
     </div>
-</div>
+    
 
 <!-- Button to trigger sticky note slide-in -->
 <button id="toggle-sticky-note" class="sticky-note-btn">Quick Tips</button>

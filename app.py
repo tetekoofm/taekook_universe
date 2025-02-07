@@ -135,9 +135,10 @@ def fanbases():
         print(fanbase.fb_name, fanbase.x, fanbase.instagram, fanbase.facebook)
     return render_template("07.02.fanbases.html", fanbases=fanbases)
 
-@app.route('/streaming')
+@app.route("/streaming")
 def streaming():
-    return render_template('07.03.streaming.html')
+    trending_tracks = Discography.query.filter_by(popular=1).all()
+    return render_template('07.03.streaming.html', trending_tracks=trending_tracks)
 
 @app.route('/buying')
 def buying():
