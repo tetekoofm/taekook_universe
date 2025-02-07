@@ -1,5 +1,5 @@
 import pandas as pd
-from models import db, Upcoming, Memory, Milestone, Product, Discography, MusicVideo, Radio, ShazamStats, Fanbase, Project
+from models import db, Upcoming, Memory, Milestone, Product, Discography, MusicVideo, Radio, SpotifyStats, YoutubeStats, ShazamStats, Fanbase, Project
 from app import app
 from datetime import datetime, time
 
@@ -137,6 +137,86 @@ def insert_data_from_excel():
         db.session.commit()
         print("Radio stations data updated from Excel!")
 
+        spotify_df = pd.read_excel(excel_file, sheet_name="spotifystats", dtype={'image': str})
+        data_as_of = pd.read_excel(excel_file, sheet_name="spotifystats", header=None).iloc[0, 8]  # I1 is in row 0, column 8 (0-indexed)
+       
+        # Convert date format
+        if isinstance(data_as_of, datetime):
+            data_as_of = data_as_of.strftime('%Y-%m-%d %H:%M:%S')
+        elif isinstance(data_as_of, time):
+            today = datetime.today()
+            data_as_of = datetime.combine(today, data_as_of).strftime('%Y-%m-%d %H:%M:%S')
+        else:
+            data_as_of = datetime.strptime(data_as_of, '%Y-%m-%d %H:%M:%S').strftime('%Y-%m-%d %H:%M:%S')
+
+        # Insert into database
+        for _, row in spotify_df.iterrows():
+            popular = row['popular'] if 'popular' in row else 0
+            image = row['image'].strip() if isinstance(row['image'], str) else 'default_image.png'
+
+            existing = SpotifyStats.query.filter_by(
+                orig_song_name=row['orig_song_name'], 
+                song_name=row['song_name'], 
+                artist=row['artist'], 
+                total_streams=row['total_streams'], 
+                popular=popular
+            ).first()
+
+            if not existing:
+                spotify_stat = SpotifyStats(
+                    artist=row['artist'],
+                    image=image,
+                    orig_song_name=row['orig_song_name'],
+                    song_name=row['song_name'],
+                    total_streams=row['total_streams'],
+                    popular=popular,
+                    date=data_as_of
+                )
+                db.session.add(spotify_stat)
+
+        db.session.commit()
+        print("Spotify stats data updated from Excel!")
+
+        youtube_df = pd.read_excel(excel_file, sheet_name="youtubestats", dtype={'image': str})
+        data_as_of = pd.read_excel(excel_file, sheet_name="youtubestats", header=None).iloc[0, 8]  # I1 is in row 0, column 8 (0-indexed)
+       
+        # Convert date format
+        if isinstance(data_as_of, datetime):
+            data_as_of = data_as_of.strftime('%Y-%m-%d %H:%M:%S')
+        elif isinstance(data_as_of, time):
+            today = datetime.today()
+            data_as_of = datetime.combine(today, data_as_of).strftime('%Y-%m-%d %H:%M:%S')
+        else:
+            data_as_of = datetime.strptime(data_as_of, '%Y-%m-%d %H:%M:%S').strftime('%Y-%m-%d %H:%M:%S')
+
+        # Insert into database
+        for _, row in youtube_df.iterrows():
+            popular = row['popular'] if 'popular' in row else 0
+            image = row['image'].strip() if isinstance(row['image'], str) else 'default_image.png'
+
+            existing = YoutubeStats.query.filter_by(
+                orig_song_name=row['orig_song_name'], 
+                song_name=row['song_name'], 
+                artist=row['artist'], 
+                view_count=row['view_count'], 
+                popular=popular
+            ).first()
+
+            if not existing:
+                youtube_stat = YoutubeStats(
+                    artist=row['artist'],
+                    image=image,
+                    orig_song_name=row['orig_song_name'],
+                    song_name=row['song_name'],
+                    view_count=row['view_count'],
+                    popular=popular,
+                    date=data_as_of
+                )
+                db.session.add(youtube_stat)
+
+        db.session.commit()
+        print("Youtube stats data updated from Excel!")
+
         shazam_df = pd.read_excel(excel_file, sheet_name="shazamstats", dtype={'image': str})
         data_as_of = pd.read_excel(excel_file, sheet_name="shazamstats", header=None).iloc[0, 8]  # I1 is in row 0, column 8 (0-indexed)
        
@@ -161,8 +241,6 @@ def insert_data_from_excel():
                 shazam_count=row['shazam_count'], 
                 popular=popular
             ).first()
-            
-            # print(f"Row Image Value: {row['image']}, Type: {type(row['image'])}")
 
             if not existing:
                 shazam_stat = ShazamStats(

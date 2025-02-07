@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request, redirect, session, url_for, jsonify, current_app, send_from_directory
 import os, secrets, random, calendar, subprocess
-from models import db, Upcoming, Memory, Milestone, Product, Discography, MusicVideo,  Radio, ShazamStats, Fanbase, Project
+from models import db, Upcoming, Memory, Milestone, Product, Discography, MusicVideo,  Radio, SpotifyStats, YoutubeStats, ShazamStats, Fanbase, Project
 from collections import defaultdict
 from datetime import datetime
 
@@ -139,6 +139,18 @@ def fanbases():
 def streaming():
     trending_tracks = Discography.query.filter_by(popular=1).all()
     return render_template('07.03.streaming.html', trending_tracks=trending_tracks)
+
+@app.route('/spotifystats')
+def spotifystats():
+    stats = SpotifyStats.query.all()
+    date_as_of = stats[0].date if stats else None
+    return render_template('spotifystats.html', stats=stats, date_as_of=date_as_of)
+
+@app.route('/youtubestats')
+def youtubestats():
+    stats = YoutubeStats.query.all()
+    date_as_of = stats[0].date if stats else None
+    return render_template('youtubestats.html', stats=stats, date_as_of=date_as_of)
 
 @app.route('/buying')
 def buying():

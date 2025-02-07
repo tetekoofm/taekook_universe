@@ -83,6 +83,32 @@ class Radio(db.Model):
     def __repr__(self):
         return f'<Radio {self.station_name}>'
 
+class SpotifyStats(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    artist = db.Column(db.String(100), nullable=False)  # Added artist column
+    image = db.Column(db.String(255), nullable=False)
+    orig_song_name = db.Column(db.String(255), nullable=False)
+    song_name = db.Column(db.String(255), nullable=False)
+    total_streams = db.Column(db.Integer, nullable=False)
+    popular = db.Column(db.Boolean, default=False)
+    date = db.Column(db.String(10), nullable=False)
+    
+    def __repr__(self):
+        return f'<ShazamStats {self.song_name} by {self.artist}>'
+    
+class YoutubeStats(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    artist = db.Column(db.String(100), nullable=False)  # Added artist column
+    image = db.Column(db.String(255), nullable=False)
+    orig_song_name = db.Column(db.String(255), nullable=False)
+    song_name = db.Column(db.String(255), nullable=False)
+    view_count = db.Column(db.Integer, nullable=False)
+    popular = db.Column(db.Boolean, default=False)
+    date = db.Column(db.String(10), nullable=False)
+    
+    def __repr__(self):
+        return f'<ShazamStats {self.song_name} by {self.artist}>'
+    
 class ShazamStats(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     artist = db.Column(db.String(100), nullable=False)  # Added artist column

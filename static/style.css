@@ -2655,9 +2655,9 @@ footer a:hover {
     }
 }
 
-/*********************************************** SHAZAM STATS **********************************************/
+/*********************************************** STATS **********************************************/
 
-.shazam-container {
+.stats-container {
     font-family: 'Fira Sans Condensed', sans-serif;
     display: flex;
     flex-wrap: wrap;
@@ -2666,7 +2666,7 @@ footer a:hover {
     padding: 20px 0;
 }
 
-.shazam-section {
+.stats-section {
     width: 45%;
     background-color: #000000;
     padding: 20px;
@@ -2675,7 +2675,7 @@ footer a:hover {
     text-align: center;
 }
 
-.shazam-section h2 {
+.stats-section h2 {
     margin-top: 10px;
     color: #6A0DAD;
     font-size: 3em;
@@ -2683,26 +2683,26 @@ footer a:hover {
 }
 
 /* Table Styling */
-.shazam-stats-table table {
+.stats-table table {
     width: 100%;
     border-collapse: collapse;
     margin: 0 auto;
 }
 
-.shazam-stats-table th, .stats-table td {
+.stats-table th, .stats-table td {
     padding: 12px 15px;
-    text-align: center;
+    text-align: left;
     border-bottom: 1px solid #ddd;
 }
 
-.shazam-stats-table th {
+.stats-table th {
     background-color: #6A0DAD;
     color: #3dcf64;
     font-size: 1.3em;
     white-space: nowrap;
 }
 
-.shazam-stats-table td {
+.stats-table td {
     font-size: 1.3em;
     color: #3dcf64;
     background-color: #000;
@@ -2711,41 +2711,40 @@ footer a:hover {
 
 /* Responsive Design */
 @media (max-width: 768px) {
-    .shazam-container {
+    .stats-container {
         flex-direction: column;
         gap: 15px;
         padding: 10px;
     }
 
-    .shazam-section {
+    .stats-section {
         width: 90%; 
         padding: 15px;
     }
 
-    .shazam-section h2 {
+    .stats-section h2 {
         font-size: 2em; 
     }
 
-    .shazam-stats-table table {
+    .stats-table table {
         font-size: 1em; 
     }
 
-    .shazam-stats-table th, 
-    .shazam-stats-table td {
+    .stats-table th, 
+    .stats-table td {
         padding: 8px; 
         font-size: 0.8em; 
     }
     
-    .shazam-stats-table td {
+    .stats-table td {
         text-align: center; 
     }
 
-    .shazam-stats-table {
+    .stats-table {
         overflow-x: auto; 
         display: block;
     }
 }
-
 
 /*********************************************** FANBASES ********************************************************/
 
