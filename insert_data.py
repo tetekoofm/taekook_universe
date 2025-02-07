@@ -70,22 +70,35 @@ def insert_data_from_excel():
         print("Milestones updated from Excel!")
 
         discography_df = pd.read_excel(excel_file, sheet_name='Discography')
+
         for _, row in discography_df.iterrows():
+            popular = row['popular'] if 'popular' in row else 0
             existing = Discography.query.filter_by(
                 artist=row['artist'],
                 album_name=row['album_name'],
-                song_name=row['song_name']
+                song_name=row['song_name'],
+                popular=popular
             ).first()
+
             if not existing:
                 duration_str = str(row['duration'])
                 discography = Discography(
                     artist=row['artist'],
+                    image=row.get('image', None), 
                     album_name=row['album_name'],
                     song_name=row['song_name'],
-                    release_date=row['release_date'],  # Ensure YYYY-MM-DD format
-                    duration=duration_str
+                    release_date=row['release_date'],
+                    duration=duration_str,
+                    popular=popular,
+                    spotify_url=row.get('spotify_url', None),
+                    apple_music_url=row.get('apple_music_url', None),
+                    youtube_url=row.get('youtube_url', None),
+                    shazam_url=row.get('shazam_url', None),
+                    pandora_url=row.get('pandora_url', None),
+                    tidal_url=row.get('tidal_url', None)
                 )
                 db.session.add(discography)
+
         db.session.commit()
         print("Discography updated from Excel!")
 

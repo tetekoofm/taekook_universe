@@ -49,6 +49,7 @@ class Discography(db.Model):
     song_name = db.Column(db.String(200), nullable=False)
     release_date = db.Column(db.Date, nullable=False)
     duration = db.Column(db.String(10), nullable=False)
+    popular = db.Column(db.Boolean, default=False)
     spotify_url = db.Column(db.String(255), nullable=True)
     apple_music_url = db.Column(db.String(255), nullable=True)
     youtube_url = db.Column(db.String(255), nullable=True)
