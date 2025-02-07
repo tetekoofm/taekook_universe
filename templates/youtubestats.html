@@ -1,29 +1,29 @@
 {% extends "00.base_subnav.html" %}
-{% block title %}Shazam Stats{% endblock %}
+{% block title %}Youtube Stats{% endblock %}
 {% block content %}
 
 <div class="page guide-page">
-    <h1>Shazam Stats</h1>
-    <p class="caption">Here are the most recent stats for Taehyung and Jungkook’s songs on Shazam. See how they are performing!</p>
+    <h1>Youtube Stats</h1>
+    <p class="caption">Here are the most recent stats for Taehyung and Jungkook’s songs on Youtube. See how they are performing!</p>
 
     <div class="stats-container">
         <!-- Taehyung's Section -->
         <div class="stats-section">
             <h2>Taehyung</h2>
-            <!-- <p>Taehyung's Shazam list</p> -->
+            <!-- <p>Taehyung's Youtube list</p> -->
             <div class="stats-table">
                 <table>
                     <thead>
                         <tr>
                             <th>Song Name</th>
-                            <th>Shazam Count</th>
+                            <th>View Count</th>
                         </tr>
                     </thead>
                     <tbody>
                         {% for stat in stats if stat.artist == "Taehyung" %}
                             <tr>
                                 <td>{{ stat.orig_song_name }}</td>
-                                <td>{{ stat.shazam_count }}</td>
+                                <td>{{ stat.view_count }}</td>
                             </tr>
                         {% endfor %}
                     </tbody>
@@ -34,20 +34,20 @@
         <!-- Jungkook's Section -->
         <div class="stats-section">
             <h2>Jung Kook</h2>
-            <!-- <p>Jung Kook's 's Shazam list</p> -->
+            <!-- <p>Jung Kook's 's Youtube list</p> -->
             <div class="stats-table">
                 <table>
                     <thead>
                         <tr>
                             <th>Song Name</th>
-                            <th>Shazam Count</th>
+                            <th>View Count</th>
                         </tr>
                     </thead>
                     <tbody>
                         {% for stat in stats if stat.artist == "Jungkook" %}
                             <tr>
                                 <td>{{ stat.orig_song_name }}</td>
-                                <td>{{ stat.shazam_count }}</td>
+                                <td>{{ stat.view_count }}</td>
                             </tr>
                         {% endfor %}
                     </tbody>
