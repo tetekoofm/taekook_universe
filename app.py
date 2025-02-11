@@ -105,15 +105,12 @@ def milestones():
 @app.route('/vibe')
 def vibe():
     song_names = [song.song_name for song in Discography.query.all() if song.song_name]
-    music_video = MusicVideo.query.all()
-    random.shuffle(music_video)
-
-    if not song_names:
-        print("No song names found.")
-    if not music_video:
-        print("No music videos found.")
-    
-    return render_template('05.vibe.html', song_names=song_names, music_videos=music_video)
+    taehyung_videos = db.session.query(MusicVideo).filter(MusicVideo.artist == 'Taehyung').all()
+    jungkook_videos = db.session.query(MusicVideo).filter(MusicVideo.artist == 'Jungkook').all()
+    random.shuffle(taehyung_videos)
+    random.shuffle(jungkook_videos)
+   
+    return render_template('05.vibe.html', song_names=song_names, taehyung_videos=taehyung_videos, jungkook_videos=jungkook_videos)
 
 @app.route('/projects')
 def projects():
