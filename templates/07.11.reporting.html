@@ -5,19 +5,19 @@
 <!-- Main Content -->
 <div class="page guide-page">
     <h1>Reporting</h1>
-    <p class="caption">Learn how to report malicious content or inappropriate use of Taehyung and Jung Kook's names, work, or likeness.</p>
+    <p class="caption">Learn how to report malicious or inappropriate content that disparges Taehyung and Jung Kook's names and work.</p>
 
     <div class="section">
         <h3>Why Reporting Matters</h3>
-        <p>False or malicious use of Taehyung and Jung Kook’s identity can harm their reputation. Reporting such activities ensures that their work and image remain respected and free from misuse.</p>
+        <p>Inappropriate and unethical use of Taehyung and Jung Kook’s identity can harm their reputation. Reporting such activities helps protect them, ensuring they are safe and free from misuse.</p>
     </div>
 
     <div class="section">
         <h3>What Can Be Reported?</h3>
         <ul>
-            <li><strong>Inappropriate Content:</strong> Videos, images, or posts that degrade their dignity.</li>
-            <li><strong>Fake Accounts:</strong> Profiles pretending to be Taehyung, Jung Kook, or their management team.</li>
-            <li><strong>Unauthorized Merchandise:</strong> Items being sold without permission.</li>
+            <li><strong>Inappropriate Content:</strong> Videos, images, posts, or comments that degrade their dignity.</li>
+            <li><strong>Fake Accounts:</strong> Profiles especially newly created, pretending to be Taehyung, Jung Kook, or their friends.</li>
+            <li><strong>Unauthorized Merchandise:</strong> Items being sold illegally without their permission.</li>
             <li><strong>Defamatory Posts:</strong> False accusations, hate speech, or cyberbullying.</li>
             <li><strong>Piracy:</strong> Unlawful distribution of their music, videos, or performances.</li>
         </ul>
@@ -63,6 +63,20 @@
             <li>BigHit Music has a dedicated team for monitoring and addressing harmful activities involving BTS members.</li>
             <li>Collective reporting by fans often leads to quicker resolutions on platforms like YouTube and Twitter.</li>
         </ul>
-    </div>  
+    </div>
+
+    <!-- Contact Form Section (Optional) -->
+    <div class="contact-form">
+        <h3>Contact Us</h3>
+        <form action="submit_report" method="POST">
+            <label for="email">Your Email:</label>
+            <input type="email" id="email" name="email" required>
+            <label for="report-details">Report Details:</label>
+            <textarea id="report-details" name="report-details" rows="4" required></textarea>
+            <button type="submit">Submit Report</button>
+        </form>
+    </div>
+
 </div>
+
 {% endblock %}
