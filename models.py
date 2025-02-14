@@ -35,6 +35,7 @@ class Milestone(db.Model):
     title = db.Column(db.String(200), nullable=False)
     image = db.Column(db.String(255), nullable=False)
     description = db.Column(db.Text, nullable=False)
+    link = db.Column(db.String(255), nullable=True) 
 
     def __repr__(self):
         return f'<Milestone {self.title}>'
@@ -82,7 +83,7 @@ class Radio(db.Model):
 
     def __repr__(self):
         return f'<Radio {self.station_name}>'
-
+   
 class SpotifyStats(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     artist = db.Column(db.String(100), nullable=False)  # Added artist column

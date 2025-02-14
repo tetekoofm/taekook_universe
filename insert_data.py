@@ -51,21 +51,25 @@ def insert_data_from_excel():
 
         milestone_df = pd.read_excel(excel_file, sheet_name='Milestone')
         milestone_df['date'] = milestone_df['date'].dt.strftime('%Y-%m-%d')
+
         for _, row in milestone_df.iterrows():
             existing = Milestone.query.filter_by(
                 date=row['date'], 
                 artist=row['artist'], 
                 title=row['title']
             ).first()
+            
             if not existing:
                 milestone = Milestone(
                     date=row['date'],
                     artist=row['artist'],
                     title=row['title'],
                     image=row['image'],
-                    description=row['description']
+                    description=row['description'],
+                    link=row['link']
                 )
                 db.session.add(milestone)
+
         db.session.commit()
         print("Milestones updated from Excel!")
 
