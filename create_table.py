@@ -1,6 +1,6 @@
 # create_table.py
 from app import app
-from models import db, Memory, Milestone, Discography, MusicVideo, Product
+from models import db #, Memory, InTheNews, Discography, MusicVideo, Product
 import os
 
 # Set the database URI to use taekook.db

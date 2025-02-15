@@ -1,5 +1,5 @@
 import pandas as pd
-from models import db, Upcoming, Memory, Milestone, Product, Discography, MusicVideo, Radio, SpotifyStats, YoutubeStats, ShazamStats, Fanbase, Project
+from models import db, Upcoming, Memory, InTheNews, Product, Discography, MusicVideo, Radio, SpotifyStats, YoutubeStats, ShazamStats, Fanbase, Project
 from app import app
 from datetime import datetime, time
 
@@ -49,18 +49,18 @@ def insert_data_from_excel():
         db.session.commit()
         print("Memories updated from Excel!")
 
-        milestone_df = pd.read_excel(excel_file, sheet_name='Milestone')
-        milestone_df['date'] = milestone_df['date'].dt.strftime('%Y-%m-%d')
+        inthenews_df = pd.read_excel(excel_file, sheet_name='In The News')
+        inthenews_df['date'] = inthenews_df['date'].dt.strftime('%Y-%m-%d')
 
-        for _, row in milestone_df.iterrows():
-            existing = Milestone.query.filter_by(
+        for _, row in inthenews_df.iterrows():
+            existing = InTheNews.query.filter_by(
                 date=row['date'], 
                 artist=row['artist'], 
                 title=row['title']
             ).first()
             
             if not existing:
-                milestone = Milestone(
+                inthenews = InTheNews(
                     date=row['date'],
                     artist=row['artist'],
                     title=row['title'],
@@ -68,10 +68,10 @@ def insert_data_from_excel():
                     description=row['description'],
                     link=row['link']
                 )
-                db.session.add(milestone)
+                db.session.add(inthenews)
 
         db.session.commit()
-        print("Milestones updated from Excel!")
+        print("InTheNews updated from Excel!")
 
         discography_df = pd.read_excel(excel_file, sheet_name='Discography')
 

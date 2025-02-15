@@ -25,9 +25,9 @@ class Memory(db.Model):
 
     def __repr__(self):
         return f'<Memory {self.title}>'
-    
-class Milestone(db.Model):
-    __tablename__ = 'milestone'
+  
+class InTheNews(db.Model):
+    __tablename__ = 'inthenews'
 
     id = db.Column(db.Integer, primary_key=True)
     date = db.Column(db.String(50), nullable=False)
@@ -38,7 +38,7 @@ class Milestone(db.Model):
     link = db.Column(db.String(255), nullable=True) 
 
     def __repr__(self):
-        return f'<Milestone {self.title}>'
+        return f'<InTheNews {self.title}>'
  
 class Discography(db.Model):
     __tablename__ = 'discography'
