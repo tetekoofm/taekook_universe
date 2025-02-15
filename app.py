@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request, redirect, session, url_for, jsonify, current_app, send_from_directory
 import os, secrets, random, calendar, subprocess
-from models import db, Upcoming, Memory, Milestone, Product, Discography, MusicVideo,  Radio, SpotifyStats, YoutubeStats, ShazamStats, Fanbase, Project
+from models import db, Upcoming, Memory, InTheNews, Product, Discography, MusicVideo,  Radio, SpotifyStats, YoutubeStats, ShazamStats, Fanbase, Project
 from collections import defaultdict
 from datetime import datetime
 
@@ -97,10 +97,10 @@ def get_event_details(event_id):
     else:
         return jsonify({'error': 'Event not found'}), 404
 
-@app.route('/milestones')
-def milestones():
-    milestones = Milestone.query.order_by(Milestone.date.desc()).all()
-    return render_template('04.milestones.html', milestones=milestones)
+@app.route('/inthenews')
+def inthenews():
+    inthenews = InTheNews.query.order_by(InTheNews.date.desc()).all()
+    return render_template('04.inthenews.html', inthenews=inthenews)
 
 @app.route('/vibe')
 def vibe():

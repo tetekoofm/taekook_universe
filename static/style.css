@@ -1197,10 +1197,9 @@ footer a:hover {
     }
 }
 
-/************************************************* MILESTONES ***************************************************/
+/************************************************* IN THE NEWS ***************************************************/
 
-/* Milestone Cards */
-.milestone-cards {
+.inthenews-cards {
     display: flex;
     flex-wrap: wrap;
     gap: 20px;
@@ -1208,7 +1207,7 @@ footer a:hover {
     padding: 20px;
 }
 
-.milestone-card {
+.inthenews-card {
     background-color: #222;
     border: 2px solid #6a0dad;
     font-family: 'Fira Sans Condensed', serif;
@@ -1222,7 +1221,7 @@ footer a:hover {
     z-index: 10;
 }
 
-.milestone-card:hover {
+.inthenews-card:hover {
     transform: scale(1.05);
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.7);
 }
@@ -1253,11 +1252,10 @@ footer a:hover {
     opacity: 0.8;
 }
 
-/* Mobile Styles for Milestone Cards */
+/* Mobile Styles for inthenews Cards */
 @media screen and (max-width: 768px) {
 
-    /* Milestone Cards */
-    .milestone-cards {
+    .inthenews-cards {
         display: flex;
         flex-direction: column; /* Stack the cards vertically */
         justify-content: center;
@@ -1265,7 +1263,7 @@ footer a:hover {
         margin-top: 10px;
     }
 
-    .milestone-card {
+    .inthenews-card {
         width: 100%; /* Full width of the container */
         padding: 10px; /* Reduced padding for mobile */
         margin-bottom: 15px; /* Reduced bottom margin */
