@@ -1,5 +1,5 @@
 import pandas as pd
-from models import db, Upcoming, Memory, InTheNews, Product, Discography, MusicVideo, Radio, SpotifyStats, YoutubeStats, ShazamStats, Fanbase, Project
+from models import db, Upcoming, Memory, InTheNews, Product, Discography, MusicVideo, Radio, SpotifyStats, YoutubeStats, ShazamStats, Fanbase, Project, Events
 from app import app
 from datetime import datetime, time
 
@@ -310,6 +310,31 @@ def insert_data_from_excel():
         db.session.commit()
         print("Projects data updated from Excel!")
         
+        events_df = pd.read_excel(excel_file, sheet_name='Events')
+        events_df['date'] = pd.to_datetime(events_df['date'], errors='coerce')  # Convert the 'date' column to datetime
+        events_df['date'] = events_df['date'].dt.strftime('%Y-%m-%d') 
+
+        for _, row in events_df.iterrows():
+            existing = Events.query.filter_by(
+                date=row['date'], 
+                title=row['title']
+            ).first()
+            
+            if not existing:
+                events = Events(
+                    date=row['date'],
+                    title=row['title'],
+                    image=row['image'],
+                    description=row['description'],
+                    trending_tags=row['trending_tags'],
+                    trending_position=row['trending_position'],
+                    link=row['link']
+                )
+                db.session.add(events)
+
+        db.session.commit()
+        print("Events updated from Excel!")
+
         product_df = pd.read_excel(excel_file, sheet_name='Product')
         for _, row in product_df.iterrows():
             existing = Product.query.filter_by(

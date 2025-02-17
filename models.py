@@ -154,6 +154,21 @@ class Project(db.Model):
     def __repr__(self):
         return f"<Project {self.title}>"
 
+class Events(db.Model):
+    __tablename__ = 'events'
+
+    id = db.Column(db.Integer, primary_key=True)
+    date = db.Column(db.String(50), nullable=False)
+    title = db.Column(db.String(100), nullable=False)
+    image = db.Column(db.String(255), nullable=False)
+    description = db.Column(db.Text, nullable=False)
+    trending_tags = db.Column(db.String(100), nullable=True)
+    trending_position = db.Column(db.String(100), nullable=True)
+    link = db.Column(db.String(255), nullable=True) 
+
+    def __repr__(self):
+        return f'<Events {self.title}>'
+    
 class Product(db.Model):
     __tablename__ = 'product'
     id = db.Column(db.Integer, primary_key=True)
