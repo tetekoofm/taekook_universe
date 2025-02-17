@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request, redirect, session, url_for, jsonify, current_app, send_from_directory
 import os, secrets, random, calendar, subprocess
-from models import db, Upcoming, Memory, InTheNews, Product, Discography, MusicVideo,  Radio, SpotifyStats, YoutubeStats, ShazamStats, Fanbase, Project
+from models import db, Upcoming, Memory, InTheNews, Product, Discography, MusicVideo,  Radio, SpotifyStats, YoutubeStats, ShazamStats, Fanbase, Project, Events
 from collections import defaultdict
 from datetime import datetime
 
@@ -189,7 +189,8 @@ def endorsements():
 
 @app.route('/events')
 def events():
-    return render_template('07.10.events.html')
+    events = db.session.query(Events).all()
+    return render_template('07.10.events.html', events=events)
 
 @app.route('/reporting')
 def reporting():
