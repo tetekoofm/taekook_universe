@@ -2919,6 +2919,9 @@ footer a:hover {
 .event-description {
     margin-top: 10px;
     text-align: left;
+    word-spacing: normal;
+    letter-spacing: normal;
+    font-size: 20px;
 }
 
 .trending-image {
