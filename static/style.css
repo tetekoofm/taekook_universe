@@ -2865,35 +2865,67 @@ footer a:hover {
 
 /***************************************************** EVENTS *****************************************************/
 
-.event-container {
+.event-header {
     display: flex;
-    flex-wrap: wrap;
-    gap: 20px;
-    justify-content: center;
+    justify-content: space-between;
+    align-items: center;
+    padding: 5px 0;
+    border-bottom: 1px solid #ccc;
 }
-.event-card {
-    width: 300px;
-    background: #111;
-    border-radius: 10px;
-    overflow: hidden;
-    text-align: center;
-    box-shadow: 0 4px 8px rgba(255, 255, 255, 0.1);
-}
-.event-card img {
-    width: 100%;
-    height: 200px;
-    object-fit: cover;
-}
-.event-info {
-    padding: 15px;
-}
-.trending {
-    color: #6A0DAD;
+
+.event_date {
+    font-size: 25px;
     font-weight: bold;
+    color: #008000;
+    text-align: right; 
+    display: inline-block;
+    margin-top: 5px;
 }
-.hashtags {
-    font-size: 14px;
-    color: #aaa;
+
+.media-container {
+    position: relative;
+    width: 100%;
+    max-width: 600px;
+    margin: auto;
+    overflow: hidden;
+}
+
+.media-slide {
+    text-align: center;
+}
+
+.media-slide img, .media-slide video {
+    width: 100%;
+    height: auto;
+    max-height: 400px;
+    object-fit: contain;
+}
+
+.prev, .next {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: rgba(0, 0, 0, 0.5);
+    color: white;
+    border: none;
+    cursor: pointer;
+    padding: 10px;
+    font-size: 18px;
+}
+
+.prev { left: 10px; }
+.next { right: 10px; }
+
+.event-description {
+    margin-top: 10px;
+    text-align: left;
+}
+
+.trending-image {
+    width: 100%;
+    max-width: 300px;
+    display: block;
+    margin-top: 10px;
 }
 
 /***************************************************** REPORTING *****************************************************/
