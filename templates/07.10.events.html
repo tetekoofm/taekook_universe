@@ -5,51 +5,94 @@
 <div class="page guide-page">
     <h1>Events</h1>
     <p class="caption">Explore all the amazing events organized by our fanbase!</p>
-
+    
     {% for event in events %}
     <div class="section">
-        <h3 class="event_name">{{ event.title }}</h2>
-        {% set images = event.image.split(',') %}
-        {% for img in images %}
-        <div class="event-row {% if loop.index is odd %}left{% else %}right{% endif %}">
-            <img src="{{ url_for('static', filename='images/events/' + img.strip()) }}" alt="{{ event.event_name }}">
-            <p>{{ event.description.split('.')[loop.index - 1] }}.</p>
+        <!-- Event Title and Date (Fixed Alignment) -->
+        <div class="event-header" style="display: flex; justify-content: space-between; align-items: center;">
+            <h3 class="event_name">{{ event.title }}</h3>
+            <span class="event_date" style="font-weight: bold;">{{ event.date }}</span>
         </div>
-        {% endfor %}
+
+        <!-- Media Scroll (Carousel) -->
+        <div class="media-container">
+            <div class="media-slider">
+                {% set media_files = event.image.split(',') %}
+                {% for media in media_files %}
+                <div class="media-slide">
+                    {% if media.strip().endswith('.mp4') %}
+                    <video controls>
+                        <source src="{{ url_for('static', filename='images/events/' + media.strip()) }}" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                    {% else %}
+                    <img src="{{ url_for('static', filename='images/events/' + media.strip()) }}" 
+                         alt="{{ event.title }}" 
+                         class="zoomable">
+                    {% endif %}
+                </div>
+                {% endfor %}
+            </div>
+            <button class="prev" onclick="moveSlide(-1)" id="prevBtn">&#10094;</button>
+            <button class="next" onclick="moveSlide(1)" id="nextBtn">&#10095;</button>
+        </div>
+
+        <!-- Description, Tags, and Links -->
+        <div class="event-description">
+            <p>{{ event.description | safe }}</p>
+
+            {% if event.trending_position %}
+            <p>🔥 Trending on X!</p>
+            <img src="{{ url_for('static', filename='images/events/' + event.title|replace(' ', '_') + '_Trending.jpeg') }}" alt="Trending Image for {{ event.title }}" class="trending-image">
+            {% endif %}
+
+            {% if event.link %}
+            <p><strong>More Information:</strong>  
+                {% set links = event.link.split(',') %}
+                {% for link in links %}
+                    <a href="{{ link.strip() }}" target="_blank">Link {{ loop.index }}</a>
+                {% endfor %}
+            </p>
+            {% endif %}
+        </div>
     </div>
     {% endfor %}
 </div>
 
-<style>
-.event-story {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-    margin-bottom: 40px;
-}
-.event_name h2 {
-    font-family: 'Fira Sans Condensed', sans-serif;
-    text-align: left;
-    font-size: 20px;
-    font-weight: bold;
-    color: #6A0DAD;
-    margin-bottom: 10px;
-}
-.event-row {
-    display: flex;
-    align-items: center;
-    gap: 15px;
-}
-.event-row.left {
-    flex-direction: row;
-}
-.event-row.right {
-    flex-direction: row-reverse;
-}
-.event-row img {
-    width: 40%;
-    border-radius: 10px;
-}
-</style>
+<!-- JavaScript for Image Slider -->
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    let sliders = document.querySelectorAll('.media-container');
 
+    sliders.forEach((container) => {
+        let slides = container.querySelectorAll('.media-slide');
+        let prevBtn = container.querySelector('.prev');
+        let nextBtn = container.querySelector('.next');
+        let currentIndex = 0;
+        let totalSlides = slides.length;
+
+        function updateSlides() {
+            slides.forEach((slide, i) => {
+                slide.style.display = (i === currentIndex) ? "block" : "none";
+            });
+
+            // Hide prev button if on the first image, hide next button if on the last image
+            prevBtn.style.display = (currentIndex === 0) ? "none" : "block";
+            nextBtn.style.display = (currentIndex === totalSlides - 1) ? "none" : "block";
+        }
+
+        function moveSlide(step) {
+            currentIndex += step;
+            updateSlides();
+        }
+
+        prevBtn.addEventListener("click", () => moveSlide(-1));
+        nextBtn.addEventListener("click", () => moveSlide(1));
+
+        // Show first media initially
+        updateSlides();
+    });
+});
+</script>
+      
 {% endblock %}
