@@ -2994,160 +2994,94 @@ input, select, textarea {
 
 /***************************************************** BANNER *****************************************************/
 
-/* Banner styling */
-.banner {
-    position: relative;
-    height: 200px; /* Adjust height as needed */
-    background-color: #1b1b1b; /* Dark background */
-    color: white;
-    text-align: center;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-radius: 15px;
-    overflow: hidden;
-    box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.6); /* Soft shadow for depth */
-}
-
-/* Banner Content Styling */
-.banner-content {
-    position: relative;
-    z-index: 1;
-    max-width: 80%;
-    padding: 30px;
-    opacity: 0;
-    animation: fadeIn 2s ease-out forwards; /* Fade-in animation */
-}
-
-/* Title Styling */
-.banner-content h2 {
-    font-size: 3.5em;
-    font-weight: 800;
-    letter-spacing: 2px;
-    /* text-transform: uppercase; */
-    color: #ff99cc; /* Soft neon pink accent */
-    opacity: 0;
-    animation: fadeInTitle 2s ease-out forwards, glowEffect 2s infinite alternate;
-}
-
-/* Button Styling */
-.banner-btn {
-    display: inline-block;
-    margin-top: 20px;
-    padding: 12px 25px;
-    background-color: transparent;
-    /* border: 1px solid #ff99cc;  */
-    color: #ff99cc;
-    font-size: 1.2em;
-    text-decoration: none;
-    border-radius: 25px;
-    box-shadow: 0px 0px 15px rgba(255, 153, 204, 0.5); /* Neon glow effect */
-    transition: all 0.3s ease;
-}
-
-/* Button Hover Effects */
-.banner-btn:hover {
-    background-color: #ff99cc; /* Neon pink background on hover */
-    color: #1b1b1b; /* Dark text on hover */
-    transform: translateY(-3px); /* Slight lift on hover */
-    box-shadow: 0px 0px 30px rgba(255, 153, 204, 1); /* Stronger neon glow */
-}
-
-.floating-stars {
-    position: absolute;  /* Make it inside the banner */
-    top: 0;
-    left: 0;
+.banner-carousel {
     width: 100%;
-    height: 100%;
-    pointer-events: none;
-    z-index: 0; /* Positioned behind the content */
+    overflow: hidden;
+    background: #000;
+    padding: 20px 0;
+    position: relative;
+    display: flex;
+    align-items: center;
+    white-space: nowrap;
+}
+
+/* 🔹 Banner Track (Scrolling Container) */
+.banner-track {
+    display: flex;
+    width: max-content;
+    gap: 40px; /* Space between banners */
+    animation: scrollBanners 20s linear infinite;
+}
+
+/* 🔹 Individual Banner Styling */
+.banner-slide {
+    flex: 0 0 auto;
+    width: 1200px;
+    height: 100px;
+    color: #6A0DAD;
+    background: transparent;
+    display: flex;
+    flex-direction: column; /* Stack elements vertically */
+    justify-content: flex-start; /* Align content at the top */
+    align-items: center; /* Center horizontally */
+    text-align: center;
+    padding: 10px 20px;
+    box-shadow: 8px 8px 16px rgba(106, 13, 173, 0.5);
+    white-space: nowrap;
+}
+
+.banner-slide h2 {
+    margin: 0; /* Remove any default margin from the h2 */
+}
+
+/* 🔹 Smooth Auto-Scrolling Animation */
+@keyframes scrollBanners {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-100%); }
+}
+
+/* 🔹 Pauses Animation on Hover */
+.banner-track:hover {
+    animation-play-state: paused;
+}
+
+/* Media Container */
+.media-container {
+    position: relative;
+    max-width: 100%;
     overflow: hidden;
 }
 
-/* Floating Stars Individual Star Styling */
-.floating-stars span {
+.media-slider {
+    display: flex;
+    transition: transform 0.5s ease-in-out;
+}
+
+.media-slide {
+    min-width: 100%;
+}
+
+img.zoomable {
+    max-width: 100%;
+    cursor: pointer;
+}
+
+/* Slider Buttons */
+.prev, .next {
     position: absolute;
-    width: 2px;
-    height: 2px;
-    background-color: rgba(255, 255, 255, 0.8);
-    border-radius: 50%;
-    animation: floatStars 8s linear infinite, twinkle 2s infinite alternate;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(0, 0, 0, 0.5);
+    color: white;
+    border: none;
+    cursor: pointer;
+    padding: 10px;
+    font-size: 18px;
+    z-index: 10;
 }
 
-/* Floating Stars Animation */
-@keyframes floatStars {
-    0% {
-        transform: translateY(-10px) translateX(10px);
-        opacity: 1;
-    }
-    100% {
-        transform: translateY(100vh) translateX(-100vw);
-        opacity: 0;
-    }
-}
-
-/* Fade-in Animation for Banner */
-@keyframes fadeIn {
-    0% {
-        opacity: 0;
-    }
-    100% {
-        opacity: 1;
-    }
-}
-
-/* Fade-in Animation for Title */
-@keyframes fadeInTitle {
-    0% {
-        transform: translateY(-50px);
-        opacity: 0;
-    }
-    100% {
-        transform: translateY(0);
-        opacity: 1;
-    }
-}
-
-/* Glowing effect for Title */
-@keyframes glowEffect {
-    0% {
-        text-shadow: 0 0 5px #ff99cc, 0 0 10px #ff99cc, 0 0 15px #ff99cc;
-    }
-    50% {
-        text-shadow: 0 0 10px #ff99cc, 0 0 20px #ff99cc, 0 0 30px #ff99cc;
-    }
-    100% {
-        text-shadow: 0 0 5px #ff99cc, 0 0 10px #ff99cc, 0 0 15px #ff99cc;
-    }
-}
-
-/* Floating Stars Animation */
-@keyframes floatStars {
-    0% {
-        transform: translateY(-10px) translateX(10px);
-        opacity: 1;
-    }
-    100% {
-        transform: translateY(100vh) translateX(-100vw);
-        opacity: 0;
-    }
-}
-
-/* Twinkle Effect Animation */
-@keyframes twinkle {
-    0% {
-        opacity: 0.3;
-        transform: scale(0.5);
-    }
-    50% {
-        opacity: 1;
-        transform: scale(1);
-    }
-    100% {
-        opacity: 0.3;
-        transform: scale(0.5);
-    }
-}
+.prev { left: 10px; }
+.next { right: 10px; }
 
 /***************************************************** STORE *****************************************************/
 

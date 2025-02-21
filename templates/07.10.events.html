@@ -5,23 +5,26 @@
 <div class="page guide-page">
     <h1>Events</h1>
     <p class="caption">Explore all the amazing events organized by our fanbase!</p>
-    
-    {% if banner %}
-    <section class="banner">
-        <div class="floating-stars"></div> <!-- Empty container for floating stars -->
-    
-        <div class="banner-content">
-            <h2>{{ banner.title }}</h2>
-            {% if banner.link %}
-            <a href="{{ banner.link }}" class="banner-btn">Learn More</a>
-            {% endif %}
+
+    <!-- 🔹 Auto-Scrolling Banner Section -->
+    {% if banners %}
+    <section class="banner-carousel">
+        <div class="banner-track">
+            {% for banner in banners %}
+            <div class="banner-slide">
+                <h2>{{ banner.title }}</h2>
+                {% if banner.link %}
+                <a href="{{ banner.link }}" class="banner-btn">Learn More</a>
+                {% endif %}
+            </div>
+            {% endfor %}
         </div>
     </section>
-    {% endif %}    
+    {% endif %}
 
+    <!-- Events List -->
     {% for event in events %}
     <div class="section">
-        <!-- Event Title and Date (Fixed Alignment) -->
         <div class="event-header" style="display: flex; justify-content: space-between; align-items: center;">
             <h3 class="event_name">{{ event.title }}</h3>
             <span class="event_date" style="font-weight: bold;">{{ event.date }}</span>
@@ -47,17 +50,18 @@
                 </div>
                 {% endfor %}
             </div>
-            <button class="prev" onclick="moveSlide(-1)" id="prevBtn">&#10094;</button>
-            <button class="next" onclick="moveSlide(1)" id="nextBtn">&#10095;</button>
+            <button class="prev" onclick="moveSlide(-1, this)">&#10094;</button>
+            <button class="next" onclick="moveSlide(1, this)">&#10095;</button>
         </div>
 
-        <!-- Description, Tags, and Links -->
         <div class="event-description">
             <p>{{ event.description | safe }}</p>
 
             {% if event.trending_position %}
             <p>🔥 Trending on X!</p>
-            <img src="{{ url_for('static', filename='images/events/' + event.title|replace(' ', '_') + '_Trending.jpeg') }}" alt="Trending Image for {{ event.title }}" class="trending-image">
+            <img src="{{ url_for('static', filename='images/events/' + event.title|replace(' ', '_') + '_Trending.jpeg') }}" 
+                 alt="Trending Image for {{ event.title }}" 
+                 class="trending-image">
             {% endif %}
 
             {% if event.link %}
@@ -73,9 +77,26 @@
     {% endfor %}
 </div>
 
-<!-- JavaScript for Image Slider -->
+<!-- JavaScript for Banners and Media Slider -->
 <script>
+// Auto-scroll for banner carousel
 document.addEventListener("DOMContentLoaded", function () {
+    const track = document.querySelector('.banner-track');
+    if (track) {
+        let scrollAmount = 0;
+        let speed = 2; // Speed of scrolling (adjustable)
+        function autoScroll() {
+            scrollAmount += speed;
+            if (scrollAmount >= track.scrollWidth / 2) {
+                scrollAmount = 0;
+            }
+            track.style.transform = `translateX(-${scrollAmount}px)`;
+            requestAnimationFrame(autoScroll);
+        }
+        autoScroll();
+    }
+
+    // Event Media Slider Logic
     let sliders = document.querySelectorAll('.media-container');
 
     sliders.forEach((container) => {
@@ -89,8 +110,6 @@ document.addEventListener("DOMContentLoaded", function () {
             slides.forEach((slide, i) => {
                 slide.style.display = (i === currentIndex) ? "block" : "none";
             });
-
-            // Hide prev button if on the first image, hide next button if on the last image
             prevBtn.style.display = (currentIndex === 0) ? "none" : "block";
             nextBtn.style.display = (currentIndex === totalSlides - 1) ? "none" : "block";
         }
@@ -103,16 +122,16 @@ document.addEventListener("DOMContentLoaded", function () {
         prevBtn.addEventListener("click", () => moveSlide(-1));
         nextBtn.addEventListener("click", () => moveSlide(1));
 
-        // Show first media initially
         updateSlides();
     });
 });
 
+// Open image in full-screen
 function openFullScreen(img) {
     const imageUrl = img.src;
     const newWindow = window.open("", "_blank");
     newWindow.document.write(`<img src="${imageUrl}" style="width:100%; height:auto;">`);
 }
 </script>
-      
+
 {% endblock %}
