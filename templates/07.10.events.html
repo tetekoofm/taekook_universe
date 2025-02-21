@@ -6,6 +6,19 @@
     <h1>Events</h1>
     <p class="caption">Explore all the amazing events organized by our fanbase!</p>
     
+    {% if banner %}
+    <section class="banner">
+        <div class="floating-stars"></div> <!-- Empty container for floating stars -->
+    
+        <div class="banner-content">
+            <h2>{{ banner.title }}</h2>
+            {% if banner.link %}
+            <a href="{{ banner.link }}" class="banner-btn">Learn More</a>
+            {% endif %}
+        </div>
+    </section>
+    {% endif %}    
+
     {% for event in events %}
     <div class="section">
         <!-- Event Title and Date (Fixed Alignment) -->
@@ -28,7 +41,8 @@
                     {% else %}
                     <img src="{{ url_for('static', filename='images/events/' + media.strip()) }}" 
                          alt="{{ event.title }}" 
-                         class="zoomable">
+                         class="zoomable"
+                         onclick="openFullScreen(this)">
                     {% endif %}
                 </div>
                 {% endfor %}
@@ -93,6 +107,12 @@ document.addEventListener("DOMContentLoaded", function () {
         updateSlides();
     });
 });
+
+function openFullScreen(img) {
+    const imageUrl = img.src;
+    const newWindow = window.open("", "_blank");
+    newWindow.document.write(`<img src="${imageUrl}" style="width:100%; height:auto;">`);
+}
 </script>
       
 {% endblock %}

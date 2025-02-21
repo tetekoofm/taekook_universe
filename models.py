@@ -168,6 +168,16 @@ class Events(db.Model):
 
     def __repr__(self):
         return f'<Events {self.title}>'
+
+class Banner(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    subpage = db.Column(db.String(50), nullable=False)
+    title = db.Column(db.String(255), nullable=False)
+    link = db.Column(db.String(255), nullable=True)
+    date_added = db.Column(db.Date, nullable=True)
+
+    def __repr__(self):
+        return f'<Banner {self.title}>'
     
 class Product(db.Model):
     __tablename__ = 'product'

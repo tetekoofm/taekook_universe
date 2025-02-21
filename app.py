@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request, redirect, session, url_for, jsonify, current_app, send_from_directory
 import os, secrets, random, calendar, subprocess
-from models import db, Upcoming, Memory, InTheNews, Product, Discography, MusicVideo,  Radio, SpotifyStats, YoutubeStats, ShazamStats, Fanbase, Project, Events
+from models import db, Upcoming, Memory, InTheNews, Product, Discography, MusicVideo,  Radio, SpotifyStats, YoutubeStats, ShazamStats, Fanbase, Banner, Project, Events
 from collections import defaultdict
 from datetime import datetime
 
@@ -190,11 +190,17 @@ def endorsements():
 @app.route('/events')
 def events():
     events = db.session.query(Events).all()
-    return render_template('07.10.events.html', events=events)
+    banner = Banner.query.filter_by(subpage='07.10.events').first()
+    return render_template('07.10.events.html', banner=banner, events=events)
 
 @app.route('/reporting')
 def reporting():
     return render_template('07.11.reporting.html')
+
+@app.route('/<subpage>')
+def subpage(subpage):
+    banner = Banner.query.filter_by(subpage=subpage).first()  # Get first banner for the subpage
+    return render_template(f"{subpage}.html", banner=banner)
 
 @app.route('/store')
 def store():

@@ -1,5 +1,5 @@
 import pandas as pd
-from models import db, Upcoming, Memory, InTheNews, Product, Discography, MusicVideo, Radio, SpotifyStats, YoutubeStats, ShazamStats, Fanbase, Project, Events
+from models import db, Upcoming, Memory, InTheNews, Product, Discography, MusicVideo, Radio, SpotifyStats, YoutubeStats, ShazamStats, Fanbase, Banner, Project, Events
 from app import app
 from datetime import datetime, time
 
@@ -334,6 +334,31 @@ def insert_data_from_excel():
 
         db.session.commit()
         print("Events updated from Excel!")
+
+        # Clean Data - Fill NaNs with None
+        banner_df = pd.read_excel(excel_file, sheet_name="Banner")
+        banner_df = banner_df.where(pd.notna(banner_df), None) 
+
+        for _, row in banner_df.iterrows():
+            try:
+                if not row['subpage'] or not row['title']:
+                    print(f"Skipping row {_}: Missing subpage or title")
+                    continue  
+
+                banner = Banner(
+                    subpage=str(row['subpage']).strip() if pd.notna(row['subpage']) else None,
+                    title=str(row['title']).strip() if pd.notna(row['title']) else None,
+                    link=str(row['link']).strip() if pd.notna(row['link']) else None,
+                    date_added=pd.to_datetime(row['date_added']).date() if pd.notna(row['date_added']) else None
+                )
+
+                db.session.add(banner)
+            
+            except Exception as e:
+                print(f"Error inserting row {_}: {e}")
+        
+        db.session.commit()
+        print("Banner data inserted successfully!")
 
         product_df = pd.read_excel(excel_file, sheet_name='Product')
         for _, row in product_df.iterrows():
