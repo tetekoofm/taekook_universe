@@ -189,9 +189,9 @@ def endorsements():
 
 @app.route('/events')
 def events():
-    events = db.session.query(Events).all()
-    banner = Banner.query.filter_by(subpage='07.10.events').first()
-    return render_template('07.10.events.html', banner=banner, events=events)
+    events = Events.query.all()  # Fetch all events
+    banners = Banner.query.filter_by(subpage='07.10.events').all()  # Fetch all banners for the page
+    return render_template('07.10.events.html', banners=banners, events=events)
 
 @app.route('/reporting')
 def reporting():
