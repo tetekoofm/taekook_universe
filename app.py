@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request, redirect, session, url_for, jsonify, current_app, send_from_directory
 import os, secrets, random, calendar, subprocess
-from models import db, Upcoming, Memory, InTheNews, Product, Discography, MusicVideo,  Radio, SpotifyStats, YoutubeStats, ShazamStats, Fanbase, Banner, Project, Events
+from models import db, Upcoming, Memory, InTheNews, Product, Discography, MusicVideo, Vote, Radio, SpotifyStats, YoutubeStats, ShazamStats, Fanbase, Banner, Project, Events
 from collections import defaultdict
 from datetime import datetime
 
@@ -123,19 +123,22 @@ def guide_page():
 
 @app.route('/donating')
 def donating():
-    return render_template('07.01.donating.html')
+    banners = Banner.query.filter_by(subpage='07.01.donating').all()
+    return render_template('07.01.donating.html', banners=banners)
 
 @app.route("/fanbases")
 def fanbases():
     fanbases = Fanbase.query.all()
+    banners = Banner.query.filter_by(subpage='07.02.fanbases').all()
     for fanbase in fanbases:
         print(fanbase.fb_name, fanbase.x, fanbase.instagram, fanbase.facebook)
-    return render_template("07.02.fanbases.html", fanbases=fanbases)
+    return render_template("07.02.fanbases.html", fanbases=fanbases, banners=banners)
 
 @app.route("/streaming")
 def streaming():
     trending_tracks = Discography.query.filter_by(popular=1).all()
-    return render_template('07.03.streaming.html', trending_tracks=trending_tracks)
+    banners = Banner.query.filter_by(subpage='07.03.streaming').all()
+    return render_template('07.03.streaming.html', trending_tracks=trending_tracks, banners=banners)
 
 @app.route('/spotifystats')
 def spotifystats():
@@ -151,23 +154,29 @@ def youtubestats():
 
 @app.route('/buying')
 def buying():
-    return render_template('07.04.buying.html')
+    banners = Banner.query.filter_by(subpage='07.04.buying').all()
+    return render_template('07.04.buying.html', banners=banners)
 
 @app.route('/voting')
 def voting():
-    return render_template('07.05.voting.html')
+    banners = Banner.query.filter_by(subpage='07.05.voting').all()
+    vote_apps = Vote.query.all()  # Fetch all voting apps
+    return render_template('07.05.voting.html', banners=banners, vote_apps=vote_apps)
+
 
 @app.route('/radio')
 def radio():
     radio_stations = Radio.query.all() 
-    return render_template('07.06.radio.html', radio_stations=radio_stations)
+    banners = Banner.query.filter_by(subpage='07.06.radio').all()
+    return render_template('07.06.radio.html', radio_stations=radio_stations, banners=banners)
 
 @app.route('/shazam')
 def shazam():
     shazam_stats = ShazamStats.query.all()
     popular_tracks = ShazamStats.query.filter_by(popular=True).all()  # Only popular tracks
     date_as_of = shazam_stats[0].date if shazam_stats else None
-    return render_template('07.07.shazam.html', shazam_stats=shazam_stats, popular_tracks=popular_tracks, date_as_of=date_as_of)
+    banners = Banner.query.filter_by(subpage='07.07.shazam').all()
+    return render_template('07.07.shazam.html', shazam_stats=shazam_stats, popular_tracks=popular_tracks, date_as_of=date_as_of, banners=banners)
 
 @app.route('/shazamstats')
 def shazamstats():
@@ -176,31 +185,30 @@ def shazamstats():
     return render_template('shazamstats.html', stats=stats, date_as_of=date_as_of)
 
 @app.route('/brandreputation')
-def naver():
-    return render_template('07.08.brand_reputation.html')
+def brandreputation():
+    banners = Banner.query.filter_by(subpage='07.08.brand_reputation').all()
+    return render_template('07.08.brand_reputation.html', banners=banners)
 
 @app.route('/promotions')
 def promotions():
-    return render_template('07.09.promotions.html')
+    banners = Banner.query.filter_by(subpage='07.09.promotions').all()
+    return render_template('07.09.promotions.html', banners=banners)
 
 @app.route('/endorsements')
 def endorsements():
-    return render_template('07.09.endorsements.html')
+    banners = Banner.query.filter_by(subpage='07.09.endorsements').all()
+    return render_template('07.09.endorsements.html', banners=banners)
 
 @app.route('/events')
 def events():
-    events = Events.query.all()  # Fetch all events
-    banners = Banner.query.filter_by(subpage='07.10.events').all()  # Fetch all banners for the page
+    events = Events.query.all()
+    banners = Banner.query.filter_by(subpage='07.10.events').all()
     return render_template('07.10.events.html', banners=banners, events=events)
 
 @app.route('/reporting')
 def reporting():
-    return render_template('07.11.reporting.html')
-
-@app.route('/<subpage>')
-def subpage(subpage):
-    banner = Banner.query.filter_by(subpage=subpage).first()  # Get first banner for the subpage
-    return render_template(f"{subpage}.html", banner=banner)
+    banners = Banner.query.filter_by(subpage='07.11.reporting').all()
+    return render_template('07.11.reporting.html', banners=banners)
 
 @app.route('/store')
 def store():

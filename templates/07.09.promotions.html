@@ -7,6 +7,22 @@
     <h1>Promotions</h1>
     <p class="caption">Promoting Taehyung and Jung Kook's work ensures their music, projects, and achievements reach a wider audience globally. Your efforts help amplify their voices!</p>
 
+    <!-- 🔹 Auto-Scrolling Banner Section -->
+    {% if banners %}
+    <section class="banner-carousel">
+        <div class="banner-track">
+            {% for banner in banners %}
+            <div class="banner-slide">
+                <h2>{{ banner.title }}</h2>
+                {% if banner.link %}
+                <a href="{{ banner.link }}" class="banner-btn">Learn More</a>
+                {% endif %}
+            </div>
+            {% endfor %}
+        </div>
+    </section>
+    {% endif %}
+
     <div class="section">
         <h3>Why Promotions Matter</h3>
         <p>Promotions ensure that Taehyung and Jung Kook’s projects—be it music, collaborations, or endorsements—gain recognition. When fans actively promote, it increases visibility across platforms, boosting their rankings, sales, and awards recognition.</p>

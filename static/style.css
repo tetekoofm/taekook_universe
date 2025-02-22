@@ -6,7 +6,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;300;400;500;600;700;800&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Tangerine:wght@700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Fira+Sans+Condensed:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&display=swap');
-
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap');
 .wrapper {
     display: flex;
     flex-direction: column;
@@ -552,7 +552,7 @@ footer a:hover {
 
 .event-description {
     font-family: 'Fira Sans Condensed', serif;
-    font-size: 1.2em;
+    font-size: 1rem !important;
     letter-spacing: 1px;
     line-height: 1.6;
     color: #5a5a5a;
@@ -2228,59 +2228,62 @@ footer a:hover {
     transform: scale(1.1);
 }
 
-/****************************************************** RADIO *****************************************************/
+/****************************************************** RADIO / VOTE *****************************************************/
 
-.radio-stations-container {
+.radio-vote-container {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); 
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
     gap: 20px;
     padding: 20px;
-    justify-content: space-around; 
+    justify-content: space-around;
 }
 
-.station-card {
+.radio-vote-card {
     display: flex;
     flex-direction: column;
     background-color: transparent;
     padding: 10px;
     border-radius: 8px;
-    width: 100%; 
-    max-width: 280px; 
-    height: auto; 
+    width: 100%;
+    max-width: 280px;
+    height: auto;
     left: 0;
     right: 0;
     align-items: center;
-    justify-content: space-between; 
-    text-align: center; 
+    justify-content: space-between;
+    text-align: center;
     box-shadow: 0 5px 20px rgba(0, 0, 0, 0.6);
     transition: transform 0.3s, box-shadow 0.3s;
 }
 
-.station-card:hover {
+.radio-vote-card:hover {
     transform: translateY(-10px);
     box-shadow: 0 5px 25px rgba(75, 0, 130, 0.8);
 }
 
-.station-logo {
+.radio-vote-logo {
     width: 100px;
     height: 100px;
     margin-bottom: 15px;
     border-radius: 50%;
+    object-fit: cover;
+    display: block;
 }
 
-.station-card h3 {
+.radio-vote-card h3 {
     font-family: 'Fira Sans Condensed', serif;
-    color: #fff; 
+    color: #fff;
     margin: 10px 0;
     font-size: 1.4rem !important;
 }
 
-.station-card p {
+.radio-vote-card p {
     font-family: 'Fira Sans Condensed', serif;
     color: #ccc;
     font-size: 1rem;
     margin: 5px 0;
 }
+
 
 .button-container {
     display: flex; 
@@ -2308,7 +2311,7 @@ footer a:hover {
 
 /* Styles for devices up to 768px */
 @media (max-width: 768px) {
-    .radio-stations-container {
+    .radio-vote-container {
         display: grid;
         grid-template-columns: repeat(3, minmax(100px, 1fr));
         gap: 20px;
@@ -2317,7 +2320,7 @@ footer a:hover {
         align-items: center;
     }
 
-    .station-card {
+    .radio-vote-card {
         max-width: 150px;
         padding: 4px;
         box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
@@ -2328,20 +2331,20 @@ footer a:hover {
         text-align: center;
     }
 
-    .station-logo {
+    .radio-vote-logo {
         width: 40px;
         height: 40px;
         margin-bottom: 15px;
         border-radius: 50%;
     }
 
-    .station-card h3 {
+    .radio-vote-card h3 {
         font-size: 0.8rem !important;
         margin: 4px 0;
         color: #fff;
     }
 
-    .station-card p {
+    .radio-vote-card p {
         font-size: 0.7rem;
         margin: 2px 5px;
         color: #ccc;
@@ -2383,7 +2386,7 @@ footer a:hover {
 
 /* Styles for devices up to 480px */
 @media (max-width: 480px) {
-    .radio-stations-container {
+    .radio-vote-container {
         display: grid;
         grid-template-columns: repeat(2, minmax(60px, 1fr));
         gap: 10px;
@@ -2393,7 +2396,7 @@ footer a:hover {
         justify-content: center;
     }
 
-    .station-card {
+    .radio-vote-card {
         max-width: 80px;
         padding: 2px;
         box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
@@ -2404,20 +2407,20 @@ footer a:hover {
         text-align: center;
     }
 
-    .station-logo {
+    .radio-vote-logo {
         width: 40px;
         height: 40px;
         margin-bottom: 15px;
         border-radius: 50%;
     }
 
-    .station-card h3 {
+    .radio-vote-card h3 {
         font-size: 0.6rem;
         margin: 1px 0;
         color: #fff;
     }
 
-    .station-card p {
+    .radio-vote-card p {
         font-size: 0.6rem;
         margin: 1px 0;
         color: #ccc;
@@ -3016,7 +3019,7 @@ input, select, textarea {
 /* 🔹 Individual Banner Styling */
 .banner-slide {
     flex: 0 0 auto;
-    width: 1200px;
+    width: auto;
     height: 100px;
     color: #6A0DAD;
     background: transparent;
@@ -3031,7 +3034,9 @@ input, select, textarea {
 }
 
 .banner-slide h2 {
-    margin: 0; /* Remove any default margin from the h2 */
+    font-family: 'Dancing Script', serif;
+    font-size: 3.5rem;
+    margin: 0
 }
 
 /* 🔹 Smooth Auto-Scrolling Animation */

@@ -8,6 +8,22 @@
     <p class="caption">Radio plays are crucial for expanding Taehyung and Jung Kook's reach to casual listeners.</p>
     <p class="caption">Help promote their music on air globally!</p>
 
+    <!-- 🔹 Auto-Scrolling Banner Section -->
+    {% if banners %}
+    <section class="banner-carousel">
+        <div class="banner-track">
+            {% for banner in banners %}
+            <div class="banner-slide">
+                <h2>{{ banner.title }}</h2>
+                {% if banner.link %}
+                <a href="{{ banner.link }}" class="banner-btn">Learn More</a>
+                {% endif %}
+            </div>
+            {% endfor %}
+        </div>
+    </section>
+    {% endif %}
+
     <div class="section">
         <h3>Importance of Radio Play</h3>
         <p>Radio airplay not only introduces Taehyung and Jung Kook's music to a wider audience but also boosts their exposure on charts like Billboard Hot 100. Radio Stations often prioritize heavily requested songs, helping fans support their favorite artists by playing their music. And, many casual listeners discover new music through radio, making it a vital platform.</p>
@@ -40,11 +56,11 @@
     <div class="section">
         <h3>Prominent Radio Stations</h3>
         <p>Some of our go-to stations that play Taehyung and Jung Kook!</p>
-        <section class="radio-stations-container">
+        <section class="radio-vote-container">
             {% for station in radio_stations %}
-            <div class="station-card">
+            <div class="radio-vote-card">
                 {% if station.station_logo %}
-                <img src="{{ url_for('static', filename='images/radio/' + station.station_logo) }}" alt="{{ station.station_name }}" class="station-logo">
+                <img src="{{ url_for('static', filename='images/radio/' + station.station_logo) }}" alt="{{ station.station_name }}" class="radio-vote-logo">
                 {% endif %}
                 <h3>{{ station.station_name }}</h3>
                 <p><strong>Location:</strong> {{ station.location }}</p>

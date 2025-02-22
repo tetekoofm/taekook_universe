@@ -1,69 +1,83 @@
 {% extends "00.base_subnav.html" %}
-{% block title %}Buying{% endblock %}
+{% block title %}Buying Guide{% endblock %}
 {% block content %}
-    
+
 <!-- Main Content -->
 <div class="page guide-page">
-    <h1>Buying Official Albums & Merchandise</h1>
-    <p class="caption">Purchasing from legitimate sources ensures your support counts for charting and directly benefits Taehyung and Jung Kook.</p>
+    <h1>Power of Purchase</h1>
+    <p class="caption">Buying music the right way ensures your purchase counts towards charts and supports the artists effectively.</p>
 
+    <!-- 🔹 Auto-Scrolling Banner Section -->
+    {% if banners %}
+    <section class="banner-carousel">
+        <div class="banner-track">
+            {% for banner in banners %}
+            <div class="banner-slide">
+                <h2>{{ banner.title }}</h2>
+                {% if banner.link %}
+                <a href="{{ banner.link }}" class="banner-btn">Learn More</a>
+                {% endif %}
+            </div>
+            {% endfor %}
+        </div>
+    </section>
+    {% endif %}
+    
     <div class="section">
-        <h3>Why Buying Matters</h3>
-        <p>Purchasing official albums and merchandise contributes to chart rankings, supports their careers financially, and encourages more creative projects in the future. Physical album sales, in particular, are a major factor in determining awards and achievements.</p>
+        <h3>What Does Buying Music Mean?</h3>
+        <p>Buying music refers to legally purchasing physical/digital copies of an album or single from authorized platforms or stores respectively. This increases the sales, thus helps with the artist's chart rankings.</p>
     </div>
 
     <div class="section">
-        <h3>Where to Buy Official Albums</h3>
+        <h3>How to Buy Music?</h3>
+        <p>Follow these steps to ensure your purchase is counted:</p>
         <ul>
-            <li>
-                <strong>Weverse Shop:</strong> The official global store for BTS merchandise. It ensures your purchase contributes to charts like Gaon and Hanteo.
-            </li>
-            <li>
-                <strong>Ktown4u:</strong> A trusted source for international fans. Albums purchased here often count for both Hanteo and Gaon charts.
-            </li>
-            <li>
-                <strong>Local Stores:</strong> Look for official partnerships with stores like Target, Walmart, and Amazon in your region.
-            </li>
-            <li>
-                <strong>iTunes:</strong> For digital albums, ensure you download and don’t just stream. Digital purchases contribute to charts like Billboard and iTunes rankings.
-            </li>
+            <li><strong style="color: #3dcf64;">Choose the Right Platform:</strong> Purchase from official platforms like Weverse Shop, BTS Store, iTunes, Qobuz, Amazon, and Ktown4u.</li>
+            <li><strong style="color: #3dcf64;">Buy Individual Tracks & Albums:</strong> On digital platforms, buy individual songs first to maximize impact and then proceed to buy the album.</li>
+            <li><strong style="color: #3dcf64;">Avoid Bulk Purchases in One Go:</strong> Spread out your purchases using different accounts and payment methods instead of bulk-buying at once.</li>
+            <li><strong style="color: #3dcf64;">Use Different Platforms:</strong> Purchase from multiple platforms instead of focusing on just one.</li>
+            <li><strong style="color: #3dcf64;">Ensure Proper Payment:</strong> Use legitimate payment methods to avoid refunds or cancellations that could affect charting.</li>
+            <li><strong style="color: #3dcf64;">Download Immediately:</strong> After digital purchases, download the songs/albums immediately, to ensure the sale is counted. Also, delete them from your Library so your streams are counted.</li>
+            <li><strong style="color: #3dcf64;">Share & Recommend:</strong> Share the official buying links with friends and family to encourage them to purchase.</li>
+            <li><strong style="color: #3dcf64;">Join Buying Parties:</strong> If you are unsure, join the Buying Parties organized by our fanbases during the new release.</li>
         </ul>
+        <div class="image-container">
+            <a href="{{ url_for('static', filename='images/guide/why_buying.jpeg') }}" class="lightbox">
+                <img src="{{ url_for('static', filename='images/guide/why_buying.jpeg') }}" alt="Why Buying Matters">
+            </a>
+            <a href="{{ url_for('static', filename='images/guide/buying_guide.jpeg') }}" class="lightbox">
+                <img src="{{ url_for('static', filename='images/guide/buying_guide.jpeg') }}" alt="Buying Guide">
+            </a>
+        </div>
     </div>
-
+    
     <div class="section">
-        <h3>Tips for Buying Merchandise</h3>
-        <p>Fan-made merchandise is amazing, but official merchandise directly supports Taehyung and Jung Kook. Here are some trusted platforms:</p>
-        <ul>
-            <li><strong>Weverse Shop:</strong> Offers high-quality official merchandise like photo books, apparel, and collectibles.</li>
-            <li><strong>Hybe Insight Store:</strong> Limited-edition items directly curated by their agency.</li>
-            <li><strong>BigHit Entertainment Store:</strong> Special releases for concerts, anniversaries, and more.</li>
-        </ul>
+        <h3>Where to Buy?</h3>
+        <p> We have listed down the Physical and Digital platforms from where we can buy their music. Please use them: <a href="https://vtaehyungshop.carrd.co/">Taehyung</a> and <a href="https://jungkookshop.carrd.co/">Jung Kook</a>.</p>
     </div>
-
-    <div class="section">
-        <h3>Buying Tickets for Events</h3>
-        <p>Attending their concerts, fan meets, and live events is a dream for many fans. Here’s how to get legitimate tickets:</p>
-        <ul>
-            <li>
-                <strong>Ticketmaster:</strong> For international events, tickets are typically released here. Be sure to sign up early for presales.
-            </li>
-            <li>
-                <strong>Interpark:</strong> Used for events hosted in South Korea. Requires an account and familiarity with Korean language or translators.
-            </li>
-            <li>
-                <strong>Local Organizers:</strong> For specific regions, verify the authenticity of the organizers before purchasing tickets.
-            </li>
-        </ul>
-    </div>
-
-    <div class="sticky-notes">
-        <h4>Key Reminders for Buying</h4>
-        <ul>
-            <li>Always double-check the source to ensure it’s legitimate and supports official charting.</li>
-            <li>Join fanbases or local fan groups for information on group orders and bulk purchases.</li>
-            <li>Beware of scalpers and overpriced items—support official channels only.</li>
-            <li>Keep an eye out for presale announcements and join waitlists early.</li>
-        </ul>
-    </div> 
 </div>
+
+<!-- Button to trigger sticky note slide-in -->
+<button id="toggle-sticky-note" class="sticky-note-btn">Quick Tips</button>
+
+<div class="sticky-notes">
+    <ul>
+        <li>Use Official platforms</li>
+        <li>Physical & Digital - both matters!</li>
+        <li>Avoid Bulk Orders</li>
+        <li>Interact with songs (like, comment, share)</li>
+        <li>Never buy from illegal resource</li>
+        <li>Join Buying Parties hosted by FBs</li>
+    </ul>
+</div>
+
+<script>
+    const stickyNote = document.querySelector('.sticky-notes');
+    const toggleButton = document.querySelector('#toggle-sticky-note');
+
+    toggleButton.addEventListener('click', function () {
+        stickyNote.classList.toggle('open');
+    });
+</script>
+
 {% endblock %}

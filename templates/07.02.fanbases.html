@@ -6,6 +6,22 @@
     <h1>Fanbases: The Heart of TaeKook</h1>
     <p class="caption">Unite with Taekook Fans Worldwide: Join Communities Supporting Taehyung & Jung Kook!</p>
 
+    <!-- 🔹 Auto-Scrolling Banner Section -->
+    {% if banners %}
+    <section class="banner-carousel">
+        <div class="banner-track">
+            {% for banner in banners %}
+            <div class="banner-slide">
+                <h2>{{ banner.title }}</h2>
+                {% if banner.link %}
+                <a href="{{ banner.link }}" class="banner-btn">Learn More</a>
+                {% endif %}
+            </div>
+            {% endfor %}
+        </div>
+    </section>
+    {% endif %}
+    
     <div class="section">
         <h3>What Are Fanbases?</h3>
         <p>Fanbases are organized communities of fans devoted to supporting artists like Taehyung and Jung Kook. They are the driving force behind promotions, events, projects, and celebrations of the artists' achievements. By joining a fanbase, you can be part of a global movement that uplifts and honors their artistry.</p>

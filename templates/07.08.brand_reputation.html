@@ -6,7 +6,23 @@
 <div class="page guide-page">
     <h1>TaeKook Eminence</h1>
     <p class="caption">Supporting Taehyung and Jungkook by engaging with the platforms that matter!</p>
-    
+
+    <!-- 🔹 Auto-Scrolling Banner Section -->
+    {% if banners %}
+    <section class="banner-carousel">
+        <div class="banner-track">
+            {% for banner in banners %}
+            <div class="banner-slide">
+                <h2>{{ banner.title }}</h2>
+                {% if banner.link %}
+                <a href="{{ banner.link }}" class="banner-btn">Learn More</a>
+                {% endif %}
+            </div>
+            {% endfor %}
+        </div>
+    </section>
+    {% endif %}
+
     <div class="section">
         <h3>What is Brand Reputation?</h3>
         <p>Brand reputation reflects how Taehyung and Jungkook are perceived by the public, media, and brands. A strong reputation increases career opportunities, endorsements, and media influence.</p>
