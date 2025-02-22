@@ -1,11 +1,11 @@
 {% extends "00.base_subnav.html" %}
-{% block title %}Voting{% endblock %}
+{% block title %}Voting Guide{% endblock %}
 {% block content %}
 
 <!-- Main Content -->
 <div class="page guide-page">
-    <h1>Voting for Taehyung and Jung Kook</h1>
-    <p class="caption">Fan votes make a massive difference in securing awards and achievements. Your participation matters!</p>
+    <h1>The Power of Voting</h1>
+    <p class="caption">Voting plays a crucial role in securing wins for Taehyung and Jungkook in music awards and fan-voted polls.</p>
 
     <!-- 🔹 Auto-Scrolling Banner Section -->
     {% if banners %}
@@ -24,82 +24,84 @@
     {% endif %}
 
     <div class="section">
-        <h3>Why Voting is Important</h3>
-        <p>Voting helps Taehyung and Jung Kook secure prestigious awards, such as those from MAMA, Billboard, and other global music platforms. It showcases fan dedication and gives them global recognition.</p>
+        <h3>What is Voting?</h3>
+        <p>Voting is one of the many ways for fans to show how much Taehyung and Jung Kook's music are loved and supported. They help them gain recognition and secure wins.</p>
     </div>
 
     <div class="section">
-        <h3>Popular Platforms for Voting</h3>
+        <h3>Why is Voting Important?</h3>
         <ul>
-            <li>
-                <strong>Mnet Plus:</strong> MAMA Awards voting. Create an account and vote daily during the voting period.
-            </li>
-            <li>
-                <strong>Fan N Star:</strong> Vote regularly for features like birthday ads or awards like The Fact Music Awards.
-            </li>
-            <li>
-                <strong>Billboard Fan Voting:</strong> Participate in Billboard voting for categories like Top Social Artist.
-            </li>
-            <li>
-                <strong>Twitter Voting:</strong> Many award shows count hashtag votes. Use hashtags like <code>#V</code>, <code>#Jungkook</code>, or <code>#Taekook</code> along with award-specific tags during voting periods.
-            </li>
+            <li><strong>Winning Awards:</strong> Many prestigious music awards depend on fan votes, including MAMA, Billboard, MTV, and more.</li>
+            <li><strong>Boosting Recognition:</strong> Higher vote counts bring attention to Taehyung and Jungkook’s impact globally.</li>
+            <li><strong>Ensuring Future Nominations:</strong> Winning fan-voted awards makes them eligible for future nominations and bigger achievements.</li>
+            <li><strong>Strengthening Their Legacy:</strong> Active participation in voting campaigns solidifies their standing in the industry.</li>
         </ul>
     </div>
 
     <div class="section">
-        <h3>How to Maximize Voting Impact</h3>
+        <h3>Types of Voting</h3>
+        <p>Different awards and polls have various voting methods:</p>
         <ul>
-            <li>Create multiple accounts on voting platforms using different email addresses.</li>
-            <li>Join fanbases or groups that organize mass voting events.</li>
-            <li>Check daily voting limits and ensure consistency.</li>
-            <li>Spread awareness on social media to encourage others to vote.</li>
+            <li><strong>Pre-Voting:</strong> Conducted before the award show to determine nominees and winners.</li>
+            <li><strong>Live Voting:</strong> Takes place during the award show and directly impacts real-time rankings.</li>
+            <li><strong>Daily Voting:</strong> Some platforms allow voting once per day per account.</li>
+            <li><strong>Unlimited Voting:</strong> Certain events allow fans to vote as many times as possible.</li>
         </ul>
     </div>
 
     <div class="section">
-        <h3>Preparing for Voting Seasons</h3>
-        <p>Most major voting events occur around year-end awards or comeback promotions. Keep these tips in mind:</p>
+        <h3>How to Vote?</h3>
+        <p>Follow these steps to ensure your votes count:</p>
         <ul>
-            <li>Download and register on voting apps like Mnet Plus, Idol Champ, and Whosfan in advance.</li>
-            <li>Stockpile voting credits or points by completing app missions early.</li>
-            <li>Follow reliable fanbases for updates and deadlines.</li>
+            <li><strong>Use Official Voting Apps & Websites:</strong> Always vote through official platforms to ensure your votes are counted.</li>
+            <li><strong>Create Multiple Accounts:</strong> Some platforms allow multiple accounts per user. Use different emails or social logins.</li>
+            <li><strong>Vote Consistently:</strong> Many awards have daily or weekly voting cycles—stay active and vote regularly.</li>
+            <li><strong>Follow Voting Guides:</strong> Fanbases provide detailed step-by-step voting instructions. Stay updated!</li>
+            <li><strong>Join Voting Teams:</strong> Participate in fan-organized voting projects to maximize impact.</li>
+            <li><strong>Avoid Automated Voting:</strong> Some platforms disqualify votes if they detect bot-like behavior.</li>
         </ul>
     </div>
 
     <div class="section">
-        <h3>Prominent Vote Apps</h3>
-        <p>Some of our go-to voting apps that can be used to vote for Taehyung and Jungkook!</p>
-        <section class="radio-vote-container">
-            {% for app in vote_apps %}
-            <div class="radio-vote-card">
-                {% if app.app_logo %}
-                <img src="{{ url_for('static', filename='images/vote/' + app.app_logo) }}" alt="{{ app.app_name }}" class="radio-vote-logo">
-                {% endif %}
-                <h3>{{ app.app_name }}</h3>
-                <div class="button-container">
-                    {% if app.android_link %}
-                    <a href="{{ app.android_link }}" target="_blank" class="button-link">Android</a>
-                    {% endif %}
-                    {% if app.ios_link %}
-                    <a href="{{ app.ios_link }}" target="_blank" class="button-link">iOS</a>
-                    {% endif %}
-                    {% if app.web_link %}
-                    <a href="{{ app.web_link }}" target="_blank" class="button-link">Web</a>
-                    {% endif %}
-                </div>
-            </div>
-            {% endfor %}
-        </section>
-    </div>
-    
-
-    <div class="sticky-notes">
-        <h4>Pro Tips</h4>
-        <ul>
-            <li>Use VPNs for regions with restricted voting access.</li>
-            <li>Collaborate with other fans globally to cover different time zones.</li>
-            <li>Always double-check hashtags or links during social media voting campaigns to ensure accuracy.</li>
-        </ul>
+        <h3>Where to Vote?</h3>
+        <p>We have listed major voting platforms that contribute to award wins:</p>
+        <div class="image-container">
+            <a href="https://whosfan.carrd.co/" target="_blank">
+                <img src="{{ url_for('static', filename='images/voting/whosfan.jpeg') }}" alt="Whosfan Voting">
+            </a>
+            <a href="https://mubeat.carrd.co/" target="_blank">
+                <img src="{{ url_for('static', filename='images/voting/mubeat.jpeg') }}" alt="Mubeat Voting">
+            </a>
+            <a href="https://idolchamp.carrd.co/" target="_blank">
+                <img src="{{ url_for('static', filename='images/voting/idolchamp.jpeg') }}" alt="Idol Champ Voting">
+            </a>
+            <a href="https://fanplus.carrd.co/" target="_blank">
+                <img src="{{ url_for('static', filename='images/voting/fanplus.jpeg') }}" alt="FanPlus Voting">
+            </a>
+        </div>        
     </div>
 </div>
+
+<!-- Button to trigger sticky note slide-in -->
+<button id="toggle-sticky-note" class="sticky-note-btn">Quick Tips</button>
+
+<div class="sticky-notes">
+    <ul>
+        <li>Vote daily on all platforms.</li>
+        <li>Follow voting guides from trusted fanbases.</li>
+        <li>Avoid suspicious activities that might get votes disqualified.</li>
+        <li>Use multiple accounts responsibly.</li>
+        <li>Engage in team voting projects.</li>
+    </ul>
+</div>
+
+<script>
+    const stickyNote = document.querySelector('.sticky-notes');
+    const toggleButton = document.querySelector('#toggle-sticky-note');
+
+    toggleButton.addEventListener('click', function () {
+        stickyNote.classList.toggle('open');
+    });
+</script>
+
 {% endblock %}

@@ -2934,6 +2934,44 @@ footer a:hover {
     margin-top: 10px;
 }
 
+/***************************************************** PROMOTIONS *****************************************************/
+
+.promotions-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    padding: 20px;
+}
+
+.promo-card {
+    background: #222;
+    border: 2px solid #6A0DAD;
+    border-radius: 10px;
+    padding: 15px;
+    margin: 15px;
+    width: 300px;
+    text-align: center;
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
+}
+
+.promo-card img {
+    width: 100%;
+    border-radius: 10px;
+    margin-top: 10px;
+}
+
+iframe {
+    border-radius: 10px;
+    margin-top: 10px;
+}
+
+.year {
+    display: block;
+    margin-top: 10px;
+    font-size: 14px;
+    color: #008000;
+}
+
 /***************************************************** REPORTING *****************************************************/
 
 .contact-form {
@@ -3626,7 +3664,7 @@ table td {
     font-size: 1.4rem;
     margin: 0;
     margin-bottom: 5px;
-    text-align: justify;
+    text-align: left;
     box-sizing: border-box;
     line-height: 1.6;
 }
