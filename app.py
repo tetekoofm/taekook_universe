@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request, redirect, session, url_for, jsonify, current_app, send_from_directory
 import os, secrets, random, calendar, subprocess
-from models import db, Upcoming, Memory, InTheNews, Product, Discography, MusicVideo, Vote, Radio, SpotifyStats, YoutubeStats, ShazamStats, Fanbase, Banner, Project, Events
+from models import db, Upcoming, Memory, InTheNews, Product, Discography, MusicVideo, Vote, Radio, SpotifyStats, YoutubeStats, ShazamStats, Fanbase, Banner, Project, Event, Promotion
 from collections import defaultdict
 from datetime import datetime
 
@@ -32,7 +32,10 @@ def home():
 
 @app.route('/meet-tae')
 def meet_tae():
-    return render_template('09.01.meettae.html')
+    file_path = os.path.join(app.root_path, 'static', 'content', 'meet_tae.txt')
+    with open(file_path, "r", encoding="utf-8") as file:
+        tae_content = file.read()
+    return render_template("09.01.meettae.html", tae_content=tae_content)
 
 @app.route('/meet-koo')
 def meet_jk():
@@ -191,8 +194,9 @@ def brandreputation():
 
 @app.route('/promotions')
 def promotions():
+    ads = Promotion.query.order_by(Promotion.year.desc()).all()
     banners = Banner.query.filter_by(subpage='07.09.promotions').all()
-    return render_template('07.09.promotions.html', banners=banners)
+    return render_template('07.09.promotions.html', ads=ads)
 
 @app.route('/endorsements')
 def endorsements():

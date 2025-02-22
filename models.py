@@ -123,7 +123,7 @@ class YoutubeStats(db.Model):
     
 class ShazamStats(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    artist = db.Column(db.String(100), nullable=False)  # Added artist column
+    artist = db.Column(db.String(100), nullable=False)
     image = db.Column(db.String(255), nullable=False)
     orig_song_name = db.Column(db.String(255), nullable=False)
     song_name = db.Column(db.String(255), nullable=False)
@@ -165,8 +165,8 @@ class Project(db.Model):
     def __repr__(self):
         return f"<Project {self.title}>"
 
-class Events(db.Model):
-    __tablename__ = 'events'
+class Event(db.Model):
+    __tablename__ = 'event'
 
     id = db.Column(db.Integer, primary_key=True)
     date = db.Column(db.String(50), nullable=False)
@@ -178,8 +178,21 @@ class Events(db.Model):
     link = db.Column(db.String(255), nullable=True) 
 
     def __repr__(self):
-        return f'<Events {self.title}>'
+        return f'<Event {self.title}>'
 
+class Promotion(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    artist = db.Column(db.String(100), nullable=False) 
+    brand_name = db.Column(db.String(100), nullable=False)
+    campaign_title = db.Column(db.String(200), nullable=True)
+    image_url = db.Column(db.String(500), nullable=False)
+    video_url = db.Column(db.String(500), nullable=True)
+    description = db.Column(db.Text, nullable=True)
+    year = db.Column(db.Integer, nullable=False)
+
+    def __repr__(self):
+        return f'<Event {self.campaign_title}>'
+    
 class Banner(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     subpage = db.Column(db.String(50), nullable=False)

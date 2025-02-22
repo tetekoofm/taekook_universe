@@ -1,5 +1,5 @@
 import pandas as pd
-from models import db, Upcoming, Memory, InTheNews, Product, Discography, MusicVideo, Vote, Radio, Fanbase, SpotifyStats, YoutubeStats, ShazamStats, Banner, Project, Events
+from models import db, Upcoming, Memory, InTheNews, Product, Discography, MusicVideo, Vote, Radio, Fanbase, SpotifyStats, YoutubeStats, ShazamStats, Banner, Project, Event, Promotion
 from app import app
 from datetime import datetime, time
 
@@ -139,6 +139,7 @@ def insert_data_from_excel():
 
         db.session.commit()
         print("Vote data updated from Excel!")
+
         radio_df = pd.read_excel(excel_file, sheet_name="Radio")
         for _, row in radio_df.iterrows():
             existing = Radio.query.filter_by(station_name=row['station_name']).first()
@@ -326,18 +327,18 @@ def insert_data_from_excel():
         db.session.commit()
         print("Projects data updated from Excel!")
         
-        events_df = pd.read_excel(excel_file, sheet_name='Events')
+        events_df = pd.read_excel(excel_file, sheet_name='Event')
         events_df['date'] = pd.to_datetime(events_df['date'], errors='coerce')  # Convert the 'date' column to datetime
         events_df['date'] = events_df['date'].dt.strftime('%Y-%m-%d') 
 
         for _, row in events_df.iterrows():
-            existing = Events.query.filter_by(
+            existing = Event.query.filter_by(
                 date=row['date'], 
                 title=row['title']
             ).first()
             
             if not existing:
-                events = Events(
+                events = Event(
                     date=row['date'],
                     title=row['title'],
                     image=row['image'],
@@ -349,8 +350,28 @@ def insert_data_from_excel():
                 db.session.add(events)
 
         db.session.commit()
-        print("Events updated from Excel!")
+        print("Event updated from Excel!")
 
+        promotion_df = pd.read_excel(excel_file, sheet_name="Promotion")
+
+        for _, row in promotion_df.iterrows():
+            existing = Promotion.query.filter_by(brand_name=row['brand_name'], campaign_title=row['campaign_title']).first()
+
+            if not existing:
+                promotion = Promotion(
+                    artist=row['artist'],
+                    brand_name=row['brand_name'],
+                    campaign_title=row['campaign_title'],
+                    image_url=row['image_url'],
+                    video_url=row['video_url'],
+                    description=row['description'],
+                    year=row['year']
+                )
+                db.session.add(promotion)
+
+        db.session.commit()
+        print("Promotion data updated from Excel!")
+            
         # Clean Data - Fill NaNs with None
         banner_df = pd.read_excel(excel_file, sheet_name="Banner")
         banner_df = banner_df.where(pd.notna(banner_df), None) 
