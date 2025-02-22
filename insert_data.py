@@ -1,5 +1,5 @@
 import pandas as pd
-from models import db, Upcoming, Memory, InTheNews, Product, Discography, MusicVideo, Radio, SpotifyStats, YoutubeStats, ShazamStats, Fanbase, Banner, Project, Events
+from models import db, Upcoming, Memory, InTheNews, Product, Discography, MusicVideo, Vote, Radio, Fanbase, SpotifyStats, YoutubeStats, ShazamStats, Banner, Project, Events
 from app import app
 from datetime import datetime, time
 
@@ -123,6 +123,22 @@ def insert_data_from_excel():
         db.session.commit()
         print("Music Videos updated from Excel!")
 
+        vote_df = pd.read_excel(excel_file, sheet_name="Vote")
+        for _, row in vote_df.iterrows():
+            existing = Vote.query.filter_by(app_name=row['app_name']).first()
+
+            if not existing:
+                vote = Vote(
+                    app_logo=row['app_logo'],
+                    app_name=row['app_name'],
+                    android_link=row['android_link'],
+                    ios_link=row['ios_link'],
+                    web_link=row['web_link']
+                )
+                db.session.add(vote)
+
+        db.session.commit()
+        print("Vote data updated from Excel!")
         radio_df = pd.read_excel(excel_file, sheet_name="Radio")
         for _, row in radio_df.iterrows():
             existing = Radio.query.filter_by(station_name=row['station_name']).first()

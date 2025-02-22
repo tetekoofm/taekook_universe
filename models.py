@@ -71,6 +71,17 @@ class MusicVideo(db.Model):
 
     def __repr__(self):
         return f'<MusicVideo {self.name}>'
+
+class Vote(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    app_logo = db.Column(db.String(255), nullable=False)
+    app_name = db.Column(db.String(100), nullable=False, unique=True)
+    android_link = db.Column(db.String(255), nullable=True)
+    ios_link = db.Column(db.String(255), nullable=True)
+    web_link = db.Column(db.String(255), nullable=True)
+
+    def __repr__(self):
+        return f"<Vote {self.app_name}>"
     
 class Radio(db.Model):
     id = db.Column(db.Integer, primary_key=True)

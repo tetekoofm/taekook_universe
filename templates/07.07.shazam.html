@@ -8,6 +8,22 @@
     <p class="caption">Shazam plays a crucial role in tracking music popularity.</p>
     <p class="caption">Help increase their recognition and make Taehyung and Jung Kook the top artists on Shazam!</p>
 
+    <!-- 🔹 Auto-Scrolling Banner Section -->
+    {% if banners %}
+    <section class="banner-carousel">
+        <div class="banner-track">
+            {% for banner in banners %}
+            <div class="banner-slide">
+                <h2>{{ banner.title }}</h2>
+                {% if banner.link %}
+                <a href="{{ banner.link }}" class="banner-btn">Learn More</a>
+                {% endif %}
+            </div>
+            {% endfor %}
+        </div>
+    </section>
+    {% endif %}
+
     <div class="section">
         <h3>Importance of Shazam</h3>
         <p>Shazam allows users to discover music instantly. As more people Shazam their tracks, their popularity increases, and the songs can get ranked on Shazam charts. This visibility helps increase their stream counts and also attracts new fans globally.</p>

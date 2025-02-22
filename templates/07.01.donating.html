@@ -7,6 +7,22 @@
     <h1>Token of Love</h1>
     <p class="caption">Even a small pebble creates big ripples - your generous support does makes a difference!</p>
 
+    <!-- 🔹 Auto-Scrolling Banner Section -->
+    {% if banners %}
+    <section class="banner-carousel">
+        <div class="banner-track">
+            {% for banner in banners %}
+            <div class="banner-slide">
+                <h2>{{ banner.title }}</h2>
+                {% if banner.link %}
+                <a href="{{ banner.link }}" class="banner-btn">Learn More</a>
+                {% endif %}
+            </div>
+            {% endfor %}
+        </div>
+    </section>
+    {% endif %}
+    
     <div class="section">
         <h3>Why Donate?</h3>
         <p>As fans, there are many ways we can support Taehyung and Jungkook, and one of the easiest is through donations. These donations are used solely for fan-led initiatives such as:</p>

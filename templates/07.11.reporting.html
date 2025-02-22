@@ -7,6 +7,22 @@
     <h1>Reporting</h1>
     <p class="caption">Learn how to report malicious or inappropriate content that disparges Taehyung and Jung Kook's names and work.</p>
 
+    <!-- 🔹 Auto-Scrolling Banner Section -->
+    {% if banners %}
+    <section class="banner-carousel">
+        <div class="banner-track">
+            {% for banner in banners %}
+            <div class="banner-slide">
+                <h2>{{ banner.title }}</h2>
+                {% if banner.link %}
+                <a href="{{ banner.link }}" class="banner-btn">Learn More</a>
+                {% endif %}
+            </div>
+            {% endfor %}
+        </div>
+    </section>
+    {% endif %}
+    
     <div class="section">
         <h3>Why Reporting Matters</h3>
         <p>Inappropriate and unethical use of Taehyung and Jung Kook’s identity can harm their reputation. Reporting such activities helps protect them, ensuring they are safe and free from misuse.</p>

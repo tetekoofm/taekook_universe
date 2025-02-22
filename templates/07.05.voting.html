@@ -7,6 +7,22 @@
     <h1>Voting for Taehyung and Jung Kook</h1>
     <p class="caption">Fan votes make a massive difference in securing awards and achievements. Your participation matters!</p>
 
+    <!-- 🔹 Auto-Scrolling Banner Section -->
+    {% if banners %}
+    <section class="banner-carousel">
+        <div class="banner-track">
+            {% for banner in banners %}
+            <div class="banner-slide">
+                <h2>{{ banner.title }}</h2>
+                {% if banner.link %}
+                <a href="{{ banner.link }}" class="banner-btn">Learn More</a>
+                {% endif %}
+            </div>
+            {% endfor %}
+        </div>
+    </section>
+    {% endif %}
+
     <div class="section">
         <h3>Why Voting is Important</h3>
         <p>Voting helps Taehyung and Jung Kook secure prestigious awards, such as those from MAMA, Billboard, and other global music platforms. It showcases fan dedication and gives them global recognition.</p>
@@ -49,6 +65,33 @@
             <li>Follow reliable fanbases for updates and deadlines.</li>
         </ul>
     </div>
+
+    <div class="section">
+        <h3>Prominent Vote Apps</h3>
+        <p>Some of our go-to voting apps that can be used to vote for Taehyung and Jungkook!</p>
+        <section class="radio-vote-container">
+            {% for app in vote_apps %}
+            <div class="radio-vote-card">
+                {% if app.app_logo %}
+                <img src="{{ url_for('static', filename='images/vote/' + app.app_logo) }}" alt="{{ app.app_name }}" class="radio-vote-logo">
+                {% endif %}
+                <h3>{{ app.app_name }}</h3>
+                <div class="button-container">
+                    {% if app.android_link %}
+                    <a href="{{ app.android_link }}" target="_blank" class="button-link">Android</a>
+                    {% endif %}
+                    {% if app.ios_link %}
+                    <a href="{{ app.ios_link }}" target="_blank" class="button-link">iOS</a>
+                    {% endif %}
+                    {% if app.web_link %}
+                    <a href="{{ app.web_link }}" target="_blank" class="button-link">Web</a>
+                    {% endif %}
+                </div>
+            </div>
+            {% endfor %}
+        </section>
+    </div>
+    
 
     <div class="sticky-notes">
         <h4>Pro Tips</h4>

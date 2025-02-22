@@ -8,6 +8,22 @@
     <p class="caption">Boost Taehyung & Jung Kook streams to ensure their success on global charts.</p>
     <p class="caption">Let's stream together to make an impact!</p>
 
+    <!-- 🔹 Auto-Scrolling Banner Section -->
+    {% if banners %}
+    <section class="banner-carousel">
+        <div class="banner-track">
+            {% for banner in banners %}
+            <div class="banner-slide">
+                <h2>{{ banner.title }}</h2>
+                {% if banner.link %}
+                <a href="{{ banner.link }}" class="banner-btn">Learn More</a>
+                {% endif %}
+            </div>
+            {% endfor %}
+        </div>
+    </section>
+    {% endif %}
+    
     <div class="section">
         <h3>Why Streaming Matters?</h3>
         <p>Streaming Taehyung and Jung Kook's music on major platforms helps boost their chart rankings, increases visibility, and supports their music careers. Every stream counts, especially during their new releases or a major comeback.</p>
@@ -43,7 +59,7 @@
         <p><strong><a href="https://x.com/stream4taekook">Terra Tribes</a></strong> - Join daily YouTube streaming challenges.</p>
         <!-- <p>Join our <a href="https://x.com/stream4taekook">Air Benders</a> GC for joining Daily Radio Challenges.</p> -->
         <p>Please join our <strong><a href="https://stationhead.com/tetekoofm">TeteKooFM</a></strong> Stationhead with your Spotify / Apple Music premium accounts. Our lovely admins would stream for you while you are away! You can also stream directly from <strong><a href="https://open.spotify.com/user/31lmwciln3i3p5pgnxrd5wgqq4bi">Spotify</a></strong>, <strong><a href="https://music.apple.com/profile/uktaekook">Apple Music</a></strong>, <strong><a href="https://tidal.com/browse/user/202097628">Tidal</a></strong>, and  <strong><a href="https://www.youtube.com/@streamfortaekook8968/playlists">Youtube</a></strong> playlists created by our FBs.</p>
-        </div>
+    </div>
 
     <div class="section">
         <h3>Trending Tracks</h3>

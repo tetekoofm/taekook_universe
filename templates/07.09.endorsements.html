@@ -7,6 +7,22 @@
     <h1>Endorsements</h1>
     <p class="caption">Taehyung and Jung Kook are not only musicians but also powerful brand ambassadors, known for endorsing various products and causes. Their endorsements have a significant influence on the global market!</p>
 
+    <!-- 🔹 Auto-Scrolling Banner Section -->
+    {% if banners %}
+    <section class="banner-carousel">
+        <div class="banner-track">
+            {% for banner in banners %}
+            <div class="banner-slide">
+                <h2>{{ banner.title }}</h2>
+                {% if banner.link %}
+                <a href="{{ banner.link }}" class="banner-btn">Learn More</a>
+                {% endif %}
+            </div>
+            {% endfor %}
+        </div>
+    </section>
+    {% endif %}
+
     <div class="section">
         <h3>Current Brand Endorsements</h3>
         <p>Taehyung and Jung Kook are the faces of several high-profile brands across various industries. Here are some of their current partnerships:</p>
