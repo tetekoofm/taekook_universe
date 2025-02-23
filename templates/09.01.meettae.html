@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Meet Taehyung - Taekook Universe</title>
+    <title>Meet Tae</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
@@ -26,7 +26,6 @@
                 <p>{{ tae_content.replace('\n', '<br>') | safe }}</p>
             </div>  
 
-    
             <section class="taekook-social-links">
                 <a href="https://twitter.com/BTS_twt" target="_blank">
                     <img src="/static/images/icons/x.jpeg" alt="Twitter" class="taekook-social-icon">
@@ -38,11 +37,10 @@
                     <img src="/static/images/icons/weverse.jpeg" alt="Weverse" class="taekook-social-icon">
                 </a>
             </section>
+            <footer-taekook>
+                <p>Taehyung is a treasure to the world. Let's continue to support his amazing journey! 💚</p>
+            </footer-taekook>
         </div>
     </div>
-    
-    <footer>
-        <p>Taehyung is a treasure to the world. Let's continue to support his amazing journey! 💚</p>
-    </footer>
 </body>
 </html>

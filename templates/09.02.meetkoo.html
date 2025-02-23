@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Meet Jung Kook - Taekook Universe</title>
+    <title>Meet Koo</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
@@ -13,7 +13,6 @@
     </div>
     <header>
         <h1 class="koo-heading">🐰 Meet Jung Kook 🐰</h1>
-        <p class="koo-subheading">Discover Jung Kook's world, talents, and passions</p>
     </header>
 
     <div class="koo-full-page-image-side" style="background-image: url({{ url_for('static', filename='images/kookie_side.jpeg') }});"></div>
@@ -24,28 +23,8 @@
                 <img src="{{ url_for('static', filename='images/kookie.jpeg') }}" alt="Jungkook" class="taekook-image">
             </div>
             <div class="taekook-bio">
-                <h3>About Jung Kook</h3>
-                <p>Jeon Jung Kook, affectionately known as the 'Golden Maknae,' is the youngest member of BTS and a true all-rounder. Known for his incredible vocals, exceptional dance skills, and mesmerizing stage presence, Jung Kook is one of the most celebrated idols in the world. 🌟</p>
-                <p>Jung Kook's creative energy knows no bounds, from producing songs to performing dynamic choreographies. His dedication to his craft and his genuine connection with ARMY have solidified his place in the hearts of millions. 🐰</p>
+                <p>{{ koo_content.replace('\n', '<br>') | safe }}</p>
             </div>
-    
-            <section class="taekook-weverse-life">
-                <h3>Jung Kook's Weverse Moments 🎤</h3>
-                <ul>
-                    <li><span class="taekook-emoji">🐰</span> Jung Kook's live streams often include singing, painting, or just chatting with ARMY.</li>
-                    <li><span class="taekook-emoji">🐰</span> His memorable performances during the "Permission to Dance" tour left fans in awe.</li>
-                    <li><span class="taekook-emoji">🐰</span> Jung Kook’s candid and relatable posts on Weverse continue to warm ARMY's hearts.</li>
-                </ul>
-            </section>
-    
-            <section class="taekook-cover-song-section">
-                <h3>Jung Kook's Cover Songs 🎶</h3>
-                <ul>
-                    <li><span class="taekook-emoji">🐰</span> "Falling" by Harry Styles - A soulful rendition that showcases Jung Kook's vocal depth.</li>
-                    <li><span class="taekook-emoji">🐰</span> "Paper Hearts" by Tori Kelly - An emotional performance that resonates with ARMY.</li>
-                    <li><span class="taekook-emoji">🐰</span> "We Don’t Talk Anymore" - A collaboration with Charlie Puth that fans adore.</li>
-                </ul>
-            </section>
     
             <section class="taekook-social-links">
                 <a href="https://twitter.com/BTS_twt" target="_blank">
@@ -61,11 +40,10 @@
                     <img src="/static/images/icons/tiktok.jpeg" alt="Weverse" class="taekook-social-icon">
                 </a>
             </section>
+            <footer>
+                <p>Jung Kook's passion and talent inspire fans across the globe. Let’s continue to support his amazing journey! 💜</p>
+            </footer>
         </div>
     </div>
-
-    <footer>
-        <p>Jung Kook's passion and talent inspire fans across the globe. Let’s continue to support his amazing journey! 💜</p>
-    </footer>
 </body>
 </html>
