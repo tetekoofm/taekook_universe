@@ -7,6 +7,12 @@
 @import url('https://fonts.googleapis.com/css2?family=Tangerine:wght@700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Fira+Sans+Condensed:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap');
+
+html, body {
+    max-width: 100%;
+    overflow-x: hidden; 
+}
+
 .wrapper {
     display: flex;
     flex-direction: column;
@@ -3553,8 +3559,23 @@ table td {
 
 /**************************************************** MEET TAEKOOK ***************************************************************/
 
+.back-home-container-tae, .back-home-container-koo {
+    position: fixed; 
+    top: 50px; 
+    z-index: 100; 
+}
+
+.back-home-container-tae {
+    right: 50px;
+}
+
+.back-home-container-koo {
+    left: 30px;
+}
+
 .back-home-button {
     background-color: #8A00C4;
+    font-family: 'Fira Sans Condensed', sans-serif;
     color: white;
     padding: 10px 20px;
     border-radius: 5px;
@@ -3568,69 +3589,18 @@ table td {
     background-color: #008000; 
 }
 
-.back-home-container-tae, .back-home-container-koo {
-    position: fixed; 
-    top: 20px; 
-    z-index: 100; 
-}
-
-.back-home-container-tae {
-    right: 20px;
-}
-
-.back-home-container-koo {
-    left: 20px;
-}
-
-.tae-heading, .tae-subheading, .tae-section-wrapper, .koo-heading, .koo-subheading, .koo-section-wrapper {
-    font-family: 'Fira Sans Condensed', sans-serif;
-    position: relative;
-    width: 100%;
-    text-align: center;
-}
-
-.tae-heading, .tae-subheading, .tae-section-wrapper {
-    right: -20%;
-}
-
-.koo-heading, .koo-subheading, .koo-section-wrapper {
-    left: -20%;
-}
-
-.tae-heading, .koo-heading {
-    font-family: 'Tangerine', serif;
-    font-size: 6rem;
-    margin-top: 50px;
-    letter-spacing: 2px;
-    animation: meetfadeIn 2s ease-in-out;
-}
-
-.tae-subheading, .koo-subheading {
-    font-size: 2.4rem;
-    margin: 15px 0;
-    font-weight: 300;
-}
-
-.tae-heading, .koo-subheading, .tae-section-wrapper, .tae-section h3, .koo-section p, .koo-section li {
-    color: #3b9e3b;
-}
-
-.koo-heading, .tae-subheading, .koo-section h3, .tae-section p, .tae-section li{
-    color: #9354ce;
-}
-
-/* Tae Full Page Image */
-.tae-full-page-image-side, .koo-full-page-image-side {
+.tae-full-page-image-side, 
+.koo-full-page-image-side {
     position: fixed;
     top: 0;
     width: 30%;
-    height: 100vh;
+    height: 100vh; 
     background-size: cover;
     background-position: center;
-    z-index: 100;
+    background-repeat: no-repeat;
+    z-index: 1000;
     filter: brightness(70%) contrast(90%);
     opacity: 0.95;
-    flex-shrink: 0;
 }
 
 .tae-full-page-image-side {
@@ -3641,45 +3611,41 @@ table td {
     right: 0;
 }
 
-.tae-section, .koo-section, .taekook-weverse-life, .taekook-cover-song-section {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    padding: 20px;
-    margin: 0 auto 5px; 
-    box-sizing: border-box;
-    word-wrap: break-word;
-    overflow: visible;
-    max-width: 1200px; 
+.tae-heading, .koo-heading, .tae-section-wrapper, .koo-section-wrapper {
+    position: relative;
+    width: 80%;
+    z-index: 100;
 }
 
-.tae-section h3, .koo-section h3 {
-    font-size: 2.4rem;
-    margin-bottom: 15px;
+.tae-heading, .tae-section-wrapper, .koo-section p {
+    color: #3b9e3b;
+    right: -50%;
 }
 
-.tae-section p, .tae-section li, .taekook-emoji, .koo-section p, .koo-section li {
-    font-size: 1.4rem;
-    margin: 0;
-    margin-bottom: 5px;
-    text-align: left;
-    box-sizing: border-box;
-    line-height: 1.6;
+.koo-heading, .koo-section-wrapper, .tae-section p {
+    color: #9354ce;
+    left: 23%;
 }
 
-.tae-section li, .koo-section li {
-    display: list-item;
-    list-style-position: inside;
+.tae-section-wrapper {
+    right: -30%;
 }
 
-.tae-section p, .koo-section p {
-    display: block;
-    overflow-wrap: break-word;
+.koo-section-wrapper{
+    left: 5%;
+}
+
+.tae-heading, .koo-heading {
+    font-family: 'Tangerine', serif;
+    font-size: 6rem;
+    margin-top: 30px;
+    letter-spacing: 2px;
+    animation: meetfadeIn 2s ease-in-out;
+    z-index: 100;
 }
 
 .tae-image-container, .koo-image-container {
+    position: relative;
     width: 20vw;
     height: 20vw; 
     max-width: 250px;
@@ -3688,18 +3654,22 @@ table td {
     min-height: 100px;
     border-radius: 50%;
     overflow: hidden;
-    margin: 10px;
+    margin-top: -50px; 
+    margin-bottom: 20px;
     display: flex;
     justify-content: center;
     align-items: center;
+    z-index: 103;
 }
 
 .tae-image-container {
     border: 5px solid #008000;
+    right: 10%;
 }
 
 .koo-image-container {
     border: 5px solid #9A6DD7;
+    left: -10%;
 }
 
 .taekook-image {
@@ -3709,33 +3679,64 @@ table td {
     object-position: top center;
 }
 
-.taekoo-bio {
-    max-width: 90%;
-    margin: 40px auto;
+.tae-section, .koo-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 0 20px; 
+    margin: 0 auto; 
+    word-wrap: break-word;
+    max-width: 100%;
+    width: 100%;
+}
+
+.tae-section p, .koo-section p {
+    font-family: 'Fira Sans Condensed', sans-serif;
+    font-size: 1.4rem;
+    margin: 0;
+    margin-bottom: 10px;
+    text-align: center;
+    box-sizing: border-box;
+    line-height: 1.4;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+    width: 100%;
+    max-width: 80%;
+    white-space: normal;
+    overflow-y: auto;
+}
+
+.taekook-bio {
+    max-width: 100%;
     padding: 20px;
-    box-sizing: border-box; 
+    box-sizing: border-box;
+    margin-bottom: 30px; 
     overflow: hidden;
 }
 
 .taekook-social-links {
+    position: relative;
     display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 10px;
-    padding: 10px 0;
+    justify-content: space-evenly; 
+    /* align-items: center; */
+    gap: 15px; 
+    width: 100%; 
+    max-width: 400px;
+    margin-top: 40px;
+    right: 10%;
 }
 
 .taekook-social-icon {
     width: 40px;
     height: 40px;
     transition: transform 0.2s ease;
+    object-fit: contain; 
 }
 
 .taekook-social-icon:hover {
     transform: scale(1.2);
 }
 
-/* Scroll Animation */
 @keyframes meetfadeIn {
     from {
         opacity: 0;
@@ -3745,8 +3746,13 @@ table td {
     }
 }
 
+footer-taekook {
+    width: 100%;
+    margin-top: 40px;
+}
+
 /* Mobile Styles */
-@media (max-width: 768px) {
+/* @media (max-width: 768px) {
     body {
         margin: 0;
         padding: 0;
@@ -3863,5 +3869,6 @@ table td {
         align-items: center;
         margin-right: 10px;
     }
-}
+} */
+
 /***********************************************************************************************************************************/

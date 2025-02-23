@@ -38,8 +38,11 @@ def meet_tae():
     return render_template("09.01.meettae.html", tae_content=tae_content)
 
 @app.route('/meet-koo')
-def meet_jk():
-    return render_template('09.02.meetkoo.html')
+def meet_koo():
+    file_path = os.path.join(app.root_path, 'static', 'content', 'meet_koo.txt')
+    with open(file_path, "r", encoding="utf-8") as file:
+        koo_content = file.read()
+    return render_template("09.02.meetkoo.html", koo_content=koo_content)
 
 @app.route('/upcoming')
 def upcoming():
