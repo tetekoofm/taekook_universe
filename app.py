@@ -208,7 +208,7 @@ def endorsements():
 
 @app.route('/events')
 def events():
-    events = Events.query.all()
+    events = Event.query.all()
     banners = Banner.query.filter_by(subpage='07.10.events').all()
     return render_template('07.10.events.html', banners=banners, events=events)
 
