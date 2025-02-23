@@ -3752,7 +3752,7 @@ footer-taekook {
 }
 
 /* Mobile Styles */
-/* @media (max-width: 768px) {
+@media (max-width: 768px) {
     body {
         margin: 0;
         padding: 0;
@@ -3869,6 +3869,6 @@ footer-taekook {
         align-items: center;
         margin-right: 10px;
     }
-} */
+}
 
 /***********************************************************************************************************************************/
