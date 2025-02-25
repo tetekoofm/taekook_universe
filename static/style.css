@@ -25,27 +25,30 @@ html, body {
 }
 
 /* Night Sky Background */
+/* Ensures night sky stays in the background */
 .night-sky {
-    display: none; 
-    position: fixed;
+    position: fixed; /* Fixed position so it stays in the background */
     top: 0;
     left: 0;
-    width: 100%;
+    width: 100vw;
     height: 100vh;
-    background-color: #000;
+    background-color: black; /* Dark background for the night sky */
+    pointer-events: none; /* Prevent interaction with the sky */
+    z-index: -1; /* Ensure it stays behind all content */
+}
+
+/* Styling for each star */
+.star {
+    position: absolute;
+    background: radial-gradient(circle, #6A0DAD 100%, #008000 100%, #ffffff 50%); /* Glowing effect from purple to green */
+    width: 12px; 
+    height: 12px;
+    clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
+    animation: twinkle 2s infinite ease-in-out;
     z-index: 0;
 }
 
-/* Star Style */
-.star {
-    position: absolute;
-    width: 10px;
-    height: 10px;
-    clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
-    animation: twinkle 2s infinite ease-in-out;
-}
-
-/* Animation for Stars */
+/* Animation for the stars to twinkle */
 @keyframes twinkle {
     0% {
         opacity: 0.5;
@@ -136,7 +139,6 @@ footer {
     position:relative;
     margin-top: 10px;
     bottom: 0;
-    margin-bottom: 0;
     z-index: 1;
 }
 
@@ -446,9 +448,7 @@ footer a:hover {
         color: #5a5a5a;
         box-sizing: border-box;
         position:relative;
-        /* margin-top: auto; */
         bottom: 0;
-        margin-bottom: 0;
         z-index: 1;
     }
 }
@@ -1258,42 +1258,74 @@ footer a:hover {
     opacity: 0.8;
 }
 
-/* Mobile Styles for inthenews Cards */
 @media screen and (max-width: 768px) {
-
     .inthenews-cards {
         display: flex;
-        flex-direction: column; /* Stack the cards vertically */
-        justify-content: center;
-        gap: 10px; /* Reduced gap between cards */
-        margin-top: 10px;
+        flex-wrap: wrap;
+        justify-content: space-between; 
+        gap: 2px; 
     }
 
     .inthenews-card {
-        width: 100%; /* Full width of the container */
-        padding: 10px; /* Reduced padding for mobile */
-        margin-bottom: 15px; /* Reduced bottom margin */
-        border-radius: 10px; /* Smaller radius for cards */
-    }
-
-    .card-header {
-        padding: 8px 8px; /* Reduced padding */
-        font-size: 14px; /* Smaller font for mobile */
+        width: 48%; 
+        padding: 8px; 
+        border-radius: 10px;
+        box-sizing: border-box; 
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        margin-top: 8px;
     }
 
     .card-header .title {
-        font-size: 16px; /* Adjust title size */
+        font-size: 0.8rem;  
     }
 
     .card-header .date {
-        font-size: 10px; /* Smaller date font */
+        font-size: 0.6rem;  
     }
 
-    /* Card Body (Image) */
     .card-body img {
-        height: 150px; /* Adjust image height */
+        width: 100%;
+        height: 100px; 
         object-fit: cover;
-        object-position: top;
+        object-position: center;
+        border-radius: 5px;
+    }
+}
+
+@media screen and (min-width: 769px) and (max-width: 1343px) {
+    .inthenews-cards {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        gap: 2px; 
+    }
+
+    .inthenews-card {
+        width: 15%;
+        border-radius: 10px;
+        box-sizing: border-box;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        margin-top: 8px;
+    }
+
+    .card-header .title {
+        font-size: 1.1rem; 
+    }
+
+    .card-header .date {
+        font-size: 1rem;
+    }
+
+    .card-body img {
+        width: 100%;
+        height: 150px; /* Slightly taller images for medium screens */
+        object-fit: cover;
+        object-position: center;
+        border-radius: 5px;
     }
 }
 
@@ -3777,7 +3809,6 @@ footer-taekook {
         width: 100%;
         max-width: 330px;
         padding: 20px;
-        border: 2px solid red;
     }
 
     .tae-heading, .koo-heading {

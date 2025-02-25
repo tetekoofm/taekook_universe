@@ -5,7 +5,7 @@
 <div class="main-content">
     <h1 class="heading">Welcome to TaeKook Universe!</h1>
     <p class="caption">A fanpage dedicated to Kim Taehyung and Jeon Jung Kook.</p>
-    <p class="caption">Follow their incredible journey from their debut to their milestones, upcoming projects, achievements, and their passionate fanbase.</p>
+    <p class="caption">Follow their incredible journey from their debut till now!</p>
 
     <!-- Image Carousel -->
     <div class="image-carousel">
@@ -101,5 +101,27 @@
             slides[index].classList.add('visible');
         }, 3000);
     }
+
+    function generateStars() {
+        const nightSky = document.createElement('div');
+        nightSky.classList.add('night-sky');
+        document.body.appendChild(nightSky);
+
+        const numberOfStars = 100; // Adjust this value for more or fewer stars
+        for (let i = 0; i < numberOfStars; i++) {
+            const star = document.createElement('div');
+            star.classList.add('star');
+            star.style.top = `${Math.random() * 100}vh`; // Random position
+            star.style.left = `${Math.random() * 100}vw`; // Random position
+            star.style.animationDuration = `${Math.random() * 3 + 2}s`; // Random speed
+            nightSky.appendChild(star);
+        }
+    }
+
+    // Ensure the function is called after the page is loaded
+    window.onload = function() {
+        generateStars(); // Create stars after the page has loaded
+    };
+
 </script>
 {% endblock %}
