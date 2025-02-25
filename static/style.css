@@ -3560,7 +3560,7 @@ table td {
 /**************************************************** MEET TAEKOOK ***************************************************************/
 
 .back-home-container-tae, .back-home-container-koo {
-    position: fixed; 
+    position: absolute;
     top: 50px; 
     z-index: 100; 
 }
@@ -3593,14 +3593,12 @@ table td {
 .koo-full-page-image-side {
     position: fixed;
     top: 0;
-    width: 30%;
-    height: 100vh; 
+    width: 35vw; 
+    height: 100vh;
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
-    z-index: 1000;
-    filter: brightness(70%) contrast(90%);
-    opacity: 0.95;
+    z-index: -1;
 }
 
 .tae-full-page-image-side {
@@ -3611,40 +3609,48 @@ table td {
     right: 0;
 }
 
-.tae-heading, .koo-heading, .tae-section-wrapper, .koo-section-wrapper {
+.tae-section-wrapper,
+.koo-section-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
     position: relative;
-    width: 80%;
-    z-index: 100;
-}
-
-.tae-heading, .tae-section-wrapper, .koo-section p {
-    color: #3b9e3b;
-    right: -50%;
-}
-
-.koo-heading, .koo-section-wrapper, .tae-section p {
-    color: #9354ce;
-    left: 23%;
+    max-width: 70vw; 
+    margin: 0 auto;
 }
 
 .tae-section-wrapper {
-    right: -30%;
+    color: #3b9e3b;
+    padding-left: 30vw; 
 }
 
 .koo-section-wrapper{
-    left: 5%;
+    color: #9354ce;
+    padding-right: 30vw; 
 }
 
-.tae-heading, .koo-heading {
+.tae-section,
+.koo-section {
+    font-family: 'Fira Sans Condensed', sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    width: 100%;
+}
+
+.tae-heading,
+.koo-heading {
     font-family: 'Tangerine', serif;
     font-size: 6rem;
-    margin-top: 30px;
-    letter-spacing: 2px;
-    animation: meetfadeIn 2s ease-in-out;
-    z-index: 100;
+    font-weight: bold;
+    margin-bottom: 20px;
 }
 
-.tae-image-container, .koo-image-container {
+/* Image Container */
+.tae-image-container,
+.koo-image-container {
     position: relative;
     width: 20vw;
     height: 20vw; 
@@ -3654,7 +3660,7 @@ table td {
     min-height: 100px;
     border-radius: 50%;
     overflow: hidden;
-    margin-top: -50px; 
+    margin-top: 50px; 
     margin-bottom: 20px;
     display: flex;
     justify-content: center;
@@ -3664,12 +3670,10 @@ table td {
 
 .tae-image-container {
     border: 5px solid #008000;
-    right: 10%;
 }
 
 .koo-image-container {
     border: 5px solid #9A6DD7;
-    left: -10%;
 }
 
 .taekook-image {
@@ -3679,46 +3683,26 @@ table td {
     object-position: top center;
 }
 
-.tae-section, .koo-section {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 0 20px; 
-    margin: 0 auto; 
-    word-wrap: break-word;
-    max-width: 100%;
-    width: 100%;
-}
-
-.tae-section p, .koo-section p {
-    font-family: 'Fira Sans Condensed', sans-serif;
+.taekook-bio {
     font-size: 1.4rem;
     margin: 0;
     margin-bottom: 10px;
+    margin-right: 10px;
     text-align: center;
     box-sizing: border-box;
     line-height: 1.4;
     overflow-wrap: break-word;
     word-wrap: break-word;
     width: 100%;
-    max-width: 80%;
+    max-width: 90%;
     white-space: normal;
     overflow-y: auto;
 }
 
-.taekook-bio {
-    max-width: 100%;
-    padding: 20px;
-    box-sizing: border-box;
-    margin-bottom: 30px; 
-    overflow: hidden;
-}
-
 .taekook-social-links {
-    position: relative;
     display: flex;
-    justify-content: space-evenly; 
-    /* align-items: center; */
+    justify-content: center;
+    gap: 15px;
     gap: 15px; 
     width: 100%; 
     max-width: 400px;
@@ -3747,29 +3731,20 @@ table td {
 }
 
 footer-taekook {
+    font-size: 1.2rem;
     width: 100%;
     margin-top: 40px;
 }
 
 /* Mobile Styles */
 @media (max-width: 768px) {
-    body {
-        margin: 0;
-        padding: 0;
-        overflow-x: hidden; 
-    }
-
-    .back-home-container-tae, .back-home-container-koo {
-        top: 10px;
-        z-index: 2;
-        width: auto; 
-    }
-
     .back-home-container-tae {
+        top: 10px;
         right: 10px;
     }
 
     .back-home-container-koo {
+        top: 10px;
         left: 10px;
     }
 
@@ -3793,36 +3768,23 @@ footer-taekook {
         pointer-events: none;
     }
 
-    .tae-section, .koo-section, .tae-section-wrapper, .koo-section-wrapper {
+    .tae-section-wrapper, .koo-section-wrapper {
         display: flex;
-        position: relative;
         flex-direction: column;
-        left: 0;
-        right: 0;
         justify-content: center;
         align-items: center;
         text-align: center;
         width: 100%;
+        max-width: 330px;
+        padding: 20px;
+        border: 2px solid red;
     }
 
     .tae-heading, .koo-heading {
-        font-size: 2rem;
-        margin-top: 50px !important;
-        margin: 0px auto;
-        left: 0;
-        right: 0;
-        display: flex;
-        justify-content: center;
+        font-size: 2.5rem !important;
+        margin-top: 70px;
         width: 100%;
-        word-wrap: break-word;
-    }
-
-    .tae-subheading, .koo-subheading {
-        font-size: 0.8rem;
-        justify-content: center;
-        margin: 10px 0;
-        left: 0;
-        right: 0;
+        text-align: center;
     }
 
     .tae-image-container, .koo-image-container {
@@ -3834,40 +3796,60 @@ footer-taekook {
         min-height: 80px;
         border: 2px solid;
         margin: 10px 0;
-        left: 0;
-        right: 0;
     }
 
     .tae-image-container {
-        border: 2px solid #008000;
+        border-color: #008000;
     }
     
     .koo-image-container {
-        border: 2px solid #9A6DD7;
+        border-color: #9A6DD7;
     }
 
-    .taekook-bio, .taekook-weverse-life, .taekook-cover-song-section {
-        max-width: 100%;
-        margin: 0;
+    /* Set the bio width to 100% but ensure it fits within the screen */
+    .taekook-bio {
+        width: 100%; /* Set to 100% */
+        margin: 0 auto; /* Center the content */
+        font-size: 0.9rem !important;
+        line-height: 1.5;
     }
 
-    .taekook-bio h3, .taekook-weverse-life h3, .taekook-cover-song-section h3 {
-        font-size: 1.2rem;
-        margin-top: 1px;
-        margin-bottom: 1px;
+    footer-taekook {
+        font-size: 0.8rem !important;
     }
 
-    .taekook-weverse-life ul, .taekook-cover-song-section ul {
+    .taekook-social-icon {
+        width: 20px;
+        height: 20px;
+    }
+}
+
+@media (max-width: 1366px) {
+    .tae-heading, .koo-heading {
+        font-size: 3.5rem;
+        margin-top: 50px !important; /* Increased margin to push it down */
         text-align: center;
-        padding-left: 0;
     }
 
-    .taekook-bio p, .taekook-weverse-life li, .taekook-cover-song-section li, .taekook-emoji {
-        font-size: 0.8rem;
-        text-align: justify;        
-        justify-content: center;
-        align-items: center;
-        margin-right: 10px;
+    .back-home-container-tae, .back-home-container-koo {
+        top: 20px; /* Adjusted for better spacing */
+    }
+
+    .tae-section-wrapper, .koo-section-wrapper {
+        padding-top: 20px; /* Ensures entire section moves down slightly */
+    }
+    
+    .tae-image-container, .koo-image-container {
+        margin: 5px 0;
+    }
+
+    .taekook-bio, footer-taekook {
+        font-size: 1rem;
+    }
+
+    .taekook-social-icon {
+        width: 30px;
+        height: 30px;
     }
 }
 
