@@ -1,18 +1,12 @@
 {% extends "00.base.html" %}
-{% block title %}In The News{% endblock %}
+{% block title %}In The News - Spanish{% endblock %}
 {% block content %}
 <div class="main-content">
-    <h1 class="heading">In The News</h1>
-    <p class="caption">Stay up to date with Tae and Koo!</p>
-
-    <div class="spanish-blogs">
-        <p>Interested in Spanish blogs? 
-            <a href="{{ url_for('inthenews_spanish') }}">Click here</a>
-        </p>
-    </div>
+    <h1 class="heading">En Las Noticias - Español</h1>
+    <p class="caption">¡Mantente al día con Tae y Koo!</p>
 
     <div class="inthenews-cards">
-        {% for news in inthenews %}
+        {% for news in inthenews_spanish %}
         <div class="inthenews-card">
             <div class="card-header">
                 <h2 class="title">{{ news.title }}</h2>

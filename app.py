@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request, redirect, session, url_for, jsonify, current_app, send_from_directory
 import os, secrets, random, calendar, subprocess
-from models import db, Upcoming, Memory, InTheNews, Product, Discography, MusicVideo, Vote, Radio, SpotifyStats, YoutubeStats, ShazamStats, Fanbase, Banner, Project, Event, Promotion
+from models import db, Upcoming, Memory, InTheNews, InTheNews_Spanish, Product, Discography, MusicVideo, Vote, Radio, SpotifyStats, YoutubeStats, ShazamStats, Fanbase, Banner, Project, Event, Promotion
 from collections import defaultdict
 from datetime import datetime
 
@@ -107,6 +107,11 @@ def get_event_details(event_id):
 def inthenews():
     inthenews = InTheNews.query.order_by(InTheNews.date.desc()).all()
     return render_template('04.inthenews.html', inthenews=inthenews)
+
+@app.route('/in-the-news/spanish')
+def inthenews_spanish():
+    spanish_news = InTheNews_Spanish.query.order_by(InTheNews_Spanish.date.desc()).all()
+    return render_template("04.inthenews_spanish.html", inthenews_spanish=spanish_news)
 
 @app.route('/vibe')
 def vibe():

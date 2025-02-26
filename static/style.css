@@ -1205,6 +1205,32 @@ footer a:hover {
 
 /************************************************* IN THE NEWS ***************************************************/
 
+.spanish-blogs {
+    text-align: center;
+    margin-top: 20px;
+    padding: 10px;
+    border-radius: 8px;
+    font-size: 1.2rem;
+    font-family: 'Fira Sans Condensed', sans-serif;
+}
+
+.spanish-blogs p {
+    color: #ccc;
+    margin: 0;
+}
+
+.spanish-blogs a {
+    color: #6a0dad;
+    font-weight: bold;
+    text-decoration: none;
+    transition: color 0.3s ease-in-out;
+}
+
+.spanish-blogs a:hover {
+    color: #3b9e3b; /* Green on hover */
+    text-decoration: underline;
+}
+
 .inthenews-cards {
     display: flex;
     flex-wrap: wrap;
@@ -1278,7 +1304,7 @@ footer a:hover {
     }
 
     .card-header .title {
-        font-size: 0.8rem;  
+        font-size: 0.8rem;
     }
 
     .card-header .date {
