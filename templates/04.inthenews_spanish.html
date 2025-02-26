@@ -15,7 +15,7 @@
             <div class="card-body">
                 {% if news.link %}
                     <a href="{{ news.link }}" target="_blank">
-                        <img src="{{ url_for('static', filename='images/inthenews/' + news.image) }}" 
+                        <img src="{{ url_for('static', filename='images/inthenews/spanish/' + news.image) }}" 
                              alt="News image: {{ news.title }}"
                              data-title="{{ news.title }}"
                              data-date="{{ news.date }}"
@@ -23,7 +23,7 @@
                              data-description="{{ news.description }}">
                     </a>
                 {% else %}
-                    <img src="{{ url_for('static', filename='images/inthenews/' + news.image) }}" 
+                    <img src="{{ url_for('static', filename='images/inthenews/spanish/' + news.image) }}" 
                          alt="News image: {{ news.title }}"
                          data-title="{{ news.title }}"
                          data-date="{{ news.date }}"
