@@ -6,63 +6,17 @@
     <p class="caption">Explore the amazing projects and donations made by Taekook fans worldwide!</p>
     <div class="project-cards">
         {% for project in projects %}
-        <div class="project-card">
+        <a href="{{ project.link }}" target="_blank" class="project-card">
             <div class="card-header">
                 <h2 class="title">{{ project.title }}</h2>
                 <p class="date">{{ project.date }}</p>
             </div>
             <div class="card-body">
-                <img src="{{ url_for('static', filename='images/projects/' + project.image) }}" 
-                    alt="{{ project.title }}"
-                    data-title="{{ project.title }}"
-                    data-date="{{ project.date }}"
-                    data-image="{{ project.image }}"
-                    data-description="{{ project.description }}"
-                    data-link="{{ project.link }}">
+                <img src="{{ url_for('static', filename='images/projects/' + project.image) }}" alt="{{ project.title }}">
+                <p class="description">{{ project.description }}</p>
             </div>
-        </div>
+        </a>
         {% endfor %}
     </div>
-    <div id="project-modal" class="modal">
-        <div class="modal-content">
-            <span class="close-btn" onclick="closeModal()">×</span>
-            <h2 id="modal-title"></h2>
-            <p id="modal-date"></p>
-            <img id="modal-image" src="" alt="">
-            <p id="modal-description"></p>
-            <a id="modal-link" href="#" target="_blank">Learn More</a>
-        </div>
-    </div>  
 </div>
-<script>
-    function openModal(title, date, image, description, link) {
-        document.getElementById('modal-title').textContent = title;
-        document.getElementById('modal-date').textContent = date;
-        document.getElementById('modal-image').src = '/static/images/projects/' + image;
-        document.getElementById('modal-description').textContent = description;
-        document.getElementById('modal-link').href = link;
-        document.getElementById('project-modal').style.display = 'block';
-    }
-
-    function closeModal() {
-        document.getElementById('project-modal').style.display = 'none';
-    }
-
-    document.querySelectorAll('.project-card img').forEach(img => {
-        img.addEventListener('click', function() {
-            const title = this.getAttribute('data-title');
-            const date = this.getAttribute('data-date');
-            const image = this.getAttribute('data-image');
-            const description = this.getAttribute('data-description');
-            const link = this.getAttribute('data-link');
-            openModal(title, date, image, description, link);
-        });
-    });
-
-    window.onclick = function(event) {
-        if (event.target == document.getElementById('project-modal')) {
-            closeModal();
-        }
-    }
-</script>
 {% endblock %}
