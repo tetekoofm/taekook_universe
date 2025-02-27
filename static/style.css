@@ -1703,6 +1703,43 @@ footer a:hover {
     margin-top: 10px;
 }
 
+/* Mobile styles */
+@media screen and (max-width: 768px) {
+    .project-cards {
+        display: block;
+        padding: 10px;
+    }
+
+    .project-card {
+        width: 100%; 
+        margin-bottom: 20px; 
+    }
+}
+@media screen and (min-width: 769px) and (max-width: 1343px) {
+    .project-card {
+        width: 400px; 
+    }
+
+    .card-body img {
+        width: 100%;
+        height: auto; 
+        object-fit: contain;
+        border-radius: 8px;
+        display: block;
+        margin-top: 0; 
+    }
+}
+
+/* .project-card {
+    background: #222;
+    border-radius: 12px;
+    font-family: 'Fira Sans Condensed', sans-serif;
+    overflow: hidden;
+    text-decoration: none;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    width: 700px; 
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+} */
 /***************************************************** GUIDE *****************************************************/
 
 .help-container {
