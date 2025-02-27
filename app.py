@@ -270,29 +270,6 @@ def cart():
     total_price = sum(item_details['quantity'] * item_details['price'] for item_details in cart_items.values())
     return render_template('08.01.cart.html', cart_items=cart_items, total_price=total_price, products=products)
 
-@app.route('/checkout', methods=['POST', 'GET'])
-def checkout():
-    cart_items = session.get('cart', {})
-
-    if not cart_items or all(item_details['quantity'] == 0 for item_details in cart_items.values()):
-        return redirect('/cart')
-
-    total_price = sum(item_details['quantity'] * item_details['price'] for item_details in cart_items.values())
-
-    if request.method == 'POST':
-        name = request.form.get('name')
-        email = request.form.get('email')
-        address = request.form.get('address')
-
-        if not name or not email or not address:
-            return render_template('08.03.checkout.html', total_price=total_price, error="Please fill in all fields.")
-
-        session['cart'] = {}
-
-        return render_template('08.04.thank_you.html', name=name, email=email, address=address, total_price=total_price)
-
-    return render_template('08.03.checkout.html', total_price=total_price)
-
 if __name__ == "__main__":
     app.run(debug=True, host="0.0.0.0", port=10000)
 
