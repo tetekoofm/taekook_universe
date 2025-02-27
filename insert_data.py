@@ -9,6 +9,12 @@ def insert_data_from_excel():
     with app.app_context():
 
         upcoming_df = pd.read_excel(excel_file, sheet_name='Upcoming')
+        upcoming_df['date'] = pd.to_datetime(upcoming_df['date'], errors='coerce')
+
+        # Ensure no NaT values before formatting
+        upcoming_df = upcoming_df.dropna(subset=['date'])
+
+        # Convert to string format for database insertion
         upcoming_df['date'] = upcoming_df['date'].dt.strftime('%Y-%m-%d')
 
         for _, row in upcoming_df.iterrows():
@@ -26,6 +32,7 @@ def insert_data_from_excel():
                     description=row['description']
                 )
                 db.session.add(upcoming)
+
         db.session.commit()
         print("Upcoming Events updated from Excel!")
 

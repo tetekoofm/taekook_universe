@@ -6,21 +6,29 @@
     <p class="caption">
         Coming up next for Taehyung and Jung Kook! Exciting projects ahead!
     </p>
-    <div class="events-container">
-        {% for event in upcoming %}
-        <div class="event-card">
-            <div class="event-header">
-                <h2 class="event-title">{{ event.title }}</h2>
-                <p class="event-date">{{ event.date.strftime('%B %d, %Y') }}</p>
-            </div>
-            <div class="event-body">
-                <img src="{{ url_for('static', filename='images/upcoming/' + event.image) }}" alt="{{ event.title }}" class="event-image">
-                <div class="event-content">
-                    <p class="event-description">{{ event.description }}</p>
+    <div class="upcoming-container">
+        {% if upcoming %}
+            {% for event in upcoming %}
+            <div class="upcoming-card">
+                <div class="upcoming-header">
+                    <h2 class="upcoming-title">{{ event.title }}</h2>
+                    <p class="upcoming-date">{{ event.date.strftime('%B %d, %Y') }}</p>
+                </div>
+                <div class="upcoming-body">
+                    <img src="{{ url_for('static', filename='images/upcoming/' + event.image) }}" alt="{{ event.title }}" class="upcoming-image">
+                    <div class="upcoming-content">
+                        <p class="upcoming-description">{{ event.description }}</p>
+                    </div>
                 </div>
             </div>
-        </div>
-        {% endfor %}
+            {% endfor %}
+        {% else %}
+        <div class="stay-tuned-banner">
+            <p>Taehyung and Jungkook are currently serving in the military and will return in June 2025.</p>
+            <p>We can't wait to see what’s next for them! Check back later for updates. 💜</p>
+            <img src="{{ url_for('static', filename='images/upcoming/stay_tuned.jpeg') }}" alt="Stay Tuned" class="stay-tuned-image">
+        </div>        
+        {% endif %}
     </div>
 </div>
 {% endblock %}
