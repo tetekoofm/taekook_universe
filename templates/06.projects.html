@@ -1,6 +1,9 @@
 {% extends "00.base.html" %}
 {% block title %}Fan Projects{% endblock %}
 {% block content %}
+<audio id="bgAudio" autoplay loop>
+    <source src="{{ url_for('static', filename='audio/memories.mp3') }}" type="audio/mpeg">
+</audio>
 <div class="project-cards">
     {% for project in projects %}
     <div class="project-card" onclick="window.open('{{ project.link }}', '_blank')">
