@@ -25,12 +25,51 @@
                 <li><a href="/store">Store</a></li>
             </ul>
         </nav>
-
+        
+        <!-- Speaker Icon for Mute/Unmute -->
+        <div id="audioControl" onclick="toggleAudio()">🔊</div>
+        
         <!-- Main Content -->
         <main>
             {% block content %}{% endblock %}
         </main>
         
+        <script>
+                document.addEventListener("DOMContentLoaded", function() {
+                let audio = document.getElementById("bgAudio");
+                let audioControl = document.getElementById("audioControl");
+
+                // Delay to bypass autoplay restrictions
+                setTimeout(() => {
+                    audio.volume = 1.0; 
+                    let playPromise = audio.play();
+                    if (playPromise !== undefined) {
+                        playPromise.catch(error => console.log("Autoplay blocked:", error));
+                    }
+                }, 1000);
+
+                // Check mute status in localStorage
+                if (localStorage.getItem("isMuted") === "true") {
+                    audio.muted = true;
+                    audioControl.innerHTML = "🔇";
+                }
+            });
+
+            function toggleAudio() {
+                let audio = document.getElementById("bgAudio");
+                let audioControl = document.getElementById("audioControl");
+
+                if (audio.muted) {
+                    audio.muted = false;
+                    audioControl.innerHTML = "🔊";
+                    localStorage.setItem("isMuted", "false");
+                } else {
+                    audio.muted = true;
+                    audioControl.innerHTML = "🔇";
+                    localStorage.setItem("isMuted", "true");
+                }
+            }
+        </script>
         <footer>
             <p>&copy; 2025 TaeKook Universe. All rights reserved.</p>
             <p>

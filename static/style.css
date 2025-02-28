@@ -13,6 +13,23 @@ html, body {
     overflow-x: hidden; 
 }
 
+#audioControl {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    font-size: 28px;
+    cursor: pointer;
+    background: rgba(0, 0, 0, 0.7);
+    color: white;
+    padding: 12px;
+    border-radius: 50%;
+    z-index: 9999; /* Ensures it's on top */
+    text-align: center;
+}
+#audioControl:hover {
+    background: rgba(0, 0, 0, 0.9);
+}
+
 .wrapper {
     display: flex;
     flex-direction: column;
