@@ -47,16 +47,19 @@
 </div>
 
 <script>
-    const taehyungReturnDate = new Date("June 10, 2025 00:00:00").getTime();
-    const jungkookReturnDate = new Date("June 11, 2025 00:00:00").getTime();
+    const getKSTTime = (dateString) => new Date(`${dateString} UTC+0900`).getTime();
+
+    const taehyungReturnDate = getKSTTime("June 10, 2025 00:00:00");
+    const jungkookReturnDate = getKSTTime("June 11, 2025 00:00:00");
 
     setInterval(() => {
-        const now = new Date().getTime();
+        const now = getKSTTime(new Date().toLocaleString("en-US", { timeZone: "Asia/Seoul" }));
 
         // Countdown Logic
         updateCountdown('taehyung', taehyungReturnDate, now);
         updateCountdown('jungkook', jungkookReturnDate, now);
     }, 1000);
+
 
     function updateCountdown(artist, returnDate, now) {
         const distance = returnDate - now;
