@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request, redirect, session, url_for, jsonify, current_app, send_from_directory
 import os, secrets, random, calendar, subprocess
-from models import db, Upcoming, Memory, InTheNews, InTheNews_Spanish, Product, Discography, MusicVideo, Vote, Radio, SpotifyStats, YoutubeStats, ShazamStats, Fanbase, Banner, Project, Event, Promotion
+from models import db, BackgroundMusic, Upcoming, Memory, InTheNews, InTheNews_Spanish, Product, Discography, MusicVideo, Vote, Radio, SpotifyStats, YoutubeStats, ShazamStats, Fanbase, Banner, Project, Event, Promotion
 from collections import defaultdict
 from datetime import datetime
 
@@ -126,7 +126,10 @@ def vibe():
 @app.route('/projects')
 def projects():
     projects = Project.query.all()  
-    return render_template('06.projects.html', projects=projects)
+    music = BackgroundMusic.query.filter_by(page_name='projects').first()
+    song_file = music.file_name if music else "default.mp3"
+    song_name = music.song_name if music else "Default Song"
+    return render_template("06.projects.html", song_file=song_file, song_name=song_name, projects=projects)
 
 @app.route("/guide")
 def guide_page():

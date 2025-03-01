@@ -23,11 +23,39 @@ html, body {
     color: white;
     padding: 12px;
     border-radius: 50%;
-    z-index: 9999; /* Ensures it's on top */
+    z-index: 9999;
     text-align: center;
 }
-#audioControl:hover {
-    background: rgba(0, 0, 0, 0.9);
+
+#tooltip {
+    font-family: 'Fira Sans Condensed', serif;
+    font-size: 1.6rem; 
+    font-weight: bold;
+    visibility: hidden;
+    opacity: 0;
+    position: absolute;
+    background-color: rgba(0, 0, 0, 0.75);
+    color: #3b9e3b;
+    border-radius: 5px;
+    padding: 6px;
+    font-size: 14px;
+    bottom: -40px;
+    left: 50%;
+    transform: translateX(-50%);
+    white-space: nowrap;
+    transition: opacity 0.3s, visibility 0.3s;
+    z-index: 999;
+    background-color: transparent; 
+}
+
+#audioControl:hover #tooltip {
+    left: -50px; 
+    top: 60px;   
+}
+
+#audioControl:hover #tooltip {
+    visibility: visible;
+    opacity: 1;
 }
 
 .wrapper {
@@ -335,8 +363,46 @@ footer a:hover {
     font-weight: bold;
 }
 
-/* Ensure the viewport is responsive */
+/* Tablet*/
+@media screen and (min-width: 769px) and (max-width: 1343px) {
+    #audioControl {
+        font-size: 1.8rem;
+        top: 70px;  
+        background-color: transparent; 
+    }
+    
+    #tooltip {
+        font-size: 1rem; 
+        transition: opacity 0.3s ease, visibility 0.3s ease;
+    }
+
+    #tooltip.show {
+        opacity: 1;
+        visibility: visible;
+    }
+}
+
+/* Mobile*/
 @media screen and (max-width: 768px) {
+    #audioControl {
+        font-size: 0.8rem;
+        top: 40px;  
+        background-color: transparent; 
+    }
+
+    #tooltip {
+        font-size: 0.6rem; 
+        transition: opacity 0.3s ease, visibility 0.3s ease;
+        align-items: right;
+        text-align: right;
+        transform: translate(-20%, -90%);
+    }
+
+    #tooltip.show {
+        opacity: 1;
+        visibility: visible;
+    }
+    
     .navbar {
         padding: 5px;
         flex-direction: row;
