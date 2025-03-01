@@ -1,5 +1,5 @@
 import pandas as pd
-from models import db, Upcoming, Memory, InTheNews, InTheNews_Spanish, Product, Discography, MusicVideo, Vote, Radio, Fanbase, SpotifyStats, YoutubeStats, ShazamStats, Banner, Project, Event, Promotion
+from models import db, BackgroundMusic, Upcoming, Memory, InTheNews, InTheNews_Spanish, Product, Discography, MusicVideo, Vote, Radio, Fanbase, SpotifyStats, YoutubeStats, ShazamStats, Banner, Project, Event, Promotion
 from app import app
 from datetime import datetime, time
 
@@ -7,6 +7,22 @@ def insert_data_from_excel():
     excel_file = 'taekook_universe.xlsx'
 
     with app.app_context():
+
+        music_df = pd.read_excel(excel_file, sheet_name='Background Music')
+
+        for _, row in music_df.iterrows():
+            existing = BackgroundMusic.query.filter_by(page_name=row['page_name']).first()
+
+            if not existing:
+                music_entry = BackgroundMusic(
+                    page_name=row['page_name'],
+                    song_name=row['song_name'],
+                    file_name=row['file_name']
+                )
+                db.session.add(music_entry)
+
+        db.session.commit()
+        print("Background Music updated from Excel!")
 
         upcoming_df = pd.read_excel(excel_file, sheet_name='Upcoming')
         upcoming_df['date'] = pd.to_datetime(upcoming_df['date'], errors='coerce')

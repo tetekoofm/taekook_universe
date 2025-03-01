@@ -4,6 +4,19 @@ from datetime import datetime
 # Initialize the SQLAlchemy object
 db = SQLAlchemy()
 
+from flask_sqlalchemy import SQLAlchemy
+
+db = SQLAlchemy()
+
+class BackgroundMusic(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    page_name = db.Column(db.String(255), unique=True, nullable=False)
+    song_name = db.Column(db.String(255), nullable=False)
+    file_name = db.Column(db.String(255), nullable=False)
+
+    def __repr__(self):
+        return f"<BackgroundMusic {self.page_name} - {self.song_name}>"
+
 class Upcoming(db.Model):
     __tablename__ = 'upcoming'
     id = db.Column(db.Integer, primary_key=True)
