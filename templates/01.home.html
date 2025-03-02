@@ -16,6 +16,16 @@
         {% endfor %}
     </div>
 
+    <!-- Celebrations -->
+    <div id="celebration-taehyung" class="celebration hide">
+        <h2>🎉 Party Time for Taehyung!! 🎉</h2>
+        <img src="{{ url_for('static', filename='images/tae_military.jpeg') }}" alt="Taehyung">
+    </div>
+    <div id="celebration-jungkook" class="celebration hide">
+        <h2>🎉 Party Time for Jung Kook!! 🎉</h2>
+        <img src="{{ url_for('static', filename='images/jk_military.jpeg') }}" alt="Jungkook">
+    </div>
+
     <!-- Countdown Timers -->
     <div class="countdown-container">
         <h2>Countdown to Taehyung and Jung Kook's Return:</h2>
@@ -35,96 +45,102 @@
         </div>
     </div>
 
-    <!-- Celebrations -->
-    <div id="celebration-taehyung" class="celebration hide">
-        <h2>🎉 Party Time for Taehyung!! 🎉</h2>
-        <img src="{{ url_for('static', filename='images/tae_military.jpeg') }}" alt="Taehyung">
-    </div>
-    <div id="celebration-jungkook" class="celebration hide">
-        <h2>🎉 Party Time for Jung Kook!! 🎉</h2>
-        <img src="{{ url_for('static', filename='images/jk_military.jpeg') }}" alt="Jungkook">
-    </div>
 </div>
 
 <script>
-    const getKSTTime = (dateString) => new Date(`${dateString} UTC+0900`).getTime();
+const getKSTTime = (dateString) => new Date(`${dateString} UTC+0900`).getTime();
 
-    const taehyungReturnDate = getKSTTime("June 10, 2025 00:00:00");
-    const jungkookReturnDate = getKSTTime("June 11, 2025 00:00:00");
+const taehyungReturnDate = getKSTTime("March 2, 2025 09:45:00");
+const jungkookReturnDate = getKSTTime("March 2, 2025 09:50:00");
 
+setInterval(() => {
+    const now = getKSTTime(new Date().toLocaleString("en-US", { timeZone: "Asia/Seoul" }));
+    updateCountdown('taehyung', taehyungReturnDate, now);
+    updateCountdown('jungkook', jungkookReturnDate, now);
+}, 1000);
+
+function updateCountdown(artist, returnDate, now) {
+    const distance = returnDate - now;
+    if (distance > 0) {
+        document.getElementById(`${artist}-days`).textContent = Math.floor(distance / (1000 * 60 * 60 * 24));
+        document.getElementById(`${artist}-hours`).textContent = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        document.getElementById(`${artist}-minutes`).textContent = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+        document.getElementById(`${artist}-seconds`).textContent = Math.floor((distance % (1000 * 60)) / 1000);
+    } else {
+        startCelebration(artist);
+    }
+}
+
+function startCelebration(artist) {
+    const celebrationElement = document.getElementById(`celebration-${artist}`);
+    const animationFunction = document.getElementById("animation-container");
+    const carousel = document.querySelector(".image-carousel");
+    const nightSky = document.querySelector('.night-sky'); // Hide stars
+
+    if (!celebrationElement) {
+        console.error(`Celebration element for ${artist} not found.`);
+        return;
+    }
+
+    // Hide animation, carousel, and stars, then show celebration
+    if (animationFunction) animationFunction.style.display = "none";
+    if (carousel) carousel.style.display = "none";
+    if (nightSky) nightSky.style.display = "none";
+
+    celebrationElement.style.display = "flex";
+    generateIcons(artist);
+
+    // Restore carousel, animation, and stars after 2 minutes & hide celebration
+    setTimeout(() => {
+        celebrationElement.style.display = "none";  
+        if (carousel) carousel.style.display = "block"; 
+        if (animationFunction) animationFunction.style.display = "block";
+        if (nightSky) nightSky.style.display = "block"; // Restore stars
+    }, 120000);
+}
+
+function generateIcons(artist) {
+    const celebEmojis = document.getElementById(`celebration-${artist}`);
+    for (let i = 0; i < 30; i++) {
+        const icon = document.createElement("div");
+        icon.textContent = ["🎉", "🎈", "🎊"][Math.floor(Math.random() * 3)];
+        icon.classList.add("celebEmojis");
+        icon.style.left = `${Math.random() * 100}vw`;
+        icon.style.top = `${Math.random() * 100}vh`;
+        celebEmojis.appendChild(icon);
+    }
+}
+
+// Image Carousel Logic
+const slides = document.querySelectorAll('.image-slide');
+if (slides.length > 0) {
+    let index = 0;
     setInterval(() => {
-        const now = getKSTTime(new Date().toLocaleString("en-US", { timeZone: "Asia/Seoul" }));
+        slides[index].classList.remove('visible');
+        index = (index + 1) % slides.length;
+        slides[index].classList.add('visible');
+    }, 3000);
+}
 
-        // Countdown Logic
-        updateCountdown('taehyung', taehyungReturnDate, now);
-        updateCountdown('jungkook', jungkookReturnDate, now);
-    }, 1000);
+function generateStars() {
+    const nightSky = document.createElement('div');
+    nightSky.classList.add('night-sky');
+    document.body.appendChild(nightSky);
 
-
-    function updateCountdown(artist, returnDate, now) {
-        const distance = returnDate - now;
-        if (distance > 0) {
-            document.getElementById(`${artist}-days`).textContent = Math.floor(distance / (1000 * 60 * 60 * 24));
-            document.getElementById(`${artist}-hours`).textContent = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            document.getElementById(`${artist}-minutes`).textContent = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-            document.getElementById(`${artist}-seconds`).textContent = Math.floor((distance % (1000 * 60)) / 1000);
-        } else {
-            startCelebration(artist);
-        }
+    const numberOfStars = 100; 
+    for (let i = 0; i < numberOfStars; i++) {
+        const star = document.createElement('div');
+        star.classList.add('star');
+        star.style.top = `${Math.random() * 100}vh`; 
+        star.style.left = `${Math.random() * 100}vw`; 
+        star.style.animationDuration = `${Math.random() * 3 + 2}s`; 
+        nightSky.appendChild(star);
     }
+}
 
-    function startCelebration(artist) {
-        const celebrationElement = document.getElementById(`celebration-${artist}`);
-        if (!celebrationElement.classList.contains('hide')) return; // Skip if already celebrating
-        celebrationElement.classList.remove('hide');
-        generateIcons(artist);
-    }
-
-    function generateIcons(artist) {
-        const container = document.getElementById(`celebration-${artist}`);
-        for (let i = 0; i < 30; i++) {
-            const icon = document.createElement("div");
-            icon.textContent = ["🎉", "🎈", "🎊"][Math.floor(Math.random() * 3)];
-            icon.style.position = "absolute";
-            icon.style.left = `${Math.random() * 100}vw`;
-            icon.style.top = `${Math.random() * 100}vh`;
-            icon.style.animation = `fly ${Math.random() * 3 + 1}s ease-out`;
-            container.appendChild(icon);
-            setTimeout(() => icon.remove(), 4000);
-        }
-    }
-
-    // Image Carousel
-    const slides = document.querySelectorAll('.image-slide');
-    if (slides.length > 0) {
-        let index = 0;
-        setInterval(() => {
-            slides[index].classList.remove('visible');
-            index = (index + 1) % slides.length;
-            slides[index].classList.add('visible');
-        }, 3000);
-    }
-
-    function generateStars() {
-        const nightSky = document.createElement('div');
-        nightSky.classList.add('night-sky');
-        document.body.appendChild(nightSky);
-
-        const numberOfStars = 100; // Adjust this value for more or fewer stars
-        for (let i = 0; i < numberOfStars; i++) {
-            const star = document.createElement('div');
-            star.classList.add('star');
-            star.style.top = `${Math.random() * 100}vh`; // Random position
-            star.style.left = `${Math.random() * 100}vw`; // Random position
-            star.style.animationDuration = `${Math.random() * 3 + 2}s`; // Random speed
-            nightSky.appendChild(star);
-        }
-    }
-
-    // Ensure the function is called after the page is loaded
-    window.onload = function() {
-        generateStars(); // Create stars after the page has loaded
-    };
+window.onload = function() {
+    generateStars(); 
+};
 
 </script>
 {% endblock %}

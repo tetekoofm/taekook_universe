@@ -9,8 +9,8 @@
 @import url('https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap');
 
 html, body {
-    max-width: 100%;
-    overflow-x: hidden; 
+    height: 100%;
+    margin: 0;
 }
 
 #audioControl {
@@ -61,7 +61,7 @@ html, body {
 .wrapper {
     display: flex;
     flex-direction: column;
-    min-height: 100vh;
+    min-height: 100%;
 }
 
 /* Hide elements by default */
@@ -135,6 +135,7 @@ body {
 
 .main-content .heading {
     margin-top: 2vh;
+    margin-bottom: 20px;
     font-family: 'Tangerine', serif;
     font-size: 5.5rem !important;
     font-weight: bold;
@@ -170,15 +171,17 @@ body {
 }
 
 footer {
+    font-family: 'Fira Sans Condensed', serif;
     padding: 10px;
     font-size: 1rem;
+    font-weight: bold;
     text-align: center;
     width: 100%;
     background-color: #000;
     color: #5a5a5a;
     box-sizing: border-box;
     position:relative;
-    margin-top: 10px;
+    margin-top: auto;
     bottom: 0;
     z-index: 1;
 }
@@ -225,12 +228,12 @@ footer a:hover {
     color: #0FFF50;
 }
 
-/* Container for the carousel */
 .image-carousel {
     position: relative;
     width: 80%;
-    height: 600px;
+    height: 800px;
     overflow: hidden;
+    margin-top: 25px;
 }
 
 .image-slide {
@@ -245,15 +248,15 @@ footer a:hover {
 
 .image-slide img {
     width: 100%; 
-    display: block;  
+    display: block;
+    object-fit: cover;  
+    object-position: center; 
 }
 
-/* Show the active slide */
 .image-slide.visible {
     opacity: 1;
 }
 
-/* Countdown Styling */
 .countdown-container {
     margin-top: 0;
     position: relative;
@@ -313,59 +316,45 @@ footer a:hover {
     color:#0FFF50
 }
 
-/* Celebration Styles */
-.celebration {
-    display: none; 
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    height: 500px;
-    margin-top: 30px;
-}
-
 .celebration h2 {
     font-size: 2rem;
     color: #FFD700;
 }
 
-.celebration img {
+.celebration {
+    font-family: 'Fira Sans Condensed', serif;
+    display: none; 
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    text-align: center;
+    position: relative;
     width: 100%;
-    max-width: 500px;
-    object-position: top center;
-    object-fit: cover;
+    height: auto;
+    background: rgba(0, 0, 0, 0.8);
+    padding: 20px;
+    color: white;
 }
 
-/* Party icons */
-.party-icon {
+.celebration img {
+    max-width: 80%;
+    height: auto;
+    margin-top: 20px;
+}
+
+.celebEmojis {
     position: absolute;
-    font-size: 1rem;
-    animation: iconZoomFade 3s ease-in-out forwards;
-    opacity: 0;
+    font-size: 0.8rem;
+    animation: twinkle 5s infinite ease-in-out; 
+    z-index: 10; 
 }
 
-/* Animation for zoom-in and fade effect */
-@keyframes iconZoomFade {
-    0% {
-        opacity: 0;
-        transform: scale(0) translateY(0);
-    }
-    50% {
-        opacity: 1;
-        transform: scale(1.5) translateY(-10px);
-    }
-    100% {
-        opacity: 0;
-        transform: scale(3) translateY(-20px);
-    }
-}
-
-/* Countdown text */
 .countdown span {
     font-weight: bold;
 }
 
 /* Tablet*/
-@media screen and (min-width: 769px) and (max-width: 1343px) {
+@media screen and (min-width: 769px) and (max-width: 1370px) {
     #audioControl {
         font-size: 1.8rem;
         top: 70px;  
@@ -380,6 +369,16 @@ footer a:hover {
     #tooltip.show {
         opacity: 1;
         visibility: visible;
+    }
+
+    .main-content .heading {
+        font-size: 3.5rem !important;
+    }
+
+    .main-content .caption {
+        font-size: 1.6rem; 
+        margin: 0.5rem 0; 
+        line-height: 0.8; 
     }
 }
 
@@ -442,6 +441,7 @@ footer a:hover {
 
     .main-content .image-carousel {
         margin-top: 20px;
+        margin-bottom: 20px;
         height: 200px;
         display: flex;
         justify-content: center;
@@ -453,19 +453,14 @@ footer a:hover {
         height: auto;
     }
 
-    .main-content {
-        text-align: center; 
-    }
-
     .main-content .heading {
         font-size: 1.8rem !important;
-        margin: 18px 0; 
+        margin: 10px 0; 
     }
 
     .main-content .caption {
         font-size: 0.8rem; 
-        line-height: 1; 
-        z-index: 100;
+        line-height: 0.1; 
     }
 
     .main-content .countdown-container {
@@ -476,18 +471,18 @@ footer a:hover {
 
     .main-content .countdown-container h2 {
         font-family: 'Tangerine', cursive; 
-        font-size: 1.5rem !important; 
+        font-size: 1.6rem !important; 
         font-weight: bold;
         color: #008000;
         z-index: 1000;
+        margin-bottom: 10px;
     }
 
     .main-content .countdown-timer-wrapper {
         flex-direction: row !important;
         flex-wrap: nowrap;
         justify-content: space-evenly;
-        margin-top: 10px;
-        gap: 10px;
+        gap: 10px !important;
     }
 
     .main-content .timer-box {
@@ -521,7 +516,9 @@ footer a:hover {
 
     footer {
         padding: 10px;
+        font-family: 'Fira Sans Condensed', serif; 
         font-size: 0.6rem;
+        font-weight: bold;
         text-align: center;
         width: 100%;
         background-color: #000;
@@ -655,16 +652,8 @@ footer a:hover {
     animation: fadeIn 1.5s ease-in-out;
 }
 
-.stay-tuned-banner h2 {
-    font-size: 2.5em;
-    font-weight: bold;
-    color: #3b9e3b; /* Gold text for elegance */
-    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
-    margin-bottom: 15px;
-}
-
 .stay-tuned-banner p {
-    font-size: 1.3em;
+    font-size: 1.5em;
     margin-bottom: 12px;
 }
 
@@ -683,6 +672,19 @@ footer a:hover {
     to { opacity: 1; transform: translateY(0); }
 }
 
+/* Responsive adjustments */
+@media screen and (min-width: 769px) and (max-width: 1370px) {
+    .stay-tuned-banner {
+        padding: 30px;
+    }
+
+    .stay-tuned-banner p {
+        font-size: 1.5em;
+    }
+    .stay-tuned-image {
+        max-width: 100%;
+    }
+}
 
 /* For screens smaller than 480px */
 @media (max-width: 768px) {
@@ -699,6 +701,15 @@ footer a:hover {
         letter-spacing: 0.5px;
         line-height: 1.2;
         text-align: justify;
+    }
+
+    .stay-tuned-banner p {
+        margin-top: 0;
+        font-size: 0.8em;
+    }
+
+    .stay-tuned-image {
+        max-width: 90%;
     }
 }
 
@@ -1460,7 +1471,7 @@ footer a:hover {
     }
 }
 
-@media screen and (min-width: 769px) and (max-width: 1343px) {
+@media screen and (min-width: 769px) and (max-width: 1370px) {
     .inthenews-cards {
         display: flex;
         flex-wrap: wrap;
@@ -1497,7 +1508,6 @@ footer a:hover {
         margin-top: 0; 
     }
 }
-
 
 /****************************************************** VIBE *****************************************************/
 
@@ -1856,7 +1866,7 @@ footer a:hover {
     }
 }
 
-@media screen and (min-width: 769px) and (max-width: 1343px) {
+@media screen and (min-width: 769px) and (max-width: 1370px) {
     .project-card {
         background: #222; 
         border-radius: 12px;
