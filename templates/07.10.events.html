@@ -68,7 +68,7 @@
             <p><strong>More Information:</strong>  
                 {% set links = event.link.split(',') %}
                 {% for link in links %}
-                    <a href="{{ link.strip() }}" target="_blank">Link {{ loop.index }}</a>
+                <strong> ~ </strong> <a href="{{ link.strip() }}" target="_blank">Link {{ loop.index }} </a>
                 {% endfor %}
             </p>
             {% endif %}
