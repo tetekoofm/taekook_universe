@@ -2771,7 +2771,7 @@ footer a:hover {
     }
 }
 
-/*********************************************** Shazam **********************************************************/
+/*********************************************** SHAZAM **********************************************************/
 
 .tracks-container {
     display: grid;
@@ -3108,7 +3108,7 @@ footer a:hover {
 
 @media (max-width: 768px) {
     .fanbase-container {
-        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); /* Ensures 2 cards per row */
+        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
         gap: 20px;
         padding: 15px;
     }
@@ -3244,6 +3244,38 @@ footer a:hover {
     max-width: 300px;
     display: block;
     margin-top: 10px;
+}
+
+@media (max-width: 768px) {
+    .event_date {
+        font-size: 1rem;
+        margin-top: 5px;
+    }
+
+    .media-slide img, .media-slide video {
+        max-height: 200px;
+    }
+
+    .prev, .next {
+        padding: 8px;
+        font-size: 14px;
+    }
+
+    .event-description {
+        font-size: 0.8rem;
+        text-align: justify;
+        padding: 0 10px;
+    }
+
+    .trending-image {
+        max-width: 100%;
+        width: 80%;
+        margin: 10px auto;
+    }
+
+    .event-link {
+        font-size: 0.8rem !important;
+    }
 }
 
 /***************************************************** PROMOTIONS *****************************************************/

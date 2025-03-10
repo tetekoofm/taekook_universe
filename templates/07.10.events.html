@@ -58,7 +58,7 @@
             <p>{{ event.description | safe }}</p>
 
             {% if event.trending_position %}
-            <p>🔥 Trending on X!</p>
+            <p><strong>🔥 Trending on X!</strong></p>
             <img src="{{ url_for('static', filename='images/events/' + event.title|replace(' ', '_') + '_Trending.jpeg') }}" 
                  alt="Trending Image for {{ event.title }}" 
                  class="trending-image">
@@ -68,7 +68,7 @@
             <p><strong>More Information:</strong>  
                 {% set links = event.link.split(',') %}
                 {% for link in links %}
-                <strong> ~ </strong> <a href="{{ link.strip() }}" target="_blank">Link {{ loop.index }} </a>
+                <strong> ~ </strong> <a href="{{ link.strip() }}" target="_blank" class="event-link">Link {{ loop.index }} </a>
                 {% endfor %}
             </p>
             {% endif %}
