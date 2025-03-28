@@ -1,0 +1,25 @@
+{% extends "00.base_subnav.html" %}
+{% block title %}Wall of Love{% endblock %}
+{% block content %}
+
+<!-- Main Content -->
+<div class="page guide-page">
+    <h1>💜 Wall of Love 💜</h1>
+    <p class="caption">Heartfelt messages from Taekook fans around the world!</p>
+
+<div class="letter-wall">
+    {% for letter in fan_letters %}
+    <div class="letter-card" onclick="openModal('{{ letter.image_url }}', '{{ letter.fan_name }}', '{{ letter.message }}')">
+        <img src="{{ url_for('static', filename='letters/' + letter.image_url) }}" alt="Fan Letter">
+        <div class="fan-name">💌 {{ letter.fan_name }}</div>
+    </div>
+    {% endfor %}
+</div>
+
+<!-- Modal (Lightbox for Viewing Letters) -->
+<div id="letterModal" class="modal">
+    <span class="close" onclick="closeModal()">&times;</span>
+    <img id="modalImage" class="modal-content">
+    <div id="modalText" class="fan-message"></div>
+</div>
+{% endblock %}
