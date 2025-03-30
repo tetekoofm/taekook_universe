@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request, redirect, session, url_for, jsonify, current_app, send_from_directory
 import os, secrets, random, calendar, subprocess
-from models import db, BackgroundMusic, Upcoming, Memory, InTheNews, InTheNews_Spanish, Product, Discography, MusicVideo, Vote, Radio, SpotifyStats, YoutubeStats, ShazamStats, Fanbase, Banner, Project, Event, Promotion
+from models import db, BackgroundMusic, Upcoming, Memory, InTheNews, InTheNews_Spanish, Product, Discography, MusicVideo, Vote, Radio, SpotifyStats, YoutubeStats, ShazamStats, Fanbase, Banner, Project, Event, Promotion, FanLetter
 from collections import defaultdict
 from datetime import datetime
 
@@ -273,16 +273,12 @@ def cart():
     total_price = sum(item_details['quantity'] * item_details['price'] for item_details in cart_items.values())
     return render_template('08.01.cart.html', cart_items=cart_items, total_price=total_price, products=products)
 
-fan_letters = [
-    {"image_url": "letter1.jpg", "fan_name": "Ghosty from Jupiter", "message": "Taekook, you are my inspiration!"},
-    {"image_url": "letter2.jpg", "fan_name": "ILY from Venus", "message": "Keep shining! Love you both!"},
-    {"image_url": "letter3.jpg", "fan_name": "Snowy from Mars", "message": "Thank you for your music and love!"},
-]
-
 @app.route('/fanletters')
 def fan_letters_page():
+    page = request.args.get('page', 1, type=int)
+    per_page = 5
+    fan_letters = FanLetter.query.paginate(page=page, per_page=per_page, error_out=False)
     return render_template('fanletters.html', fan_letters=fan_letters)
 
 if __name__ == "__main__":
     app.run(debug=True, host="0.0.0.0", port=10000)
-
