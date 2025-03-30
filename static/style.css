@@ -4133,18 +4133,11 @@ footer-taekook {
     margin-top: 80px;
 }
 
-/* Modal Image */
-.modal-content-letter {
-    max-width: 60%; 
-    max-height: 70%;
-    border-radius: 10px;
-}
-
 /* Modal Close Button */
 .close {
     position: absolute;
-    top: 15px;
-    right: 30px;
+    top: 150px;
+    right: 250px;
     font-size: 40px;
     color: white;
     cursor: pointer;
@@ -4160,14 +4153,19 @@ footer-taekook {
 }
 
 .pagination {
+    position: sticky;
     text-align: center;
+    display: flex; 
+    justify-content: center; 
+    gap: 5px;
     margin-top: 20px;
+    margin-bottom: 50px;
 }
 
 .pagination a {
     display: inline-block;
-    padding: 10px 15px;
-    margin: 5px;
+    margin: 0;
+    padding: 8px 12px;
     color: #9354ce;
     font-family: 'Fira Sans Condensed', serif;
     font-size: 1.2rem;
@@ -4181,15 +4179,97 @@ footer-taekook {
 }
 
 .pagination a:hover {
-    color: #3b9e3b; 
+    color: #3b9e3b;
 }
 
 .page-number {
     font-family: 'Fira Sans Condensed', serif;
     font-size: 1.2rem;
     font-weight: bold;
-    color: #9354ce; 
-    margin: 0 10px;
+    color: #9354ce;
+    margin: 0;
+}
+
+/* Responsive Styles */
+@media (max-width: 1024px) { 
+    .letter-wall {
+        gap: 10px;
+        padding: 15px;
+        margin-top: 40px;
+    }
+
+    .letter-card {
+        width: 300px;
+        height: 350px;
+    }
+
+    .modal {
+        vertical-align:text-top;
+    } 
+
+    .fan-message {
+        font-size: 4.5rem !important;
+    }
+
+    .close {
+        position: absolute;
+        top: 150px;
+        right: 100px;
+        font-size: 1 rem;
+        color: white;
+        cursor: pointer;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .letter-wall {
+        flex-direction: row;
+        align-items: center;
+        gap: 10px;
+        margin-top: 20px;
+    }
+
+    .letter-card {
+        width: 150px;
+        height: 200px;
+    }
+
+    .letter-card img {
+        height: 250px;
+    }
+
+    .fan-name {
+        font-size: 0.8rem !important;
+        padding: 4px 0;
+    }
+
+    .modal-content-letter {
+        max-width: 80%;
+        max-height: 60%;
+    }
+
+    .fan-message {
+        font-size: 2.8rem !important;
+    }
+
+    .close {
+        position: absolute;
+        top: 40px;
+        right: 15px;
+        font-size: 20px;
+        color: white;
+        cursor: pointer;
+    }
+
+    .pagination {
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+
+    .pagination a, .page-number {
+        font-size: 0.8rem;
+    }
 }
 
 /***********************************************************************************************************************************/

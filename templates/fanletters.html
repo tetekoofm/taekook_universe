@@ -4,7 +4,7 @@
 
 <div class="page guide-page">
     <h1>💜 Wall of Love 💚</h1>
-    <p class="caption">Learn how to report malicious or inappropriate content that disparages Taehyung and Jungkook’s names and work.</p>
+    <p class="caption">Heartfelt messages from Taekook fans around the world!</p>
 
     <div class="letter-wall">
         {% for letter in fan_letters.items %}
@@ -42,7 +42,6 @@
 
 <!-- JavaScript -->
 <script>
-    
     function openModal(imageSrc, fanname, message) {
         let modal = document.getElementById("letterModal");
         let modalImg = document.getElementById("modalImage");
@@ -50,7 +49,7 @@
 
         modal.style.display = "flex";  
         if (imageSrc.includes('default.png')) {
-            modalImg.style.display = "none";  // Hide image if it's the default
+            modalImg.style.display = "none"; 
         } else {
             modalImg.style.display = "block";
             modalImg.src = imageSrc;
@@ -59,7 +58,7 @@
         let modalContent = "";
 
         if (fanname) {
-            modalContent += "<strong>" + fanname + "</strong><br>";
+            modalContent += "<strong>" + fanname + "</strong><br><br>";
         }
         if (message) {
             modalContent += message;
