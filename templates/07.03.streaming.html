@@ -41,12 +41,12 @@
             <li><strong style="color: #3dcf64;">Share on Social Media:</strong> Encourage others to stream by sharing your playlists / FB's playlists on social platforms.</li>
         </ul>
         <div class="image-container">
-            <a href="{{ url_for('static', filename='images/guide/why_streaming.jpeg') }}" class="lightbox">
+            <a href="{{ url_for('static', filename='images/guide/why_stream.jpeg') }}" class="lightbox">
                 <img src="{{ url_for('static', filename='images/guide/why_stream.jpeg') }}" alt="Why Streaming Matters">
             </a>
-            <a href="{{ url_for('static', filename='images/guide/streaming_guide.jpeg') }}" class="lightbox">
+            <!-- <a href="{{ url_for('static', filename='images/guide/streaming_guide.jpeg') }}" class="lightbox">
                 <img src="{{ url_for('static', filename='images/guide/streaming_guide.jpeg') }}" alt="Streaming Guide">
-            </a>
+            </a> -->
         </div>
     </div>
 
@@ -57,8 +57,10 @@
         <p><strong><a href="https://x.com/uktaekook">Water Babies</a></strong> - Join daily Apple Music streaming challenges.</p>
         <p><strong><a href="https://x.com/TaeKook_USA/status/1889018506642858300">Sky Scrapers</a></strong> - Join daily Shazam challenges.</p>
         <p><strong><a href="https://x.com/stream4taekook">Terra Tribes</a></strong> - Join daily YouTube streaming challenges.</p>
-        <!-- <p>Join our <a href="https://x.com/stream4taekook">Air Benders</a> GC for joining Daily Radio Challenges.</p> -->
-        <p>Please join our <strong><a href="https://stationhead.com/tetekoofm">TeteKooFM</a></strong> Stationhead with your Spotify / Apple Music premium accounts. Our lovely admins would stream for you while you are away! You can also stream directly from <strong><a href="https://open.spotify.com/user/31lmwciln3i3p5pgnxrd5wgqq4bi">Spotify</a></strong>, <strong><a href="https://music.apple.com/profile/uktaekook">Apple Music</a></strong>, <strong><a href="https://tidal.com/browse/user/202097628">Tidal</a></strong>, and  <strong><a href="https://www.youtube.com/@streamfortaekook8968/playlists">Youtube</a></strong> playlists created by our FBs.</p>
+        <p><strong><a href="https://x.com/TaeKook_Radio">Air Benders</a></strong> Join our team for daily Radio challenges.</p>
+        <p><strong><a href="https://stationhead.com/tetekoofm">TeteKooFM Stationhead</a></strong> Join our Listening Party with your Spotify Premium / Apple Music.</p>
+        <p><strong><a href="http://listening-party.weverse.io/bts/wlp/4-195767441">TeteKooFM Weverse</a></strong> Join our Listening Party with you Spotify Premium.</p>
+        <p>You can also stream directly from <strong><a href="https://open.spotify.com/user/31lmwciln3i3p5pgnxrd5wgqq4bi">Spotify</a></strong>, <strong><a href="https://music.apple.com/profile/uktaekook">Apple Music</a></strong>, <strong><a href="https://tidal.com/browse/user/202097628">Tidal</a></strong>, and  <strong><a href="https://www.youtube.com/@streamfortaekook8968/playlists">Youtube</a></strong> playlists created by our FBs.</p>
     </div>
 
     <div class="section">
@@ -71,8 +73,7 @@
                 <img src="{{ url_for('static', filename='images/songs/' ~ track.image) }}" alt="{{ track.song_name }}" class="track-image">
                 {% endif %}
                 <h3>{{ track.song_name }}</h3>
-                <p><strong>Artist:</strong> {{ track.artist }}</p>
-                <p><strong>Streams:</strong> {{ track.stream_count }}</p>
+                <!-- <p><strong>Artist:</strong> {{ track.artist }}</p> -->
             
                 <!-- Streaming Platform Icons -->
                 <div class="streaming-links">

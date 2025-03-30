@@ -378,7 +378,7 @@ footer a:hover {
     .main-content .caption {
         font-size: 1.6rem; 
         margin: 0.5rem 0; 
-        line-height: 0.8; 
+        line-height: 1.2; 
     }
 
     .celebration h2 {
@@ -478,7 +478,7 @@ footer a:hover {
 
     .main-content .caption {
         font-size: 0.8rem; 
-        line-height: 0.1; 
+        line-height: 1.2; 
     }
 
     .main-content .countdown-container {
@@ -1464,6 +1464,10 @@ footer a:hover {
 }
 
 @media screen and (max-width: 768px) {
+    .spanish-blogs {
+        font-size: 0.8rem;
+    }
+
     .inthenews-cards {
         display: flex;
         flex-wrap: wrap;
@@ -1507,6 +1511,10 @@ footer a:hover {
 }
 
 @media screen and (min-width: 769px) and (max-width: 1370px) {
+    .spanish-blogs {
+        font-size: 1.2rem;
+    }
+
     .inthenews-cards {
         display: flex;
         flex-wrap: wrap;
@@ -1703,12 +1711,19 @@ footer a:hover {
 /* Basic styling for video name text */
 .video-item p {
     text-align: center;
-    color: #6A0DAD;
+    color: #3b9e3b;
     font-size: 14px; 
     font-weight: bold;
     margin-top: 20px;
 }
 
+@media screen and (min-width: 769px) and (max-width: 1370px) {
+    .vibe-section {
+        width: 100%;
+        margin: 10px 0;
+    }
+
+}
 @media screen and (max-width: 768px) {
     .vibe-container {
         flex-direction: column;
@@ -1731,7 +1746,7 @@ footer a:hover {
 
     .vibe-section iframe {
         width: 100%;
-        height: 250px;
+        height: 300px;
     }
 
     .vibe-section iframe + iframe {
@@ -1749,26 +1764,41 @@ footer a:hover {
 
     .music-videos-container p {
         font-size: 1rem;
-        margin-bottom: 20px;
+        margin-bottom: 10px;
         text-align: center;
     }
 
+    .video-section h3 {
+        font-size: 1.2rem !important;
+        margin-bottom: 10px;
+    }
+
     .video-frame {
-        flex-direction: column;
+        display: flex;
+        overflow-x: auto;
         gap: 15px;
         margin-top: 5px;
-        overflow-x: hidden;
+        scroll-snap-type: x mandatory;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    .video-item {
+        flex-shrink: 0;
+        width: 90%; /* Make sure it's not overflowing */
     }
 
     .video-item iframe {
-        width: 90%;
-        max-width: 100%;
-        height: 200px;
+        width: 98%;
+        height: 180px;
     }
 
     .video-item p {
-        font-size: 12px;
+        font-size: 0.8rem !important;
         margin-top: 10px;
+    }
+
+    .arrow-left, .arrow-right {
+        display: none; /* Hide arrows on mobile */
     }
 }
 
@@ -2033,7 +2063,7 @@ footer a:hover {
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6), 
                  -2px -2px 4px rgba(0, 0, 0, 0.4), 
                  0px 4px 6px rgba(0, 0, 0, 0.3);
-    line-height: 0.5;
+    line-height: 1.5;
     z-index: 100;
 }
 
@@ -2300,12 +2330,12 @@ footer a:hover {
 
     /* Header Styling */
     .page h1, .page h2 {
-        font-size: 2.5rem; 
+        font-size: 2.5rem !important; 
         margin-bottom: 15px; 
     }
 
     .page .caption {
-        font-size: 1rem !important; 
+        font-size: 1.2rem;
         line-height: 1.2; 
         padding: 0 10px; 
     }
@@ -2321,7 +2351,7 @@ footer a:hover {
         margin-bottom: 10px;
     }
 
-    .page p, .page ul {
+   .page ul {
         font-size: 1rem; 
         line-height: 1.4;
     }
@@ -3635,6 +3665,109 @@ img.zoomable {
     font-family: "Fira Sans Condensed", sans-serif;
     font-size: 18px;
     color: #00c853;
+}
+
+/* Mobile Styles */
+@media only screen and (max-width: 768px) {
+    .instructions-section h2 {
+        font-size: 1rem !important;
+        margin-bottom: 20px !important;
+    }
+
+    .instructions-section p {
+        font-size: 0.8rem !important;
+        line-height: 1.5;
+    }
+
+    .merchandise-grid {
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)) !important;
+        gap: 12px; 
+        margin: 0 auto;  
+        padding: 0 10px; 
+    }
+
+    .product-thumbnail {
+        height: 120px !important;
+    }
+
+    .product h3 {
+        font-size: 1rem;  /* Adjust title size */
+    }
+
+    .product p {
+        font-size: 1rem;
+    }
+
+    .quantity-container {
+        flex-direction: column;  /* Stack quantity controls vertically */
+        align-items: flex-start;
+    }
+
+    .quantity-container select {
+        width: 40px;  /* Smaller dropdown for mobile */
+    }
+
+    .buy-button, .cart-button {
+        padding: 8px 12px;  /* Adjust button padding for mobile */
+        font-size: 1rem;
+    }
+
+    .cart-container {
+        margin-top: 20px;
+    }
+}
+
+/* Tablet Styles */
+@media only screen and (max-width: 1024px) {
+    .instructions {
+        flex-direction: column;  /* Stack sections vertically for tablets */
+        gap: 15px;
+    }
+
+    .instructions-section {
+        max-width: 90%;  /* Ensure some margin on both sides */
+    }
+
+    .instructions-section h2 {
+        font-size: 20px;
+        margin-bottom: 40px;
+    }
+
+    .instructions-section p {
+        font-size: 17px;
+        line-height: 1.6;
+    }
+
+    .merchandise-grid {
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));  /* Keep grid items for tablet */
+        gap: 15px;
+    }
+
+    .product-thumbnail {
+        height: 220px;  /* Adjust product image size for tablet */
+    }
+
+    .product h3 {
+        font-size: 1.1rem;
+    }
+
+    .product p {
+        font-size: 1.1rem;
+    }
+
+    .quantity-container {
+        flex-direction: row;  /* Horizontal layout for quantity on tablets */
+        align-items: center;
+    }
+
+    .quantity-container select {
+        width: 60px;  /* Slightly larger dropdown */
+    }
+
+    .buy-button, .cart-button {
+        padding: 10px 18px;
+        font-size: 1.1rem;
+    }
 }
 
 /****************************************************** CART *****************************************************/
