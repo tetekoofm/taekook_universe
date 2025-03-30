@@ -2,24 +2,82 @@
 {% block title %}Wall of Love{% endblock %}
 {% block content %}
 
-<!-- Main Content -->
 <div class="page guide-page">
-    <h1>💜 Wall of Love 💜</h1>
-    <p class="caption">Heartfelt messages from Taekook fans around the world!</p>
+    <h1>💜 Wall of Love 💚</h1>
+    <p class="caption">Learn how to report malicious or inappropriate content that disparages Taehyung and Jungkook’s names and work.</p>
 
-<div class="letter-wall">
-    {% for letter in fan_letters %}
-    <div class="letter-card" onclick="openModal('{{ letter.image_url }}', '{{ letter.fan_name }}', '{{ letter.message }}')">
-        <img src="{{ url_for('static', filename='letters/' + letter.image_url) }}" alt="Fan Letter">
-        <div class="fan-name">💌 {{ letter.fan_name }}</div>
+    <div class="letter-wall">
+        {% for letter in fan_letters.items %}
+            <div class="letter-card" 
+                 onclick="openModal('{{ url_for('static', filename='images/letters/' + (letter.image if letter.image else 'default.png')) }}', '{{ letter.fanname if letter.fanname else 'Anonymous' }}', '{{ letter.description if letter.description else '' }}')">
+                {% if letter.image %}
+                    <img src="{{ url_for('static', filename='images/letters/' + letter.image) }}" alt="Fan Letter">
+                {% else %}
+                    <p class="description">{{ letter.description if letter.description else 'No Description' }}</p>
+                {% endif %}
+                <p class="fan-name">{{ letter.fanname if letter.fanname else 'Anonymous' }}</p>
+            </div>
+        {% endfor %}
     </div>
-    {% endfor %}
 </div>
 
-<!-- Modal (Lightbox for Viewing Letters) -->
+<!-- Pagination Controls -->
+<div class="pagination">
+    {% if fan_letters.has_prev %}
+        <a href="{{ url_for('fan_letters_page', page=fan_letters.prev_num) }}" class="prev">« Prev</a>
+    {% endif %}
+    
+    <span class="page-number">Page {{ fan_letters.page }} of {{ fan_letters.pages }}</span>
+
+    {% if fan_letters.has_next %}
+        <a href="{{ url_for('fan_letters_page', page=fan_letters.next_num) }}" class="next">Next »</a>
+    {% endif %}
+</div>
+
 <div id="letterModal" class="modal">
     <span class="close" onclick="closeModal()">&times;</span>
     <img id="modalImage" class="modal-content">
     <div id="modalText" class="fan-message"></div>
 </div>
+
+<!-- JavaScript -->
+<script>
+    
+    function openModal(imageSrc, fanname, message) {
+        let modal = document.getElementById("letterModal");
+        let modalImg = document.getElementById("modalImage");
+        let modalText = document.getElementById("modalText");
+
+        modal.style.display = "flex";  
+        if (imageSrc.includes('default.png')) {
+            modalImg.style.display = "none";  // Hide image if it's the default
+        } else {
+            modalImg.style.display = "block";
+            modalImg.src = imageSrc;
+        }
+
+        let modalContent = "";
+
+        if (fanname) {
+            modalContent += "<strong>" + fanname + "</strong><br>";
+        }
+        if (message) {
+            modalContent += message;
+        }
+
+        modalText.innerHTML = modalContent || 'No Content';
+    }
+
+    function closeModal() {
+        document.getElementById("letterModal").style.display = "none";
+    }
+
+    window.onclick = function(event) {
+        let modal = document.getElementById("letterModal");
+        if (event.target === modal) {
+            modal.style.display = "none";
+        }
+    };
+</script>
+
 {% endblock %}

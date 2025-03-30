@@ -1,5 +1,5 @@
 import pandas as pd
-from models import db, BackgroundMusic, Upcoming, Memory, InTheNews, InTheNews_Spanish, Product, Discography, MusicVideo, Vote, Radio, Fanbase, SpotifyStats, YoutubeStats, ShazamStats, Banner, Project, Event, Promotion
+from models import db, BackgroundMusic, Upcoming, Memory, InTheNews, InTheNews_Spanish, Product, Discography, MusicVideo, Vote, Radio, Fanbase, SpotifyStats, YoutubeStats, ShazamStats, Banner, Project, Event, Promotion, FanLetter
 from app import app
 from datetime import datetime, time
 
@@ -460,6 +460,22 @@ def insert_data_from_excel():
                 db.session.add(product)
         db.session.commit()
         print("Products updated from Excel!")
+
+        fan_letters_df = pd.read_excel(excel_file, sheet_name='FanLetters')
+
+        for _, row in fan_letters_df.iterrows():
+            fanname = row['fanname'] if pd.notna(row['fanname']) else None
+            image = row['image'] if pd.notna(row['image']) else None
+            description = row['description'] if pd.notna(row['description']) else None
+
+            if fanname or image:  # Ensure at least one field is provided
+                existing = FanLetter.query.filter_by(fanname=fanname, image=image).first()
+                if not existing:
+                    fan_letter = FanLetter(fanname=fanname, image=image, description=description)
+                    db.session.add(fan_letter)
+
+        db.session.commit()
+        print("Fan Letters updated from Excel!")
 
 # Run the function to insert the data
 insert_data_from_excel()

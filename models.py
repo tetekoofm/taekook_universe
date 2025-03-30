@@ -249,3 +249,16 @@ class Order(db.Model):
     total_price = db.Column(db.Float, nullable=False)
     payment_status = db.Column(db.String(50), nullable=False, default='Created')
     created_at = db.Column(db.DateTime, server_default=db.func.now())
+
+class FanLetter(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    fanname = db.Column(db.String(255), nullable=True)  # Optional if image is provided
+    image = db.Column(db.String(255), nullable=True)  # Image filename (stored in static/letters/)
+    description = db.Column(db.Text, nullable=True)  # Optional if image is provided
+
+    def __init__(self, fanname=None, image=None, description=None):
+        if not fanname and not image:
+            raise ValueError("Either an image or a title with description must be provided.")
+        self.fanname = fanname
+        self.image = image
+        self.description = description
