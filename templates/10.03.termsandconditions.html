@@ -1,0 +1,69 @@
+{% extends "00.base.html" %}
+{% block title %}Terms and Conditions{% endblock %}
+{% block content %}
+
+<!-- Main Content -->
+<div class="page guide-page">
+    <h1>Terms and Conditions</h1>
+    <p class="caption">Please read these terms and conditions carefully before using Taekook Universe.</p>
+
+    <div class="section">
+        <h3>Disclaimer</h3>
+        <p>Taekook Universe is an independent, fan-created website dedicated to BTS members Kim Taehyung (V) and Jeon Jungkook. This website is not affiliated with, endorsed by, or officially connected to BigHit Music, HYBE Corporation, or BTS. All content, including images, videos, and music links, is shared for informational and entertainment purposes only.</p>
+        <p>We do not claim ownership of any copyrighted material featured on this site. Credit is given to rightful owners where applicable. If you are a rights holder and believe that any content should be removed or credited differently, please <strong><a href="mailto:tkuniverse9795@gmail.com">Contact Us</a></strong>, and we will promptly address your concerns.</p>
+        <p>Taekook Universe does not guarantee the accuracy, completeness, or reliability of any information provided. All fan projects, events, and merchandise promotions are voluntary and do not involve direct transactions with official BTS or HYBE entities. Visitors should exercise discretion before participating in any activities.</p>
+    </div>
+
+    <div class="section">
+        <h3>Terms & Conditions</h3>
+        <h4>1. Acceptance of Terms</h4>
+        <p>By accessing and using Taekook Universe (the "Website"), you agree to be bound by these Terms and Conditions. If you do not agree with any part of these terms, please do not use this Website.</p>
+
+        <h4>2. Fan-Created Content</h4>
+        <p>This Website is a non-commercial fan project. Content such as blog posts, images, and videos may be sourced from public domains, fan contributions, and official channels (with proper credit). Any user-submitted content (comments, fan art, projects) must be respectful, free from offensive material, and must not violate copyright laws.</p>
+
+        <h4>3. Intellectual Property</h4>
+        <p>All BTS-related trademarks, logos, and images belong to their respective owners. Taekook Universe’s original designs, website layout, and fan-created content belong to this website and may <strong>not</strong> be copied or redistributed without permission.</p>
+
+        <h4>4. Fan Merchandise & Donations</h4>
+        <p>Any merchandise listed on Taekook Universe is fan-made and is not official BTS merchandise. Transactions related to merchandise are between buyers and independent creators. This Website is not responsible for shipping, refunds, or disputes. Any donation links provided are for fan projects and community support, not for profit or direct financial gain.</p>
+
+        <h4>5. Third-Party Links</h4>
+        <p>The Website may contain links to third-party sites (e.g., streaming platforms, fanbases, external stores). We are not responsible for the content, security, or policies of these external websites.</p>
+
+        <h4>6. Limitation of Liability</h4>
+        <p>Taekook Universe is provided on an \"as is\" basis without warranties. We are not liable for any inaccuracies, content removals, or technical issues.</p>
+        <p>The Website is meant for informational and community purposes only and should not be used for commercial or legal claims.</p>
+
+        <h4>7. Changes to Terms</h4>
+        <p>We reserve the right to modify or update these Terms and Conditions at any time. Continued use of the Website signifies acceptance of these changes.</p>
+
+        <h4>8. Contact</h4>
+        <p>For any inquiries regarding these terms, copyright concerns, or general feedback, please reach out via our <strong><a href="mailto:tkuniverse9795@gmail.com">Email</a></strong>.</p>
+    </div>
+
+</div>
+
+<!-- Button to trigger sticky note slide-in -->
+<button id="toggle-sticky-note" class="sticky-note-btn">Quick Tips</button>
+
+<div class="sticky-notes">
+    <ul>
+        <li>Use Official platforms</li>
+        <li>Respect copyright</li>
+        <li>Fan projects are voluntary</li>
+        <li>Merchandise is fan-made</li>
+        <li>Join fan activities</li>
+    </ul>
+</div>
+
+<script>
+    const stickyNote = document.querySelector('.sticky-notes');
+    const toggleButton = document.querySelector('#toggle-sticky-note');
+
+    toggleButton.addEventListener('click', function () {
+        stickyNote.classList.toggle('open');
+    });
+</script>
+
+{% endblock %}

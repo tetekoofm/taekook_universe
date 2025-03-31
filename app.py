@@ -35,14 +35,18 @@ def meet_tae():
     file_path = os.path.join(app.root_path, 'static', 'content', 'meet_tae.txt')
     with open(file_path, "r", encoding="utf-8") as file:
         tae_content = file.read()
-    return render_template("09.01.meettae.html", tae_content=tae_content)
+    return render_template("10.01.meettae.html", tae_content=tae_content)
 
 @app.route('/meet-koo')
 def meet_koo():
     file_path = os.path.join(app.root_path, 'static', 'content', 'meet_koo.txt')
     with open(file_path, "r", encoding="utf-8") as file:
         koo_content = file.read()
-    return render_template("09.02.meetkoo.html", koo_content=koo_content)
+    return render_template("10.02.meetkoo.html", koo_content=koo_content)
+
+@app.route('/termsandconditions')
+def termsandconditions():
+    return render_template("10.03.termsandconditions.html")
 
 @app.route('/upcoming')
 def upcoming():
@@ -126,10 +130,11 @@ def vibe():
 @app.route('/projects')
 def projects():
     projects = Project.query.all()  
-    music = BackgroundMusic.query.filter_by(page_name='projects').first()
-    song_file = music.file_name if music else "default.mp3"
-    song_name = music.song_name if music else "Default Song"
-    return render_template("06.projects.html", song_file=song_file, song_name=song_name, projects=projects)
+    # music = BackgroundMusic.query.filter_by(page_name='projects').first()
+    # song_file = music.file_name if music else "default.mp3"
+    # song_name = music.song_name if music else "Default Song"
+    # return render_template("06.projects.html", song_file=song_file, song_name=song_name, projects=projects)
+    return render_template("06.projects.html", projects=projects)
 
 @app.route("/guide")
 def guide_page():
@@ -278,7 +283,7 @@ def fan_letters_page():
     page = request.args.get('page', 1, type=int)
     per_page = 20
     fan_letters = FanLetter.query.paginate(page=page, per_page=per_page, error_out=False)
-    return render_template('fanletters.html', fan_letters=fan_letters)
+    return render_template('09.fanletters.html', fan_letters=fan_letters)
 
 if __name__ == "__main__":
     app.run(debug=True, host="0.0.0.0", port=10000)
