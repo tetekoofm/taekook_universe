@@ -32,7 +32,7 @@
 
         {% if song_file %}
         <audio id="bgAudio" autoplay loop data-song="{{ song_name }}">
-            <source src="{{ url_for('static', filename='audio/' + song_file) }}" type="audio/mpeg">
+            <source src="{{ url_for('static', filename='audio/' + song_file) }}" type="audio/mp3">
         </audio>
         {% endif %}
 
