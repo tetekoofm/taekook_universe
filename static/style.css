@@ -3885,16 +3885,16 @@ a:hover {
 
 .back-home-container-tae, .back-home-container-koo {
     position: absolute;
-    top: 50px; 
+    top: 40px; 
     z-index: 100; 
 }
 
 .back-home-container-tae {
-    right: 50px;
+    right: 80px;
 }
 
 .back-home-container-koo {
-    left: 30px;
+    left: 50px;
 }
 
 .back-home-button {
