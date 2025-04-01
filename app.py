@@ -292,7 +292,10 @@ def fan_letters_page():
     page = request.args.get('page', 1, type=int)
     per_page = 20
     fan_letters = FanLetter.query.paginate(page=page, per_page=per_page, error_out=False)
-    return render_template('09.fanletters.html', fan_letters=fan_letters)
+    music = BackgroundMusic.query.filter_by(page_name='fan letters').first()
+    song_file = music.file_name if music else "default.mp3"
+    song_name = music.song_name if music else "Default Song"
+    return render_template('09.fanletters.html', song_file=song_file, song_name=song_name, fan_letters=fan_letters)
 
 if __name__ == "__main__":
     app.run(debug=True, host="0.0.0.0", port=10000)
