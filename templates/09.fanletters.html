@@ -17,11 +17,11 @@
     <div class="letter-wall">
         {% for letter in fan_letters.items %}
             <div class="letter-card" 
-                 onclick="openModal('{{ url_for('static', filename='images/letters/' + (letter.image if letter.image else 'default.png')) }}', '{{ letter.fanname if letter.fanname else 'Anonymous' }}', '{{ letter.description if letter.description else '' }}')">
+            onclick="openModal('{{ url_for('static', filename='images/letters/' + (letter.image if letter.image else 'default.png')) }}', `{{ letter.fanname if letter.fanname else 'Anonymous' }}`, `{{ letter.description.replace('\n', '<br>') if letter.description else '' }}`)">
                 {% if letter.image %}
                     <img src="{{ url_for('static', filename='images/letters/' + letter.image) }}" alt="Fan Letter">
                 {% else %}
-                    <p class="description">{{ letter.description if letter.description else 'No Description' }}</p>
+                <p class="description">{{ letter.description.replace('\n', '<br>')|safe if letter.description else 'No Description' }}</p>
                 {% endif %}
                 <p class="fan-name">{{ letter.fanname if letter.fanname else 'Anonymous' }}</p>
             </div>
@@ -68,12 +68,15 @@
         if (fanname) {
             modalContent += "<strong>" + fanname + "</strong><br><br>";
         }
+
         if (message) {
-            modalContent += message;
+            // Replace \n with <br> to preserve line breaks
+            modalContent += message.replace(/\n/g, "<br>");
         }
 
         modalText.innerHTML = modalContent || 'No Content';
     }
+
 
     function closeModal() {
         document.getElementById("letterModal").style.display = "none";
