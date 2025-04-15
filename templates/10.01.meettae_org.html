@@ -3,12 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Meet Koo</title>
+    <title>Meet Tae</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
     <div class="night-sky" id="night-sky"></div>
-    <div class="back-home-container-koo">
+    <div class="back-home-container-tae">
         <a href="/" class="back-home-button">Back to Home</a>
     </div>
 
@@ -24,38 +24,34 @@
     </audio>
     {% endif %}
 
-    <div class="koo-full-page-image-side" style="background-image: url({{ url_for('static', filename='images/taekook/kookie_side.jpeg') }});"></div>
+    <div class="tae-full-page-image-side" style="background-image: url({{ url_for('static', filename='images/taetae_side.jpeg') }});"></div>
 
-    <div class="koo-section-wrapper">    
-        <div class="koo-section">
-            <div class="koo-heading">🐰 Meet Jung Kook 🐰</div>
-            <div class="koo-image-container">
-                <img src="{{ url_for('static', filename='images/taekook/kookie.jpeg') }}" alt="Jungkook" class="taekook-image">
+    <div class="tae-section-wrapper">    
+        <div class="tae-section">
+            <div class="tae-heading">🐻 Meet Taehyung 🐯</div>
+            <div class="tae-image-container">
+                <img src="{{ url_for('static', filename='images/taetae.jpeg') }}" alt="Taehyung" class="taekook-image">
             </div>
             <div class="taekook-bio">
-                <p>{{ koo_content.replace('\n', '<br>') | safe }}</p>
-            </div>
-    
+                <p>{{ tae_content.replace('\n', '<br>') | safe }}</p>
+            </div>  
+
             <section class="taekook-social-links">
                 <a href="https://twitter.com/BTS_twt" target="_blank">
                     <img src="/static/images/icons/x.jpeg" alt="Twitter" class="taekook-social-icon">
                 </a>
-                <a href="https://www.instagram.com/bowwow_bam/" target="_blank">
+                <a href="https://www.instagram.com/thv" target="_blank">
                     <img src="/static/images/icons/instagram.jpeg" alt="Instagram" class="taekook-social-icon">
                 </a>
-                <a href="https://weverse.io/bts/profile/ccd493e68a6ba447a964d1ce3b529589" target="_blank">
+                <a href="https://weverse.io/bts/profile/07ee2935d1a799b354ee32954e17914b" target="_blank">
                     <img src="/static/images/icons/weverse.jpeg" alt="Weverse" class="taekook-social-icon">
-                </a>
-                <a href="https://www.tiktok.com/@Jung Kook?lang=en" target="_blank"></a>
-                    <img src="/static/images/icons/tiktok.jpeg" alt="Weverse" class="taekook-social-icon">
                 </a>
             </section>
             <footer-taekook>
-                <p>Jung Kook is a treasure to the world. Let’s continue to support his amazing journey! 💜</p>
+                <p>Taehyung is a treasure to the world. Let's continue to support his amazing journey! 💚</p>
             </footer-taekook>
         </div>
     </div>
-
     <script>
         document.addEventListener("DOMContentLoaded", function () {
             let audio = document.getElementById("bgAudio");
