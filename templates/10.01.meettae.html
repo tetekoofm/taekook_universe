@@ -40,7 +40,7 @@
       background-color: rgba(0, 0, 0, 0.85);
     }
 
-    .section {
+    .tksection {
       max-width: 800px;
       margin: 0 auto;
       padding: 100px 20px;
@@ -50,9 +50,6 @@
       flex-direction: column;
       justify-content: center;
       align-items: center;
-    }
-
-    .section {
       background-size: cover;
       background-attachment: fixed;
       background-position: center;
@@ -93,12 +90,12 @@
       background: linear-gradient(to right, #6A0DAD, #008000);
       color: #fff;
       padding: 20px;
-      margin: 40px auto;
+      margin: 20px auto;
       border-radius: 12px;
       font-style: italic;
       font-size: 1.2rem;
       text-align: center;
-      max-width: 700px;
+      max-width: 800px;
     }
 
     #taeIntro {
@@ -108,19 +105,30 @@
       margin: 0 auto; 
     }
     
+    #tanIntro {
+      width: 50%;  
+      height: auto; 
+      max-width: 200px; 
+      margin: 0 auto; 
+      margin-left: 30px;
+      border-radius: 15px;
+      /* gap: 10px; */
+    }
+
     .chapter-media {
       display: flex;
       justify-content: center;
       align-items: center;
-      margin-bottom: 20px;
+      margin-bottom: 10px;
     }
 
     .rounded-image {
       border-radius: 15px;
-      width: 250px; /* ✅ Smaller fixed width */
+      width: 200px;
       height: auto;
       box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
     }
+
     .video-caption {
       text-align: center;
       margin-top: 10px;
@@ -136,7 +144,7 @@
   <div class="content-wrapper">
     
     <!-- 🌟 Landing Section -->
-    <section id="landing" class="section" style="position: relative;">
+    <section id="landing" class="tksection" style="position: relative;">
       <img src="/static/images/taekook/taetae.jpeg" alt="Taehyung Profile" class="profile-img">
       <h1 style="font-size: 2.8rem;">Who is Kim Taehyung?</h1>
       <div onclick="scrollToIntro()" style="cursor: pointer; margin-top: 40px;">
@@ -144,7 +152,7 @@
       </div>
     </section>
 
-    <section id="intro" class="section" data-aos="fade-up">
+    <section id="intro" class="tksection" data-aos="fade-up">
       <h2>🐻 Meet Kim Taehyung 🐯</h2>
       <p style="max-width: 600px; text-align: center;">
         Kim Taehyung 김태형, known as his stage name <strong>V</strong>, is a South Korean singer, songwriter, record producer and actor. He is a member of BTS, as well as a successful solo artist. He is a baritone, known for his wide vocal range and unique musicality. He is heavily influenced by his love for jazz and classical music. As a dancer and performer he is recognized worldwide for his engaging stage presence and versatility.
@@ -164,22 +172,20 @@
     </section>
 
     <!-- 1 -->
-    <section id="daegutodebut" class="section" data-aos="fade-up">
+    <section id="daegutodebut" class="tksection" data-aos="fade-up">
       <h2 class="chapter-title">🌱 From Daegu to Debut</h2>
 
       <div class="chapter-media" data-aos="zoom-in">
         <img src="/static/images/taekook/tae_childhood.jpeg" alt="Childhood Taehyung" class="rounded-image">
       </div>
 
-      <p>Born on <strong>December 30, 1995</strong>, in <strong>Daegu</strong>, South Korea, Kim Taehyung was raised in a loving family with strong values. As the eldest of three children, he grew up under the warmth of his grandparents, who played a pivotal role in shaping his early life. Though his surroundings were modest, Taehyung's imagination and spirit were anything but.</p>
-      <p>Music called to him from a young age. He picked up the saxophone in middle school and fell in love with the way it made him feel — expressive, free, and full of soul. With his father's encouragement, he auditioned for Big Hit Entertainment in 2011. He wasn't even supposed to audition that day — he had only come to support a friend — but a staff member encouraged him to try.</p>
-      <p>That moment would change everything.</p>
+      <p>Born on <strong>December 30, 1995</strong>, in <strong>Daegu</strong>, South Korea, Kim Taehyung was raised in a loving family with strong values. As the eldest of three children, he grew up under the warmth of his grandparents, who played a pivotal role in shaping his early life. Tae has shown his love for music from a young age. He picked up the saxophone in middle school and fell in love with the way it made him feel: expressive, free, and full of soul.</p>
     
       <div class="quote-box" data-aos="zoom-in">
         “I didn’t know I would become a singer. But I believed in myself when no one else did.” — V
       </div>
     
-      <p>Taehyung auditioned for Big Hit in 2011, purely by chance — he was only accompanying a friend. A staff member encouraged him to try out, and he ended up becoming a trainee. He remained a hidden member until BTS’s official debut in June 2013. Taehyung officially became a Big Hit trainee in 2011, joining the company quietly. While other members were introduced early, V remained a mystery to fans until the very day BTS debuted — June 13, 2013. His first appearance sparked curiosity and admiration. That deep voice. That gaze. That energy.</p>
+      <p>Taehyung auditioned for Big Hit in 2011, purely by chance — he was only accompanying a friend. A staff member encouraged him to try out, and he ended up becoming a trainee. While other members were introduced early, V remained a mystery to fans until the very day BTS debuted — June 13, 2013. His first appearance sparked curiosity and admiration. That deep voice! That gaze! That energy!</p>
       <p>He may have been the last surprise of the debut line-up, but he quickly proved himself as an irreplaceable piece of the BTS puzzle.</p>
     
       <div class="chapter-media" data-aos="fade-up">
@@ -200,9 +206,11 @@
     </section>
 
     <!-- 2 -->
-    <section id="btsv" class="section" data-aos="fade-up">
+    <section id="btsv" class="tksection" data-aos="fade-up">
       <h2 class="chapter-title">🎤 The BTS Years</h2>
       <p style="text-align: center;">V made his debut with BTS on June 13, 2013. He was credited for music composition on many BTS songs, first being ‘Hold Me Tight’ from the album ‘The Most Beautiful Moment in Life, Part 1.” The first solo single he composed for BTS was ‘Stigma’ from the album “Wings”. His second solo song with BTS, ‘Singularity,’ was released in May 2018, on their third LP, “Love Yourself: Tear.” ‘Singularity earned critical acclaim, including being ranked #20 on the “65 Best Songs of 2018’ by the New York Times.</p>
+      <p style="text-align: center;">As a solo artist, he released his first self-composed song, ‘Scenery’ on January 30, 2019 via SoundCloud. It broke the daily streaming record nine times during its first two weeks of release. Seven months later, he released ‘Winter Bear’ on August 9, 2019, along with a self-directed music video published on BTS’s YouTube page.</p>
+      <p style="text-align: center;">He followed those up with ‘Sweet Night’ in March 2020, a song he wrote and performed for the soundtrack of the JTBC drama ‘Itaewon Class.’ ‘Sweet Night’ debuted at number two on Billboard’s U.S. Digital Song sales chart, the highest debut for a K-soloist in the chart’s history. Then on December 25, 2020, he released another solo track, ‘Snow Flower’ featuring Peakboy. He released his third OST on December 21, 2021 with ‘Christmas Tree.’ It was written for the South Korean television series ‘Our Beloved Summer.’</p>
       <div class="quote-box" data-aos="zoom-in">
         “Don’t be trapped in someone else’s dream.” — V
       </div>
@@ -212,11 +220,9 @@
     </section>
 
     <!-- 3 -->
-    <section id="purple" class="section" data-aos="fade-up">
+    <section id="purple" class="tksection" data-aos="fade-up">
       <h2 class="chapter-title">💜 V's Legacy: "I Purple You"</h2>
       <p style="text-align: center;">V is also credited with coining the phrase, “I purple you (Borahae)” in November 2016. Since then, purple has become synonymous with BTS and their fanbase. The phrase was also used by UNICEF for BTS’s anti-bullying collaboration.</p>
-      <p style="text-align: center;">As a solo artist, he released his first self-composed song, ‘Scenery’ on January 30, 2019 via SoundCloud. It broke the daily streaming record nine times during its first two weeks of release. Seven months later, he released ‘Winter Bear’ on August 9, 2019, along with a self-directed music video published on BTS’s YouTube page.</p>
-      <p style="text-align: center;">He followed those up with ‘Sweet Night’ in March 2020, a song he wrote and performed for the soundtrack of the JTBC drama ‘Itaewon Class.’ ‘Sweet Night’ debuted at number two on Billboard’s U.S. Digital Song sales chart, the highest debut for a K-soloist in the chart’s history. Then on December 25, 2020, he released another solo track, ‘Snow Flower’ featuring Peakboy. He released his third OST on December 21, 2021 with ‘Christmas Tree.’ It was written for the South Korean television series ‘Our Beloved Summer.’</p>
       <div class="quote-box" data-aos="zoom-in">
         “Don’t be trapped in someone else’s dream.” — V
       </div>
@@ -226,7 +232,7 @@
     </section>
 
     <!-- 4 -->
-    <section id="actorv" class="section" data-aos="fade-up">
+    <section id="actorv" class="tksection" data-aos="fade-up">
       <h2 class="chapter-title">🎬 Acting Career</h2>
       <p style="text-align: center;">Taehyung made his acting debut in 2016 in ‘Hwarang: The Poet Warrior Youth.’ He also collaborated with fellow BTS member, Jin, on ‘It’s Definitely You’ for the ‘Hwarang’ Soundtrack in 2017.</p>
       <div class="quote-box" data-aos="zoom-in">
@@ -238,9 +244,20 @@
     </section>
 
     <!-- 5 -->
-    <section id="yeontan" class="section" data-aos="fade-up">
-      <h2 class="chapter-title">🐾 Taehyung’s Love for Yeontan</h2>
-      <p style="text-align: center;">Taehyung is also well-known for his love of his late dog, Kim Yeontan, a pomeranian first introduced to fans in December 2017. Yeontan or "Tannie" was a huge part of Taehyung's life, and was cited as his muse for his debut album, ‘Layover.” His image graced the cover of the album, and he is featured in the music videos. V also used Yeontan’s image for the cover art for his collaboration with Bing Crosby, “White Christmas.” The music video also featured a cartoon Yeontan, ending in an image of Tannie in the stars. Taehyung later announced the passing of Yeontan in late 2024.</p>
+    <section id="yeontan" class="tksection" data-aos="fade-up">
+      <h2 class="chapter-title">🐾 Introducing: Kim Yeontan</h2>
+      <div class="chapter-media" data-aos="zoom-in">
+        <img src="/static/images/taekook/taetanlayover.jpeg" alt="Yeontan" class="rounded-image">
+      </div>
+      <p style="text-align: center;">Taehyung is also well-known for his love of his late dog, Kim Yeontan, a pomeranian first introduced to fans in December 2017. Yeontan or "Tannie" was a huge part of Taehyung's life. </p>
+      <div class="side-by-side">
+        <img src="/static/images/taekook/taetan.jpeg" alt="Yeontan" class="rounded-image">
+        <video id="tanIntro" controls class="side-video">
+          <source src="/static/images/taekook/taetan.mp4" type="video/mp4">
+          Your browser does not support the video tag.
+        </video>
+      </div>
+      <p> Tannie was cited as his muse for his debut album, ‘Layover.” His image graced the cover of the album, and he is featured in the music videos. V also used Yeontan’s image for the cover art for his collaboration with Bing Crosby, “White Christmas.” The music video also featured a cartoon Yeontan, ending in an image of Tannie in the stars. Taehyung later announced the passing of Yeontan in late 2024.</p>
       <div class="quote-box" data-aos="zoom-in">
         “Don’t be trapped in someone else’s dream.” — V
       </div>
@@ -250,7 +267,7 @@
     </section>
 
     <!-- 6 -->
-    <section id="artistwithin" class="section" data-aos="fade-up">
+    <section id="artistwithin" class="tksection" data-aos="fade-up">
       <h2 class="chapter-title">🎨 The Artist Within</h2>
       <p style="text-align: center; max-width: 700px;">
         Beyond the spotlight, Taehyung finds solace and inspiration in various forms of art. He is an avid lover of photography and often shares his work under the pseudonym "<strong>Vante</strong>," inspired by photographer Ante Badzim. His images are moody, minimalistic, and deeply emotional — snapshots of silence, symmetry, and soul.
@@ -278,7 +295,7 @@
     </section>
     
     <!-- 7 -->
-    <section id="solo-debut" class="section" data-aos="fade-up">
+    <section id="solo-debut" class="tksection" data-aos="fade-up">
       <h2 class="chapter-title">🎶 The Voice of V: Solo Era</h2>
       <p style="text-align: center;">V released his first solo album, <strong>“Layover.”</strong> on September 8, 2023.</p>
       <p style="text-align: center; max-width: 700px;">
@@ -381,21 +398,27 @@
     }
     // IntersectionObserver for lazy loading the video autoplay
     const introSection = document.querySelector('#intro');
-    const videoElement = document.querySelector('#taeIntro');
-    
-    const observer = new IntersectionObserver((entries, observer) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          // Autoplay the video when the intro section is in view
-          videoElement.play();
-        } else {
-          // Pause the video when it's not in view
-          videoElement.pause();
-        }
+    const tanSection = document.querySelector('#yeontan');
+
+    // Get all the videos
+    const videoElements = document.querySelectorAll('#taeIntro, #tanIntro');
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {  
+        videoElements.forEach(video => {
+          if (entry.isIntersecting && entry.target.contains(video)) {
+            video.play();
+          } else {
+            video.pause();
+          }
+        });
       });
     }, { threshold: 0.5 });
 
+    // Observe both sections
     observer.observe(introSection);
+    observer.observe(tanSection);
+
   </script>
 </body>
 </html>
