@@ -41,7 +41,7 @@
     }
 
     .tksection {
-      max-width: 800px;
+      max-width: 900px;
       margin: 0 auto;
       padding: 100px 20px;
       scroll-snap-align: start;
@@ -110,9 +110,8 @@
       height: auto; 
       max-width: 200px; 
       margin: 0 auto; 
-      margin-left: 30px;
+      margin-left: 80px;
       border-radius: 15px;
-      /* gap: 10px; */
     }
 
     .chapter-media {
@@ -136,6 +135,49 @@
       color: #ccc;
     }
 
+    .taekook-social-links {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 20px;
+      margin: 0 auto;
+      /* padding-top: 20px; */
+      max-width: 400px;
+    }
+
+    .taekook-social-icon {
+      width: 40px;
+      height: 40px;
+      transition: transform 0.2s ease;
+      object-fit: contain;
+    }
+
+    .taekook-social-icon:hover {
+      transform: scale(1.2);
+    }
+
+    .taekook-footer {
+      text-align: center;
+      background: linear-gradient(to right, #000000, #111111);
+      padding: 30px 20px;
+      color: #ccc;
+      font-size: 1rem;
+      border-top: 2px solid #6A0DAD;
+      box-shadow: 0 -4px 10px rgba(106, 13, 173, 0.4);
+      margin-top: 60px;
+    }
+
+    .taekook-footer p {
+      margin: 0;
+      line-height: 1.6;
+    }
+
+    .taekook-footer .byline {
+      display: block;
+      margin-top: 10px;
+      font-size: 0.85rem;
+      color: #888;
+    }
   </style>
 </head>
 <body>
@@ -164,14 +206,14 @@
       </video>
   
       <div class="quote-box" data-aos="zoom-in">
-        “Don’t be trapped in someone else’s dream.” — V
+        “I love you more than yesterday, but less than tomorrow.” — V
       </div>
       <div onclick="scrollToDaeguToDebut()" style="cursor: pointer; margin-top: 40px;">
         <span class="down-arrow">⬇️</span>
       </div>
     </section>
 
-    <!-- 1 -->
+  <!----------------------------------------------- 1 ------------------------------------------------->
     <section id="daegutodebut" class="tksection" data-aos="fade-up">
       <h2 class="chapter-title">🌱 From Daegu to Debut</h2>
 
@@ -182,7 +224,7 @@
       <p>Born on <strong>December 30, 1995</strong>, in <strong>Daegu</strong>, South Korea, Kim Taehyung was raised in a loving family with strong values. As the eldest of three children, he grew up under the warmth of his grandparents, who played a pivotal role in shaping his early life. Tae has shown his love for music from a young age. He picked up the saxophone in middle school and fell in love with the way it made him feel: expressive, free, and full of soul.</p>
     
       <div class="quote-box" data-aos="zoom-in">
-        “I didn’t know I would become a singer. But I believed in myself when no one else did.” — V
+        “I want to become a singer that my fans can be proud of.” — V
       </div>
     
       <p>Taehyung auditioned for Big Hit in 2011, purely by chance — he was only accompanying a friend. A staff member encouraged him to try out, and he ended up becoming a trainee. While other members were introduced early, V remained a mystery to fans until the very day BTS debuted — June 13, 2013. His first appearance sparked curiosity and admiration. That deep voice! That gaze! That energy!</p>
@@ -198,40 +240,41 @@
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
           allowfullscreen>
         </iframe>
-        <p class="video-caption">Throwback to trainee Taehyung vlogging before debut 🐻</p>
       </div>
       <div onclick="scrollToBTSV()" style="cursor: pointer; margin-top: 40px;">
         <span class="down-arrow">⬇️</span>
       </div>
     </section>
 
-    <!-- 2 -->
+  <!----------------------------------------------- 2 ------------------------------------------------->
     <section id="btsv" class="tksection" data-aos="fade-up">
       <h2 class="chapter-title">🎤 The BTS Years</h2>
       <p style="text-align: center;">V made his debut with BTS on June 13, 2013. He was credited for music composition on many BTS songs, first being ‘Hold Me Tight’ from the album ‘The Most Beautiful Moment in Life, Part 1.” The first solo single he composed for BTS was ‘Stigma’ from the album “Wings”. His second solo song with BTS, ‘Singularity,’ was released in May 2018, on their third LP, “Love Yourself: Tear.” ‘Singularity earned critical acclaim, including being ranked #20 on the “65 Best Songs of 2018’ by the New York Times.</p>
       <p style="text-align: center;">As a solo artist, he released his first self-composed song, ‘Scenery’ on January 30, 2019 via SoundCloud. It broke the daily streaming record nine times during its first two weeks of release. Seven months later, he released ‘Winter Bear’ on August 9, 2019, along with a self-directed music video published on BTS’s YouTube page.</p>
       <p style="text-align: center;">He followed those up with ‘Sweet Night’ in March 2020, a song he wrote and performed for the soundtrack of the JTBC drama ‘Itaewon Class.’ ‘Sweet Night’ debuted at number two on Billboard’s U.S. Digital Song sales chart, the highest debut for a K-soloist in the chart’s history. Then on December 25, 2020, he released another solo track, ‘Snow Flower’ featuring Peakboy. He released his third OST on December 21, 2021 with ‘Christmas Tree.’ It was written for the South Korean television series ‘Our Beloved Summer.’</p>
       <div class="quote-box" data-aos="zoom-in">
-        “Don’t be trapped in someone else’s dream.” — V
+        <div class="quote-box" data-aos="zoom-in">
+          “Sometimes, it is okay to take a break, take a step back and reflect on yourself.” — V
+        </div>
       </div>
       <div onclick="scrollToPurple()" style="cursor: pointer; margin-top: 40px;">
         <span class="down-arrow">⬇️</span>
       </div>
     </section>
 
-    <!-- 3 -->
+  <!----------------------------------------------- 3 ------------------------------------------------->
     <section id="purple" class="tksection" data-aos="fade-up">
       <h2 class="chapter-title">💜 V's Legacy: "I Purple You"</h2>
       <p style="text-align: center;">V is also credited with coining the phrase, “I purple you (Borahae)” in November 2016. Since then, purple has become synonymous with BTS and their fanbase. The phrase was also used by UNICEF for BTS’s anti-bullying collaboration.</p>
       <div class="quote-box" data-aos="zoom-in">
-        “Don’t be trapped in someone else’s dream.” — V
+        “Purple is the last of the rainbow colors, so it means i will love and trust you for a long time.” — V
       </div>
       <div onclick="scrollToActorV()" style="cursor: pointer; margin-top: 40px;">
         <span class="down-arrow">⬇️</span>
       </div>
     </section>
 
-    <!-- 4 -->
+  <!----------------------------------------------- 4 ------------------------------------------------->
     <section id="actorv" class="tksection" data-aos="fade-up">
       <h2 class="chapter-title">🎬 Acting Career</h2>
       <p style="text-align: center;">Taehyung made his acting debut in 2016 in ‘Hwarang: The Poet Warrior Youth.’ He also collaborated with fellow BTS member, Jin, on ‘It’s Definitely You’ for the ‘Hwarang’ Soundtrack in 2017.</p>
@@ -243,7 +286,7 @@
       </div>
     </section>
 
-    <!-- 5 -->
+  <!----------------------------------------------- 5 ------------------------------------------------->
     <section id="yeontan" class="tksection" data-aos="fade-up">
       <h2 class="chapter-title">🐾 Introducing: Kim Yeontan</h2>
       <div class="chapter-media" data-aos="zoom-in">
@@ -259,14 +302,14 @@
       </div>
       <p> Tannie was cited as his muse for his debut album, ‘Layover.” His image graced the cover of the album, and he is featured in the music videos. V also used Yeontan’s image for the cover art for his collaboration with Bing Crosby, “White Christmas.” The music video also featured a cartoon Yeontan, ending in an image of Tannie in the stars. Taehyung later announced the passing of Yeontan in late 2024.</p>
       <div class="quote-box" data-aos="zoom-in">
-        “Don’t be trapped in someone else’s dream.” — V
+        “Let’s make precious memories again as we always have. I really miss you, and I really love you.” — V
       </div>
       <div onclick="scrollToArtistWithin()" style="cursor: pointer; margin-top: 40px;">
         <span class="down-arrow">⬇️</span>
       </div>
     </section>
 
-    <!-- 6 -->
+    <!----------------------------------------------- 6 ------------------------------------------------->
     <section id="artistwithin" class="tksection" data-aos="fade-up">
       <h2 class="chapter-title">🎨 The Artist Within</h2>
       <p style="text-align: center; max-width: 700px;">
@@ -294,7 +337,7 @@
       </div>
     </section>
     
-    <!-- 7 -->
+    <!----------------------------------------------- 7 ------------------------------------------------->
     <section id="solo-debut" class="tksection" data-aos="fade-up">
       <h2 class="chapter-title">🎶 The Voice of V: Solo Era</h2>
       <p style="text-align: center;">V released his first solo album, <strong>“Layover.”</strong> on September 8, 2023.</p>
@@ -323,7 +366,25 @@
       </div>
     </section>
 
+    <section class="section" data-aos="fade-up">
+    
+      <div class="taekook-social-links">
+        <a href="https://twitter.com/BTS_twt" target="_blank">
+            <img src="/static/images/icons/x.jpeg" alt="Twitter" class="taekook-social-icon">
+        </a>
+        <a href="https://www.instagram.com/thv" target="_blank">
+            <img src="/static/images/icons/instagram.jpeg" alt="Instagram" class="taekook-social-icon">
+        </a>
+        <a href="https://weverse.io/bts/profile/07ee2935d1a799b354ee32954e17914b" target="_blank">
+            <img src="/static/images/icons/weverse.jpeg" alt="Weverse" class="taekook-social-icon">
+        </a>
+      </div>
+
+    <footer class="taekook-footer" data-aos="fade-up">
+      <p>Kim Taehyung - Sometimes, it is okay to take a break, take a step back and reflect on yourself.💚</p>
+  </footer>
   </div>
+
 
   <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
   <script>
@@ -331,7 +392,7 @@
 
     window.addEventListener('scroll', () => {
       const introSection = document.getElementById('intro');
-      const triggerPoint = introSection.offsetTop - 100; // Adjust buffer if needed
+      const triggerPoint = introSection.offsetTop - 100;
 
       if (window.scrollY > triggerPoint) {
         document.body.classList.add('scrolled');
