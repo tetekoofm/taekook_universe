@@ -297,5 +297,10 @@ def fan_letters_page():
     song_name = music.song_name if music else "Default Song"
     return render_template('09.fanletters.html', song_file=song_file, song_name=song_name, fan_letters=fan_letters)
 
+@app.after_request
+def add_headers(response):
+    response.headers["Permissions-Policy"] = "compute-pressure=()"
+    return response
+
 if __name__ == "__main__":
     app.run(debug=True, host="0.0.0.0", port=10000)
