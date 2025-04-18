@@ -164,6 +164,7 @@
       height: 40px;
       transition: transform 0.2s ease;
       object-fit: contain;
+      bottom: 0;
     }
 
     .taekook-social-icon:hover {
@@ -174,11 +175,13 @@
       text-align: center;
       background: transparent;
       padding: 30px 20px;
+      right: 20px;
       color: #ccc;
       font-size: 1rem;
       border-top: 2px solid #6A0DAD;
       box-shadow: 0 -4px 10px rgba(106, 13, 173, 0.4);
-      margin-top: 60px;
+      /* margin-top: 60px; */
+      bottom: 0;
     }
 
     .taekook-footer p {
@@ -186,138 +189,130 @@
       line-height: 1.6;
     }
 
-    .taekook-footer .byline {
-      display: block;
-      background: transparent;
-      margin-top: 10px;
-      font-size: 0.85rem;
-      color: #888;
+  /* Mobile Styles */
+  @media screen and (max-width: 768px) {
+    .tae-full-page-image-side {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100vh;
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      background-image: url('/static/images/taekook/taetae_side.jpeg'); 
+      /* opacity: 0.75; */
+      filter: brightness(70%) contrast(90%);
+      pointer-events: none;
+      z-index: 0;
     }
 
-/* Mobile Styles */
-@media screen and (max-width: 768px) {
-  .tae-full-page-image-side {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100vh;
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-image: url('/static/images/taekook/taetae_side.jpeg'); 
-    /* opacity: 0.75; */
-    filter: brightness(70%) contrast(90%);
-    pointer-events: none;
-    z-index: 0;
-  }
+    .content-wrapper {
+      margin-left: 0;
+      padding: 20px;
+      background-color: rgba(0, 0, 0, 0.8);
+    }
 
-  .content-wrapper {
-    margin-left: 0;
-    padding: 20px;
-    background-color: rgba(0, 0, 0, 0.8);
-  }
+    h1 {
+      font-size: 1.5rem !important;
+      margin-top: 10px;
+    }
 
-  h1 {
-    font-size: 1.5rem !important;
-    margin-top: 10px;
-  }
+    h2 {
+      font-size: 1.2rem !important;
+      /* margin-top: 10px; */
+    }
 
-  h2 {
-    font-size: 1.2rem !important;
-    /* margin-top: 10px; */
-  }
+    .chapter-title {
+      font-size: 1rem !important;
+      margin-top: 10px;
+    }
 
-  .chapter-title {
-    font-size: 1rem !important;
-    margin-top: 10px;
-  }
+    .tksection {
+      padding: 90px 10px;
+      max-width: 90%;
+      margin: 0 auto;
+    }
 
-  .tksection {
-    padding: 90px 10px;
-    max-width: 90%;
-    margin: 0 auto;
-  }
+    .tksection p {
+        font-size: 0.6rem;
+        line-height: 1.5;
+    }
 
-  .tksection p {
+    .profile-img {
+      width: 130px;
+      height: 130px;
+      margin-top: 20px;
+      border: 3px solid #008000;
+    }
+
+    .quote-box {
       font-size: 0.6rem;
-      line-height: 1.5;
-  }
+      padding: 8px;
+      margin: 5px auto;
+      max-width: 800px;
+    }
 
-  .profile-img {
-    width: 130px;
-    height: 130px;
-    margin-top: 20px;
-    border: 3px solid #008000;
-  }
+    .rounded-image {
+      border-radius: 15px;
+      width: 120px;
+      height: auto;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+      margin-right: 0px;
+    }
 
-  .quote-box {
-    font-size: 0.6rem;
-    padding: 8px;
-    margin: 5px auto;
-    max-width: 800px;
-  }
+    .side-by-side, .video-group {
+      flex-direction: row;
+      gap: 8px;
+      margin-top: 0;
+    }
 
-  .rounded-image {
-    border-radius: 15px;
-    width: 120px;
-    height: auto;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-    margin-right: 0px;
-  }
+    .rounded-image,
+    #tanIntro {
+      width: 40%;
+    }
 
-  .side-by-side, .video-group {
-    flex-direction: row;
-    gap: 8px;
-    margin-top: 0;
-  }
+    .video-group video {
+      width: 30% !important;
+    }
 
-  .rounded-image,
-  #tanIntro {
-    width: 40%;
-  }
+    iframe, video {
+      width: 100%;
+      max-width: 100%;
+      height: auto;
+    }
+    
+    #audioControl {
+      top: 15px;
+      right: 15px;
+      font-size: 0.75rem;
+      padding: 6px 10px;
+      gap: 5px;
+    }
 
-  .video-group video {
-    width: 30% !important;
-  }
+    .taekook-social-links {
+      flex-direction: row;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 10px;
+      margin-top: 20px;
+    }
 
-  iframe, video {
-    width: 100%;
-    max-width: 100%;
-    height: auto;
-  }
-  
-  #audioControl {
-    top: 15px;
-    right: 15px;
-    font-size: 0.75rem;
-    padding: 6px 10px;
-    gap: 5px;
-  }
+    .taekook-social-icon {
+      width: 24px;
+      height: 24px;
+    }
 
-  .taekook-social-links {
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 10px;
-    margin-top: 20px;
-  }
+    .down-arrow {
+      bottom: 15px;
+      font-size: 1.5rem;
+    }
 
-  .taekook-social-icon {
-    width: 24px;
-    height: 24px;
+    footer.taekook-footer {
+      font-size: 0.85rem;
+      padding: 20px 10px;
+    }
   }
-
-  .down-arrow {
-    bottom: 15px;
-    font-size: 1.5rem;
-  }
-
-  footer.taekook-footer {
-    font-size: 0.85rem;
-    padding: 20px 10px;
-  }
-}
 
 </style>
 </head>
@@ -402,7 +397,7 @@
     <section id="purple" class="tksection" data-aos="fade-up">
       <h2 class="chapter-title">💜 V's Legacy: "I Purple You"</h2>
       <div class="chapter-media" data-aos="zoom-in">
-        <img src="/static/images/taekook/taetae_purpleyou.jpeg" alt="Childhood Taehyung" class="rounded-image">
+        <img src="/static/images/taekook/taetae_purpleyou.jpeg" alt="Purple You Taehyung" class="rounded-image">
       </div>
       <p>V is also credited with coining the phrase, “I purple you (Borahae)” in November 2016. Since then, purple has become synonymous with BTS and their fanbase. The phrase was also used by UNICEF for BTS’s anti-bullying collaboration.</p>
       <div class="quote-box" data-aos="zoom-in">
@@ -417,7 +412,7 @@
     <section id="actorv" class="tksection" data-aos="fade-up">
       <h2 class="chapter-title">🎬 Acting Career</h2>
       <div class="chapter-media" data-aos="zoom-in">
-        <img src="/static/images/taekook/taetae_hwarang.jpeg" alt="Childhood Taehyung" class="rounded-image">
+        <img src="/static/images/taekook/taetae_hwarang.jpeg" alt="Hwarang Taehyung" class="rounded-image">
       </div>
       <p>Taehyung made his acting debut in 2016 in ‘Hwarang: The Poet Warrior Youth.’ He also collaborated with fellow BTS member, Jin, on ‘It’s Definitely You’ for the ‘Hwarang’ Soundtrack in 2017.</p>
       <div class="quote-box" data-aos="zoom-in">
@@ -456,8 +451,8 @@
       <h2 class="chapter-title">🎨 The Artist Within</h2>
 
       <div class="chapter-media" data-aos="zoom-in">
-        <img src="/static/images/taekook/taetae_art.jpeg" alt="Vante Photography" class="rounded-image">
-        <img src="/static/images/taekook/taetae_photography.jpeg" alt="Vante Photography" class="rounded-image">
+        <img src="/static/images/taekook/taetae_art.jpeg" alt="Vante Art" class="rounded-image">
+        <img src="/static/images/taekook/taetae_photography.jpeg" alt="Photography" class="rounded-image">
       </div>
 
       <p style="text-align: center; max-width: 700px;">
@@ -495,7 +490,7 @@
     </section>
     
     <!----------------------------------------------- 7 ------------------------------------------------->
-    <section id="solo-debut" class="tksection" data-aos="fade-up">
+    <section id="soloera" class="tksection" data-aos="fade-up">
       <h2 class="chapter-title">🎶 The Voice of V: Solo Era</h2>
       <p style="text-align: center;">V released his first solo album, <strong>“Layover.”</strong> on September 8, 2023.</p>
       <p style="text-align: center; max-width: 700px;">
@@ -506,25 +501,85 @@
         <img src="/static/images/taekook/layover.jpeg" alt="Layover Album Cover" class="rounded-image">
       </div>
     
-      <p style="text-align: center; max-width: 700px;">
-        Tracks like <em>“Love Me Again,” “Rainy Days,”</em> and <em>“Slow Dancing”</em> highlighted his baritone range, emotive delivery, and mellow musicality. The entire album felt like a letter to the fans — warm, vulnerable, and nostalgic.
-      </p>
-    
-      <p style="text-align: center; max-width: 700px;">
-        During promotions, he appeared on variety shows, magazine covers, and global stages — charming audiences with his natural charisma. From Tiny Desk Korea to ELLE and Vogue interviews, he proved that V the artist was just as magnetic as V the idol.
-      </p>
-    
-      <p style="text-align: center; max-width: 700px;">
-        His performances brought the Layover era to life — smooth, heartfelt, and cinematic. With each movement, each look, he reminded the world: he isn’t just singing the music. He *is* the music.
-      </p>
+      <p>Tracks like <em>“Love Me Again,” “Rainy Days,”</em> and <em>“Slow Dancing”</em> highlighted his baritone range, emotive delivery, and mellow musicality. The entire album felt like a letter to the fans — warm, vulnerable, and nostalgic.</p>
+      <p>During promotions, he appeared on variety shows, magazine covers, and global stages — charming audiences with his natural charisma. From Tiny Desk Korea to ELLE and Vogue interviews, he proved that V the artist was just as magnetic as V the idol.</p>
+      <p>His performances brought the Layover era to life — smooth, heartfelt, and cinematic. With each movement, each look, he reminded the world: he isn’t just singing the music. He *is* the music.</p>
     
       <div class="quote-box" data-aos="zoom-in">
         “I just want to show you my true self. This is who I am.” — V
       </div>
+
+      <div onclick="scrollToFanLove()" style="cursor: pointer; margin-top: 40px;">
+        <span class="down-arrow">⬇️</span>
+      </div>
+
     </section>
 
-    <section class="tksection" data-aos="fade-up">
+    <!----------------------------------------------- 8 ------------------------------------------------->
+    <section id="fanlove" class="tksection" data-aos="fade-up">
+      <h2 class="chapter-title">💌 TaeTae’s Whispers</h2>
     
+      <p>Taehyung speaks with his fans, listens to them, and comforts them like a friend. He appears spontaneously when he misses them either through his Instagram posts or a very short Weverse Lives or through his replies to fan posts. He creates a space that feels personal, safe, and full of love. He has the record of doing the 8 second short live where he just came to say "Hi" to his fans.</p>
+      
+      <div class="side-by-side">
+      <div class="chapter-media" data-aos="zoom-in">
+        <img src="/static/images/taekook/taetae_weverse.jpeg" alt="Weverse Letter" class="rounded-image" style="height: 500px; width:auto; border-radius: 20px;">
+      </div>
+      <video id="taetaelive" controls class="side-video" style="height: 500px; width:auto; border-radius: 20px;">
+        <source src="/static/images/taekook/taetae_live.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+      </video>
+      </div>
+
+      <div id="audioControl">
+        <span id="audioIcon">🔊</span>
+        <span id="tooltip">Now Playing: TaeTae</span>
+      </div>
+      
+      {% if song_file %}
+      <audio id="bgAudio" data-song="TaeTae">
+        <source src="{{ url_for('static', filename='audio/' + song_file) }}" type="audio/mp3">
+      </audio>
+      {% endif %}
+
+      <p>During his live, he asks fans how their day went, plays music, reads comments out loud, and even shows Yeontan curled up beside him. Taehyung being just Taehyung. In his replies to ARMY, he’s witty, playful, and thoughtful. When fans express sadness or insecurity, he gently reminds them of their worth. When they joke, he laughs along. Through the screen, he turns a million voices into a quiet, honest conversation.</p>     
+          
+      <p>In response to a fan's letter about Layover Anniversary project, he responded, "Hmm I was running in front of the military camp & I saw the pictures and I blushed from seeing it.</p>
+
+      <div class="chapter-media" data-aos="zoom-in">
+        <img src="/static/images/taekook/taetae_weverse_layover_anniversary.jpeg" alt="Weverse Layover Anniversary" class="rounded-image" style="width: 350px; border-radius: 20px;">
+      </div>
+
+      <p>Some of his comforting words to fans: </p>
+      
+      <div class="quote-box" data-aos="zoom-in">
+        “You being their daughter is enough for them.”
+      </div>
+      
+      <div class="quote-box" data-aos="zoom-in">
+        “I love you this much with my arms and legs stretched wide and that still won't be enough.”
+      </div>
+
+      <div class="quote-box" data-aos="zoom-in">
+      “When things get tough, just take a deep breath and don’t give up on your dreams.”
+      </div>
+
+      <div class="quote-box" data-aos="zoom-in">
+      “Oh, You've had a hard day, get some rest.”
+      </div>
+
+      <div class="quote-box" data-aos="zoom-in">
+        “You missed me? That’s why i came.”
+      </div>
+
+      <div class="quote-box" data-aos="zoom-in">
+        “I am not good at speaking english, but I can love you.”
+      </div>
+
+    </section>
+    
+    <!-- <section class="tksection" data-aos="fade-up"> -->
+    <footer class="taekook-footer" data-aos="fade-up">    
       <div class="taekook-social-links">
         <a href="https://twitter.com/BTS_twt" target="_blank">
             <img src="/static/images/icons/x.jpeg" alt="Twitter" class="taekook-social-icon">
@@ -537,106 +592,111 @@
         </a>
       </div>
 
-    <footer class="taekook-footer" data-aos="fade-up">
       <p>Kim Taehyung - Sometimes, it is okay to take a break, take a step back and reflect on yourself.💚</p>
-  </footer>
+    </footer>
+    <!-- </section> -->
   </div>
-
-
   <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
   <script>
-    AOS.init({ once: true, duration: 1000 });
-
-    window.addEventListener('scroll', () => {
+    document.addEventListener("DOMContentLoaded", function () {
+      AOS.init({ once: true, duration: 1000 });
+  
+      // Scroll-based background switch
       const introSection = document.getElementById('intro');
-      const triggerPoint = introSection.offsetTop - 100;
-
-      if (window.scrollY > triggerPoint) {
-        document.body.classList.add('scrolled');
-      } else {
-        document.body.classList.remove('scrolled');
+      window.addEventListener('scroll', () => {
+        const triggerPoint = introSection.offsetTop - 100;
+        if (window.scrollY > triggerPoint) {
+          document.body.classList.add('scrolled');
+        } else {
+          document.body.classList.remove('scrolled');
+        }
+      });
+  
+      // Smooth scroll navigation functions
+      function scrollToSection(currentId) {
+        const next = document.querySelector(currentId)?.nextElementSibling;
+        if (next) {
+          next.scrollIntoView({ behavior: 'smooth' });
+        }
+      }
+  
+      window.scrollToIntro = () => scrollToSection('#landing');
+      window.scrollToDaeguToDebut = () => scrollToSection('#intro');
+      window.scrollToBTSV = () => scrollToSection('#daegutodebut');
+      window.scrollToPurple = () => scrollToSection('#btsv');
+      window.scrollToActorV = () => scrollToSection('#purple');
+      window.scrollToYeontan = () => scrollToSection('#actorv');
+      window.scrollToArtistWithin = () => scrollToSection('#yeontan');
+      window.scrollToSoloEra = () => scrollToSection('#artistwithin');
+      window.scrollToFanLove = () => scrollToSection('#soloera');
+  
+      // 🎥 Autoplay videos when visible
+      const sectionsToWatch = ['#intro', '#yeontan', '#taetaelive'];
+      const videoElements = document.querySelectorAll('#taeIntro, #tanIntro, #taetaelive');
+  
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          videoElements.forEach(video => {
+            if (entry.isIntersecting && entry.target.contains(video)) {
+              video.play();
+            } else {
+              video.pause();
+            }
+          });
+        });
+      }, { threshold: 0.5 });
+  
+      sectionsToWatch.forEach(id => {
+        const section = document.querySelector(id);
+        if (section) observer.observe(section);
+      });
+  
+      // 🎧 Play audio after a specific video ends
+      const video = document.getElementById("taetaelive");
+      const audio = document.getElementById("bgAudio");
+      const audioIcon = document.getElementById("audioIcon");
+      const tooltip = document.getElementById("tooltip");
+  
+      if (video && audio) {
+        video.addEventListener("ended", function () {
+          setTimeout(() => {
+            audio.play();
+            updateAudioControl(false);
+            if (audioIcon) audioIcon.textContent = "🔊";
+            if (tooltip) tooltip.innerText = "Now Playing: " + (audio.dataset.song || "Audio");
+          }, 1000); // 1-second delay
+        });
+      }
+  
+      // 🔇 Audio control toggle
+      const audioControl = document.getElementById("audioControl");
+      if (audioControl && audio && audioIcon && tooltip) {
+        audioControl.addEventListener("click", () => {
+          audio.muted = !audio.muted;
+          updateAudioControl(audio.muted);
+        });
+  
+        audioControl.addEventListener("mouseover", () => {
+          tooltip.style.visibility = "visible";
+          tooltip.style.opacity = "1";
+        });
+  
+        audioControl.addEventListener("mouseout", () => {
+          tooltip.style.visibility = "hidden";
+          tooltip.style.opacity = "0";
+        });
+      }
+  
+      function updateAudioControl(isMuted) {
+        if (!audioIcon || !tooltip) return;
+        audioIcon.textContent = isMuted ? "🔇" : "🔊";
+        tooltip.innerText = isMuted
+          ? "Muted: Click to Play"
+          : "Now Playing: " + (audio.dataset.song || "Audio");
+        localStorage.setItem("isMuted", isMuted);
       }
     });
-    
-    // Function to scroll to intro section
-    function scrollToIntro() {
-      const next = document.querySelector('#landing').nextElementSibling;
-      if (next) {
-        next.scrollIntoView({ behavior: 'smooth' });
-      }
-    }
-
-    function scrollToDaeguToDebut() {
-      const next = document.querySelector('#intro').nextElementSibling;
-      if (next) {
-        next.scrollIntoView({ behavior: 'smooth' });
-      }
-    }
-
-    function scrollToBTSV() {
-      const next = document.querySelector('#daegutodebut').nextElementSibling;
-      if (next) {
-        next.scrollIntoView({ behavior: 'smooth' });
-      }
-    }
-
-    function scrollToPurple() {
-      const next = document.querySelector('#btsv').nextElementSibling;
-      if (next) {
-        next.scrollIntoView({ behavior: 'smooth' });
-      }
-    }
-
-    function scrollToActorV() {
-      const next = document.querySelector('#purple').nextElementSibling;
-      if (next) {
-        next.scrollIntoView({ behavior: 'smooth' });
-      }
-    }
-
-    function scrollToYeontan() {
-      const next = document.querySelector('#actorv').nextElementSibling;
-      if (next) {
-        next.scrollIntoView({ behavior: 'smooth' });
-      }
-    }
-
-    function scrollToArtistWithin() {
-      const next = document.querySelector('#yeontan').nextElementSibling;
-      if (next) {
-        next.scrollIntoView({ behavior: 'smooth' });
-      }
-    }
-
-    function scrollToSoloEra() {
-      const next = document.querySelector('#artistwithin').nextElementSibling;
-      if (next) {
-        next.scrollIntoView({ behavior: 'smooth' });
-      }
-    }
-    // IntersectionObserver for lazy loading the video autoplay
-    const introSection = document.querySelector('#intro');
-    const tanSection = document.querySelector('#yeontan');
-
-    // Get all the videos
-    const videoElements = document.querySelectorAll('#taeIntro, #tanIntro');
-
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {  
-        videoElements.forEach(video => {
-          if (entry.isIntersecting && entry.target.contains(video)) {
-            video.play();
-          } else {
-            video.pause();
-          }
-        });
-      });
-    }, { threshold: 0.5 });
-
-    // Observe both sections
-    observer.observe(introSection);
-    observer.observe(tanSection);
-
   </script>
+  
 </body>
 </html>
