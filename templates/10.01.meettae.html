@@ -27,6 +27,14 @@
       transition: background-image 0.8s ease-in-out;
     }
 
+    .back-button {
+      position: fixed;
+      top: 20px;
+      font-size: 1rem;
+      padding: 8px;
+      z-index: 1000;
+    }
+
     .tae-content-wrapper {
       margin-left: 35vw;
       background-color: rgba(0, 0, 0, 0.85);
@@ -371,6 +379,7 @@
     
     <!-- 🌟 Landing Section -->
     <section id="landing" class="tksection" style="position: relative;">
+      <a href="/" class="back-button" aria-label="Back to Home">🏠</a>
       <h1>Who is Kim Taehyung?</h1>
       <div onclick="scrollToIntro()" style="cursor: pointer; margin-top: 40px;">
         <span class="down-arrow">⬇️</span>
