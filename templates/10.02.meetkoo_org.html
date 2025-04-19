@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meet Koo</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="night-sky" id="night-sky"></div>
+    <div class="back-home-container-koo">
+        <a href="/" class="back-home-button">Back to Home</a>
+    </div>
+
+    <div id="audioControl">
+        <span id="audioIcon">🔊</span>
+        <span id="tooltip">Now Playing: TaeTae</span>
+    </div>
+
+    {% if song_file %}
+    <audio id="bgAudio" autoplay loop data-song="TaeTae">
+        <!-- <source src="{{ url_for('static', filename='audio/tae_speech.mp3') }}" type="audio/mpeg"> -->
+        <source src="{{ url_for('static', filename='audio/' + song_file) }}" type="audio/mp3">
+    </audio>
+    {% endif %}
+
+    <div class="koo-full-page-image-side" style="background-image: url({{ url_for('static', filename='images/taekook/kookie_side.jpeg') }});"></div>
+
+    <div class="koo-section-wrapper">    
+        <div class="koo-section">
+            <div class="koo-heading">🐰 Meet Jung Kook 🐰</div>
+            <div class="koo-image-container">
+                <img src="{{ url_for('static', filename='images/taekook/kookie.jpeg') }}" alt="Jungkook" class="taekook-image">
+            </div>
+            <div class="taekook-bio">
+                <p>{{ koo_content.replace('\n', '<br>') | safe }}</p>
+            </div>
+    
+            <section class="taekook-social-links">
+                <a href="https://twitter.com/BTS_twt" target="_blank">
+                    <img src="/static/images/icons/x.jpeg" alt="Twitter" class="taekook-social-icon">
+                </a>
+                <a href="https://www.instagram.com/bowwow_bam/" target="_blank">
+                    <img src="/static/images/icons/instagram.jpeg" alt="Instagram" class="taekook-social-icon">
+                </a>
+                <a href="https://weverse.io/bts/profile/ccd493e68a6ba447a964d1ce3b529589" target="_blank">
+                    <img src="/static/images/icons/weverse.jpeg" alt="Weverse" class="taekook-social-icon">
+                </a>
+                <a href="https://www.tiktok.com/@Jung Kook?lang=en" target="_blank"></a>
+                    <img src="/static/images/icons/tiktok.jpeg" alt="Weverse" class="taekook-social-icon">
+                </a>
+            </section>
+            <footer-taekook>
+                <p>Jung Kook is a treasure to the world. Let’s continue to support his amazing journey! 💜</p>
+            </footer-taekook>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            let audio = document.getElementById("bgAudio");
+            let audioControl = document.getElementById("audioControl");
+            let tooltip = document.getElementById("tooltip");
+            let audioIcon = document.getElementById("audioIcon"); // Reference to the icon
+
+            // Check if all necessary elements are found
+            if (!audioControl || !tooltip || !audioIcon) {
+                console.error("Missing required elements: audioControl, tooltip, or audioIcon.");
+                return;
+            }
+
+            // Retrieve the previous mute state from localStorage
+            let isMuted = localStorage.getItem("isMuted") === "true";
+            if (audio) {
+                audio.muted = isMuted; // Apply muted state
+                updateAudioControl(isMuted); // Set initial audio control state
+
+                // Attempt to play the audio
+                let playPromise = audio.play();
+                if (playPromise !== undefined) {
+                    playPromise.catch(() => {
+                        audio.muted = true;
+                        updateAudioControl(true); // Muted state
+                        tooltip.innerText = "Click to Play: " + (audio.dataset.song || "Audio");
+
+                        // Handle user click to enable audio
+                        document.body.addEventListener("click", function enableAudio() {
+                            audio.muted = false;
+                            audio.play();
+                            updateAudioControl(false); // Unmuted state
+                            tooltip.innerText = "Now Playing: " + (audio.dataset.song || "Audio");
+                            document.body.removeEventListener("click", enableAudio);
+                        }, { once: true });
+                    });
+                }
+            }
+
+            // Event listeners for controlling audio and tooltip
+            audioControl.addEventListener("click", toggleAudio);
+            audioControl.addEventListener("mouseover", showTooltip);
+            audioControl.addEventListener("mouseout", hideTooltip);
+
+            // Show tooltip on mouseover
+            function showTooltip() {
+                if (!tooltip) return;
+                tooltip.style.visibility = "visible";
+                tooltip.style.opacity = "1";
+
+                // Dynamically position the tooltip next to the audio control
+                let rect = audioControl.getBoundingClientRect();
+                // tooltip.style.left = "-40px"; 
+                // tooltip.style.top = `${rect.top + 40}px`;
+            }
+
+            // Hide tooltip on mouseout
+            function hideTooltip() {
+                if (!tooltip) return;
+                tooltip.style.visibility = "hidden";
+                tooltip.style.opacity = "0";
+            }
+
+            // Toggle mute/unmute state
+            function toggleAudio() {
+                if (!audio) return;
+                audio.muted = !audio.muted; // Toggle muted state
+                updateAudioControl(audio.muted); // Update the control and tooltip
+            }
+
+            // // Update the audio control icon and tooltip text
+            function updateAudioControl(isMuted) {
+                if (!audioIcon) {
+                    console.error("audioIcon element is missing.");
+                    return;
+                }
+
+                // Update the icon and tooltip based on mute state
+                if (isMuted) {
+                    audioIcon.textContent = "🔇"; // Mute icon
+                    tooltip.innerText = "Muted: Click to Play";
+                } else {
+                    audioIcon.textContent = "🔊"; // Unmute icon
+                    tooltip.innerText = "Now Playing: " + (audio.dataset.song || "Audio");
+                }
+
+                // Save mute state to localStorage
+                localStorage.setItem("isMuted", isMuted);
+            }
+        });
+    </script>
+</body>
+</html>
