@@ -29,7 +29,8 @@
 
     .back-button {
       position: fixed;
-      top: 20px;
+      top: 5px;
+      right: 15px;
       font-size: 1rem;
       padding: 8px;
       z-index: 1000;
@@ -147,7 +148,7 @@
     }
 
     #tanIntro {
-      width: 180px;
+      width: 100px !important;
       height: auto;
       border-radius: 12px;
       box-shadow: 0 0 10px rgba(255,255,255,0.2);
@@ -490,7 +491,7 @@
       <p style="text-align: center;">Taehyung is also well-known for his love of his late dog, Kim Yeontan, a pomeranian first introduced to fans in December 2017. Yeontan or "Tannie" was a huge part of Taehyung's life. </p>
       <div class="side-by-side">
         <img src="/static/images/taekook/taetan.jpeg" alt="Yeontan" class="rounded-image">
-        <video id="tanIntro" controls playsinline webkit-playsinline class="side-video">
+        <video id="tanIntro" controls playsinline webkit-playsinline>
           <source src="/static/images/taekook/taetan.mp4" type="video/mp4">
           Your browser does not support the video tag.
         </video>
@@ -517,17 +518,17 @@
       <p>Beyond the spotlight, Taehyung finds solace and inspiration in various forms of art. He is an avid lover of photography and often shares his work under the pseudonym "<strong>Vante</strong>," inspired by photographer Ante Badzim.Art isn’t just a hobby for him — it’s an extension of his inner world. Every frame he captures, every lyric he pens, every beat he chooses is deliberate. His artistry stems from a deep love for emotion, detail, and memory. He doesn’t just create — he curates experiences.</p>
 
       <div class="video-group">
-        <video id="tanIntro" controls playsinline webkit-playsinline>
+        <video id="taeart" controls playsinline webkit-playsinline>
           <source src="/static/images/taekook/taetae_art.mp4" type="video/mp4">
           Your browser does not support the video tag.
         </video>
 
-        <video id="tanIntro" controls playsinline webkit-playsinline>
+        <video id="taeart" controls playsinline webkit-playsinline>
           <source src="/static/images/taekook/taetae_scenary.mp4" type="video/mp4">
           Your browser does not support the video tag.
         </video>
 
-        <video id="tanIntro" controls playsinline webkit-playsinline>
+        <video id="taeart" controls playsinline webkit-playsinline>
           <source src="/static/images/taekook/taetae_winterbear.mp4" type="video/mp4">
           Your browser does not support the video tag.
         </video>
@@ -602,7 +603,7 @@
     <section id="comfort" class="tksection" data-aos="fade-up">
 
       <div class="title-audio-wrap">
-        <h2 class="chapter-title">💌 TaeTae’s Comfort</h2>
+        <h2 class="chapter-title">🫂 TaeTae’s Comfort</h2>
         <div id="audioControl">
           <span id="audioIcon">🔊</span>
           <span id="tooltip">Now Playing: TaeTae</span>
@@ -621,7 +622,7 @@
         <img id = "taetaeweverse" src="/static/images/taekook/taetae_weverse_layover_anniversary.jpeg" alt="Weverse Layover Anniversary" class="rounded-image" style="width: 350px; border-radius: 20px;">
       </div>
 
-      <p>Taehyung replied to a post from a fan on Weverse telling him he's always in our thoughts.</p>
+      <p>In another post, a fan told him that he's always in our thoughts.</p>
 
       <div class="chapter-media" data-aos="zoom-in">
         <img id = "taetaeweverse" src="/static/images/taekook/taetae_weverse_onesided.jpeg" alt="Weverse Onesided" class="rounded-image" style="width: 350px; border-radius: 20px;">
@@ -704,7 +705,7 @@
   
       // 🎥 Autoplay videos when visible
       const sectionsToWatch = ['#intro', '#yeontan', '#taetaelive', '#comfort']; // Add comfort
-      const videoElements = document.querySelectorAll('#taeIntro, #tanIntro, #taetaelive');
+      const videoElements = document.querySelectorAll('#taeIntro, #tanIntro, #taeart, #taetaelive');
       const audio = document.getElementById("bgAudio");
       const audioIcon = document.getElementById("audioIcon");
       const tooltip = document.getElementById("tooltip");
