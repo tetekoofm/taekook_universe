@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  
+  <title>Taekook Universe</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Tangerine:wght@700&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Fira+Sans+Condensed:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&display=swap');
+
+    .night-sky {
+      position: fixed; 
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background-color: black; 
+      pointer-events: none; 
+      z-index: -1; 
+  }
+
+  .star {
+    position: absolute;
+    background: radial-gradient(circle, #6A0DAD 100%, #008000 100%, #ffffff 50%); 
+    width: 12px; 
+    height: 12px;
+    clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
+    animation: twinkle 2s infinite ease-in-out;
+    z-index: 0;
+  }
+
+  @keyframes twinkle {
+      0% {
+          opacity: 0.5;
+      }
+      25% {
+          opacity: 0.2;
+      }
+      50% {
+          opacity: 1;
+      }
+      75% {
+          opacity: 0.5;
+      }
+      100% {
+          opacity: 0.5;
+      }
+  }
+
+    body {
+      margin: 0;
+      padding: 0;
+      background: linear-gradient(to bottom, #1e1e2f, #2e2e42);
+      color: #3b9e3b;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      text-align: center;
+      flex-direction: column;
+    }
+
+    .heart {
+      font-size: 2rem;
+      animation: pulse 2s infinite;
+      margin-top: 1rem;
+    }
+
+    @keyframes pulse {
+      0% { transform: scale(1); opacity: 0.8; }
+      50% { transform: scale(1.2); opacity: 1; }
+      100% { transform: scale(1); opacity: 0.8; }
+    }
+  </style>
+</head>
+<body>
+  <div class="night-sky" id="night-sky"></div>
+  <h1 style="font-family: 'Tangerine', serif; font-size: 5.5rem; font-weight: bold; position: relative; top: 30px; margin-bottom: 3rem; letter-spacing: 1px;">
+    Our <strong style="color: #6A0DAD;">Taekook Universe</strong> is Loading...
+  </h1>
+  
+  <img src="{{ url_for('static', filename='images/home/tk_run.jpeg') }}" alt="TaeKook" style="width: 600px; height: auto; margin-top: 1rem;">
+  <p style="font-family: 'Fira Sans Condensed', san-serif; font-size: 1.5rem;  max-width: 1000px; position: relative; margin-bottom: 1rem;">
+    Something beautiful is blooming behind the scenes.<br/>
+    Please wait for us, just like the stars wait for the night.<br/>
+    Taehyung and Jungkook’s story will find you soon.
+  </p>
+  <div class="heart">💜</div>
+</body>
+<script>
+  function generateStars() {
+    const nightSky = document.createElement('div');
+    nightSky.classList.add('night-sky');
+    document.body.appendChild(nightSky);
+
+    const numberOfStars = 100; 
+    for (let i = 0; i < numberOfStars; i++) {
+        const star = document.createElement('div');
+        star.classList.add('star');
+        star.style.top = `${Math.random() * 100}vh`; 
+        star.style.left = `${Math.random() * 100}vw`; 
+        star.style.animationDuration = `${Math.random() * 3 + 2}s`; 
+        nightSky.appendChild(star);
+    }
+}
+
+window.onload = function() {
+    generateStars(); 
+};
+</script>
+</html>

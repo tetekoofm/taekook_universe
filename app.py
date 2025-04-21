@@ -31,7 +31,8 @@ def home():
     music = BackgroundMusic.query.filter_by(page_name='home').first()
     song_file = music.file_name if music else "default.mp3"
     song_name = music.song_name if music else "Default Song"
-    return render_template('01.home.html', song_file=song_file, song_name=song_name, images=images)
+    return render_template('01.home_soon.html', song_file=song_file, song_name=song_name, images=images)
+    # return render_template('01.home.html', song_file=song_file, song_name=song_name, images=images)
 
 @app.route('/meet-tae')
 def meet_tae():
