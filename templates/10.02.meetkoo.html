@@ -430,16 +430,31 @@
   <section id="soloera" class="tksection" data-aos="fade-up">
     <h2 class="chapter-title">🎶 The Voice of V: Solo Era</h2>
     <p>V released his first solo album, <strong>“Layover.”</strong> on September 8, 2023.</p>
-    <p>The album, produced by ADOR’s Min Hee-jin, showcased his dreamy, jazz-infused sound and vintage aesthetic.</p>
+    <p>Layover consists of six tracks in total - five tracks and a bonus track. To fully appreciate the album's flow, Taehyung recommends listening to it in sequence from start to finish.</p>
   
     <div class="chapter-media" data-aos="zoom-in">
       <img src="/static/images/taekook/layover.jpeg" alt="Layover Album Cover" class="rounded-image">
+      <div class="tracklist-wrap">
+        <p>Tracklist:</p>
+        <ul class="tracklist">
+          <li>Love Me Again</li>
+          <li>Rainy Days</li>
+          <li>Slow Dancing</li>
+          <li>Blue</li>
+          <li>For Us</li>
+          <li>Slow Dancing Piano</li>
+        </ul>
+      </div>
     </div>
   
-    <p>Tracks like <em>“Love Me Again,” “Rainy Days,”</em> and <em>“Slow Dancing”</em> highlighted his baritone range, emotive delivery, and mellow musicality. The entire album felt like a letter to the fans — warm, vulnerable, and nostalgic.</p>
-    <p>During promotions, he appeared on variety shows, magazine covers, and global stages — charming audiences with his natural charisma. From Tiny Desk Korea to ELLE and Vogue interviews, he proved that V the artist was just as magnetic as V the idol.</p>
-    <p>His performances brought the Layover era to life — smooth, heartfelt, and cinematic. With each movement, each look, he reminded the world: he isn’t just singing the music. He *is* the music.</p>
-  
+    <p><em>‘Love Me Again’</em> and <em>‘Rainy Days’</em> were pre-released on August 11, 2023. <em>’Slow Dancing’</em> is the Title Track of the album.</p>
+    <p>The entire album felt like a letter to the fans — warm, vulnerable, and nostalgic. During promotions, he appeared on variety shows charming audiences with his natural charisma. From Tiny Desk Korea to ELLE and Vogue interviews, he proved that V, the artist was just as magnetic as V the idol. With each movement, each look, he reminded the world: he isn’t just singing the music. He *is* the music.</p>
+    <p>Some of the achievements the album received are:
+    <ul>
+      <li>The highest first day sales first-day sales of any solo album in Hanteo history, at $2,101,974 copies.</li>
+      <li>#1 on iTunes Top Albums chart in 65 regions. ‘Slow Dancing’ reached #1 on iTunes Top Songs in 75 regions.</li>
+      <li>#2 on Billboard’s Top 25 K-Pop Albums of 2023.</li>
+    </ul>
     <div class="quote-box" data-aos="zoom-in">
       “I just want to show you my true self. This is who I am.” — V
     </div>
@@ -530,7 +545,25 @@
     <div class="quote-box" data-aos="zoom-in">
       “I am not good at speaking english, but I can love you.”
     </div>
-    
+  
+    <div onclick="scrollToThankYou()" style="cursor: pointer; margin-top: 40px;">
+      <span class="down-arrow">⬇️</span>
+    </div>
+
+  </section>
+  <!----------------------------------------------- 10 ------------------------------------------------->
+
+  <section id="thankyou" class="tksection" data-aos="fade-up">
+    <h2 class="chapter-title">🙏 Thank You! 💚</h2>
+  
+    <p>Thank you, Jungkook, for inspiring us with your passion, your relentless spirit, and your pure heart. Your journey reminds us that dreams are built through patience, courage, and unwavering belief.</p>
+    <p>You are our eternal artist, our pride and our safe place, and your music and kindness light up paths we didn't even know we could walk. We are always beside you, cheering you on forever.</p>     
+
+    <video id="taekookthankyou" controls playsinline webkit-playsinline>
+      <source src="/static/images/taekook/kookie_thankyou.mp4" type="video/mp4">
+      Your browser does not support the video tag.
+    </video>
+  
   <footer class="taekook-footer" data-aos="fade-up">    
     <div class="taekook-social-links">
       <a href="https://twitter.com/BTS_twt" target="_blank">
@@ -547,8 +580,8 @@
   </footer>
 
 </section>
-
 </div>
+
 <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
 <script>
   document.addEventListener("DOMContentLoaded", function () {
@@ -583,10 +616,11 @@
     window.scrollToSoloEra = () => scrollToSection('#artistwithin');
     window.scrollToFanLove = () => scrollToSection('#soloera');
     window.scrollToComfort = () => scrollToSection('#fanlove');
+    window.scrollToThankYou = () => scrollToSection('#comfort');
 
     // 🎥 Autoplay videos when visible
-    const sectionsToWatch = ['#intro', '#yeontan', '#taetaelive', '#comfort']; // Add comfort
-    const videoElements = document.querySelectorAll('#taeIntro, #tanIntro, #taeart, #taetaelive');
+    const sectionsToWatch = ['#intro', '#yeontan', '#taetaelive', '#comfort', '#taekookthankyou'];
+    const videoElements = document.querySelectorAll('#taeIntro, #tanIntro, #taeart, #taetaelive, #taekookthankyou');
     const audio = document.getElementById("bgAudio");
     const audioIcon = document.getElementById("audioIcon");
     const tooltip = document.getElementById("tooltip");

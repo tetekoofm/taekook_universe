@@ -300,7 +300,25 @@
       <div class="quote-box" data-aos="zoom-in">
         “I am not good at speaking english, but I can love you.”
       </div>
-      
+    
+      <div onclick="scrollToThankYou()" style="cursor: pointer; margin-top: 40px;">
+        <span class="down-arrow">⬇️</span>
+      </div>
+
+    </section>
+    <!----------------------------------------------- 10 ------------------------------------------------->
+
+    <section id="thankyou" class="tksection" data-aos="fade-up">
+      <h2 class="chapter-title">🙏 Thank You! 💚</h2>
+    
+      <p>Thank you, Taehyung, for being a light in the quiet moments and a comfort in the loud ones. Your warmth, sincerity, and timeless love for your fans create a place where we can always feel safe and seen. You teach us that even the smallest gestures — a smile, a word, a song — can hold immense healing. We love you endlessly, just as you are.</p>     
+      <p>You teach us that even the smallest gestures — a smile, a word, a song can hold immense healing. We love you endlessly, just as you are.</p>     
+
+      <video id="taekookthankyou" controls playsinline webkit-playsinline>
+        <source src="/static/images/taekook/taetae_thankyou.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+      </video>
+    
     <footer class="taekook-footer" data-aos="fade-up">    
       <div class="taekook-social-links">
         <a href="https://twitter.com/BTS_twt" target="_blank">
@@ -317,8 +335,8 @@
     </footer>
   
   </section>
-
   </div>
+
   <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
   <script>
     document.addEventListener("DOMContentLoaded", function () {
@@ -353,10 +371,11 @@
       window.scrollToSoloEra = () => scrollToSection('#artistwithin');
       window.scrollToFanLove = () => scrollToSection('#soloera');
       window.scrollToComfort = () => scrollToSection('#fanlove');
+      window.scrollToThankYou = () => scrollToSection('#comfort');
   
       // 🎥 Autoplay videos when visible
-      const sectionsToWatch = ['#intro', '#yeontan', '#taetaelive', '#comfort']; // Add comfort
-      const videoElements = document.querySelectorAll('#taeIntro, #tanIntro, #taeart, #taetaelive');
+      const sectionsToWatch = ['#intro', '#yeontan', '#taetaelive', '#comfort', '#taekookthankyou'];
+      const videoElements = document.querySelectorAll('#taeIntro, #tanIntro, #taeart, #taetaelive, #taekookthankyou');
       const audio = document.getElementById("bgAudio");
       const audioIcon = document.getElementById("audioIcon");
       const tooltip = document.getElementById("tooltip");

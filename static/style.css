@@ -4142,6 +4142,12 @@ a:hover {
     border-radius: 20px;
   }
 
+  #taekookthankyou {
+    height: 600px; 
+    width:auto; 
+    border-radius: 20px;
+  }
+
   .title-audio-wrap {
     display: flex;
     align-items: center;
