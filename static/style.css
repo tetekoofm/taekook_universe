@@ -4135,7 +4135,14 @@ a:hover {
     border-radius: 12px;
     box-shadow: 0 0 10px rgba(255,255,255,0.2);
   }
-
+  .badge-line {
+    text-align: center;
+    margin: 20px auto;
+    font-size: 1rem;
+    color: #FFA500; /* You can change color to match your page theme */
+    font-weight: bold;
+    letter-spacing: 1px;
+  }
   #taetaeletter, #taetaelive {
     height: 500px; 
     width:auto; 
