@@ -3987,16 +3987,38 @@ a:hover {
     flex-direction: column;
     justify-content: center;
     height: 100%;
+    width: 100%;
     color: #9354ce;
     font-weight: 800;
   }
-  
+
   .tracklist {
     margin: 0;
     padding-left: 20px;
     list-style-type: disc;
+    width: 100%;
+    /* border: 2px solid red; */
   }
   
+  .tracklist-columns {
+    display: flex;
+    flex-wrap: nowrap;
+    gap: 40px;
+    width: 100%;
+    align-items: flex-start;
+  }
+  
+  .tracklist-columns .tracklist {
+    flex: 1 1 0;
+    min-width: 0;
+    list-style: none;
+    margin: 0;
+    padding-left: 16px;
+    word-break: break-word;
+    overflow-wrap: break-word;
+    white-space: normal;
+  }
+
   .tracklist-wrap p {
     margin-bottom: 4px;
     margin-top: 0;
@@ -4004,15 +4026,18 @@ a:hover {
   }
 
   .tracklist li {
+    width: 100%;
     color: #00ffff;
     font-size: 1rem;
     font-weight: 500;
     background: none;
     border: none;
     border-radius: 0;
-    line-height: 0.2px !important;
+    line-height: 2.2px !important;
     margin-top: 0;
-  }
+    margin: 2px 0;
+    /* border: 2px solid red; */
+  } 
   
   .tracklist li::before {
     content: "🎵 ";
@@ -4039,6 +4064,22 @@ a:hover {
     font-size: 5rem !important;
   }
 
+  .tkcaption {
+    font-size: 1.5rem !important; 
+    color: #3dcf64;
+    margin: 0.2rem 0; 
+    margin-left: 10px;
+    margin-right: 10px;
+    margin-bottom: 50px !important;
+    text-align: center;
+    max-width: 100%;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6), 
+                 -2px -2px 4px rgba(0, 0, 0, 0.4), 
+                 0px 4px 6px rgba(0, 0, 0, 0.3);
+    line-height: 0.8; 
+    z-index: 100;
+}
+
   .down-arrow {
     font-size: 2rem;
     animation: bounce 1.5s infinite;
@@ -4064,7 +4105,7 @@ a:hover {
     max-width: 1000px;
   }
 
-  #taeIntro {
+  #taekookintro {
     width: 60%;  
     height: auto; 
     max-width: 800px; 
@@ -4075,7 +4116,6 @@ a:hover {
     width: 100%;
     display: flex;
     justify-content: center;
-    /* margin: 40px auto; */
   }
 
   .youtube-banner iframe {
@@ -4089,25 +4129,24 @@ a:hover {
 
   .side-by-side {
     display: flex;
-    align-items: center;
+    gap: 30px;
     justify-content: center;
-    gap: 16px;
-    flex-wrap: nowrap; 
-    max-width: 100%;
-    overflow-x: auto;
-    margin: 20px auto;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+  
+  .taekooklive img,
+  .taekooklive video {
+    width: 100%;
+    max-width: 350px;
+    object-fit: cover;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
   }
 
-  .rounded-image {
-    border-radius: 15px;
-    width: 180px;
-    height: auto;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-  }
-
-  #tanIntro {
-    width: 100px !important;
-    height: auto;
+  #bamtanintro {
+    width: auto;
+    max-height: 240px;
     border-radius: 12px;
     box-shadow: 0 0 10px rgba(255,255,255,0.2);
   }
@@ -4118,6 +4157,14 @@ a:hover {
     align-items: center;
     margin-bottom: 10px;
     gap: 20px;
+  }
+
+  .rounded-image {
+    border-radius: 15px;
+    width: auto;
+    /* height: auto; */
+    max-height: 240px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
   }
 
   .video-group {
@@ -4135,15 +4182,8 @@ a:hover {
     border-radius: 12px;
     box-shadow: 0 0 10px rgba(255,255,255,0.2);
   }
-  .badge-line {
-    text-align: center;
-    margin: 20px auto;
-    font-size: 1rem;
-    color: #FFA500; /* You can change color to match your page theme */
-    font-weight: bold;
-    letter-spacing: 1px;
-  }
-  #taetaeletter, #taetaelive {
+
+  #taekookletter, #taekooklive {
     height: 500px; 
     width:auto; 
     border-radius: 20px;
@@ -4164,7 +4204,7 @@ a:hover {
   }
 
   #audioControl {
-    top: 110px;
+    top: 150px;
   }
 
   #audioIcon {
@@ -4284,12 +4324,14 @@ a:hover {
     align-items: flex-start;
   }
 
-  .tracklist {
-    padding-left: 16px;
+  .tracklist-wrap p {
+    margin-left: 2px;
   }
 
-  .tracklist-wrap p {
-    margin-left: 12px;
+  .tracklist {
+    list-style: none;
+    margin: 0;
+    padding: 0 16px;
   }
 
   .tracklist li {
@@ -4343,13 +4385,13 @@ a:hover {
     width: 40%;
   }
 
-  #taetaeletter, #taetaelive {
+  #taekookletter, #taekooklive {
     height: 200px; 
     width:auto; 
     border-radius: 20px;
   }
 
-  #taetaeweverse {
+  #taekookweverse {
     width:50% !important; 
     border-radius: 20px;
     padding: 0;

@@ -66,7 +66,7 @@
     </div>
 
     <!-- Fanbase Overview Section -->
-    <div class="section">
+    <!-- <div class="section">
          <h3>How to Connect with Fanbases?</h3>
         <p>If you are looking to connect with dedicated fanbases (check focus), below are the list of fanbases that work tirelessly for TaeKook. Follow their official social media accounts (X preferred) and actively participate in their everyday events.</p>
         <div class="fanbase-container">
@@ -76,9 +76,9 @@
                         <img src="{{ url_for('static', filename='images/fanbases/' + fanbase.logo) }}" alt="Logo of {{ fanbase.fb_name }}" class="fanbase-logo">
                     {% endif %}
                     <h2 class="fanbase-name">{{ fanbase.fb_name }}</h2>
-                    <!-- <p class="location"><strong>Location:</strong> {{ fanbase.location }}</p> -->
+                    <p class="location"><strong>Location:</strong> {{ fanbase.location }}</p>
                     <p class="work"><strong>Focus:</strong> {{ fanbase.focus }}</p>
-                    <!-- <p class="description">{{ fanbase.description }}</p> -->
+                    <p class="description">{{ fanbase.description }}</p>
                     
                     <div class="fb-social-icons">
                         {% if fanbase.x %}
@@ -120,7 +120,7 @@
                 </div>
             {% endfor %}
         </div>                        
-    </div>
+    </div> -->
 
     <!-- Tips Section -->
     <div class="sticky-notes">
