@@ -226,14 +226,14 @@
       “I want to put the things that best represent me now on this album.” — JK
     </div>
   
-    <div onclick="scrollToFanLove()" style="cursor: pointer; margin-top: 40px;">
+    <div onclick="scrollToGoldenHours()" style="cursor: pointer; margin-top: 40px;">
       <span class="down-arrow">⬇️</span>
     </div>
   </section>
   
 
   <!----------------------------------------------- 8 ------------------------------------------------->
-  <section id="fanlove" class="tksection" data-aos="fade-up">
+  <section id="goldenhours" class="tksection" data-aos="fade-up">
     <h2 class="chapter-title">🎧 Golden Hours with JK</h2>
   
     <p>Jungkook connects with fans in the most genuine, unscripted ways. Whether it’s 3AM karaoke sessions, gym vlogs, or casual Weverse Lives, he shares slices of his real life with comforting honesty. His lives often stretch for hours — singing, chatting, laughing, or just vibing in silence with ARMY. He even made a Weverse Live record with over 20M views & over 290M likes!</p>
@@ -256,14 +256,14 @@
       “ARMY, you give me strength. Let’s be together for a long, long time.” — Jungkook
     </div>
 
-    <div onclick="scrollToGoldenHours()" style="cursor: pointer; margin-top: 40px;">
+    <div onclick="scrollToComfort()" style="cursor: pointer; margin-top: 40px;">
       <span class="down-arrow">⬇️</span>
     </div>
 
   </section>
   
   <!----------------------------------------------- 9 ------------------------------------------------->
-    <section id="goldenhours" class="tksection" data-aos="fade-up">
+    <section id="comfort" class="tksection" data-aos="fade-up">
 
       <div class="title-audio-wrap">
         <h2 class="chapter-title">🫂 Jungkook’s Comfort</h2>
@@ -382,12 +382,12 @@
     window.scrollToBam = () => scrollToSection('#goldenjk');
     window.scrollToArtistWithin = () => scrollToSection('#bam');
     window.scrollToSoloEra = () => scrollToSection('#artistwithin');
-    window.scrollToFanLove = () => scrollToSection('#soloera');
-    window.scrollToGoldenHours = () => scrollToSection('#fanlove');
-    window.scrollToThankYou = () => scrollToSection('#goldenhours');
+    window.scrollToGoldenHours = () => scrollToSection('#soloera');
+    window.scrollToComfort = () => scrollToSection('#goldenhours');
+    window.scrollToThankYou = () => scrollToSection('#comfort');
 
     // 🎥 Autoplay videos when visible
-    const sectionsToWatch = ['#intro', '#goldenjk', '#bam', '#artistwithin', '#fanlove', '#comfort', '#taekookthankyou'];
+    const sectionsToWatch = ['#intro', '#goldenjk', '#bam', '#artistwithin', '#goldenhours', '#comfort', '#taekookthankyou'];
     const videoElements = document.querySelectorAll('#taekookintro, #goldenmaknae, #bamtanintro, #taekookart, #taekooklive, #taekookthankyou');
     const audio = document.getElementById("bgAudio");
     const audioIcon = document.getElementById("audioIcon");

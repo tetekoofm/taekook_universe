@@ -36,23 +36,17 @@ def home():
 
 @app.route('/meet-tae')
 def meet_tae():
-    file_path = os.path.join(app.root_path, 'static', 'content', 'meet_tae.txt')
     music = BackgroundMusic.query.filter_by(page_name='meet tae').first()
     song_file = music.file_name if music else "default.mp3"
     song_name = music.song_name if music else "Default Song"
-    with open(file_path, "r", encoding="utf-8") as file:
-        tae_content = file.read()
-    return render_template("10.01.meettae.html", song_file=song_file, song_name=song_name, tae_content=tae_content)
+    return render_template("10.01.meettae.html", song_file=song_file, song_name=song_name)
 
 @app.route('/meet-koo')
 def meet_koo():
-    file_path = os.path.join(app.root_path, 'static', 'content', 'meet_koo.txt')
     music = BackgroundMusic.query.filter_by(page_name='meet koo').first()
     song_file = music.file_name if music else "default.mp3"
     song_name = music.song_name if music else "Default Song"
-    with open(file_path, "r", encoding="utf-8") as file:
-        koo_content = file.read()
-    return render_template("10.02.meetkoo.html", song_file=song_file, song_name=song_name, koo_content=koo_content)
+    return render_template("10.02.meetkoo.html", song_file=song_file, song_name=song_name)
 
 @app.route('/termsandconditions')
 def termsandconditions():
