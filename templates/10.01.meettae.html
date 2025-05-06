@@ -111,11 +111,11 @@
       </div>
       <p>Taehyung possesses a rare and unforgettable aura, making him effortlessly unique and setting him apart from everyone else. Not to forget, he is ambidextrous, a small but remarkable detail that reflects his natural versatility.</p>
       
-      <video id="goldenmaknae" controls playsinline webkit-playsinline>
-        <source src="/static/videos/kookie_goldenmaknae.mp4" type="video/mp4">
+      <video id="actortaetae" controls playsinline webkit-playsinline>
+        <source src="/static/images/taekook/taetae_actor.mp4" type="video/mp4">
         Your browser does not support the video tag.
       </video>
-
+      
       <p>Taehyung’s love for acting has always been a quiet part of his artistry. Long before his official debut, he often created skits and playful roleplays with fellow BTS members, showing his natural expressiveness and imagination.</p> 
       <p>In 2016, he made his acting debut in the historical drama <strong>‘Hwarang: The Poet Warrior Youth’</strong>, where he portrayed the warm-hearted warrior Hansung. His sincerity and innocence on screen touched many viewers. Taehyung also contributed to the drama’s soundtrack, collaborating with his fellow BTS member, Jin on the heartfelt song <strong>‘It’s Definitely You’</strong> in 2017, blending his love for music and acting into one beautiful moment.</p>
       <div class="quote-box" data-aos="zoom-in">
@@ -145,14 +145,14 @@
       <div class="quote-box" data-aos="zoom-in">
         “Let’s make precious memories again as we always have. I really miss you, and I really love you.” — V
       </div>
-      <div onclick="scrollToArtistWithin()" style="cursor: pointer; margin-top: 40px;">
+      <div onclick="scrollToCultureofTae()" style="cursor: pointer; margin-top: 40px;">
         <span class="down-arrow">⬇️</span>
       </div>
     </section>
 
     <!----------------------------------------------- 6 ------------------------------------------------->
-    <section id="artistwithin" class="tksection" data-aos="fade-up">
-      <h2 class="chapter-title">🎨 The Artist Within</h2>
+    <section id="cultureoftae" class="tksection" data-aos="fade-up">
+      <h2 class="chapter-title">🎨 The Culture of Tae</h2>
 
       <div class="chapter-media" data-aos="zoom-in">
         <img src="/static/images/taekook/taetae_art.jpeg" alt="Vante Art" class="rounded-image">
@@ -163,19 +163,10 @@
       <p>Beyond the spotlight, Taehyung finds solace and inspiration in various forms of art. Aa an avid photographer, he often shares his work under the pseudonym <strong>“Vante”</strong>, a nod to photographer Ante Badzim. His photos are quiet, thoughtful reflections of how he sees the world — tender, detailed, and deeply emotional.</p>
       <p>He also enjoys video games, where he relaxes, explores, and shares small moments with fans in his own quiet way. For Taehyung, art isn’t just a hobby, but a reflection of his inner self. He doesn’t just create; he curates meaningful experiences.</p>
 
-      <div id="taekookart-section" class="video-group">
-        <video id="taekookart1" controls playsinline>
-          <source src="/static/images/taekook/taetae_art.mp4" type="video/mp4">
-        </video>
-
-        <video id="taekookart2" controls playsinline>
-          <source src="/static/images/taekook/taetae_scenary.mp4" type="video/mp4">
-        </video>
-
-        <!-- <video id="taekookart3" controls playsinline>
-          <source src="/static/images/taekook/taetae_winterbear.mp4" type="video/mp4">
-        </video> -->
-      </div>
+      <video id="taekookart" controls playsinline webkit-playsinline>
+        <source src="/static/images/taekook/taetae_culture.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+      </video>
 
       <p>His SoundCloud releases, like "<strong>Scenery</strong>" and "<strong>Winter Bear</strong>," blend his visuals and vocals. With heartfelt lyrics, ambient sounds, and self-shot visuals, these tracks revealed an introspective and poetic side of Taehyung. As a member of BTS, he brings depth to their music with his rich baritone and stands out as a captivating stage performer, known for his charisma and emotional expression.</p>
       
@@ -327,162 +318,122 @@
         Your browser does not support the video tag.
       </video>
     
-    <footer class="taekook-footer" data-aos="fade-up">    
-      <div class="taekook-social-links">
-        <a href="https://twitter.com/BTS_twt" target="_blank">
-            <img src="/static/images/icons/x.jpeg" alt="Twitter" class="taekook-social-icon">
-        </a>
-        <a href="https://www.instagram.com/thv" target="_blank">
-            <img src="/static/images/icons/instagram.jpeg" alt="Instagram" class="taekook-social-icon">
-        </a>
-        <a href="https://weverse.io/bts/profile/07ee2935d1a799b354ee32954e17914b" target="_blank">
-            <img src="/static/images/icons/weverse.jpeg" alt="Weverse" class="taekook-social-icon">
-        </a>
-      </div>
-      <p>Kim Taehyung - Sometimes, it is okay to take a break, take a step back and reflect on yourself.💚</p>
-    </footer>
-  
-  </section>
+      <footer class="taekook-footer" data-aos="fade-up">    
+        <div class="taekook-social-links">
+          <a href="https://twitter.com/BTS_twt" target="_blank">
+              <img src="/static/images/icons/x.jpeg" alt="Twitter" class="taekook-social-icon">
+          </a>
+          <a href="https://www.instagram.com/thv" target="_blank">
+              <img src="/static/images/icons/instagram.jpeg" alt="Instagram" class="taekook-social-icon">
+          </a>
+          <a href="https://weverse.io/bts/profile/07ee2935d1a799b354ee32954e17914b" target="_blank">
+              <img src="/static/images/icons/weverse.jpeg" alt="Weverse" class="taekook-social-icon">
+          </a>
+        </div>
+        <p>Kim Taehyung - Sometimes, it is okay to take a break, take a step back and reflect on yourself.💚</p>
+      </footer>
+    </section>
   </div>
 
-  <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
-  <script>
-    document.addEventListener("DOMContentLoaded", function () {
-      AOS.init({ once: true, duration: 1000 });
-  
-      // Scroll-based background switch
-      const introSection = document.getElementById('intro');
-      window.addEventListener('scroll', () => {
-        const triggerPoint = introSection.offsetTop - 100;
-        if (window.scrollY > triggerPoint) {
-          document.body.classList.add('scrolled');
-        } else {
-          document.body.classList.remove('scrolled');
-        }
-      });
-  
-      // Smooth scroll navigation functions
-      function scrollToSection(currentId) {
-        const next = document.querySelector(currentId)?.nextElementSibling;
-        if (next) {
-          next.scrollIntoView({ behavior: 'smooth' });
-        }
-      }
-  
-      window.scrollToIntro = () => scrollToSection('#landing');
-      window.scrollToDaeguToDebut = () => scrollToSection('#intro');
-      window.scrollToBTSV = () => scrollToSection('#daegutodebut');
-      window.scrollToPurple = () => scrollToSection('#btsv');
-      window.scrollToActorV = () => scrollToSection('#purple');
-      window.scrollToYeontan = () => scrollToSection('#actorv');
-      window.scrollToArtistWithin = () => scrollToSection('#yeontan');
-      window.scrollToSoloEra = () => scrollToSection('#artistwithin');
-      window.scrollToFanLove = () => scrollToSection('#soloera');
-      window.scrollToComfort = () => scrollToSection('#fanlove');
-      window.scrollToThankYou = () => scrollToSection('#comfort');
-  
-      // 🎥 Autoplay videos when visible
-      const sectionsToWatch = ['#intro', '#yeontan', '#taekooklive', '#comfort', '#taekookthankyou'];
-      const videoElements = document.querySelectorAll('#taekookintro, #bamtanintro, #taekookart, #taekooklive, #taekookthankyou');
-      const audio = document.getElementById("bgAudio");
-      const audioIcon = document.getElementById("audioIcon");
-      const tooltip = document.getElementById("tooltip");
-      const video1 = document.getElementById("taekookart1");
-      const video2 = document.getElementById("taekookart2");
-      const video3 = document.getElementById("taekookart3");
+<script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    AOS.init({ once: true, duration: 1000 });
 
-
-      function resetArtistWithinVideos() {
-        [video1, video2, video3].forEach(v => {
-          v.pause();
-          v.currentTime = 0;
-          v.style.display = 'none';
-        });
-        video1.style.display = 'block';
-      }
-
-      video1.addEventListener("ended", () => {
-        // video1.style.display = "none";
-        video2.style.display = "block";
-        video2.play();
-      });
-
-      video2.addEventListener("ended", () => {
-        // video2.style.display = "none";
-        video3.style.display = "block";
-        video3.play();
-      });
-
-      const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-          const sectionId = entry.target.id;
-
-          // Handle sequential autoplay only for #artistwithin
-          if (sectionId === "artistwithin") {
-            if (entry.isIntersecting) {
-              resetArtistWithinVideos();
-              video1.play();
-            } else {
-              resetArtistWithinVideos();
-            }
-            return; // skip default logic for this one
-          }
-
-          // 🎥 Regular video autoplay for others
-          videoElements.forEach(video => {
-            if (entry.isIntersecting && entry.target.contains(video)) {
-              video.play();
-            } else {
-              video.pause();
-            }
-          });
-
-          // 🎵 Handle comfort section audio
-          if (sectionId === "comfort") {
-            if (entry.isIntersecting) {
-              audio?.play();
-              updateAudioControl(false);
-            } else {
-              audio?.pause();
-            }
-          }
-        });
-      }, { threshold: 0.5 });
-
-      sectionsToWatch.forEach(id => {
-        const section = document.querySelector(id);
-        if (section) observer.observe(section);
-      });
-  
-      // 🔇 Audio control toggle
-      const audioControl = document.getElementById("audioControl");
-      if (audioControl && audio && audioIcon && tooltip) {
-        audioControl.addEventListener("click", () => {
-          audio.muted = !audio.muted;
-          updateAudioControl(audio.muted);
-        });
-  
-        audioControl.addEventListener("mouseover", () => {
-          tooltip.style.visibility = "visible";
-          tooltip.style.opacity = "1";
-        });
-  
-        audioControl.addEventListener("mouseout", () => {
-          tooltip.style.visibility = "hidden";
-          tooltip.style.opacity = "0";
-        });
-      }
-  
-      function updateAudioControl(isMuted) {
-        if (!audioIcon || !tooltip) return;
-        audioIcon.textContent = isMuted ? "🔇" : "🔊";
-        tooltip.innerText = isMuted
-          ? "Muted: Click to Play"
-          : "Now Playing: " + (audio.dataset.song || "Audio");
-        localStorage.setItem("isMuted", isMuted);
+    // Scroll-based background switch
+    const introSection = document.getElementById('intro');
+    window.addEventListener('scroll', () => {
+      const triggerPoint = introSection.offsetTop - 100;
+      if (window.scrollY > triggerPoint) {
+        document.body.classList.add('scrolled');
+      } else {
+        document.body.classList.remove('scrolled');
       }
     });
-  </script>
-  
+
+    // Smooth scroll navigation functions
+    function scrollToSection(currentId) {
+      const next = document.querySelector(currentId)?.nextElementSibling;
+      if (next) {
+        next.scrollIntoView({ behavior: 'smooth' });
+      }
+    }
+
+    window.scrollToIntro = () => scrollToSection('#landing');
+    window.scrollToDaeguToDebut = () => scrollToSection('#intro');
+    window.scrollToBTSV = () => scrollToSection('#daegutodebut');
+    window.scrollToPurple = () => scrollToSection('#btsv');
+    window.scrollToActorV = () => scrollToSection('#purple');
+    window.scrollToYeontan = () => scrollToSection('#actorv');
+    window.scrollToCultureofTae = () => scrollToSection('#yeontan');
+    window.scrollToSoloEra = () => scrollToSection('#cultureoftae');
+    window.scrollToFanLove = () => scrollToSection('#soloera');
+    window.scrollToComfort = () => scrollToSection('#fanlove');
+    window.scrollToThankYou = () => scrollToSection('#comfort');
+
+    // 🎥 Autoplay videos when visible
+    const sectionsToWatch = ['#intro', '#actorv', '#yeontan', '#cultureoftae', '#fanlove', '#comfort', '#taekookthankyou'];
+    const videoElements = document.querySelectorAll('#taekookintro, #actortaetae, #bamtanintro, #taekookart, #taekooklive, #taekookthankyou');
+    const audio = document.getElementById("bgAudio");
+    const audioIcon = document.getElementById("audioIcon");
+    const tooltip = document.getElementById("tooltip");
+
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        videoElements.forEach(video => {
+          if (entry.isIntersecting && entry.target.contains(video)) {
+            video.play();
+          } else {
+            video.pause();
+          }
+        });
+
+        if (entry.target.id === "comfort") {
+          if (entry.isIntersecting) {
+            audio?.play();
+            updateAudioControl(false);
+          } else {
+            audio?.pause();
+          }
+        }
+      });
+    }, { threshold: 0.5 });
+
+    sectionsToWatch.forEach(id => {
+      const section = document.querySelector(id);
+      if (section) observer.observe(section);
+    });
+
+    // 🔇 Audio control toggle
+    const audioControl = document.getElementById("audioControl");
+    if (audioControl && audio && audioIcon && tooltip) {
+      audioControl.addEventListener("click", () => {
+        audio.muted = !audio.muted;
+        updateAudioControl(audio.muted);
+      });
+
+      audioControl.addEventListener("mouseover", () => {
+        tooltip.style.visibility = "visible";
+        tooltip.style.opacity = "1";
+      });
+
+      audioControl.addEventListener("mouseout", () => {
+        tooltip.style.visibility = "hidden";
+        tooltip.style.opacity = "0";
+      });
+    }
+
+    function updateAudioControl(isMuted) {
+      if (!audioIcon || !tooltip) return;
+      audioIcon.textContent = isMuted ? "🔇" : "🔊";
+      tooltip.innerText = isMuted
+        ? "Muted: Click to Play"
+        : "Now Playing: " + (audio.dataset.song || "Audio");
+      localStorage.setItem("isMuted", isMuted);
+    }
+  });
+</script>
+
 </body>
 </html>

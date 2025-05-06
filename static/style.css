@@ -3093,7 +3093,8 @@ footer a:hover {
 }
 
 .fanbase-name {
-    font-size: 2.5em !important;
+    font-family: "Fira Sans Condensed", sans-serif !important;
+    font-size: 1.2em !important;
     font-weight: bold;
     color: #7a4bc3; 
     margin-top: 0px !important;
@@ -3111,6 +3112,7 @@ footer a:hover {
     color: #bbb;
     margin-top: 0px !important;
     margin-bottom: 0px !important;
+    text-align: center;
 }
 
 .description {
@@ -4127,6 +4129,13 @@ a:hover {
     box-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
   }
 
+  .rounded-image {
+    border-radius: 15px;
+    width: auto;
+    max-height: 240px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  }
+
   .side-by-side {
     display: flex;
     gap: 30px;
@@ -4138,10 +4147,11 @@ a:hover {
   .taekooklive img,
   .taekooklive video {
     width: 100%;
-    max-width: 350px;
+    height: 100%;
+    max-height: 500px;
     object-fit: cover;
     border-radius: 12px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   }
 
   #bamtanintro {
@@ -4159,31 +4169,7 @@ a:hover {
     gap: 20px;
   }
 
-  .rounded-image {
-    border-radius: 15px;
-    width: auto;
-    /* height: auto; */
-    max-height: 240px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-  }
-
-  .video-group {
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-    gap: 20px;
-    margin-top: 20px;
-    margin-bottom: 20px;
-    }
-
-  .video-group video {
-    width: 300px !important;
-    height: auto;
-    border-radius: 12px;
-    box-shadow: 0 0 10px rgba(255,255,255,0.2);
-  }
-
-  #taekookletter, #taekooklive {
+  #actortaetae, #goldenmaknae, #taekookart {
     height: 500px; 
     width:auto; 
     border-radius: 20px;
