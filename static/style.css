@@ -4341,6 +4341,10 @@ a:hover {
     border: 3px solid #008000;
   }
 
+  .tkcaption {
+    font-size: 0.6rem;
+  }
+  
   .quote-box {
     font-size: 0.6rem;
     padding: 8px;
@@ -4361,30 +4365,57 @@ a:hover {
     margin-right: 0px;
   }
 
-  .side-by-side, .video-group {
+  .side-by-side {
     flex-direction: row;
     gap: 8px;
     margin-top: 0;
   }
 
-  #tanIntro {
-    width: 40%;
+  .taekooklive img,
+  .taekooklive video {
+    max-height: 250px;
+    object-fit: contain;
+    border-radius: 10px;
   }
 
-  #taekookletter, #taekooklive {
+  #bamtanintro {
+    max-height: 180px;
+    width: 100%;
+    object-fit: contain;
+  }
+
+  .chapter-media {
+    flex-direction: column;
+    gap: 12px;
+    margin-bottom: 20px;
+  }
+
+  #actortaetae, #goldenmaknae, #taekookart {
+    height: auto;
+    max-height: 300px;
+    width: 100%;
+    object-fit: contain;
+    border-radius: 12px;
+  }
+
+  #taekookthankyou {
+    height: auto;
+    max-height: 350px;
+    width: 100%;
+    object-fit: contain;
+    border-radius: 12px;
+  }
+
+  /* #taekookletter, #taekooklive {
     height: 200px; 
     width:auto; 
     border-radius: 20px;
-  }
+  } */
 
   #taekookweverse {
     width:50% !important; 
     border-radius: 20px;
     padding: 0;
-  }
-
-  .video-group video {
-    width: 30% !important;
   }
 
   #audioControl {
