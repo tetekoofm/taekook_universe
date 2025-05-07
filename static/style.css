@@ -4238,9 +4238,19 @@ a:hover {
 /* Mobile Styles */
 @media screen and (max-width: 768px) {
 
-  .back-button {
+.back-button {
+    position: fixed;
+    /* top: 50px; */
     font-size: 1rem;
-  }
+    }
+    
+    .tae-back-button {
+    right: 25px;
+    }
+    
+    .koo-back-button {
+    left: 25px;
+    }
     
   .tae-full-page-image-side {
     position: fixed;
@@ -4433,11 +4443,16 @@ a:hover {
   }
 
   #audioControl {
-    top: 15px;
+    top: 100px;
     right: 15px;
     font-size: 0.75rem;
     padding: 6px 10px;
     gap: 5px;
+  }
+
+  #audioIcon {
+    font-size: 0.8rem;
+    margin-right: 5px;
   }
 
   .taekook-social-links {
