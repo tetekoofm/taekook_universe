@@ -24,7 +24,7 @@ def force_https():
         url = request.url.replace("http://", "https://", 1)
         return redirect(url, code=301)
 
-@app.route('/')
+@app.route('/home_soon')
 def home():
     image_folder = os.path.join(app.static_folder, 'images/home')
     images = [f for f in os.listdir(image_folder) if f.endswith(('jpg', 'jpeg', 'png', 'gif'))]
@@ -32,9 +32,8 @@ def home():
     song_file = music.file_name if music else "your_eyes_tell.mp3"
     song_name = music.song_name if music else "Default Song"
     return render_template('01.home_soon.html', song_file=song_file, song_name=song_name, images=images)
-    # return render_template('01.home.html', song_file=song_file, song_name=song_name, images=images)
 
-@app.route('/home_orig')
+@app.route('/')
 def home_orig():
     image_folder = os.path.join(app.static_folder, 'images/home')
     images = [f for f in os.listdir(image_folder) if f.endswith(('jpg', 'jpeg', 'png', 'gif'))]
