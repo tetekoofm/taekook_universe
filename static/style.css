@@ -237,7 +237,7 @@ footer a:hover {
 .image-carousel {
     position: relative;
     width: 60%;
-    height: 800px;
+    height: 1000px;
     overflow: hidden;
     margin-top: 25px;
 }
@@ -3436,20 +3436,20 @@ input, select, textarea {
     display: flex;
     width: max-content;
     gap: 40px; /* Space between banners */
-    animation: scrollBanners 20s linear infinite;
+    animation: scrollBanners 30s linear infinite;
 }
 
 /* 🔹 Individual Banner Styling */
 .banner-slide {
     flex: 0 0 auto;
     width: auto;
-    height: 100px;
+    height: 80px;
     color: #6A0DAD;
     background: transparent;
     display: flex;
-    flex-direction: column; /* Stack elements vertically */
-    justify-content: flex-start; /* Align content at the top */
-    align-items: center; /* Center horizontally */
+    flex-direction: column; 
+    justify-content: flex-start;
+    align-items: center; 
     text-align: center;
     padding: 10px 20px;
     box-shadow: 8px 8px 16px rgba(106, 13, 173, 0.5);
@@ -3457,8 +3457,8 @@ input, select, textarea {
 }
 
 .banner-slide h2 {
-    font-family: 'Dancing Script', serif;
-    font-size: 3.5rem;
+    font-family: 'Fira Sans Condensed', serif;
+    font-size: 2.5rem;
     margin: 0
 }
 
