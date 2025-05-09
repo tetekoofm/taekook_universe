@@ -491,6 +491,8 @@ footer a:hover {
         display: grid;
         justify-content: center;
         align-items: center; 
+        grid-auto-flow: row; /* Ensures stacking one below the other */
+        row-gap: 1rem;
     }
 
     .main-content .countdown-container h2 {
