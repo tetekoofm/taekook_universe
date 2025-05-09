@@ -308,7 +308,7 @@ footer a:hover {
 }
 
 .timer-box span {
-    margin-top: 25px;
+    margin-top: 15px;
     text-align: center;
     font-size: 2rem;
     font-weight: bold;
@@ -317,7 +317,7 @@ footer a:hover {
 
 .timer-box p {
     font-family: 'Fira Sans Condensed', serif;
-    margin-top: 5px;
+    margin-top: 2px;
     font-size: 1rem;
     color:#0FFF50
 }
@@ -4183,6 +4183,11 @@ a:hover {
     margin-right: 5px;
   }
 
+  .weverse-image {
+    width: 350px; 
+    border-radius: 20px;
+  }
+
   .taekook-social-links {
     display: flex;
     justify-content: center;
@@ -4449,6 +4454,11 @@ a:hover {
   #audioIcon {
     font-size: 0.8rem;
     margin-right: 5px;
+  }
+
+  .weverse-image {
+    width: 200px; 
+    border-radius: 20px;
   }
 
   .taekook-social-links {

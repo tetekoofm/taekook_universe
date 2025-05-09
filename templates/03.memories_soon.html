@@ -1,0 +1,15 @@
+{% extends "00.base.html" %}
+{% block title %}Memories{% endblock %}
+{% block content %}
+<div class="main-content">
+    <h1 class="heading">Memories</h1>
+    <p class="caption">
+        Our memories of Taehyung and Jungkook!
+    </p>
+    <div class="stay-tuned-banner">
+        <p>We are cooking, but we need your help with the ingredients.</p>
+        <p>Wear your chef hat and reach out to <a href="https://x.com/TheTKUniverse">TK Universe</a> for your contribution. 💜</p>
+        <img src="{{ url_for('static', filename='/images/memories/taekook_cooking.jpeg') }}" alt="Stay Tuned" class="stay-tuned-image">
+    </div>        
+</div>
+{% endblock %}

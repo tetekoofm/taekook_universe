@@ -29,10 +29,19 @@ def home():
     image_folder = os.path.join(app.static_folder, 'images/home')
     images = [f for f in os.listdir(image_folder) if f.endswith(('jpg', 'jpeg', 'png', 'gif'))]
     music = BackgroundMusic.query.filter_by(page_name='home').first()
-    song_file = music.file_name if music else "default.mp3"
+    song_file = music.file_name if music else "your_eyes_tell.mp3"
     song_name = music.song_name if music else "Default Song"
     return render_template('01.home_soon.html', song_file=song_file, song_name=song_name, images=images)
     # return render_template('01.home.html', song_file=song_file, song_name=song_name, images=images)
+
+@app.route('/home_orig')
+def home_orig():
+    image_folder = os.path.join(app.static_folder, 'images/home')
+    images = [f for f in os.listdir(image_folder) if f.endswith(('jpg', 'jpeg', 'png', 'gif'))]
+    music = BackgroundMusic.query.filter_by(page_name='home').first()
+    song_file = music.file_name if music else "your_eyes_tell.mp3"
+    song_name = music.song_name if music else "Your Eyes Tell"
+    return render_template('01.home.html', song_file=song_file, song_name=song_name, images=images)
 
 @app.route('/meet-tae')
 def meet_tae():
@@ -93,10 +102,12 @@ def memories():
 
     formatted_years = {year: str(year)[-2:] for year in timeline_data.keys()}
 
-    return render_template('03.memories.html', video_files=video_files,
-                           timeline_data=timeline_data, 
-                           calendar=calendar, 
-                           formatted_years=formatted_years)
+    # return render_template('03.memories.html', video_files=video_files,
+    #                        timeline_data=timeline_data, 
+    #                        calendar=calendar, 
+    #                        formatted_years=formatted_years)
+
+    return render_template('03.memories_soon.html')
 
 @app.route('/get-event-details/<int:event_id>', methods=['GET'])
 def get_event_details(event_id):
