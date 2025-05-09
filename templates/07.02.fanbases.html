@@ -1,6 +1,7 @@
 {% extends "00.base_subnav.html" %}
 {% block title %}Fanbases{% endblock %}
 {% block content %}
+
 <!-- Main Content -->
 <div class="page guide-page">
     <h1>Fanbases: The Heart of TaeKook</h1>
@@ -75,10 +76,10 @@
                     {% if fanbase.logo %}
                         <img src="{{ url_for('static', filename='images/fanbases/' + fanbase.logo) }}" alt="Logo of {{ fanbase.fb_name }}" class="fanbase-logo">
                     {% endif %}
-                    <h2 class="fanbase-name">{{ fanbase.fb_name }}</h2>
+                    <h3 class="fanbase-name">{{ fanbase.fb_name }}</h3>
                     <p class="location"><strong>Location:</strong> {{ fanbase.location }}</p>
                     <p class="work"><strong>Focus:</strong> {{ fanbase.focus }}</p>
-                    <p class="description">{{ fanbase.description }}</p>
+                    <!-- <p class="description">{{ fanbase.description }}</p> -->
                     
                     <div class="fb-social-icons">
                         {% if fanbase.x %}

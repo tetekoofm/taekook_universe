@@ -236,7 +236,7 @@ footer a:hover {
 
 .image-carousel {
     position: relative;
-    width: 80%;
+    width: 60%;
     height: 800px;
     overflow: hidden;
     margin-top: 25px;
@@ -2030,14 +2030,14 @@ footer a:hover {
     font-family: 'Tangerine', serif;
     font-size: 3.2rem;
     margin-top: 5px;
-    margin-bottom: 25px;
+    margin-bottom: 10px;
     color: #ab62f0;
     text-shadow: 0 0 2px #000, 0 0 2px #000, 0 0 2px #000;
 }
 
 .card p {
     font-family: 'Fira Sans Condensed', serif;
-    font-size: 1.2rem;
+    font-size: 1rem;
     color: #ccc;
 }
 
@@ -3057,22 +3057,26 @@ footer a:hover {
 /* Fanbase Cards */
 .fanbase-container {
     display: grid; 
-    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
     justify-content: space-around;
-    gap: 85px;
+    gap: 20px;
     padding: 20px;
+    justify-content: space-around;
 }
 
 .fanbase-card {
     background-color: transparent;
     padding: 10px;
     border-radius: 8px;
-    width: 160px; 
-    height: 250px;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    width: 100%;
+    max-width: 280px;
+    height: auto;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.6);
+    transition: transform 0.3s, box-shadow 0.3s;
     display: flex;
     flex-direction: column;
     align-items: center;
+    text-align: center;
     left: 0;
     right: 0;
     justify-content: space-between;
@@ -3080,25 +3084,24 @@ footer a:hover {
 
 .fanbase-card:hover {
     transform: translateY(-10px);
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 5px 25px rgba(75, 0, 130, 0.8);
 }
 
 .fanbase-logo {
-    margin-top: 15px;
-    width: 80px;
-    height: 80px;
+    width: 100px;
+    height: 100px;
+    margin-bottom: 15px;
     border-radius: 50%;
     object-fit: cover;
-    margin-bottom: 0px;
+    display: block;
 }
 
 .fanbase-name {
-    font-family: "Fira Sans Condensed", sans-serif !important;
-    font-size: 1.2em !important;
+    font-family: "Fira Sans Condensed", serif !important;
+    font-size: 1.2rem !important;
     font-weight: bold;
     color: #7a4bc3; 
-    margin-top: 0px !important;
-    margin-bottom: 0px !important;
+    margin: 10px 0;
 }
 
 .location {
@@ -3130,7 +3133,7 @@ footer a:hover {
     position: relative; 
     bottom: 0px;
     display: flex;
-    gap: 10px;
+    gap: 1px;
 }
 
 .fb-social-icons img {
@@ -3147,7 +3150,7 @@ footer a:hover {
 @media (max-width: 768px) {
     .fanbase-container {
         grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-        gap: 20px;
+        gap: 2px;
         padding: 15px;
     }
 
@@ -3162,19 +3165,19 @@ footer a:hover {
         height: 50px;
     }
 
-    .fanbase-name {
-        font-size: 1.6em !important;
+    .fanbase-card h3{
+        font-size: 1rem !important;
     }
 
     .location,
     .work,
     .description {
-        font-size: 0.9em !important;
+        font-size: 0.6em !important;
     }
 
     .fb-social-icons {
         display: flex;
-        gap: 5px;
+        gap: 2px !important;
         align-items: center;
     }
     
@@ -3188,7 +3191,7 @@ footer a:hover {
 @media (max-width: 480px) {
     .fanbase-container {
         grid-template-columns: repeat(2, 1fr);
-        gap: 20px;
+        gap: 2px;
     }
 
     .fanbase-card {
@@ -3197,7 +3200,7 @@ footer a:hover {
     }
 
     .fanbase-name {
-        font-size: 1.4em !important;
+        font-size: 0.6rem !important;
     }
 
     .location,
