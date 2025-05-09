@@ -3984,14 +3984,26 @@ a:hover {
     transition: background-color 0.3s ease;
   }
 
-  .tracklist-wrap {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    height: 100%;
-    width: 100%;
+  .tracklist-cover p {
+    text-align: center;
     color: #9354ce;
     font-weight: 800;
+  }
+  
+  .tracklist-image {
+    border-radius: 15px;
+    width: auto;
+    max-height: 150px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  }
+
+  .tracklist-columns {
+    display: flex;
+    flex-wrap: nowrap;
+    gap: 40px;
+    width: 100%;
+    align-items: flex-start;
+    margin-top: 60px;
   }
 
   .tracklist {
@@ -3999,34 +4011,8 @@ a:hover {
     padding-left: 20px;
     list-style-type: disc;
     width: 100%;
-    /* border: 2px solid red; */
   }
   
-  .tracklist-columns {
-    display: flex;
-    flex-wrap: nowrap;
-    gap: 40px;
-    width: 100%;
-    align-items: flex-start;
-  }
-  
-  .tracklist-columns .tracklist {
-    flex: 1 1 0;
-    min-width: 0;
-    list-style: none;
-    margin: 0;
-    padding-left: 16px;
-    word-break: break-word;
-    overflow-wrap: break-word;
-    white-space: normal;
-  }
-
-  .tracklist-wrap p {
-    margin-bottom: 4px;
-    margin-top: 0;
-    margin-left: 16px;
-  }
-
   .tracklist li {
     width: 100%;
     color: #00ffff;
@@ -4038,7 +4024,6 @@ a:hover {
     line-height: 2.2px !important;
     margin-top: 0;
     margin: 2px 0;
-    /* border: 2px solid red; */
   } 
   
   .tracklist li::before {
@@ -4333,23 +4318,33 @@ a:hover {
     border-radius: 8px;
     color: #eee;
     line-height: 1.4;
-    word-wrap: break-word;
-  }
-  
-  .tracklist-wrap {
-    font-size: 0.65rem;
-    font-weight: 700;
-    align-items: flex-start;
+    word-wrap:normal;
   }
 
-  .tracklist-wrap p {
-    margin-left: 2px;
+  .tracklist-cover p {
+    text-align: center;
+    color: #9354ce;
+    font-weight: 800;
   }
 
+  .tracklist-image {
+    border-radius: 15px;
+    width: auto;
+    max-height: 80px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  }
+
+  .tracklist-columns {
+    flex-direction: row;  
+    gap: 4px;     
+    margin-top: 30px;
+    margin-left: 20px;
+  }
+ 
   .tracklist {
     list-style: none;
     margin: 0;
-    padding: 0 16px;
+    padding: 0 4px;
   }
 
   .tracklist li {
@@ -4358,8 +4353,10 @@ a:hover {
     border: none;
     border-radius: 0;
     line-height: 1rem !important;
-    margin: 0;
+    margin: 0 15px;
+    top: 15px;
     padding: 0;
+    text-indent: -2em;
   }
 
   .tracklist li::before {
@@ -4422,7 +4419,6 @@ a:hover {
 
   #actortaetae, #goldenmaknae, #taekookart {
     height: auto;
-    /* max-height: 250px; */
     width: 80%;
     object-fit: contain;
     border-radius: 12px;
