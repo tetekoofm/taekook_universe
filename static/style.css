@@ -286,6 +286,17 @@ footer a:hover {
     padding: 0px 10px;
 }
 
+.countdown-timer h3 {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #008000 !important;
+    z-index: 1000;
+    margin: 20px;
+    align-items: center;
+    vertical-align: middle;
+    text-align: center;
+}
+
 .countdown-timer {
     display: flex;
     gap: 10px;
@@ -502,13 +513,27 @@ footer a:hover {
         color: #008000;
         z-index: 1000;
         margin-bottom: 10px;
+        align-items: center;
     }
 
     .main-content .countdown-timer-wrapper {
-        flex-direction: row !important;
+        display: flex; 
+        flex-direction: column !important;
         flex-wrap: nowrap;
-        justify-content: space-evenly;
+        justify-content: center;
+        align-items: center;
         gap: 10px !important;
+    }
+
+    .main-content .countdown-timer h3 {
+        font-size: 0.8rem !important;
+        font-weight: bold;
+        color: #008000 !important;
+        z-index: 1000;
+        margin: 10px;
+        align-items: center;
+        vertical-align: middle;
+        text-align: center;
     }
 
     .main-content .timer-box {
