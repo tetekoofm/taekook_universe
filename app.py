@@ -3,9 +3,12 @@ import os, secrets, random, calendar, subprocess
 from models import db, BackgroundMusic, Upcoming, Memory, InTheNews, InTheNews_Spanish, Product, Discography, MusicVideo, Vote, Radio, SpotifyStats, YoutubeStats, ShazamStats, Fanbase, Banner, Project, Event, Promotion, FanLetter
 from collections import defaultdict
 from datetime import datetime
+from flask_wtf import CSRFProtect
 
 # Initialize the Flask app
 app = Flask(__name__)
+
+csrf = CSRFProtect(app)
 
 # Set a secret key for session management
 app.secret_key = secrets.token_hex(16)
@@ -27,7 +30,7 @@ def force_https():
 @app.route('/home_soon')
 def home():
     image_folder = os.path.join(app.static_folder, 'images/home')
-    images = [f for f in os.listdir(image_folder) if f.endswith(('jpg', 'jpeg', 'png', 'gif'))]
+    images = [f for f in os.listdir(image_folder) if f.endswith(('jpg', 'jpeg', 'png', 'gif', 'webp'))]
     music = BackgroundMusic.query.filter_by(page_name='home').first()
     song_file = music.file_name if music else "your_eyes_tell.mp3"
     song_name = music.song_name if music else "Default Song"
@@ -36,7 +39,7 @@ def home():
 @app.route('/')
 def home_orig():
     image_folder = os.path.join(app.static_folder, 'images/home')
-    images = [f for f in os.listdir(image_folder) if f.endswith(('jpg', 'jpeg', 'png', 'gif'))]
+    images = [f for f in os.listdir(image_folder) if f.endswith(('jpg', 'jpeg', 'png', 'gif', 'webp'))]
     music = BackgroundMusic.query.filter_by(page_name='home').first()
     song_file = music.file_name if music else "your_eyes_tell.mp3"
     song_name = music.song_name if music else "Your Eyes Tell"

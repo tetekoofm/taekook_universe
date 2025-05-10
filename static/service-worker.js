@@ -1,20 +1,25 @@
 const CACHE_NAME = 'tku-cache-v1';
 const urlsToCache = [
   '/',
-  '/static/icon-192.png',
-  '/static/icon-512.png',
+  '/static/icon_small.png',
+  '/static/icon_big.png',
   '/static/manifest.json',
   // Add more paths if needed like CSS, JS, logo, etc.
 ];
 
 // Install event
-self.addEventListener('install', (event) => {
-  event.waitUntil(
-    caches.open(CACHE_NAME).then((cache) => {
-      return cache.addAll(urlsToCache);
+self.addEventListener('install', (e) => {
+  e.waitUntil(
+    caches.open('v1').then((cache) => {
+      return cache.addAll([
+        '/static/icons/icon_small.png',
+        '/static/style.css'
+        // Add other critical assets
+      ]);
     })
   );
 });
+
 
 // Fetch event
 self.addEventListener('fetch', (event) => {

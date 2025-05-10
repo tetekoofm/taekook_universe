@@ -41,11 +41,11 @@
             <li><strong style="color: #3dcf64;">Share on Social Media:</strong> Encourage others to stream by sharing your playlists / FB's playlists on social platforms.</li>
         </ul>
         <div class="image-container">
-            <a href="{{ url_for('static', filename='images/guide/why_stream.jpeg') }}" class="lightbox">
-                <img src="{{ url_for('static', filename='images/guide/why_stream.jpeg') }}" alt="Why Streaming Matters">
+            <a href="{{ url_for('static', filename='images/guide/why_stream.webp') }}" class="lightbox">
+                <img src="{{ url_for('static', filename='images/guide/why_stream.webp') }}" alt="Why Streaming Matters">
             </a>
-            <!-- <a href="{{ url_for('static', filename='images/guide/streaming_guide.jpeg') }}" class="lightbox">
-                <img src="{{ url_for('static', filename='images/guide/streaming_guide.jpeg') }}" alt="Streaming Guide">
+            <!-- <a href="{{ url_for('static', filename='images/guide/streaming_guide.webp') }}" class="lightbox">
+                <img src="{{ url_for('static', filename='images/guide/streaming_guide.webp') }}" alt="Streaming Guide">
             </a> -->
         </div>
     </div>
@@ -79,32 +79,32 @@
                 <div class="streaming-links">
                     {% if track.spotify_url %}
                     <a href="{{ track.spotify_url }}" target="_blank">
-                        <img src="{{ url_for('static', filename='images/icons/spotify.jpeg') }}" alt="Spotify" class="stream-icon">
+                        <img src="{{ url_for('static', filename='images/icons/spotify.webp') }}" alt="Spotify" class="stream-icon">
                     </a>
                     {% endif %}
                     {% if track.apple_music_url %}
                     <a href="{{ track.apple_music_url }}" target="_blank">
-                        <img src="{{ url_for('static', filename='images/icons/applemusic.jpeg') }}" alt="Apple Music" class="stream-icon">
+                        <img src="{{ url_for('static', filename='images/icons/applemusic.webp') }}" alt="Apple Music" class="stream-icon">
                     </a>
                     {% endif %}
                     {% if track.youtube_url %}
                     <a href="{{ track.youtube_url }}" target="_blank">
-                        <img src="{{ url_for('static', filename='images/icons/youtube.jpeg') }}" alt="YouTube" class="stream-icon">
+                        <img src="{{ url_for('static', filename='images/icons/youtube.webp') }}" alt="YouTube" class="stream-icon">
                     </a>
                     {% endif %}
                     {% if track.shazam_url %}
                     <a href="{{ track.shazam_url }}" target="_blank">
-                        <img src="{{ url_for('static', filename='images/icons/shazam.jpeg') }}" alt="Shazam" class="stream-icon">
+                        <img src="{{ url_for('static', filename='images/icons/shazam.webp') }}" alt="Shazam" class="stream-icon">
                     </a>
                     {% endif %}
                     {% if track.pandora_url %}
                     <a href="{{ track.pandora_url }}" target="_blank">
-                        <img src="{{ url_for('static', filename='images/icons/pandora.jpeg') }}" alt="Pandora" class="stream-icon">
+                        <img src="{{ url_for('static', filename='images/icons/pandora.webp') }}" alt="Pandora" class="stream-icon">
                     </a>
                     {% endif %}
                     {% if track.tidal_url %}
                     <a href="{{ track.tidal_url }}" target="_blank">
-                        <img src="{{ url_for('static', filename='images/icons/tidal.jpeg') }}" alt="Tidal" class="stream-icon">
+                        <img src="{{ url_for('static', filename='images/icons/tidal.webp') }}" alt="Tidal" class="stream-icon">
                     </a>
                     {% endif %}
                 </div>

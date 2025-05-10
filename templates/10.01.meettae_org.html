@@ -24,13 +24,13 @@
     </audio>
     {% endif %}
 
-    <div class="tae-full-page-image-side" style="background-image: url({{ url_for('static', filename='images/taetae_side.jpeg') }});"></div>
+    <div class="tae-full-page-image-side" style="background-image: url({{ url_for('static', filename='images/taetae_side.webp') }});"></div>
 
     <div class="tae-section-wrapper">    
         <div class="tae-section">
             <div class="tae-heading">🐻 Meet Taehyung 🐯</div>
             <div class="tae-image-container">
-                <img src="{{ url_for('static', filename='images/taetae.jpeg') }}" alt="Taehyung" class="taekook-image">
+                <img src="{{ url_for('static', filename='images/taetae.webp') }}" alt="Taehyung" class="taekook-image">
             </div>
             <div class="taekook-bio">
                 <p>{{ tae_content.replace('\n', '<br>') | safe }}</p>
@@ -38,13 +38,13 @@
 
             <section class="taekook-social-links">
                 <a href="https://twitter.com/BTS_twt" target="_blank">
-                    <img src="/static/images/icons/x.jpeg" alt="Twitter" class="taekook-social-icon">
+                    <img src="/static/images/icons/x.webp" alt="Twitter" class="taekook-social-icon">
                 </a>
                 <a href="https://www.instagram.com/thv" target="_blank">
-                    <img src="/static/images/icons/instagram.jpeg" alt="Instagram" class="taekook-social-icon">
+                    <img src="/static/images/icons/instagram.webp" alt="Instagram" class="taekook-social-icon">
                 </a>
                 <a href="https://weverse.io/bts/profile/07ee2935d1a799b354ee32954e17914b" target="_blank">
-                    <img src="/static/images/icons/weverse.jpeg" alt="Weverse" class="taekook-social-icon">
+                    <img src="/static/images/icons/weverse.webp" alt="Weverse" class="taekook-social-icon">
                 </a>
             </section>
             <footer-taekook>

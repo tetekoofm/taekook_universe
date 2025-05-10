@@ -3945,20 +3945,20 @@ a:hover {
   
   .tae-full-page-image-side {
     left: 0;
-    background-image: url('/static/images/taekook/taetae_side.jpeg');
+    background-image: url('/static/images/taekook/taetae_side.webp');
   }
   
   body.scrolled .tae-full-page-image-side {
-    background-image: url('/static/images/taekook/taetae_sideeye.jpeg');
+    background-image: url('/static/images/taekook/taetae_sideeye.webp');
   }
   
   .koo-full-page-image-side {
     right: 0;
-    background-image: url('/static/images/taekook/kookie_side.jpeg');
+    background-image: url('/static/images/taekook/kookie_side.webp');
   }
   
   body.scrolled .koo-full-page-image-side {
-    background-image: url('/static/images/taekook/kookie_sideeye.jpeg');
+    background-image: url('/static/images/taekook/kookie_sideeye.webp');
   }
 
   .back-button {
@@ -4291,7 +4291,7 @@ a:hover {
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
-    background-image: url('/static/images/taekook/taetae_side.jpeg'); 
+    background-image: url('/static/images/taekook/taetae_side.webp'); 
     opacity: 0.5;
     filter: brightness(70%) contrast(90%);
     pointer-events: none;
@@ -4313,7 +4313,7 @@ a:hover {
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
-    background-image: url('/static/images/taekook/kookie_side.jpeg'); 
+    background-image: url('/static/images/taekook/kookie_side.webp'); 
     opacity: 0.5;
     filter: brightness(70%) contrast(90%);
     pointer-events: none;

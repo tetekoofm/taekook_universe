@@ -59,7 +59,7 @@
 
             {% if event.trending_position %}
             <p><strong>🔥 Trending on X!</strong></p>
-            <img src="{{ url_for('static', filename='images/events/' + event.title|replace(' ', '_') + '_Trending.jpeg') }}" 
+            <img src="{{ url_for('static', filename='images/events/' + event.title|replace(' ', '_') + '_Trending.webp') }}" 
                  alt="Trending Image for {{ event.title }}" 
                  class="trending-image">
             {% endif %}
