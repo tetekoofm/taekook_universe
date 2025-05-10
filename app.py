@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, session, url_for, jsonify, current_app, send_from_directory
+from flask import Flask, render_template, request, Response, redirect, session, url_for, jsonify, current_app, send_from_directory, send_file
 import os, secrets, random, calendar, subprocess
 from models import db, BackgroundMusic, Upcoming, Memory, InTheNews, InTheNews_Spanish, Product, Discography, MusicVideo, Vote, Radio, SpotifyStats, YoutubeStats, ShazamStats, Fanbase, Banner, Project, Event, Promotion, FanLetter
 from collections import defaultdict
@@ -26,6 +26,18 @@ def force_https():
     if not current_app.debug and not request.is_secure:
         url = request.url.replace("http://", "https://", 1)
         return redirect(url, code=301)
+
+@app.route('/favicon.png')
+def favicon():
+    return send_from_directory('static', 'favicon.png', mimetype='image/png')
+
+@app.route('/robots.txt')
+def robots():
+    return send_from_directory(app.static_folder, 'robots.txt')
+
+@app.route('/sitemap.xml')
+def sitemap():
+    return send_file(os.path.join(app.root_path, 'static', 'sitemap.xml'), mimetype='application/xml')
 
 @app.route('/home_soon')
 def home():
