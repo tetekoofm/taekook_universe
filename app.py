@@ -322,15 +322,5 @@ def add_headers(response):
     response.headers["Permissions-Policy"] = "compute-pressure=()"
     return response
 
-if ('serviceWorker' in navigator) {
-  navigator.serviceWorker.register('/static/service-worker.js')
-    .then(function(registration) {
-      console.log('Service Worker registered with scope: ', registration.scope);
-    })
-    .catch(function(error) {
-      console.log('Service Worker registration failed: ', error);
-    });
-}
-
 if __name__ == "__main__":
     app.run(debug=True, host="0.0.0.0", port=10000)
