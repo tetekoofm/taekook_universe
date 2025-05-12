@@ -1,0 +1,45 @@
+<div id="audioControl">
+    <span id="audioIcon">🔊</span>
+    <span id="tooltip">Now Playing: {{ song_name }}</span>
+</div>
+
+{% if song_file %}
+<audio id="bgAudio" autoplay data-song="{{ song_name }}">
+    <source src="{{ url_for('static', filename='audio/' + song_file) }}" type="audio/mp3">
+</audio>
+{% endif %}
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const audio = document.getElementById("bgAudio");
+        const audioIcon = document.getElementById("audioIcon");
+        const tooltip = document.getElementById("tooltip");
+        const audioControl = document.getElementById("audioControl");
+
+        if (audioControl && audio && audioIcon && tooltip) {
+            audioControl.addEventListener("click", () => {
+                audio.muted = !audio.muted;
+                updateAudioControl(audio.muted);
+            });
+
+            audioControl.addEventListener("mouseover", () => {
+                tooltip.style.visibility = "visible";
+                tooltip.style.opacity = "1";
+            });
+
+            audioControl.addEventListener("mouseout", () => {
+                tooltip.style.visibility = "hidden";
+                tooltip.style.opacity = "0";
+            });
+        }
+
+        function updateAudioControl(isMuted) {
+            if (!audioIcon || !tooltip) return;
+            audioIcon.textContent = isMuted ? "🔇" : "🔊";
+            tooltip.innerText = isMuted
+                ? "Muted: Click to Play"
+                : "Now Playing: " + (audio.dataset.song || "Audio");
+            localStorage.setItem("isMuted", isMuted);
+        }
+    });
+</script>
