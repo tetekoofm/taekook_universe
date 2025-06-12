@@ -1,0 +1,199 @@
+{% extends "00.base.html" %}
+{% block title %}TaeKook Universe{% endblock %}
+{% block content %}
+
+<div class="main-content">
+    <h1 class="heading">Welcome to TaeKook Universe!</h1>
+    <p class="caption">A fanpage dedicated to Kim Taehyung and Jeon Jung Kook.</p>
+    <p class="caption">Follow their incredible journey from their debut till now!</p>
+
+    <!-- Image Carousel -->
+    <div class="image-carousel">
+        {% for image in images %}
+        <div class="image-slide">
+            <img src="{{ url_for('static', filename='images/home/' + image) }}" alt="Taekook {{ loop.index }}">
+        </div>
+        {% endfor %}
+    </div>
+
+    <!-- Celebrations -->
+    <div id="celebration-taehyung" class="celebration hide">
+        <h2>🎉 TaeTae is back Home. Party Time!! 🎉</h2>
+        <img src="{{ url_for('static', filename='images/tae_military.webp') }}" alt="Taehyung">
+    </div>
+    <div id="celebration-jungkook" class="celebration hide">
+        <h2>🎉 Kookie is back Home. Party Time!! 🎉</h2>
+        <img src="{{ url_for('static', filename='images/jk_military.webp') }}" alt="Jungkook">
+    </div>
+
+    <!-- Countdown Timers -->
+    <div class="countdown-container">
+        <h2>Countdown to Taehyung and Jung Kook's Return:</h2>
+        <div class="countdown-timer-wrapper">
+            <div id="taehyung-countdown" class="countdown-timer">
+                <h3>Taehyung: </h3>
+                <div class="timer-box"><span id="taehyung-days">0</span><p>Days</p></div>
+                <div class="timer-box"><span id="taehyung-hours">0</span><p>Hrs</p></div>
+                <div class="timer-box"><span id="taehyung-minutes">0</span><p>Mins</p></div>
+                <div class="timer-box"><span id="taehyung-seconds">0</span><p>Secs</p></div>
+            </div>
+            <div id="jungkook-countdown" class="countdown-timer">
+                <h3>Jungkook: </h3>
+                <div class="timer-box"><span id="jungkook-days">0</span><p>Days</p></div>
+                <div class="timer-box"><span id="jungkook-hours">0</span><p>Hrs</p></div>
+                <div class="timer-box"><span id="jungkook-minutes">0</span><p>Mins</p></div>
+                <div class="timer-box"><span id="jungkook-seconds">0</span><p>Secs</p></div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<script>
+const getKSTTime = (dateString) => new Date(`${dateString} UTC+0900`).getTime();
+
+// const taehyungReturnDate = getKSTTime("March 3, 2025 04:23:00");
+// const jungkookReturnDate = getKSTTime("March 3, 2025 04:15:00");
+
+const taehyungReturnDate = getKSTTime("June 10, 2025 08:00:00");
+const jungkookReturnDate = getKSTTime("June 11, 2025 08:00:00");
+
+
+let countdownIntervals = {}; 
+
+function startCountdown(artist, returnDate) {
+    if (countdownIntervals[artist]) {
+        clearInterval(countdownIntervals[artist]); // ✅ Prevent multiple timers
+    }
+
+    countdownIntervals[artist] = setInterval(() => {
+        const now = Date.now(); // ✅ Always get the latest time
+        updateCountdown(artist, returnDate, now);
+    }, 1000); // ✅ Run every second
+}
+
+function updateCountdown(artist, returnDate, now) {
+    const distance = returnDate - now;
+
+    if (distance > 0) {
+        document.getElementById(`${artist}-days`).textContent = Math.floor(distance / (1000 * 60 * 60 * 24));
+        document.getElementById(`${artist}-hours`).textContent = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        document.getElementById(`${artist}-minutes`).textContent = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+        document.getElementById(`${artist}-seconds`).textContent = Math.floor((distance % (1000 * 60)) / 1000);
+    } else {
+        clearInterval(countdownIntervals[artist]); // ✅ Stop countdown
+
+        if (!countdownIntervals[`${artist}_finished`]) { // ✅ Prevent multiple logs
+            countdownIntervals[`${artist}_finished`] = true;
+            console.log(`🎉 Countdown finished for: ${artist}`);
+            startCelebration(artist);
+        }
+    }
+}
+
+function startCelebration(artist) {
+    console.log(`🔥 Starting celebration for: ${artist}`);
+
+    const celebrationElementTae = document.getElementById("celebration-taehyung");
+    const celebrationElementKoo = document.getElementById("celebration-jungkook");
+    const carousel = document.querySelector(".image-carousel");
+    const animationFunction = document.getElementById("animation-container");
+    const nightSky = document.querySelector('.night-sky');
+
+    // Hide everything
+    [celebrationElementTae, celebrationElementKoo, carousel, animationFunction, nightSky].forEach(el => {
+        if (el) el.style.display = "none";
+    });
+
+    // Delay to prevent flicker
+    setTimeout(() => {
+        if (artist === "taehyung") {
+            celebrationElementTae.style.display = "flex";
+            celebrationElementKoo.style.display = "none";
+            generateIcons("taehyung");
+        } else if (artist === "jungkook") {
+            celebrationElementKoo.style.display = "flex";
+            celebrationElementTae.style.display = "none";
+            generateIcons("jungkook");
+        }
+    }, 100);
+
+    // ✅ Celebration lasts 1 minute before resetting
+    setTimeout(() => {
+        celebrationElementTae.style.display = "none";
+        celebrationElementKoo.style.display = "none";
+        carousel.style.display = "block";  // Show carousel again after the celebration
+        if (animationFunction) animationFunction.style.display = "block";
+        if (nightSky) nightSky.style.display = "block";
+    }, 60000); 
+}
+
+// ✅ Start countdowns
+startCountdown("taehyung", taehyungReturnDate);
+startCountdown("jungkook", jungkookReturnDate);
+
+let emojiIntervals = {}; // Store intervals to clear them later
+
+function generateIcons(artist) {
+    const celebEmojis = document.getElementById(`celebration-${artist}`);
+    
+    // Clear any existing interval before starting a new one
+    if (emojiIntervals[artist]) {
+        clearInterval(emojiIntervals[artist]);
+    }
+
+    emojiIntervals[artist] = setInterval(() => {
+        const existingIcons = celebEmojis.getElementsByClassName('celebEmojis');
+        if (existingIcons.length >= 50) {
+            existingIcons[0].remove();
+        }
+
+        for (let i = 0; i < 30; i++) { // Generate fewer at a time for smooth flow
+            const icon = document.createElement("div");
+            icon.textContent = ["🎉", "🎈", "🎊"][Math.floor(Math.random() * 3)];
+            icon.classList.add("celebEmojis");
+            icon.style.left = `${Math.random() * 100}vw`;
+            icon.style.top = `${Math.random() * 100}vh`;
+            celebEmojis.appendChild(icon);
+
+            setTimeout(() => {
+                icon.remove();
+            }, 4000);
+        }
+    }, 1000); // Keep generating emojis every second
+}
+
+
+// Image Carousel Logic
+const slides = document.querySelectorAll('.image-slide');
+if (slides.length > 0) {
+    let index = 0;
+    setInterval(() => {
+        slides[index].classList.remove('visible');
+        index = (index + 1) % slides.length;
+        slides[index].classList.add('visible');
+    }, 3000);
+}
+
+function generateStars() {
+    const nightSky = document.createElement('div');
+    nightSky.classList.add('night-sky');
+    document.body.appendChild(nightSky);
+
+    const numberOfStars = 100; 
+    for (let i = 0; i < numberOfStars; i++) {
+        const star = document.createElement('div');
+        star.classList.add('star');
+        star.style.top = `${Math.random() * 100}vh`; 
+        star.style.left = `${Math.random() * 100}vw`; 
+        star.style.animationDuration = `${Math.random() * 3 + 2}s`; 
+        nightSky.appendChild(star);
+    }
+}
+
+window.onload = function() {
+    generateStars(); 
+};
+
+</script>
+{% endblock %}
