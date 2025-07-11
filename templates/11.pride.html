@@ -1,19 +1,116 @@
 {% extends "00.base.html" %}
-{% block title %}Pride & Taekook Support{% endblock %}
+{% block title %}Happy Pride Month — Taekook Support{% endblock %}
 
 {% block content %}
 <div class="main-content">
-    <h1 class="heading">🌈 Taehyung & Jungkook Support Pride</h1>
-    <p class="caption">Celebrating the love, inclusivity, and support shared by Taehyung and Jungkook — and the beautiful ways they've inspired fans during Pride Month.</p>
+    <h1 class="heading">🏳️‍🌈 Happy Pride Month! 🏳️‍🌈</h1>
+    <p class="caption">We are excited to celebrate the power of love and acceptance. Like Taehyung and Jungkook, we support everyone’s right to love who they love.</p>
+    <p class="caption">Stay tuned throughout the month as we share the many ways Taehyung and Jungkook have shown their support.</p>
 
-    <!-- Twitter/X Embedded Thread -->
-    <div class="twitter-embed">
-        <blockquote class="twitter-tweet">
-            <p lang="en" dir="ltr">🏳️‍🌈Happy Pride Month! 🏳️‍🌈<br>We are excited to celebrate the power of love and acceptance, like Taehyung and Jungkook, we support everyone’s right to love who they love. Stay tuned throughout the month as we share the many ways Taehyung and Jungkook have shown their support for… 
-            <a href="https://t.co/zk9G3yq4hK">pic.twitter.com/zk9G3yq4hK</a></p>&mdash; TAEKOOK UNIVERSE (@theTKuniverse) 
-            <a href="https://twitter.com/theTKuniverse/status/1928929472918478873?ref_src=twsrc%5Etfw">May 31, 2025</a>
-        </blockquote> 
-        <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+    <div class="pride-carousel" id="pride-carousel">
+        <!-- Slide 1: Intro Image -->
+        <div class="pride-slide visible">
+            <a href="{{ url_for('static', filename='images/pride/pride_month_2025.webp') }}" target="_blank" rel="noopener noreferrer">
+                <img src="{{ url_for('static', filename='images/pride/pride_month_2025.webp') }}" alt="Pride Month Celebration">
+            </a>
+        </div>
+
+        <!-- Slide 2: CMBYN -->
+        <div class="pride-slide">
+            <h3>🌈 Taehyung and Jungkook’s Support for LGBTQ+ Themed Films</h3>
+            <p>
+                <em>Call Me By Your Name</em> — a film deeply supported by Taehyung — is a coming-of-age story centered on love and identity. 
+                Taehyung referenced it multiple times between 2019 and 2024, including piano performances, livestream shoutouts, and a Harper’s Bazaar shoot inspired by its palette.
+            </p>
+            <a href="{{ url_for('static', filename='images/pride/1.webp') }}" target="_blank" rel="noopener noreferrer">
+                <img src="{{ url_for('static', filename='images/pride/1.webp') }}" alt="Taehyung’s Harper’s Bazaar shoot">
+            </a>
+            <p class="image-caption">Taehyung’s Harper’s Bazaar shoot (2024), inspired by <em>Call Me By Your Name</em>.</p>
+        </div>
+
+        <!-- Slide 3: Love, Simon -->
+        <div class="pride-slide">
+            <h3>🌈 Jungkook’s Support for <em>Love, Simon</em></h3>
+            <p>
+                While not specifically named, it is widely accepted that Jungkook has shown his support for the movie by referencing its most famous line, <strong>“I am still me…”</strong> from the film, <em>Love, Simon</em> on more than one occasion.
+                <em>Love, Simon</em>, released in 2018, is a coming-of-age film about a gay high school student, Simon, who is navigating the process of coming out and finding love. 
+                The movie explores themes of self-discovery, acceptance, and the struggles faced by LGBTQ+ individuals, particularly in high school.
+            </p>
+            <a href="{{ url_for('static', filename='images/pride/2.webp') }}" target="_blank" rel="noopener noreferrer">
+                <img src="{{ url_for('static', filename='images/pride/2.webp') }}" alt="Love, Simon movie support by Jungkook">
+            </a>
+            <p class="image-caption">
+                Jungkook has referenced the iconic line “I am still me…” from <em>Love, Simon</em> multiple times.
+            </p>
+        </div>
+
+        <!-- Slide 4: Leslie Cheung – Days of Being Wild -->
+        <div class="pride-slide">
+            <h3>🌈 Taehyung and Jungkook Channel Leslie Cheung’s Legacy</h3>
+            <p>
+                The iconic dancing scene by Leslie Cheung from the 1990 film <em>Days of Being Wild</em> has been shared and replicated by Taehyung — and even Jungkook — on multiple occasions, including a video Tae shared from his home.
+                Before his tragic death in 2003 due to severe depression, Leslie Cheung was a beloved Hong Kong actor and singer, and one of the first public figures in the Chinese-speaking world to come out and openly support LGBTQ+ rights.
+                His partner, Daffy Tong, continues to honor him with heartfelt posts on Instagram during their birthdays and on the anniversary of his passing — even after more than 18 years.
+            </p>
+        
+            <video controls class="pride-video">
+                <source src="{{ url_for('static', filename='images/pride/3.mp4') }}" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+        
+            <p class="image-caption">
+                Taehyung and Jungkook have paid tribute to Leslie Cheung’s famous dance scene from <em>Days of Being Wild</em>.
+            </p>
+        </div>
+        
+        <!-- Slide 5: Queer -->
+        <div class="pride-slide">
+            <h3>🌈 Taehyung’s Support for the 2024 Film <em>Queer</em></h3>
+            <p>
+                Most recently, Taehyung has shown his support for the 2024 movie <em>Queer</em> by liking multiple Instagram posts announcing its release. 
+                The movie <em>Queer</em>, based on William S. Burroughs' semi-autobiographical novella, follows William Lee, a disillusioned American expatriate in 1950s Mexico City, as he pursues connection and meaning through his relationship with Eugene Allerton. 
+                Lee, a drug-addicted man, becomes infatuated with the young and seemingly aloof Allerton, leading to a complex and ultimately surreal journey.
+            </p>
+            
+            <a href="{{ url_for('static', filename='images/pride/4.webp') }}" target="_blank" rel="noopener noreferrer">
+                <img src="{{ url_for('static', filename='images/pride/4.webp') }}" alt="Queer movie 2024 support by Taehyung">
+            </a>
+            <p class="image-caption">
+                Taehyung liked multiple Instagram posts celebrating the 2024 film <em>Queer</em>, based on William S. Burroughs' iconic novella.
+            </p>
+        </div>
+        
+
     </div>
+
+    <!-- Carousel navigation buttons -->
+    <button id="prevBtn" aria-label="Previous Slide">&#10094;</button>
+    <button id="nextBtn" aria-label="Next Slide">&#10095;</button>
 </div>
+
+<!-- JavaScript for carousel -->
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const slides = document.querySelectorAll('#pride-carousel .pride-slide');
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+        let currentIndex = 0;
+
+        function showSlide(index) {
+            slides.forEach((slide, i) => {
+                slide.classList.toggle('visible', i === index);
+            });
+        }
+
+        prevBtn.addEventListener('click', () => {
+            currentIndex = (currentIndex - 1 + slides.length) % slides.length;
+            showSlide(currentIndex);
+        });
+
+        nextBtn.addEventListener('click', () => {
+            currentIndex = (currentIndex + 1) % slides.length;
+            showSlide(currentIndex);
+        });
+    });
+</script>
 {% endblock %}
