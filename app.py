@@ -141,10 +141,10 @@ def inthenews():
     inthenews = InTheNews.query.order_by(InTheNews.date.desc()).all()
     return render_template('04.inthenews.html', inthenews=inthenews)
 
-@app.route('/in-the-news/spanish')
-def inthenews_spanish():
-    spanish_news = InTheNews_Spanish.query.order_by(InTheNews_Spanish.date.desc()).all()
-    return render_template("04.inthenews_spanish.html", inthenews_spanish=spanish_news)
+# @app.route('/in-the-news/spanish')
+# def inthenews_spanish():
+#     spanish_news = InTheNews_Spanish.query.order_by(InTheNews_Spanish.date.desc()).all()
+#     return render_template("04.inthenews_spanish.html", inthenews_spanish=spanish_news)
 
 @app.route('/vibe')
 def vibe():
@@ -165,8 +165,12 @@ def projects():
     # return render_template("06.projects.html", song_file=song_file, song_name=song_name, projects=projects)
     return render_template("06.projects.html", projects=projects)
 
+@app.route("/pride")
+def pride():
+    return render_template("11.pride.html")
+
 @app.route("/guide")
-def guide_page():
+def guide():
     return render_template("07.guide.html")
 
 @app.route('/donating')
