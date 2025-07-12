@@ -4781,6 +4781,24 @@ a:hover {
     border-radius: 8px;
 }
 
+.image-row {
+    display: flex;
+    justify-content: center;
+    gap: 2px;
+    flex-wrap: nowrap;
+}
+
+.image-row img {
+    /* max-width: 48%; */
+    height: auto;
+    border-radius: 8px;
+    transition: transform 0.3s ease;
+}
+
+.image-row img:hover {
+    transform: scale(1.03);
+}
+
 .image-caption {
     font-style: italic;
     font-size: 0.9rem;
