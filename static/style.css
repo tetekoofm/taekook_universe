@@ -741,6 +741,7 @@ background-color: #594fc9;
     padding: 40px;
     border-radius: 15px;
     margin-top: 30px;
+    margin-bottom: 0;
     box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
     font-family: "Fira Sans Condensed", sans-serif;
     animation: fadeIn 1.5s ease-in-out;
@@ -767,7 +768,7 @@ background-color: #594fc9;
 }
 
 .weekly-recap-section {
-    margin-top: 60px;
+    margin-top: 20px;
     padding: 30px 20px;
     border-radius: 15px;
     box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
@@ -818,10 +819,9 @@ background-color: #594fc9;
     color: #eee;
     margin-bottom: 12px;
     padding: 0 5px;
-    /* Remove scroll & fixed height */
     max-height: none;
     overflow: visible;
-    flex-grow: 1; /* keeps pushing video down */
+    flex-grow: 1;
 }
 
 .recap-video {
@@ -830,55 +830,88 @@ background-color: #594fc9;
     border-radius: 8px;
     object-fit: cover;
     box-shadow: 0 3px 10px rgba(255, 215, 0, 0.3);
-    margin-top: auto; /* keeps video at bottom */
+    margin-top: auto;
     margin-bottom: 2px;
 }
 
 /* Responsive adjustments */
 @media screen and (min-width: 769px) and (max-width: 1370px) {
     .stay-tuned-banner {
-        padding: 30px;
+        padding: 10px;
+        margin-top: 30px;
+        margin-bottom: 10px;
     }
 
     .stay-tuned-banner p {
         font-size: 1.5em;
     }
+
     .stay-tuned-image {
         max-width: 100%;
     }
 }
 
-/* For screens smaller than 480px */
 @media (max-width: 768px) {
-    .event-card {
+
+    .upcoming-container {
+        gap: 10px;
+        margin-top: 5px;
+    }
+
+    .upcoming-card {
         padding: 10px;
-        display: flex;
         flex-direction: column;
         gap: 5px;
     }
-    
-    .event-description {
-        font-family: 'Fira Sans Condensed', serif;
-        font-size: 0.6rem;
-        letter-spacing: 0.5px;
-        line-height: 1.2;
-        text-align: justify;
+
+    .stay-tuned-banner {
+        padding: 10px;
+        margin-top: 10px;
+        margin-bottom: 0 !important;
     }
 
     .stay-tuned-banner p {
-        margin-top: 0;
         font-size: 0.8em;
+        margin-bottom: 8px;
     }
 
     .stay-tuned-image {
-        max-width: 90%;
+        max-width: 60%;
+        margin-top: 10px;
+        margin-bottom: 8px;
     }
-    
+
+    .weekly-recap-section {
+        margin-top: 0 !important;
+        padding-top: 10px !important;
+    }
+
+    .section-heading {
+        margin-bottom: 10px;
+        font-size: 1.2em;
+    }
+
     .recap-card {
         width: 90%;
         height: auto;
+        padding: 12px;
     }
 
+    .recap-title {
+        font-size: 1em;
+        color: #FFD700;
+        margin-bottom: 8px;
+    }
+    
+    .recap-caption {
+        font-size: 0.8em;
+        color: #eee;
+        margin-bottom: 12px;
+        padding: 0 5px;
+        max-height: none;
+        overflow: visible;
+        flex-grow: 1;
+    }
     .recap-video {
         height: auto;
     }
