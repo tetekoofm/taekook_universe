@@ -667,7 +667,7 @@ background-color: #594fc9;
     display: flex;
     flex-direction: column;
     gap: 20px;
-    margin-top: 40px;
+    margin-top: 10px;
 }
 
 .upcoming-card {
@@ -677,7 +677,7 @@ background-color: #594fc9;
     padding: 20px;
     display: flex;
     flex-direction: column;
-    gap: 15px;
+    gap: 10px;
 }
 
 .upcoming-header {
@@ -740,7 +740,7 @@ background-color: #594fc9;
     color: #8A00C4;
     padding: 40px;
     border-radius: 15px;
-    margin-top: 30px;
+    margin-top: 20px;
     margin-bottom: 0;
     box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
     font-family: "Fira Sans Condensed", sans-serif;
