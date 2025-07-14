@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request, Response, redirect, session, url_for, jsonify, current_app, send_from_directory, send_file
 import os, secrets, random, calendar, subprocess
-from models import db, BackgroundMusic, Upcoming, Memory, InTheNews, InTheNews_Spanish, Product, Discography, MusicVideo, Vote, Radio, SpotifyStats, YoutubeStats, ShazamStats, Fanbase, Banner, Project, Event, Promotion, FanLetter
+from models import db, BackgroundMusic, Upcoming, Recap, Memory, InTheNews, InTheNews_Spanish, Product, Discography, MusicVideo, Vote, Radio, SpotifyStats, YoutubeStats, ShazamStats, Fanbase, Banner, Project, Event, Promotion, FanLetter
 from collections import defaultdict
 from datetime import datetime
 from flask_wtf import CSRFProtect
@@ -78,10 +78,11 @@ def termsandconditions():
 @app.route('/upcoming')
 def upcoming():
     upcoming_events = Upcoming.query.order_by(Upcoming.date).all()
+    recaps = Recap.query.order_by(Recap.date.desc()).all()
     for event in upcoming_events:
         if isinstance(event.date, str): 
             event.date = datetime.strptime(event.date, '%Y-%m-%d') 
-    return render_template("02.upcoming.html", upcoming=upcoming_events)
+    return render_template("02.upcoming.html", upcoming=upcoming_events, recaps=recaps)
 
 @app.route('/memories')
 def memories():

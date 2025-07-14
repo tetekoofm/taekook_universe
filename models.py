@@ -26,6 +26,15 @@ class Upcoming(db.Model):
     image = db.Column(db.String(300), nullable=True)
     description = db.Column(db.Text, nullable=True)
 
+class Recap(db.Model):
+    __tablename__ = 'recap'
+
+    id = db.Column(db.Integer, primary_key=True)
+    date = db.Column(db.String(20), nullable=False)
+    title = db.Column(db.String(200), nullable=False)
+    caption = db.Column(db.Text, nullable=True)
+    video = db.Column(db.String(300), nullable=False) 
+
 class Memory(db.Model):
     __tablename__ = 'memory'
 

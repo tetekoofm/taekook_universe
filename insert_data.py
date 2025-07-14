@@ -1,5 +1,5 @@
 import pandas as pd
-from models import db, BackgroundMusic, Upcoming, Memory, InTheNews, InTheNews_Spanish, Product, Discography, MusicVideo, Vote, Radio, Fanbase, SpotifyStats, YoutubeStats, ShazamStats, Banner, Project, Event, Promotion, FanLetter
+from models import db, BackgroundMusic, Upcoming,  Recap, Memory, InTheNews, InTheNews_Spanish, Product, Discography, MusicVideo, Vote, Radio, Fanbase, SpotifyStats, YoutubeStats, ShazamStats, Banner, Project, Event, Promotion, FanLetter
 from app import app
 from datetime import datetime, time
 
@@ -51,6 +51,31 @@ def insert_data_from_excel():
 
         db.session.commit()
         print("Upcoming Events updated from Excel!")
+
+        recap_df = pd.read_excel(excel_file, sheet_name='Recap')
+        recap_df['date'] = pd.to_datetime(recap_df['date'], errors='coerce')
+        recap_df = recap_df.dropna(subset=['date'])
+
+        for _, row in recap_df.iterrows():
+            formatted_date = row['date'].strftime('%Y-%m-%d')  # Convert to str
+
+            existing = Recap.query.filter_by(
+                date=formatted_date,
+                title=row['title']
+            ).first()
+
+            if not existing:
+                recap = Recap(
+                    date=formatted_date,
+                    title=row['title'],
+                    caption=row['caption'],
+                    video=row['filename']
+                )
+                db.session.add(recap)
+
+
+        db.session.commit()
+        print("Recap videos updated from Excel!")
 
         memory_df = pd.read_excel(excel_file, sheet_name='Memory')
         memory_df['date'] = pd.to_datetime(memory_df['date'], errors='coerce')

@@ -24,10 +24,27 @@
             {% endfor %}
         {% else %}
         <div class="stay-tuned-banner">
-            <p>Taehyung and Jungkook are currently serving in the military and will return in June 2025.</p>
-            <p>We can't wait to see what’s next for them! Check back later for updates. 💜</p>
+            <p>Taehyung and Jungkook have returned, and the universe is shifting once more.</p>
+            <p>While the stage is being set, we’re holding space for what’s next — and it’s going to be unforgettable.💜</p>
             <img src="{{ url_for('static', filename='images/upcoming/stay_tuned.webp') }}" alt="Stay Tuned" class="stay-tuned-image">
         </div>        
+        {% endif %}
+        {% if recaps %}
+        <div class="weekly-recap-section">
+            <h2 class="section-heading">🌟 Weekly Recap 🌟</h2>
+            <div class="recap-cards">
+                {% for recap in recaps %}
+                <div class="recap-card">
+                    <h3 class="recap-title">{{ recap.title }}</h3>
+                    <p class="recap-caption">{{ recap.caption }}</p>
+                    <video class="recap-video" controls>
+                        <source src="{{ url_for('static', filename='images/upcoming/' + recap.video) }}" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
         {% endif %}
     </div>
 </div>
