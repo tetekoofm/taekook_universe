@@ -789,6 +789,7 @@ background-color: #594fc9;
     flex-wrap: wrap;
     gap: 20px;
     justify-content: center;
+    flex-direction: row;
 }
 
 /* Each recap card */
@@ -798,6 +799,7 @@ background-color: #594fc9;
     font-family: 'Fira Sans Condensed', sans-serif;
     border-radius: 10px;
     width: 300px;
+    height: 450px;
     padding: 15px;
     text-align: center;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
@@ -809,64 +811,96 @@ background-color: #594fc9;
 }
 
 .recap-title {
-    font-size: 1.3em;
+    font-size: 1.5em;
     color: #FFD700;
     margin-bottom: 8px;
 }
 
-.recap-caption {
-    font-size: 0.9em;
-    color: #eee;
-    margin-bottom: 12px;
-    padding: 0 5px;
-    max-height: none;
-    overflow: visible;
-    flex-grow: 1;
-}
-
 .recap-video {
     width: 100%;
-    height: 400px;
+    height: 85%;
     border-radius: 8px;
     object-fit: cover;
     box-shadow: 0 3px 10px rgba(255, 215, 0, 0.3);
-    margin-top: auto;
+    margin-top: 10px;
     margin-bottom: 2px;
 }
 
 /* Responsive adjustments */
 @media screen and (min-width: 769px) and (max-width: 1370px) {
-    .stay-tuned-banner {
-        padding: 10px;
-        margin-top: 30px;
-        margin-bottom: 10px;
-    }
-
-    .stay-tuned-banner p {
-        font-size: 1.5em;
-    }
-
-    .stay-tuned-image {
-        max-width: 100%;
-    }
-}
-
-@media (max-width: 768px) {
-
     .upcoming-container {
-        gap: 10px;
-        margin-top: 5px;
+        gap: 5px;
+        margin-top: 2px;
     }
 
     .upcoming-card {
-        padding: 10px;
         flex-direction: column;
-        gap: 5px;
+        gap: 2px;
     }
 
     .stay-tuned-banner {
         padding: 10px;
         margin-top: 10px;
+        margin-bottom: 5px;
+    }
+
+    .stay-tuned-banner p {
+        font-size: 1.2em;
+    }
+
+    .stay-tuned-image {
+        max-width: 80%;
+    }
+
+    .weekly-recap-section {
+        margin-top: 10px;
+        padding: 10px;
+    }
+
+    .section-heading {
+        font-size: 1.8em;
+        margin-bottom: 20px;
+    }
+
+    .recap-cards {
+        justify-content: center;
+        gap: 15px;
+    }
+
+    .recap-card {
+        width: 60%;
+        max-width: 280px;
+        height: 400px;
+        padding: 10px;
+    }
+
+    .recap-title {
+        font-size: 1.2em;
+    }
+
+    .recap-caption {
+        font-size: 0.8em;
+    }
+
+    .recap-video {
+        height: 320px;
+    }
+}
+
+@media (max-width: 768px) {
+    .upcoming-container {
+        gap: 5px;
+        margin-top: 2px;
+    }
+
+    .upcoming-card {
+        flex-direction: column;
+        gap: 2px;
+    }
+
+    .stay-tuned-banner {
+        padding: 5px;
+        margin-top: 5px;
         margin-bottom: 0 !important;
     }
 
@@ -876,45 +910,47 @@ background-color: #594fc9;
     }
 
     .stay-tuned-image {
-        max-width: 60%;
-        margin-top: 10px;
-        margin-bottom: 8px;
+        max-width: 50%;
+        margin-top: 5px;
+        margin-bottom: 5px;
     }
 
     .weekly-recap-section {
-        margin-top: 0 !important;
-        padding-top: 10px !important;
+        padding: 15px 5px;
+        margin-top: 10px;
     }
 
     .section-heading {
-        margin-bottom: 10px;
-        font-size: 1.2em;
+        font-size: 1em;
+        margin-bottom: 12px;
+    }
+
+    .recap-cards {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 5px;
     }
 
     .recap-card {
-        width: 90%;
-        height: auto;
-        padding: 12px;
+        width: 40%;
+        max-width: 180px;
+        height: 200px;
+        padding: 10px;
     }
 
     .recap-title {
-        font-size: 1em;
-        color: #FFD700;
-        margin-bottom: 8px;
+        font-size: 0.9em;
     }
-    
+
     .recap-caption {
-        font-size: 0.8em;
-        color: #eee;
-        margin-bottom: 12px;
-        padding: 0 5px;
-        max-height: none;
-        overflow: visible;
-        flex-grow: 1;
+        font-size: 0.65em;
     }
+
     .recap-video {
-        height: auto;
+        height: 160px;
     }
+
 }
 
 /*************************************************** MEMORIES ***************************************************/

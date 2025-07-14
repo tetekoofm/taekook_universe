@@ -36,8 +36,7 @@
                 {% for recap in recaps %}
                 <div class="recap-card">
                     <h3 class="recap-title">{{ recap.title }}</h3>
-                    <p class="recap-caption">{{ recap.caption }}</p>
-                    <video class="recap-video" controls>
+                    <video class="recap-video" controls controlsList="nodownload">
                         <source src="{{ url_for('static', filename='images/upcoming/' + recap.video) }}" type="video/mp4">
                         Your browser does not support the video tag.
                     </video>
