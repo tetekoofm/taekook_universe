@@ -1,0 +1,5 @@
+;/*FB_PKG_DELIM*/
+
+__d("PolarisDirectMessageRequestQuery_instagramRelayOperation",[],(function(a,b,c,d,e,f){e.exports="24016118754744981"}),null);
+__d("PolarisDirectMessageRequestQuery$Parameters",["PolarisDirectMessageRequestQuery_instagramRelayOperation"],(function(a,b,c,d,e,f){"use strict";a={kind:"PreloadableConcreteRequest",params:{id:b("PolarisDirectMessageRequestQuery_instagramRelayOperation"),metadata:{},name:"PolarisDirectMessageRequestQuery",operationKind:"query",text:null}};e.exports=a}),null);
+__d("PolarisDirectMessageRequestRoot.entrypoint",["IGDMqttWebDeviceID","JSResourceForInteraction","PolarisDirectMessageRequestQuery$Parameters"],(function(a,b,c,d,e,f,g){"use strict";a={getPreloadProps:function(a){return{queries:{mailboxQueryRef:{parameters:c("PolarisDirectMessageRequestQuery$Parameters"),variables:{device_id_for_iris_subscription:c("IGDMqttWebDeviceID").clientId}}}}},root:c("JSResourceForInteraction")("PolarisDirectMessageRequestRoot.react").__setRef("PolarisDirectMessageRequestRoot.entrypoint")};g["default"]=a}),98);
