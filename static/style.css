@@ -654,85 +654,81 @@ background-color: #594fc9;
 }
 
 /************************************************** UPCOMING ****************************************************/
-
-.upcoming-page {
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh; 
-}
-
 .upcoming-container {
     width: 80%;
     margin: 0 auto;
     display: flex;
     flex-direction: column;
     gap: 20px;
-    margin-top: 10px;
+    margin-top: 20px;
 }
 
+/* Horizontal Card */
 .upcoming-card {
-    background: #000;
-    border-radius: 10px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    padding: 20px;
+    background: #111;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    padding: 15px;
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.upcoming-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 14px rgba(0, 0, 0, 0.5);
 }
 
 .upcoming-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 5px 0;
-    margin-bottom: 10px;
-    border-bottom: 1px solid #ccc;
+    border-bottom: 1px solid #444;
+    padding-bottom: 8px;
+    margin-bottom: 12px;
 }
 
 .upcoming-title {
-    font-family: 'Fira Sans Condensed', serif;
+    font-family: 'Fira Sans Condensed', sans-serif;
     font-weight: bold;
-    font-size: 1.5rem;
-    color: #6A0DAD;
-    margin-bottom: 0;
+    font-size: 1.2rem;
+    color: #FFD700;
+    margin: 0;
 }
 
 .upcoming-date {
-    font-family: 'Fira Sans Condensed', serif;
-    font-size: 1.2em;
-    margin-right: 3px;
-    color: #008000;
-    font-weight: bold;
-    margin-bottom: 0;
+    font-family: 'Fira Sans Condensed', sans-serif;
+    font-size: 0.9rem;
+    color: #00c853;
+    margin-top: 4px;
 }
 
+/* Horizontal body */
 .upcoming-body {
     display: flex;
-    gap: 20px;
-    align-items: center;
-    height: 60px;
+    flex-direction: row;   /* 🔑 side by side */
+    align-items: flex-start;
+    gap: 15px;
 }
 
-.upcoming-image {
-    width: 80px;
-    height: 80px;
-    border-radius: 5px;
+.upcoming-image,
+.upcoming-video {
+    flex: 0 0 180px;      /* fixed media width */
+    height: 120px;
+    border-radius: 8px;
     object-fit: cover;
+    box-shadow: 0 3px 10px rgba(255, 215, 0, 0.3);
 }
 
 .upcoming-content {
-    flex-grow: 1;
+    flex: 1;
     display: flex;
-    flex-direction: column;
-    justify-content: center;
+    align-items: center;
+    text-align: justify;
 }
 
 .upcoming-description {
-    font-family: 'Fira Sans Condensed', serif;
-    font-size: 1.3rem !important;
-    line-height: 1.6;
-    color: #5a5a5a;
-    text-align: justify;
+    font-family: 'Fira Sans Condensed', sans-serif;
+    font-size: 0.95rem;
+    line-height: 1.4;
+    color: #ddd;
 }
 
 .stay-tuned-banner {

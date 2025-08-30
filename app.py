@@ -75,14 +75,14 @@ def meet_koo():
 def termsandconditions():
     return render_template("10.03.termsandconditions.html")
 
-@app.route('/upcoming')
-def upcoming():
+@app.route('/highlights')
+def highlights():
     upcoming_events = Upcoming.query.order_by(Upcoming.date).all()
     recaps = Recap.query.order_by(Recap.date.desc()).all()
     for event in upcoming_events:
         if isinstance(event.date, str): 
             event.date = datetime.strptime(event.date, '%Y-%m-%d') 
-    return render_template("02.upcoming.html", upcoming=upcoming_events, recaps=recaps)
+    return render_template("02.highlights.html", upcoming=upcoming_events, recaps=recaps)
 
 @app.route('/memories')
 def memories():
