@@ -15,17 +15,24 @@
                     <p class="upcoming-date">{{ event.date.strftime('%B %d, %Y') }}</p>
                 </div>
                 <div class="upcoming-body">
-                    {% if event.image and event.image.endswith('.mp4') %}
-                        <video class="upcoming-image" controls controlsList="nodownload">
-                            <source src="{{ url_for('static', filename='images/upcoming/' + event.image) }}" type="video/mp4">
-                            Your browser does not support the video tag.
-                        </video>
-                    {% else %}
-                        <img src="{{ url_for('static', filename='images/upcoming/' + event.image) }}" 
-                             alt="{{ event.title }}" class="upcoming-image">
-                    {% endif %}
+                    <div class="upcoming-media">
+                        {% for media in event.media %}
+                            {% if media.endswith('.mp4') %}
+                                <video class="upcoming-media-item" controls controlsList="nodownload">
+                                    <source src="{{ url_for('static', filename='images/upcoming/' + media) }}" type="video/mp4">
+                                    Your browser does not support the video tag.
+                                </video>
+                            {% else %}
+                                <img src="{{ url_for('static', filename='images/upcoming/' + media) }}" 
+                                     alt="{{ event.title }}" class="upcoming-media-item">
+                            {% endif %}
+                        {% endfor %}
+                    </div>
                     <div class="upcoming-content">
-                        <p class="upcoming-description">{{ event.description.replace('\n', '<br>') | safe }}</p>                    </div>
+                        <p class="upcoming-description">
+                            {{ event.description.replace('\n', '<br>') | safe }}
+                        </p>
+                    </div>
                 </div>
             </div>
             {% endfor %}

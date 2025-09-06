@@ -27,24 +27,27 @@ def insert_data_from_excel():
         upcoming_df = pd.read_excel(excel_file, sheet_name='Upcoming')
         upcoming_df['date'] = pd.to_datetime(upcoming_df['date'], errors='coerce')
 
-        # Ensure no NaT values before formatting
         upcoming_df = upcoming_df.dropna(subset=['date'])
-
-        # Convert to string format for database insertion
         upcoming_df['date'] = upcoming_df['date'].dt.strftime('%Y-%m-%d')
 
+
         for _, row in upcoming_df.iterrows():
+            # Split the 'image' column into a list for this row
+            media_list = [m.strip() for m in str(row["image"]).replace("\n", ",").split(",") if m.strip()]
+            media_str = ",".join(media_list)
+
             existing = Upcoming.query.filter_by(
                 date=row['date'], 
                 artist=row['artist'], 
                 title=row['title']
             ).first()
+            
             if not existing:
                 upcoming = Upcoming(
                     date=row['date'],
                     artist=row['artist'],
                     title=row['title'],
-                    image=row['image'],
+                    image=media_str,
                     description=row['description']
                 )
                 db.session.add(upcoming)

@@ -683,35 +683,57 @@ background-color: #594fc9;
     border-bottom: 1px solid #444;
     padding-bottom: 8px;
     margin-bottom: 12px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between; 
+    align-items: center;  
 }
 
 .upcoming-title {
     font-family: 'Fira Sans Condensed', sans-serif;
     font-weight: bold;
-    font-size: 1.2rem;
-    color: #FFD700;
+    font-size: 1.6rem;
+    color: #8A00C4;
     margin: 0;
+    text-align: left;
 }
 
 .upcoming-date {
     font-family: 'Fira Sans Condensed', sans-serif;
-    font-size: 0.9rem;
+    font-weight: bold;
+    font-size: 1.2rem;
     color: #00c853;
     margin-top: 4px;
+    text-align: right;
 }
 
 /* Horizontal body */
 .upcoming-body {
     display: flex;
-    flex-direction: row;   /* 🔑 side by side */
+    flex-direction: row;
     align-items: flex-start;
+    gap: 45px;
+}
+
+.upcoming-media {
+    display: flex;
+    flex-wrap: wrap;
     gap: 15px;
+}
+
+.upcoming-media-item {
+    flex: 0 0 200px;
+    height: auto;
+    border-radius: 8px;
+    object-fit: cover;
+    box-shadow: 0 3px 10px rgba(255, 215, 0, 0.3);
 }
 
 .upcoming-image,
 .upcoming-video {
-    flex: 0 0 180px;      /* fixed media width */
-    height: 120px;
+    flex: 0 0 180px;
+    width: 300px;
+    height: auto;
     border-radius: 8px;
     object-fit: cover;
     box-shadow: 0 3px 10px rgba(255, 215, 0, 0.3);
@@ -726,7 +748,7 @@ background-color: #594fc9;
 
 .upcoming-description {
     font-family: 'Fira Sans Condensed', sans-serif;
-    font-size: 0.95rem;
+    font-size: 1.2rem;
     line-height: 1.4;
     color: #ddd;
 }
@@ -794,7 +816,7 @@ background-color: #594fc9;
     border: 2px solid #8A00C4;
     font-family: 'Fira Sans Condensed', sans-serif;
     border-radius: 10px;
-    width: 300px;
+    width: 350px;
     height: 450px;
     padding: 15px;
     text-align: center;
@@ -807,8 +829,8 @@ background-color: #594fc9;
 }
 
 .recap-title {
-    font-size: 1.5em;
-    color: #FFD700;
+    font-size: 1.6em;
+    color: #8A00C4;
     margin-bottom: 8px;
 }
 
@@ -823,9 +845,7 @@ background-color: #594fc9;
 }
 
 /* Responsive adjustments */
-@media screen and (min-width: 769px) and (max-width: 1370px) {
-    
-
+@media screen and (min-width: 769px) and (max-width: 1370px) {   
     .stay-tuned-banner {
         padding: 10px;
         margin-top: 10px;
@@ -875,8 +895,6 @@ background-color: #594fc9;
     }
 }
 
-@media (max-width: 768px) {
-    
 /* Mobile Styles */
 @media (max-width: 768px) {
     .upcoming-container {
