@@ -14,20 +14,31 @@
                     <h2 class="upcoming-title">{{ event.title }}</h2>
                     <p class="upcoming-date">{{ event.date.strftime('%B %d, %Y') }}</p>
                 </div>
+    
                 <div class="upcoming-body">
-                    <div class="upcoming-media">
-                        {% for media in event.media %}
-                            {% if media.endswith('.mp4') %}
-                                <video class="upcoming-media-item" controls controlsList="nodownload">
-                                    <source src="{{ url_for('static', filename='images/upcoming/' + media) }}" type="video/mp4">
+                    <!-- Media Slider -->
+                    <div class="media-container">
+                        <div class="media-slider">
+                            {% set media_files = event.image.split(',') %}
+                            {% for media in media_files %}
+                            <div class="media-slide{% if loop.first %} active{% endif %}">
+                                {% if media.strip().endswith('.mp4') %}
+                                <video controls controlsList="nodownload" playsinline webkit-playsinline class="media-video">
+                                    <source src="{{ url_for('static', filename='images/upcoming/dodger/' + media.strip()) }}" type="video/mp4">
                                     Your browser does not support the video tag.
                                 </video>
-                            {% else %}
-                                <img src="{{ url_for('static', filename='images/upcoming/' + media) }}" 
-                                     alt="{{ event.title }}" class="upcoming-media-item">
-                            {% endif %}
-                        {% endfor %}
+                                {% else %}
+                                <img src="{{ url_for('static', filename='images/upcoming/dodger/' + media.strip()) }}" 
+                                     alt="{{ event.title }}" 
+                                     class="zoomable">
+                                {% endif %}
+                            </div>
+                            {% endfor %}
+                        </div>
+                        <button class="prev">&#10094;</button>
+                        <button class="next">&#10095;</button>
                     </div>
+                
                     <div class="upcoming-content">
                         <p class="upcoming-description">
                             {{ event.description.replace('\n', '<br>') | safe }}
@@ -63,4 +74,30 @@
         {% endif %}
     </div>
 </div>
+
+<script>
+    document.querySelectorAll('.media-container').forEach(container => {
+        const slides = container.querySelectorAll('.media-slide');
+        const prevBtn = container.querySelector('.prev');
+        const nextBtn = container.querySelector('.next');
+        let currentIndex = 0;
+        const totalSlides = slides.length;
+
+        function showSlide(index) {
+            slides.forEach((slide, i) => slide.classList.toggle('active', i === index));
+        }
+
+        prevBtn.addEventListener('click', () => {
+            currentIndex = (currentIndex - 1 + totalSlides) % totalSlides;
+            showSlide(currentIndex);
+        });
+
+        nextBtn.addEventListener('click', () => {
+            currentIndex = (currentIndex + 1) % totalSlides;
+            showSlide(currentIndex);
+        });
+    });
+
+</script>
+    
 {% endblock %}
