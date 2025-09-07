@@ -709,16 +709,16 @@ background-color: #594fc9;
 }
 
 .upcoming-body {
-    display: flex;
-    flex-direction: row;
-    align-items: flex-start;
+    /* display: flex;  */
+    /* flex-direction: row; */
+    /* align-items: flex-start; */
     gap: 25px; 
 }
 
 .media-container {
     flex: 0 0 300px;  
     max-width: 300px;
-    height: 300px;
+    height: auto;
     overflow: hidden;
     border-radius: 8px;
     margin-bottom: 10px;
@@ -872,13 +872,23 @@ background-color: #594fc9;
 
 /* Responsive adjustments */
 @media screen and (min-width: 769px) and (max-width: 1370px) {   
+    .upcoming-title {
+        font-size: 1.4rem;
+        margin: 0;
+    }
+    
+    .upcoming-date {
+        font-size: 1.4rem;
+        margin: 0; 
+    }
+
     .upcoming-body {
-        flex-direction: column; /* stack media and description */
-        gap: 20px;
+        flex-direction: column;
+        gap: 10px;
     }
 
     .media-container {
-        width: 100%; /* full width for media */
+        width: 100%; 
         height: auto;
     }
 
@@ -946,50 +956,33 @@ background-color: #594fc9;
 }
 
 /* Mobile Styles */
-@media (max-width: 768px) {
-    .upcoming-container {
-        width: 80%;
-        margin-top: 10px;
-    }
-
-    .upcoming-header {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        border-bottom: 1px solid #444;
-        padding-bottom: 8px;
-        margin-bottom: 12px;
-    }
-    
+@media (max-width: 768px) {   
     .upcoming-title {
-        font-size: 0.9rem !important;
+        font-size: 0.8rem !important;
         margin: 0;
     }
     
     .upcoming-date {
-        font-size: 0.9rem !important;
+        font-size: 0.8rem !important;
         margin: 0; 
     }
 
     .upcoming-body {
-        display: flex;
-        flex-direction: column;
-        align-items: flex-start; 
-        gap: 5px;
-        /* border: 2px solid red;  */
+        flex-direction: column; 
+        gap: 10px !important;
     }
 
     .media-container {
-        width: 100%;       
+        width: 100%;
         height: auto;
-        /* border: 2px solid red;  */
     }
 
-    .media-slide {
-        display: none; 
-        width: 100%; 
+    .media-slide img,
+    .media-slide video {
+        width: 100%;
+        height: auto;
     }
-    
+
     .media-slide.active {
         display: block;
     }
@@ -1011,16 +1004,12 @@ background-color: #594fc9;
         flex-direction: column;
         align-items: flex-start;
         text-align: justify;
-        margin: 0;
-        padding: 0;
     }
 
     .upcoming-description {
         font-size: 0.75rem; 
         line-height: 1.2;
-        margin-top: 0;
     }
-
 
     .prev, .next {
         font-size: 1.5rem;
