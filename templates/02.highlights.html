@@ -21,15 +21,14 @@
                         <div class="media-slider">
                             {% set media_files = event.image.split(',') %}
                             {% for media in media_files %}
-                            <div class="media-slide{% if loop.first %} active{% endif %}">
+                            <div class="media-slide" style="display:block;">
                                 {% if media.strip().endswith('.mp4') %}
                                     <video class="media-video" controls controlsList="nodownload" playsinline webkit-playsinline>
                                         <source src="{{ url_for('static', filename='images/upcoming/dodger/' + media.strip()) }}" type="video/mp4">
                                         Your browser does not support the video tag.
                                     </video>
                                 {% else %}
-                                    <img src="{{ url_for('static', filename='images/upcoming/dodger/' + media.strip()) }}" 
-                                         alt="{{ event.title }}">
+                                    <img src="{{ url_for('static', filename='images/upcoming/dodger/' + media.strip()) }}" alt="{{ event.title }}">
                                 {% endif %}
                             </div>
                             {% endfor %}
@@ -74,87 +73,44 @@
     </div>
 </div>
 
-<!-- <script>
-    document.addEventListener('DOMContentLoaded', () => {
-        document.querySelectorAll('.media-container').forEach(container => {
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        // Event Media Slider Logic
+        const sliders = document.querySelectorAll('.media-container');
+    
+        sliders.forEach((container) => {
             const slides = container.querySelectorAll('.media-slide');
             const prevBtn = container.querySelector('.prev');
             const nextBtn = container.querySelector('.next');
             let currentIndex = 0;
-
+            const totalSlides = slides.length;
+    
+            // If only 1 slide, hide buttons
+            if (totalSlides <= 1) {
+                prevBtn.style.display = "none";
+                nextBtn.style.display = "none";
+            }
+    
             function showSlide(index) {
-                slides.forEach((slide, i) => slide.classList.toggle('active', i === index));
-            }
-
-            showSlide(currentIndex);
-
-            prevBtn.addEventListener('click', () => {
-                currentIndex = (currentIndex - 1 + slides.length) % slides.length;
-                showSlide(currentIndex);
-            });
-
-            nextBtn.addEventListener('click', () => {
-                currentIndex = (currentIndex + 1) % slides.length;
-                showSlide(currentIndex);
-            });
-        });
-    });
-</script> -->
-    
-<script>
-    // Auto-scroll for banner carousel
-    document.addEventListener("DOMContentLoaded", function () {
-        const track = document.querySelector('.banner-track');
-        if (track) {
-            let scrollAmount = 0;
-            let speed = 2; // Speed of scrolling (adjustable)
-            function autoScroll() {
-                scrollAmount += speed;
-                if (scrollAmount >= track.scrollWidth / 2) {
-                    scrollAmount = 0;
-                }
-                track.style.transform = `translateX(-${scrollAmount}px)`;
-                requestAnimationFrame(autoScroll);
-            }
-            autoScroll();
-        }
-    
-        // Event Media Slider Logic
-        let sliders = document.querySelectorAll('.media-container');
-    
-        sliders.forEach((container) => {
-            let slides = container.querySelectorAll('.media-slide');
-            let prevBtn = container.querySelector('.prev');
-            let nextBtn = container.querySelector('.next');
-            let currentIndex = 0;
-            let totalSlides = slides.length;
-    
-            function updateSlides() {
                 slides.forEach((slide, i) => {
-                    slide.style.display = (i === currentIndex) ? "block" : "none";
+                    slide.style.display = (i === index) ? "block" : "none";
                 });
-                prevBtn.style.display = (currentIndex === 0) ? "none" : "block";
-                nextBtn.style.display = (currentIndex === totalSlides - 1) ? "none" : "block";
             }
     
-            function moveSlide(step) {
-                currentIndex += step;
-                updateSlides();
-            }
+            showSlide(currentIndex);
     
-            prevBtn.addEventListener("click", () => moveSlide(-1));
-            nextBtn.addEventListener("click", () => moveSlide(1));
+            prevBtn.addEventListener("click", () => {
+                currentIndex = (currentIndex - 1 + totalSlides) % totalSlides;
+                showSlide(currentIndex);
+            });
     
-            updateSlides();
+            nextBtn.addEventListener("click", () => {
+                currentIndex = (currentIndex + 1) % totalSlides;
+                showSlide(currentIndex);
+            });
         });
     });
+    </script>
     
-    // Open image in full-screen
-    function openFullScreen(img) {
-        const imageUrl = img.src;
-        const newWindow = window.open("", "_blank");
-        newWindow.document.write(`<img src="${imageUrl}" style="width:100%; height:auto;">`);
-    }
-</script>
         
 {% endblock %}
