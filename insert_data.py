@@ -26,8 +26,6 @@ def insert_data_from_excel():
 
         upcoming_df = pd.read_excel(excel_file, sheet_name='Upcoming')
         upcoming_df['date'] = pd.to_datetime(upcoming_df['date'], errors='coerce')
-
-        upcoming_df = upcoming_df.dropna(subset=['date'])
         upcoming_df['date'] = upcoming_df['date'].dt.strftime('%Y-%m-%d')
 
         for _, row in upcoming_df.iterrows():
@@ -70,7 +68,6 @@ def insert_data_from_excel():
                     video=row['filename']
                 )
                 db.session.add(recap)
-
 
         db.session.commit()
         print("Recap videos updated from Excel!")

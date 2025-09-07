@@ -74,7 +74,7 @@
     </div>
 </div>
 
-<script>
+<!-- <script>
     document.addEventListener('DOMContentLoaded', () => {
         document.querySelectorAll('.media-container').forEach(container => {
             const slides = container.querySelectorAll('.media-slide');
@@ -99,6 +99,62 @@
             });
         });
     });
-    </script>
+</script> -->
     
+<script>
+    // Auto-scroll for banner carousel
+    document.addEventListener("DOMContentLoaded", function () {
+        const track = document.querySelector('.banner-track');
+        if (track) {
+            let scrollAmount = 0;
+            let speed = 2; // Speed of scrolling (adjustable)
+            function autoScroll() {
+                scrollAmount += speed;
+                if (scrollAmount >= track.scrollWidth / 2) {
+                    scrollAmount = 0;
+                }
+                track.style.transform = `translateX(-${scrollAmount}px)`;
+                requestAnimationFrame(autoScroll);
+            }
+            autoScroll();
+        }
+    
+        // Event Media Slider Logic
+        let sliders = document.querySelectorAll('.media-container');
+    
+        sliders.forEach((container) => {
+            let slides = container.querySelectorAll('.media-slide');
+            let prevBtn = container.querySelector('.prev');
+            let nextBtn = container.querySelector('.next');
+            let currentIndex = 0;
+            let totalSlides = slides.length;
+    
+            function updateSlides() {
+                slides.forEach((slide, i) => {
+                    slide.style.display = (i === currentIndex) ? "block" : "none";
+                });
+                prevBtn.style.display = (currentIndex === 0) ? "none" : "block";
+                nextBtn.style.display = (currentIndex === totalSlides - 1) ? "none" : "block";
+            }
+    
+            function moveSlide(step) {
+                currentIndex += step;
+                updateSlides();
+            }
+    
+            prevBtn.addEventListener("click", () => moveSlide(-1));
+            nextBtn.addEventListener("click", () => moveSlide(1));
+    
+            updateSlides();
+        });
+    });
+    
+    // Open image in full-screen
+    function openFullScreen(img) {
+        const imageUrl = img.src;
+        const newWindow = window.open("", "_blank");
+        newWindow.document.write(`<img src="${imageUrl}" style="width:100%; height:auto;">`);
+    }
+</script>
+        
 {% endblock %}

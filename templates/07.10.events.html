@@ -37,7 +37,7 @@
                 {% for media in media_files %}
                 <div class="media-slide">
                     {% if media.strip().endswith('.mp4') %}
-                    <video controls>
+                    <video controls controlsList="nodownload" playsinline webkit-playsinline>
                         <source src="{{ url_for('static', filename='images/events/' + media.strip()) }}" type="video/mp4">
                         Your browser does not support the video tag.
                     </video>
