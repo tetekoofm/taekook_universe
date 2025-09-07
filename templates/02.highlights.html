@@ -90,15 +90,17 @@
                 slides.forEach((slide, i) => {
                     slide.style.display = (i === index) ? "block" : "none";
                 });
-    
                 // Hide buttons if only one slide
                 if(slides.length <= 1) {
                     if(prevBtn) prevBtn.style.display = "none";
                     if(nextBtn) nextBtn.style.display = "none";
+                } else {
+                    if(prevBtn) prevBtn.style.display = "block";
+                    if(nextBtn) nextBtn.style.display = "block";
                 }
             }
     
-            if(slides.length > 0) showSlide(currentIndex);
+            showSlide(currentIndex);
     
             if(prevBtn) prevBtn.addEventListener("click", () => {
                 currentIndex = (currentIndex - 1 + slides.length) % slides.length;
@@ -111,6 +113,6 @@
             });
         });
     });
-    </script>
+</script>
         
 {% endblock %}
