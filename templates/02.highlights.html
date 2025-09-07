@@ -75,27 +75,28 @@
 </div>
 
 <script>
-    document.querySelectorAll('.media-container').forEach(container => {
-        const slides = container.querySelectorAll('.media-slide');
-        const prevBtn = container.querySelector('.prev');
-        const nextBtn = container.querySelector('.next');
-        let currentIndex = 0;
-    
-        function showSlide(index) {
-            slides.forEach((slide, i) => slide.classList.toggle('active', i === index));
-        }
-    
-        // show the first slide initially
-        showSlide(currentIndex);
-    
-        prevBtn.addEventListener('click', () => {
-            currentIndex = (currentIndex - 1 + slides.length) % slides.length;
+    document.addEventListener('DOMContentLoaded', () => {
+        document.querySelectorAll('.media-container').forEach(container => {
+            const slides = container.querySelectorAll('.media-slide');
+            const prevBtn = container.querySelector('.prev');
+            const nextBtn = container.querySelector('.next');
+            let currentIndex = 0;
+
+            function showSlide(index) {
+                slides.forEach((slide, i) => slide.classList.toggle('active', i === index));
+            }
+
             showSlide(currentIndex);
-        });
-    
-        nextBtn.addEventListener('click', () => {
-            currentIndex = (currentIndex + 1) % slides.length;
-            showSlide(currentIndex);
+
+            prevBtn.addEventListener('click', () => {
+                currentIndex = (currentIndex - 1 + slides.length) % slides.length;
+                showSlide(currentIndex);
+            });
+
+            nextBtn.addEventListener('click', () => {
+                currentIndex = (currentIndex + 1) % slides.length;
+                showSlide(currentIndex);
+            });
         });
     });
     </script>
