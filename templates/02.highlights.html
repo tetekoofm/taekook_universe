@@ -21,20 +21,24 @@
                         <div class="media-slider">
                             {% set media_files = event.image.split(',') %}
                             {% for media in media_files %}
-                            <div class="media-slide" style="display:block;">
-                                {% if media.strip().endswith('.mp4') %}
-                                    <video class="media-video" controls controlsList="nodownload" playsinline webkit-playsinline>
-                                        <source src="{{ url_for('static', filename='images/upcoming/dodger/' + media.strip()) }}" type="video/mp4">
-                                        Your browser does not support the video tag.
-                                    </video>
+                            {% set media = media.strip() %}
+                            <div class="media-slide{% if loop.first %} active{% endif %}">
+                                {% if media.endswith('.mp4') %}
+                                <video class="media-video" controls controlsList="nodownload" playsinline webkit-playsinline>
+                                    <source src="{{ url_for('static', filename='images/upcoming/dodger/' + media) }}" type="video/mp4">
+                                    Your browser does not support the video tag.
+                                </video>
                                 {% else %}
-                                    <img src="{{ url_for('static', filename='images/upcoming/dodger/' + media.strip()) }}" alt="{{ event.title }}">
+                                <img src="{{ url_for('static', filename='images/upcoming/dodger/' + media) }}" 
+                                     alt="{{ event.title }}">
                                 {% endif %}
                             </div>
                             {% endfor %}
                         </div>
+                        {% if media_files|length > 1 %}
                         <button class="prev">&#10094;</button>
                         <button class="next">&#10095;</button>
+                        {% endif %}
                     </div>
                 
                     <div class="upcoming-content">
@@ -74,43 +78,38 @@
 </div>
 
 <script>
-    document.addEventListener("DOMContentLoaded", function () {
-        // Event Media Slider Logic
-        const sliders = document.querySelectorAll('.media-container');
-    
-        sliders.forEach((container) => {
+    document.addEventListener("DOMContentLoaded", function() {
+        document.querySelectorAll('.media-container').forEach(container => {
             const slides = container.querySelectorAll('.media-slide');
             const prevBtn = container.querySelector('.prev');
             const nextBtn = container.querySelector('.next');
             let currentIndex = 0;
-            const totalSlides = slides.length;
-    
-            // If only 1 slide, hide buttons
-            if (totalSlides <= 1) {
-                prevBtn.style.display = "none";
-                nextBtn.style.display = "none";
-            }
     
             function showSlide(index) {
                 slides.forEach((slide, i) => {
                     slide.style.display = (i === index) ? "block" : "none";
                 });
+    
+                // Hide buttons if only one slide
+                if(slides.length <= 1) {
+                    if(prevBtn) prevBtn.style.display = "none";
+                    if(nextBtn) nextBtn.style.display = "none";
+                }
             }
     
-            showSlide(currentIndex);
+            if(slides.length > 0) showSlide(currentIndex);
     
-            prevBtn.addEventListener("click", () => {
-                currentIndex = (currentIndex - 1 + totalSlides) % totalSlides;
+            if(prevBtn) prevBtn.addEventListener("click", () => {
+                currentIndex = (currentIndex - 1 + slides.length) % slides.length;
                 showSlide(currentIndex);
             });
     
-            nextBtn.addEventListener("click", () => {
-                currentIndex = (currentIndex + 1) % totalSlides;
+            if(nextBtn) nextBtn.addEventListener("click", () => {
+                currentIndex = (currentIndex + 1) % slides.length;
                 showSlide(currentIndex);
             });
         });
     });
-    </script>
-    
+</script>
         
 {% endblock %}
