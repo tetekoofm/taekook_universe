@@ -1,11 +1,11 @@
 {% extends "00.base.html" %}
 {% block title %}Highlights{% endblock %}
+
 {% block content %}
 <div class="main-content">
     <h1 class="heading">Highlights</h1>
-    <p class="caption">
-        Highlights of Taehyung and Jung Kook!
-    </p>
+    <p class="caption">Highlights of Taehyung and Jung Kook!</p>
+
     <div class="upcoming-container">
         {% if upcoming %}
             {% for event in upcoming %}
@@ -14,7 +14,7 @@
                     <h2 class="upcoming-title">{{ event.title }}</h2>
                     <p class="upcoming-date">{{ event.date.strftime('%B %d, %Y') }}</p>
                 </div>
-    
+
                 <div class="upcoming-body">
                     <!-- Media Slider -->
                     <div class="media-container">
@@ -40,7 +40,7 @@
                         <button class="next">&#10095;</button>
                         {% endif %}
                     </div>
-                
+
                     <div class="upcoming-content">
                         <p class="upcoming-description">
                             {{ event.description.replace('\n', '<br>') | safe }}
@@ -55,8 +55,9 @@
             <p>While the stage is being set, we’re holding space for what’s next — and it’s going to be unforgettable.💜</p>
             <img src="{{ url_for('static', filename='images/upcoming/stay_tuned.webp') }}" 
                  alt="Stay Tuned" class="stay-tuned-image">
-        </div>        
+        </div>
         {% endif %}
+
         
         {% if recaps %}
         <div class="weekly-recap-section">
@@ -110,6 +111,6 @@
             });
         });
     });
-</script>
+    </script>
         
 {% endblock %}
