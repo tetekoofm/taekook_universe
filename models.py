@@ -23,6 +23,7 @@ class Upcoming(db.Model):
     date = db.Column(db.String(20), nullable=False)
     artist = db.Column(db.String(100), nullable=False)
     title = db.Column(db.String(200), nullable=False)
+    folder = db.Column(db.String(100), nullable=True) 
     image = db.Column(db.String(300), nullable=True)
     description = db.Column(db.Text, nullable=True)
 

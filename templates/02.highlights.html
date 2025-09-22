@@ -25,11 +25,11 @@
                             <div class="media-slide{% if loop.first %} active{% endif %}">
                                 {% if media.endswith('.mp4') %}
                                 <video class="media-video" controls controlsList="nodownload" playsinline webkit-playsinline>
-                                    <source src="{{ url_for('static', filename='images/upcoming/dodger/' + media) }}" type="video/mp4">
+                                    <source src="{{ url_for('static', filename='images/upcoming/' ~ event.folder ~ '/' ~ media) }}" type="video/mp4">
                                     Your browser does not support the video tag.
                                 </video>
                                 {% else %}
-                                <img src="{{ url_for('static', filename='images/upcoming/dodger/' + media) }}" 
+                                <img src="{{ url_for('static', filename='images/upcoming/' ~ event.folder ~ '/' ~ media) }}"  
                                      alt="{{ event.title }}">
                                 {% endif %}
                             </div>

@@ -40,6 +40,7 @@ def insert_data_from_excel():
                     date=row['date'],
                     artist=row['artist'],
                     title=row['title'],
+                    folder=row['folder'], 
                     image=row['image'], 
                     description=row['description']
                 )
