@@ -3,51 +3,80 @@
 {% block content %}
 
 <div class="main-content">
-    <h1 class="heading">Welcome to TaeKook Universe!</h1>
-    <p class="caption">A fanpage dedicated to Kim Taehyung and Jeon Jung Kook.</p>
-    <p class="caption">Follow their incredible journey from their debut till now!</p>
+  <h1 class="heading">Welcome to TaeKook Universe!</h1>
+  <p class="caption">A fanpage dedicated to Kim Taehyung and Jeon Jung Kook.</p>
+  <p class="caption">Follow their incredible journey from their debut till now!</p>
 
-    <!-- Image Carousel -->
-    <div class="image-carousel">
-        {% for image in images %}
+  <!-- Image Carousel -->
+  <div class="image-carousel">
+    <div class="slides-track">
+      {% for media in images %}
         <div class="image-slide">
-            <img src="{{ url_for('static', filename='images/home/' + image) }}" alt="Taekook {{ loop.index }}">
+          {% if media.endswith('.mp4') %}
+            <video class="glow-media" autoplay loop muted playsinline>
+              <source src="{{ url_for('static', filename='images/home/pictureoftheday/' + media) }}" type="video/mp4">
+            </video>
+          {% else %}
+            <img class="glow-media" src="{{ url_for('static', filename='images/home/pictureoftheday/' + media) }}" alt="Taekook {{ loop.index }}">
+          {% endif %}
         </div>
-        {% endfor %}
+      {% endfor %}
     </div>
-</div>
+  </div>
 
-<script>
-// Image Carousel Logic
-const slides = document.querySelectorAll('.image-slide');
-if (slides.length > 0) {
+  <script>
+    const track = document.querySelector('.slides-track');
+    const slides = document.querySelectorAll('.image-slide');
+    const totalSlides = slides.length;
     let index = 0;
-    setInterval(() => {
-        slides[index].classList.remove('visible');
-        index = (index + 1) % slides.length;
-        slides[index].classList.add('visible');
-    }, 3000);
-}
-
-function generateStars() {
-    const nightSky = document.createElement('div');
-    nightSky.classList.add('night-sky');
-    document.body.appendChild(nightSky);
-
-    const numberOfStars = 300; 
-    for (let i = 0; i < numberOfStars; i++) {
-        const star = document.createElement('div');
-        star.classList.add('star');
-        star.style.top = `${Math.random() * 100}vh`; 
-        star.style.left = `${Math.random() * 100}vw`; 
-        star.style.animationDuration = `${Math.random() * 3 + 2}s`; 
-        nightSky.appendChild(star);
+    
+    function getVisibleSlides() {
+        if (window.innerWidth <= 768) return 1;       // mobile
+        else if (window.innerWidth <= 1024) return 2;  // tablet
+        else return 3;                                 // desktop
     }
-}
-
-window.onload = function() {
-    generateStars(); 
-};
-
-</script>
+    
+    function slideCarousel() {
+        const visibleSlides = getVisibleSlides();
+        
+        // Loop back to start if at the end
+        if (index >= totalSlides - visibleSlides + 1) {
+            index = 0;
+        } else {
+            index++;
+        }
+    
+        const offset = -(index * (100 / visibleSlides));
+        track.style.transform = `translateX(${offset}%)`;
+        track.style.transition = 'transform 1s ease-in-out';
+    }
+    
+    setInterval(slideCarousel, 4000);
+    
+    // Reset carousel on window resize
+    window.addEventListener('resize', () => {
+        index = 0;
+        track.style.transform = `translateX(0%)`;
+    });
+    
+    // Background stars
+    function generateStars() {
+        const nightSky = document.createElement('div');
+        nightSky.classList.add('night-sky');
+        document.body.appendChild(nightSky);
+    
+        const numberOfStars = 300;
+        for (let i = 0; i < numberOfStars; i++) {
+            const star = document.createElement('div');
+            star.classList.add('star');
+            star.style.top = `${Math.random() * 100}vh`;
+            star.style.left = `${Math.random() * 100}vw`;
+            star.style.animationDuration = `${Math.random() * 3 + 2}s`;
+            nightSky.appendChild(star);
+        }
+    }
+    
+    window.onload = generateStars;
+    </script>  
+    
 {% endblock %}
