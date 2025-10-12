@@ -1,27 +1,34 @@
-Purple Dreams: Taekook Edition
-Purple Dreams: Taekook Edition is a fan-driven, interactive website dedicated to BTS members Taehyung (V) and Jungkook. It showcases their journey, achievements, music, and fans' involvement in their ever-growing legacy. The site features various sections that provide fans with engaging content, such as upcoming projects, their music, awards, fanbase activities, and much more.
+🪐 TaeKook Universe
 
-Project Overview
-Purple Dreams is designed as a centralized hub for everything related to Taehyung and Jungkook, with dedicated pages highlighting their:
+TaeKook Universe is a fan-made interactive website dedicated to Kim Taehyung (V) and Jeon Jungkook (JK) of BTS.
+It celebrates their artistry, journey, and bond through a visually immersive and emotionally driven storytelling experience.
 
-Upcoming Projects: A section that lists and highlights the duo's future activities.
-Memories: A timeline of their journey from debut to now.
-Achievements: A showcase of their individual and collaborative milestones.
-Radio & Vibes: Information about their songs being played on radio and their curated music playlists.
-Fanbases: A tribute to fan groups supporting Taekook.
-Store: A merchandise section (Purple Vault) for fans to purchase fan-made products.
-Fan Projects: A place to highlight ongoing or past fan-driven initiatives.
-Target Audience
-This website is designed for BTS fans, particularly fans of Taehyung and Jungkook, who want to stay updated on their music, projects, and engage with other fans.
+🌐 Live Site: https://www.taekookuniverse.com
+🖤 Built with love by fans, for fans.
 
-Website Features
-Landing Page (Home): A welcoming page that introduces visitors to the website with Taekook’s picture and an overview of the site’s purpose.
-New/Upcoming Projects: Lists the upcoming projects and events related to Taehyung and Jungkook.
-Memories: Updates and memories of their pre-debut and post-debut life.
-Achievements: A section dedicated to their music, milestones, awards, and achievements.
-Radio: A playlist of Taehyung and Jungkook’s solo and collaborative songs aired on various radio stations.
-Vibes: Curated playlists highlighting the unique styles of both artists, featuring their favorite tracks.
-Fanbases: Details about various fan clubs that support them.
-Fan Projects: Information about fan-driven projects, giveaways, and initiatives.
-Purple Vault (Store): An online store selling fan-made merchandise such as ornaments, stickers, and other Taekook-related products.
-Contact & Feedback: A section for fan interaction, feedback, and suggestions.
+**Project Overview:**
+TaeKook Universe serves as a centralized hub for everything related to Taehyung and Jungkook, bringing together content, updates, and creative fan projects in one place.
+
+**Key Sections:**
+**Recent Highlights & Upcoming Projects:**
+Stay updated on Taehyung and Jungkook’s latest appearances, collaborations, and future activities.
+**Memories:** 
+A nostalgic timeline tracing their journey — from debut to their most iconic moments.
+**In The News:**
+A curated showcase of their individual and joint achievements, recognitions, and milestones.
+**Vibes:**
+Dive into their discography — featuring tracklists, solo work, and specially curated playlists inspired by their music.
+**Guide:**
+Learn how to support Taehyung and Jungkook — from streaming and voting guides to official links.
+**Fan Projects:**
+A dedicated space to highlight ongoing and completed fan-driven initiatives that celebrate TaeKook.
+**Fan Letters:**
+A heartfelt collection of fan letters — messages of love, admiration, and support from ARMY across the globe.
+
+💫 Who It’s For
+This website is made for fans of Kim Taehyung and Jeon Jungkook who want to:
+Stay updated on their latest activities
+Revisit their journey and memories
+Engage in fan projects
+Listen to their music and curated playlists
+Feel part of the TaeKook community
