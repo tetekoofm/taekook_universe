@@ -33,7 +33,8 @@ A dedicated space to highlight ongoing and completed fan-driven initiatives that
 A heartfelt collection of fan letters — messages of love, admiration, and support from ARMY across the globe.
 
 
-💫 Who It’s For
+💫 Who It’s For:
+
 This website is made for fans of Kim Taehyung and Jeon Jungkook who want to:
 
 Stay updated on their latest activities
