@@ -53,11 +53,11 @@ def home_orig():
     image_folder = os.path.join(app.static_folder, 'images/home/pictureoftheday')
     images = [f for f in os.listdir(image_folder) if f.lower().endswith(('jpg', 'jpeg', 'png', 'gif', 'webp', 'mp4'))]
     random.shuffle(images)
-    selected_media = images[:6]  # ✅ correct list slicing
+    # selected_media = images[:6]  # ✅ correct list slicing
     music = BackgroundMusic.query.filter_by(page_name='home').first()
     song_file = music.file_name if music else "your_eyes_tell.mp3"
     song_name = music.song_name if music else "Your Eyes Tell"
-    return render_template('01.home.html', song_file=song_file, song_name=song_name, images=selected_media)
+    return render_template('01.home.html', song_file=song_file, song_name=song_name, images=images)
 
 @app.route('/meet-tae')
 def meet_tae():

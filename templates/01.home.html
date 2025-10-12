@@ -29,34 +29,44 @@
     const slides = document.querySelectorAll('.image-slide');
     const totalSlides = slides.length;
     let index = 0;
-    
+
     function getVisibleSlides() {
         if (window.innerWidth <= 768) return 1;       // mobile
         else if (window.innerWidth <= 1024) return 2;  // tablet
         else return 3;                                 // desktop
     }
-    
-    function slideCarousel() {
-        const visibleSlides = getVisibleSlides();
-        
-        // Loop back to start if at the end
-        if (index >= totalSlides - visibleSlides + 1) {
-            index = 0;
-        } else {
-            index++;
-        }
-    
-        const offset = -(index * (100 / visibleSlides));
-        track.style.transform = `translateX(${offset}%)`;
-        track.style.transition = 'transform 1s ease-in-out';
+
+    // Clone first few slides for seamless looping
+    const visibleSlides = getVisibleSlides();
+    for (let i = 0; i < visibleSlides; i++) {
+        const clone = slides[i].cloneNode(true);
+        track.appendChild(clone);
     }
-    
+
+    function slideCarousel() {
+        const visible = getVisibleSlides();
+        index++;
+        track.style.transition = 'transform 1s ease-in-out';
+        const offset = -(index * (100 / visible));
+        track.style.transform = `translateX(${offset}%)`;
+
+        // Loop back seamlessly
+        if (index >= totalSlides) {
+            setTimeout(() => {
+                track.style.transition = 'none';
+                index = 0;
+                track.style.transform = `translateX(0%)`;
+            }, 1000); // match transition duration
+        }
+    }
+
     setInterval(slideCarousel, 4000);
-    
-    // Reset carousel on window resize
+
+    // Reset on resize
     window.addEventListener('resize', () => {
         index = 0;
-        track.style.transform = `translateX(0%)`;
+        track.style.transition = 'none';
+        track.style.transform = 'translateX(0%)';
     });
     
     // Background stars
