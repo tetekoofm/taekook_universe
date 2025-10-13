@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TaeKook Universe Memories</title>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500&display=swap" rel="stylesheet">
+<style>
+body {
+  margin: 0;
+  overflow: hidden;
+  background: radial-gradient(#0b0c2a, #000);
+  font-family: 'Orbitron', sans-serif;
+  color: #fff;
+}
+canvas { display: block; }
+.tooltip {
+  position: absolute;
+  background: rgba(155, 93, 229, 0.9);
+  padding: 5px 10px;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  pointer-events: none;
+  opacity: 0;
+  color: #fff;
+  transition: opacity 0.2s;
+  z-index: 10;
+}
+#eventsPanel {
+  position:absolute;
+  bottom:10px;
+  left:10px;
+  width:320px;
+  max-height:80%;
+  overflow-y:auto;
+  background:rgba(0,0,0,0.7);
+  padding:12px;
+  border-radius:8px;
+  color:#fff;
+  display:none;
+  z-index: 5;
+}
+#eventModal {
+  position:fixed;
+  top:50%;
+  left:50%;
+  transform:translate(-50%, -50%);
+  background:rgba(0,0,0,0.95);
+  color:#fff;
+  padding:20px;
+  border-radius:10px;
+  display:none;
+  max-width:420px;
+  z-index: 20;
+}
+#eventModal img {
+  width:100%;
+  border-radius:8px;
+  margin-bottom:10px;
+}
+#eventModal button {
+  margin-top:10px;
+  padding:6px 12px;
+  cursor:pointer;
+  background:#9b5de5;
+  color:white;
+  border:none;
+  border-radius:6px;
+}
+</style>
+</head>
+<body>
+<canvas id="galaxyCanvas"></canvas>
+<div class="tooltip" id="tooltip"></div>
+<div id="eventsPanel"></div>
+<div id="eventModal"></div>
+
+<script>
+const canvas = document.getElementById('galaxyCanvas');
+const ctx = canvas.getContext('2d');
+const tooltip = document.getElementById('tooltip');
+const eventsPanel = document.getElementById('eventsPanel');
+const eventModal = document.getElementById('eventModal');
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+
+let galaxies = [];
+let selectedGalaxy = null;
+
+// Fetch data from Flask
+fetch('/memories_data')
+  .then(res => res.json())
+  .then(data => {
+    buildGalaxies(data);
+    animate();
+  });
+
+function buildGalaxies(timeline_data) {
+  const margin = 150;
+  const visibleWidth = canvas.width - margin*2;
+  const visibleHeight = canvas.height - margin*2;
+
+  galaxies = Object.entries(timeline_data).map(([year, months]) => {
+    const x = margin + Math.random() * visibleWidth;
+    const y = margin + Math.random() * visibleHeight;
+
+    const totalEvents = Object.values(months).flat().length;
+    const stars = [];
+    const arms = 3;
+    const numStars = 30 + totalEvents * 3;
+
+    for (let s = 0; s < numStars; s++) {
+      stars.push({
+        arm: Math.floor(Math.random() * arms),
+        radius: 20 + Math.random() * 40,
+        t: Math.random() * Math.PI * 2,
+        size: Math.random() * 1.5 + 0.5,
+        color: `hsla(${Math.random() * 360}, 80%, 60%, ${Math.random() * 0.7 + 0.3})`
+      });
+    }
+
+    return {
+      year,
+      x,
+      y,
+      stars,
+      arms,
+      rotation: Math.random() * Math.PI * 2,
+      numEvents: totalEvents,
+      monthEvents: months
+    };
+  });
+}
+
+function drawBackgroundStars() {
+  for (let i = 0; i < 500; i++) {
+    ctx.fillStyle = "#fff";
+    ctx.globalAlpha = Math.random();
+    ctx.fillRect(Math.random() * canvas.width, Math.random() * canvas.height, 1, 1);
+  }
+}
+
+function animate() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  drawBackgroundStars();
+
+  galaxies.forEach(g => {
+    g.rotation += 0.0001;
+
+    if (selectedGalaxy && selectedGalaxy !== g) return;
+
+    // Spiral arms
+    g.stars.forEach(s => {
+      s.t += 0.001;
+      const angle = s.t + s.arm * 2 * Math.PI / g.arms + g.rotation;
+      const spiralRadius = s.radius * (1 + g.numEvents * 0.02);
+      const x = g.x + spiralRadius * Math.cos(angle);
+      const y = g.y + spiralRadius * Math.sin(angle);
+
+      ctx.beginPath();
+      ctx.arc(x, y, s.size, 0, 2 * Math.PI);
+      ctx.fillStyle = s.color;
+      ctx.fill();
+    });
+
+    // Year text
+    ctx.font = selectedGalaxy === g ? "50px Orbitron" : "20px Orbitron";
+    ctx.fillStyle = "#fff";
+    ctx.textAlign = "center";
+    ctx.fillText(g.year, g.x, g.y);
+
+    // Months
+    if (selectedGalaxy === g) {
+      const monthKeys = Object.keys(g.monthEvents);
+      monthKeys.forEach((month, i) => {
+        const numEvents = g.monthEvents[month].length;
+        const orbitRadius = 100 + i * 40;
+        const speed = 0.00005 + i * 0.00002;
+        const angle = (performance.now() * speed + i * Math.PI / 6) % (2 * Math.PI);
+        const px = g.x + orbitRadius * Math.cos(angle);
+        const py = g.y + orbitRadius * Math.sin(angle);
+
+        ctx.beginPath();
+        ctx.arc(px, py, 6 + numEvents, 0, 2 * Math.PI);
+        ctx.fillStyle = `hsl(${i * 30}, 80%, 60%)`;
+        ctx.fill();
+
+        ctx.font = "20px Orbitron";
+        ctx.fillStyle = "#fff";
+        ctx.fillText(month, px, py - 15);
+      });
+    }
+  });
+
+  requestAnimationFrame(animate);
+}
+
+// Click logic
+canvas.addEventListener('click', e => {
+  galaxies.forEach(g => {
+    const dx = e.clientX - g.x;
+    const dy = e.clientY - g.y;
+
+    if (Math.sqrt(dx * dx + dy * dy) < 40) {
+      if (selectedGalaxy === g) {
+        selectedGalaxy = null;
+        eventsPanel.style.display = 'none';
+      } else {
+        selectedGalaxy = g;
+        eventsPanel.style.display = 'none';
+      }
+    }
+
+    if (selectedGalaxy === g) {
+      const monthKeys = Object.keys(g.monthEvents);
+      monthKeys.forEach((month, i) => {
+        const numEvents = g.monthEvents[month].length;
+        const orbitRadius = 100 + i * 40;
+        const speed = 0.00005 + i * 0.00002;
+        const angle = (performance.now() * speed + i * Math.PI / 6) % (2 * Math.PI);
+        const px = g.x + orbitRadius * Math.cos(angle);
+        const py = g.y + orbitRadius * Math.sin(angle);
+        const dist = Math.sqrt((e.clientX - px) ** 2 + (e.clientY - py) ** 2);
+        if (dist < 6 + numEvents) showEventsPanel(g.monthEvents[month], month, g.year);
+      });
+    }
+  });
+});
+
+function showEventsPanel(events, month, year) {
+  eventsPanel.innerHTML = `<h3>${month} ${year}</h3>`;
+  events.forEach(ev => {
+    const div = document.createElement('div');
+    div.style.marginBottom = '8px';
+    div.style.cursor = 'pointer';
+    div.innerHTML = `
+      <div style="display:flex; align-items:center;">
+        <img src="${ev.image}" width="40" height="40" style="border-radius:4px; margin-right:5px;">
+        <div>
+          <strong>${ev.title}</strong><br>
+          <small>${ev.date}</small>
+        </div>
+      </div>
+    `;
+    div.onclick = () => showEventModal(ev);
+    eventsPanel.appendChild(div);
+  });
+  eventsPanel.style.display = 'block';
+}
+
+function showEventModal(ev) {
+  eventModal.innerHTML = `
+    <h2>${ev.title}</h2>
+    <img src="${ev.image}" alt="">
+    <p>${ev.description}</p>
+    <button id="closeModal">Close</button>
+  `;
+  eventModal.style.display = 'block';
+  document.getElementById('closeModal').onclick = () => eventModal.style.display = 'none';
+}
+</script>
+</body>
+</html>

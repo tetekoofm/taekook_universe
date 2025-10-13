@@ -1,285 +1,349 @@
-{% extends "00.base.html" %}
-{% block title %}Memories Timeline{% endblock %}
-{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Taekook Universe Galaxy</title>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500&display=swap" rel="stylesheet">
+<style>
+body {
+  margin: 0;
+  overflow: hidden;
+  background: radial-gradient(#0b0c2a, #000);
+  font-family: 'Orbitron', sans-serif;
+}
+canvas { display: block; }
 
-<!-- Main Content Section -->
-<div class="main-content">
-    <div class="timeline-intro">
-        <h1 class="heading">Memories</h1>
-        <p class="caption">Few memories through their timeline!</p>
-        <button id="playButton" class="btn">Ready to Smile?</button>
-        <a id="skipLink" class="skip-link" role="button" style="display: none;">Skip to Timeline</a>
-    </div>
-</div>
+.tooltip {
+  position: absolute;
+  background: rgba(155, 93, 229, 0.9);
+  padding: 5px 10px;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  pointer-events: none;
+  opacity: 0;
+  color: #fff;
+  transition: opacity 0.2s;
+  z-index: 10;
+}
 
-<!-- Audio Section -->
-<div id="audio-container">
-    <audio id="memories-audio" muted>
-        <source src="{{ url_for('static', filename='audio/memories.mp3') }}" type="audio/mp3">
-        Your browser does not support the audio tag.
-    </audio>
-</div>
+#eventsPanel {
+  position:absolute;
+  bottom:10px;
+  left:10px;
+  width:320px;
+  max-height:80%;
+  overflow-y:auto;
+  background:rgba(0,0,0,0.75);
+  padding:10px;
+  border-radius:10px;
+  color:#fff;
+  display:none;
+  z-index: 5;
+  backdrop-filter: blur(6px);
+}
 
-<!-- Video Memories Section -->
-<div id="videos-container"></div>
+#eventModal {
+  position:fixed;
+  top:50%;
+  left:50%;
+  transform:translate(-50%, -50%) scale(1);
+  background:rgba(10, 10, 20, 0.95);
+  color:#fff;
+  padding:25px;
+  border-radius:12px;
+  display:none;
+  max-width:420px;
+  text-align:center;
+  z-index: 20;
+  box-shadow:0 0 30px rgba(155, 93, 229, 0.5);
+  transition:transform 0.3s ease, opacity 0.3s ease;
+}
 
-<!-- Timeline Container -->
-<div class="timeline-container hide">
+#eventModal img {
+  width: 100%;
+  max-height: 240px;
+  object-fit: cover;
+  object-position: top; /* <-- focus on top of image */
+  border-radius: 10px;
+  margin-bottom: 15px;
+}
 
-    <!-- Years Container -->
-    <div class="years-container">
-        {% for year in timeline_data.keys() | sort %}
-        <div class="year-box" data-year="{{ year }}" role="button" aria-expanded="false">
-            {{ year }}
-            <div class="year-vertical-line"></div>
-        </div>
-        {% endfor %}
-    </div>
-    
-    <!-- Months and Events for Each Year -->
-    {% for year, months in timeline_data.items() %}
-    <div class="months-container" data-year="{{ year }}" style="display: none;">
-        <div class="horizontal-tree-line"></div> <!-- Horizontal line -->
-        <div class="months-box">
-            {% for month_num, events in months.items() %}
-            <div class="month-box-container">
-                <div class="month-vertical-branch"></div> <!-- Month vertical line -->
-                <div class="month-box" data-month="{{ month_num }}">
-                    <div class="month-name">{{ calendar.month_abbr[month_num] }} '{{ formatted_years[year] }}'</div>
-                </div>
-                <div class="event-list" data-month="{{ month_num }}">
-                    {% for event in events %}
-                    <div class="event-item" data-title="{{ event.title }}" data-date="{{ event.date }}"
-                        data-description="{{ event.description }}" 
-                        data-image="{{ url_for('static', filename='images/memories/' + event.image) }}">
-                        <span class="event-bullet">&#8226;</span>
-                        <span class="event-date">{{ event.date.split('-')[2] }}</span>
-                        <img src="{{ url_for('static', filename='images/memories/' + event.image) }}" alt="Event Icon" class="event-icon">
-                        <span class="event-title">{{ event.title }}</span>
-                    </div>
-                    {% endfor %}
-                </div>
-            </div>
-            {% endfor %}
-        </div>
-        </div>
-        {% endfor %}
-    </div>
-    <!-- Event Modal -->
-    <div id="eventModal" class="modal" style="display: none;">
-        <div class="modal-content">
-            <span class="close" onclick="closeModal()">&times;</span>
-            <h2 id="eventTitle"></h2>
-            <span id="eventDate"></span>
-            <img id="eventImage" src="" alt="Event Image" class="modal-event-image">
-            <p id="eventDescription"></p>
-        </div>
-    </div>
-</div>
+#eventModal button {
+  margin-top:15px;
+  padding:8px 15px;
+  cursor:pointer;
+  background:rgba(155,93,229,0.9);
+  border:none;
+  border-radius:8px;
+  color:#fff;
+  font-family:'Orbitron',sans-serif;
+  letter-spacing:1px;
+}
+#eventModal button:hover {
+  background:rgba(155,93,229,1);
+}
+
+</style>
+</head>
+<body>
+<canvas id="galaxyCanvas"></canvas>
+<div class="tooltip" id="tooltip"></div>
+<div id="eventsPanel"></div>
+<div id="eventModal"></div>
+
 <script>
-    let videosContainer;
-    document.addEventListener("DOMContentLoaded", () => {
-        const yearBoxes = document.querySelectorAll(".year-box");
-        const playButton = document.getElementById("playButton");
-        const skipLink = document.getElementById("skipLink");
-        const memoriesAudio = document.getElementById("memories-audio");
-        videosContainer = document.getElementById("videos-container");
-        const videoFiles = {{ video_files|tojson }};
-        const batchSize = 6;  
-        const delayIncrement = 2;
+const canvas = document.getElementById('galaxyCanvas');
+const ctx = canvas.getContext('2d');
+const tooltip = document.getElementById('tooltip');
+const eventsPanel = document.getElementById('eventsPanel');
+const eventModal = document.getElementById('eventModal');
+const imageBasePath = "{{ url_for('static', filename='images/memories/') }}";
 
-        // Predefined positions for videos to avoid overlap
-        const positions = window.innerWidth < 768 ? [
-            { top: 50, left: 35 }, // Center
-            { top: 65, left: 55 }, // Bottom-right
-            { top: 35, left: 5 }, // Top-left
-            { top: 35, left: 55 }, // Top-right
-            { top: 65, left: 5 }, // Bottom-left
-            { top: 50, left: 65 }, // Center-right
-            { top: 50, left: 5 }, // Center-left
-            { top: 65, left: 40 }, // Bottom-center
-            // { top: 25, left: 50 }, // Top-center
-        ] : [
-            { top: 50, left: 40 }, // Center
-            { top: 75, left: 75 }, // Bottom-right
-            { top: 25, left: 5 }, // Top-left
-            { top: 25, left: 75 }, // Top-right
-            { top: 75, left: 5 }, // Bottom-left
-            { top: 50, left: 65 }, // Center-right
-            { top: 50, left: 15 }, // Center-left
-            // { top: 25, left: 50 }, // Top-center
-            { top: 75, left: 40 }, // Bottom-center
-        ];
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
 
-        // Initially hide the button
-        playButton.style.display = "none";
+const monthNames = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+const events = {{ events|tojson }};
 
-        // Show the play button after a delay (adjust as needed)
-        setTimeout(() => {
-            playButton.style.display = "block";
-        }, 2000);
+// --- Group by year & month ---
+const yearData = {};
+events.forEach(ev=>{
+  const dateParts = ev.date.split('-');
+  const year = parseInt(dateParts[0]);
+  const monthIndex = parseInt(dateParts[1]) - 1;
+  const month = monthNames[monthIndex];
+  if(!yearData[year]) yearData[year]={months:{}};
+  if(!yearData[year].months[month]) yearData[year].months[month]=[];
+  yearData[year].months[month].push(ev);
+});
 
-        // Play audio and videos on button click
-        playButton.addEventListener("click", () => {
-            memoriesAudio.muted = false;
-            memoriesAudio.play().catch(console.error);
-            playButton.style.display = "none";
-            skipLink.style.display = "inline";
-            startVideosLoop(); // Start looping videos
-        });
+// --- Create Galaxies ---
+const galaxies = [];
+const margin = 150;
+const visibleWidth = canvas.width - margin*2;
+const visibleHeight = canvas.height - margin*2;
 
-        // Event listener for audio ending
-        memoriesAudio.addEventListener("ended", () => {
-            showTimeline();
-        });
+Object.keys(yearData).sort().forEach(year=>{
+  const x = margin + Math.random()*visibleWidth;
+  const y = margin + Math.random()*visibleHeight;
+  const monthEvents = yearData[year].months;
+  const numEvents = Object.values(monthEvents).reduce((sum,m)=>sum+m.length,0);
+  
+  const stars = [];
+  const numStars = 30 + numEvents*3;
+  const arms = 3;
 
-        skipLink.addEventListener("click", (event) => {
-            event.preventDefault();
-            event.stopPropagation();
-            skipLink.style.display = "none"; 
-            memoriesAudio.pause();
-            setTimeout(() => {
-                showTimeline(); // Show the timeline immediately after a short delay
-            }, 50); 
-        });
-
-        // Function to play a batch of videos in predefined zones
-        function playBatchOfVideos() {
-            let positionIndex = 0; // Start from the first position
-            for (let i = 0; i < videoFiles.length; i += batchSize) {
-                setTimeout(() => {
-                    videoFiles.slice(i, i + batchSize).forEach((video, index) => {
-                        const position = positions[positionIndex % positions.length]; // Cycle through predefined positions
-                        positionIndex++;
-
-                        const videoContainer = document.createElement("div");
-                        videoContainer.className = "video-container";
-                        videoContainer.style.position = "absolute";
-                        videoContainer.style.top = `${position.top}%`;
-                        videoContainer.style.left = `${position.left}%`;
-                        videoContainer.style.transform = "translate(-50%, -50%)"; 
-                        videoContainer.style.animationDelay = `${index * delayIncrement}s`;
-
-                        const videoElement = document.createElement("video");
-                        videoElement.src = `/static/videos/${video}`;
-                        videoElement.autoplay = true;
-                        videoElement.loop = true;
-                        videoElement.muted = true;
-                        videoElement.playsInline = true; // Prevent full-screen on mobile
-                        videoElement.setAttribute("playsinline", "true"); // For older browsers
-                        videoElement.setAttribute("webkit-playsinline", "true"); // For iOS Safari
-
-                        videoContainer.appendChild(videoElement);
-                        videosContainer.appendChild(videoContainer);
-                    });
-                }, i * delayIncrement * 1000);
-            }
-        }
-
-        // Function to continuously loop videos while the audio is playing
-        function startVideosLoop() {
-            function repeatVideos() {
-                if (!memoriesAudio.paused) {
-                    playBatchOfVideos(); // Play videos
-                    setTimeout(repeatVideos, videoFiles.length * delayIncrement * 1000); // Schedule the next batch
-                }
-            }
-            repeatVideos();
-        }
-
-        // Handle year box click (show months and events)
-        yearBoxes.forEach((box) => {
-            box.addEventListener("click", () => {
-                const year = box.dataset.year;
-
-                // Hide all months and reset lines
-                document.querySelectorAll(".months-container").forEach((container) => {
-                    const isActive = container.dataset.year === year;
-                    container.style.display = isActive ? "flex" : "none";
-
-                    const horizontalLine = container.querySelector(".horizontal-tree-line");
-                    if (horizontalLine) {
-                        horizontalLine.style.display = isActive ? "block" : "none";
-                    }
-
-                    const yearBox = document.querySelector(`[data-year="${container.dataset.year}"]`);
-                    if (yearBox) {
-                        const yearLine = yearBox.querySelector(".year-vertical-line");
-                        yearLine.style.display = isActive ? "block" : "none";
-                    }
-                });
-
-                // Display vertical branches for the active month's box
-                document.querySelectorAll(".month-box-container").forEach((monthBox) => {
-                    const branch = monthBox.querySelector(".month-vertical-branch");
-                    branch.style.display =
-                        branch.closest(".months-container").dataset.year === year ? "block" : "none";
-                });
-
-                // Set active state for the clicked year
-                yearBoxes.forEach((yb) => yb.classList.remove("active"));
-                box.classList.add("active");
-            });
-        });
-
-        // Handle event click (show modal with event details)
-        const eventItems = document.querySelectorAll(".event-item");
-        eventItems.forEach((item) => {
-            item.addEventListener("click", (e) => {
-                const { title, date, description, image } = e.target.closest(".event-item").dataset;
-                showEventDetails(title, date, description, image);
-            });
-        });
-
-        // Display event details in a modal
-        function showEventDetails(title = "No Title", date = "Unknown Date", description = "No Description", image = "") {
-            const modal = document.getElementById("eventModal");
-            const menuHeight = document.querySelector("nav").offsetHeight;
-    
-            modal.style.display = "flex";
-            modal.style.top = `${menuHeight}px`;
-    
-            document.getElementById("eventTitle").textContent = title;
-            document.getElementById("eventDescription").textContent = description;
-            document.getElementById("eventImage").src = image;
-    
-            let formattedDate = "Unknown Date";
-            if (date) formattedDate = formatDate(date);
-    
-            document.getElementById("eventDate").textContent = formattedDate;
-    
-            modal.style.display = "block";
-        }
-
-        // Format date as DD-MMM-YYYY
-        function formatDate(dateString) {
-            const [year, month, day] = dateString.split("-");
-            const date = new Date(Date.UTC(year, month - 1, day));
-            const dayOfMonth = date.getUTCDate();
-            const monthName = date.toLocaleString("default", { month: "short" });
-            const formattedYear = date.getUTCFullYear();
-    
-            return `${dayOfMonth}-${monthName}-${formattedYear}`;
-        }
-    
-        // Function to load the timeline
-        function showTimeline() {
-            const timelineContainer = document.querySelector(".timeline-container");
-            const videosContainer = document.getElementById("videos-container");
-
-            if (timelineContainer && videosContainer) {
-                videosContainer.style.display = "none"; // Hide videos
-                timelineContainer.classList.remove("hide"); // Show timeline
-                timelineContainer.style.display = "block"; // Ensure it's visible
-                skipLink.style.display = "none";
-            } else {
-                console.error("Timeline or videos container not found");
-            }
-        }
+  for(let s=0;s<numStars;s++){
+    stars.push({
+      arm: Math.floor(Math.random()*arms),
+      radius: 20 + Math.random()*40,
+      t: Math.random()*Math.PI*2,
+      size: Math.random()*1.5 + 0.5,
+      color: `hsla(${Math.random()*360}, 80%, 60%, ${Math.random()*0.7+0.3})`
     });
-        // Close modal
-        function closeModal() {
-            document.getElementById("eventModal").style.display = "none";
+  }
+
+  galaxies.push({year,x,y,numEvents,stars,arms,rotation:Math.random()*Math.PI*2, monthEvents});
+});
+
+// --- Background Stars ---
+const starsBg = Array.from({length:600},()=>({
+  x:Math.random()*canvas.width,
+  y:Math.random()*canvas.height,
+  r:Math.random()*1.5,
+  dx: (Math.random()-0.5)*0.05,
+  dy: (Math.random()-0.5)*0.05
+}));
+
+function drawBackgroundStars(){
+  ctx.fillStyle = '#fff';
+  starsBg.forEach(s=>{
+    s.x += s.dx;
+    s.y += s.dy;
+    if(s.x<0) s.x=canvas.width;
+    if(s.x>canvas.width) s.x=0;
+    if(s.y<0) s.y=canvas.height;
+    if(s.y>canvas.height) s.y=0;
+    ctx.beginPath();
+    ctx.arc(s.x,s.y,s.r,0,2*Math.PI);
+    ctx.fill();
+  });
+}
+
+let selectedGalaxy = null;
+
+// --- Animate Galaxies ---
+function animate(){
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+  drawBackgroundStars();
+
+  galaxies.forEach(g=>{
+    g.rotation += 0.0001;
+    if(selectedGalaxy && selectedGalaxy!==g) return;
+
+    g.stars.forEach(s=>{
+        s.t += 0.001;
+        const angle = s.t + s.arm*2*Math.PI/g.arms + g.rotation;
+        const spiralRadius = s.radius * (1 + g.numEvents*0.02) + 10*Math.sin(s.t*2);
+        const x = g.x + spiralRadius*Math.cos(angle);
+        const y = g.y + spiralRadius*Math.sin(angle);
+        const x2 = g.x + (spiralRadius+5)*Math.cos(angle);
+        const y2 = g.y + (spiralRadius+5)*Math.sin(angle);
+        ctx.beginPath();
+        ctx.moveTo(x,y);
+        ctx.lineTo(x2,y2);
+        ctx.strokeStyle = s.color;
+        ctx.lineWidth = s.size;
+        ctx.stroke();
+    });
+
+    ctx.shadowColor = "rgba(155, 93, 229, 0.8)";
+    ctx.shadowBlur = 10;
+    ctx.fillStyle = "#fff";
+    ctx.textAlign = "center";
+    ctx.font = selectedGalaxy===g ? `50px Orbitron` : `20px Orbitron`;
+    ctx.fillText(g.year, g.x, g.y);
+    ctx.shadowBlur = 0;
+
+    if(selectedGalaxy===g){
+      const baseRadius = 150; // wider orbit
+      const orbitSpacing = 55;
+      const monthKeys = Object.keys(g.monthEvents);
+      monthKeys.forEach((month,i)=>{
+        const numEvents = g.monthEvents[month].length;
+        const orbitRadius = baseRadius + i*orbitSpacing;
+        const speed = 0.0002 + i*0.00005;
+        const angle = (performance.now()*speed + i*Math.PI/6) % (2*Math.PI);
+        const px = g.x + orbitRadius*Math.cos(angle);
+        const py = g.y + orbitRadius*Math.sin(angle);
+        const planetSize = 8 + numEvents;
+        ctx.beginPath();
+        ctx.arc(px, py, planetSize, 0, 2*Math.PI);
+        ctx.fillStyle = `hsl(${i*30}, 80%, 60%)`;
+        ctx.fill();
+
+        ctx.fillStyle = "#fff";
+        ctx.font = `20px Orbitron`;
+        ctx.fillText(month, px, py - planetSize - 8);
+      });
+    }
+  });
+
+  requestAnimationFrame(animate);
+}
+animate();
+
+// --- Tooltip ---
+canvas.addEventListener('mousemove',(e)=>{
+  let found=false;
+  galaxies.forEach(g=>{
+    if(selectedGalaxy && selectedGalaxy!==g) return;
+    const dx = e.clientX - g.x;
+    const dy = e.clientY - g.y;
+    if(Math.sqrt(dx*dx+dy*dy)<30){
+      tooltip.style.left = (e.pageX+10)+"px";
+      tooltip.style.top = (e.pageY+10)+"px";
+      tooltip.innerHTML = `Year: ${g.year} (${g.numEvents} events)`;
+      tooltip.style.opacity = 1;
+      found=true;
+    }
+    if(selectedGalaxy===g){
+      const baseRadius = 150;
+      const orbitSpacing = 55;
+      const monthKeys = Object.keys(g.monthEvents);
+      monthKeys.forEach((month,i)=>{
+        const numEvents = g.monthEvents[month].length;
+        const orbitRadius = baseRadius + i*orbitSpacing;
+        const speed = 0.001 + i*0.0003;
+        const angle = (performance.now()*speed + i*Math.PI/6) % (2*Math.PI);
+        const px = g.x + orbitRadius*Math.cos(angle);
+        const py = g.y + orbitRadius*Math.sin(angle);
+        const dist = Math.sqrt((e.clientX-px)**2 + (e.clientY-py)**2);
+        if(dist<5+numEvents){
+          tooltip.style.left = (e.pageX+10)+"px";
+          tooltip.style.top = (e.pageY+10)+"px";
+          tooltip.innerHTML = `${month}: ${numEvents} events`;
+          tooltip.style.opacity = 1;
+          found=true;
         }
-</script>  
-{% endblock %}
+      });
+    }
+  });
+  if(!found) tooltip.style.opacity = 0;
+});
+
+// --- Clicks ---
+canvas.addEventListener('click',(e)=>{
+  galaxies.forEach(g=>{
+    const dx = e.clientX - g.x;
+    const dy = e.clientY - g.y;
+    if(Math.sqrt(dx*dx+dy*dy)<30){
+      if(selectedGalaxy===g){
+        selectedGalaxy=null;
+        eventsPanel.style.display='none';
+      } else {
+        selectedGalaxy=g;
+        eventsPanel.style.display='none';
+      }
+    }
+
+    if(selectedGalaxy===g){
+      const baseRadius = 150;
+      const orbitSpacing = 55;
+      const monthKeys = Object.keys(g.monthEvents);
+      monthKeys.forEach((month,i)=>{
+        const numEvents = g.monthEvents[month].length;
+        const orbitRadius = baseRadius + i*orbitSpacing;
+        const speed = 0.0002 + i*0.00005;
+        const angle = (performance.now()*speed + i*Math.PI/6) % (2*Math.PI);
+        const px = g.x + orbitRadius*Math.cos(angle);
+        const py = g.y + orbitRadius*Math.sin(angle);
+        const dist = Math.sqrt((e.clientX - px)**2 + (e.clientY - py)**2);
+        if(dist < 5 + numEvents){
+          showEventsPanel(g.monthEvents[month], month, g.year);
+        }
+      });
+    }
+  });
+});
+
+// --- Events Panel ---
+function showEventsPanel(events, month, year){
+  eventsPanel.innerHTML = `<h3>${month} ${year}</h3>`;
+  events.forEach(ev=>{
+    const div = document.createElement('div');
+    div.style.marginBottom = '10px';
+    div.style.cursor = 'pointer';
+    div.style.display = 'flex';
+    div.style.alignItems = 'center';
+    div.innerHTML = `
+      <img src="${ev.image ? imageBasePath + ev.image : '/static/default.jpg'}" alt="" style="width:50px;height:50px;border-radius:6px;object-fit:cover;margin-right:10px;">
+      <div>
+        <strong>${ev.title}</strong><br>
+        <small>${ev.date}</small>
+      </div>
+    `;
+    div.onclick = ()=> showEventModal(ev);
+    eventsPanel.appendChild(div);
+  });
+  eventsPanel.style.display = 'block';
+}
+
+// --- Modal ---
+function showEventModal(ev){
+  const imagePath = ev.image ? imageBasePath + ev.image : '/static/default.jpg';
+  eventModal.innerHTML = `
+    <img src="${imagePath}" alt="${ev.title}">
+    <h2>${ev.title}</h2>
+    <p>${ev.description}</p>
+    <button id="closeModal">Close</button>
+  `;
+  eventModal.style.display = 'block';
+  document.getElementById('closeModal').onclick = ()=>{
+    eventModal.style.display = 'none';
+  }
+}
+</script>
+</body>
+</html>

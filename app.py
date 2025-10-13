@@ -126,6 +126,45 @@ def memories():
 
     return render_template('03.memories_soon.html')
 
+@app.route('/memories_data')
+def memories_data():
+    memories_data = Memory.query.all()
+    timeline_data = defaultdict(lambda: defaultdict(list))
+
+    for memory in memories_data:
+        year, month, day = map(int, memory.date.split('-'))
+        timeline_data[year][month].append({
+            'id': memory.id,
+            'title': memory.title,
+            'date': f'{year}-{month:02}-{day:02}',
+            'artist': memory.artist,
+            'image': memory.image,
+            'description': memory.description
+        })
+
+    return jsonify(timeline_data)
+
+@app.route('/memories_galaxy')
+def memories_galaxy():
+    memories_data = Memory.query.all()
+
+    events = []
+    for memory in memories_data:
+        year, month, day = map(int, memory.date.split('-'))
+        month_name = memory.date.split('-')[1]
+        events.append({
+            "year": year,
+            "month": month_name,
+            "title": memory.title,
+            "description": memory.description,
+            "image": memory.image,
+            "artist": memory.artist,
+            "date": memory.date
+        })
+
+    return render_template('03.memories.html', events=events)
+
+
 @app.route('/get-event-details/<int:event_id>', methods=['GET'])
 def get_event_details(event_id):
     event = Memory.query.get(event_id)
