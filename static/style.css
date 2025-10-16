@@ -242,20 +242,6 @@ footer a:hover {
     color: #0FFF50;
 }
 
-#install-btn {
-    display: inline-block !important;
-    padding: 0 6px;
-    background-color: #6c5ce7;
-    color: white;
-    border-radius: 4px;
-    text-decoration: none;
-    right: 5px;
-  }
-
-#install-btn:hover {
-background-color: #594fc9;
-}
-
 #logo-canvas {
     position: fixed;
     top: 0;
@@ -264,24 +250,27 @@ background-color: #594fc9;
     height: 100vh;
     background: black;
     z-index: 9999;
-  }
-  #final-logo {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    z-index: 10000;
-    max-width: 40vw;
-    max-height: 40vh;
-  }
+}
+
+#final-logo {
+position: fixed;
+top: 50%;
+left: 50%;
+transform: translate(-50%, -50%);
+z-index: 10000;
+max-width: 40vw;
+max-height: 40vh;
+}
+
   
-  .main-content {
-    opacity: 0;
-    transition: opacity 1.5s ease;
-  }
-  .main-content.fade-in {
-    opacity: 1;
-  }
+.main-content {
+/* opacity: 0; */
+transition: opacity 1.5s ease;
+}
+
+.main-content.fade-in {
+opacity: 1;
+}
 
 .image-carousel {
     position: relative;
@@ -291,7 +280,7 @@ background-color: #594fc9;
     overflow: hidden;
     border-radius: 24px;
 }
-  
+
 /* Track now expands to hold all slides */
 .slides-track {
     display: flex;
@@ -713,7 +702,7 @@ background-color: #594fc9;
         width: 40px;
         height: 40px;
     }
-}
+} 
 
 /************************************************** UPCOMING ****************************************************/
 .upcoming-container {

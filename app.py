@@ -164,7 +164,6 @@ def memories_galaxy():
 
     return render_template('03.memories.html', events=events)
 
-
 @app.route('/get-event-details/<int:event_id>', methods=['GET'])
 def get_event_details(event_id):
     event = Memory.query.get(event_id)

@@ -74,15 +74,6 @@ document.addEventListener("DOMContentLoaded", () => {
   const backgroundStars = generateStars();
 
   // ==============================
-  // --- Background Audio ---
-  // ==============================
-  const audio = document.getElementById("bgAudio");
-  if(audio){
-    audio.play().catch(()=>{}); // try to autoplay
-    audio.muted = false; // ensure not muted
-  }
-
-  // ==============================
   // --- Logo Constellation ---
   // ==============================
   const overlay = document.getElementById('logo-intro-overlay');
@@ -165,7 +156,7 @@ document.addEventListener("DOMContentLoaded", () => {
             opacity: 1,
             duration: 1,
             onComplete: () => {
-              gsap.delayedCall(1, () => {
+              gsap.delayedCall(2, () => {
                 gsap.to(overlay, {
                   opacity: 0,
                   duration: 1,

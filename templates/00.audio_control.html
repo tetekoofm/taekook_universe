@@ -4,42 +4,61 @@
 </div>
 
 {% if song_file %}
-<audio id="bgAudio" autoplay data-song="{{ song_name }}">
+<audio id="bgAudio" autoplay loop data-song="{{ song_name }}">
     <source src="{{ url_for('static', filename='audio/' + song_file) }}" type="audio/mp3">
 </audio>
 {% endif %}
 
 <script>
-    document.addEventListener("DOMContentLoaded", function () {
-        const audio = document.getElementById("bgAudio");
-        const audioIcon = document.getElementById("audioIcon");
-        const tooltip = document.getElementById("tooltip");
-        const audioControl = document.getElementById("audioControl");
+document.addEventListener("DOMContentLoaded", function () {
+    const audio = document.getElementById("bgAudio");
+    const audioIcon = document.getElementById("audioIcon");
+    const tooltip = document.getElementById("tooltip");
+    const audioControl = document.getElementById("audioControl");
 
-        if (audioControl && audio && audioIcon && tooltip) {
-            audioControl.addEventListener("click", () => {
-                audio.muted = !audio.muted;
-                updateAudioControl(audio.muted);
-            });
+    if (!audio || !audioIcon || !tooltip || !audioControl) return;
 
-            audioControl.addEventListener("mouseover", () => {
-                tooltip.style.visibility = "visible";
-                tooltip.style.opacity = "1";
-            });
+    // Load saved mute state from localStorage
+    let isMuted = localStorage.getItem("isMuted") === "true";
+    audio.muted = isMuted;
+    updateAudioControl(isMuted);
 
-            audioControl.addEventListener("mouseout", () => {
-                tooltip.style.visibility = "hidden";
-                tooltip.style.opacity = "0";
-            });
-        }
+    // Attempt autoplay, fallback to user interaction
+    const playPromise = audio.play();
+    if (playPromise !== undefined) {
+        playPromise.catch(() => {
+            // If autoplay is blocked, play on first user interaction
+            const playOnInteraction = () => {
+                audio.play().catch(() => {});
+                document.removeEventListener("click", playOnInteraction);
+            };
+            document.addEventListener("click", playOnInteraction);
+        });
+    }
 
-        function updateAudioControl(isMuted) {
-            if (!audioIcon || !tooltip) return;
-            audioIcon.textContent = isMuted ? "🔇" : "🔊";
-            tooltip.innerText = isMuted
-                ? "Muted: Click to Play"
-                : "Now Playing: " + (audio.dataset.song || "Audio");
-            localStorage.setItem("isMuted", isMuted);
-        }
+    // Toggle mute/unmute
+    audioControl.addEventListener("click", () => {
+        audio.muted = !audio.muted;
+        isMuted = audio.muted;
+        localStorage.setItem("isMuted", isMuted);
+        updateAudioControl(isMuted);
     });
+
+    // Show tooltip on hover
+    audioControl.addEventListener("mouseover", () => {
+        tooltip.style.visibility = "visible";
+        tooltip.style.opacity = "1";
+    });
+    audioControl.addEventListener("mouseout", () => {
+        tooltip.style.visibility = "hidden";
+        tooltip.style.opacity = "0";
+    });
+
+    function updateAudioControl(muted) {
+        audioIcon.textContent = muted ? "🔇" : "🔊";
+        tooltip.innerText = muted
+            ? "Muted: Click to Play"
+            : "Now Playing: " + (audio.dataset.song || "Audio");
+    }
+});
 </script>
