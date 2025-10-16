@@ -40,7 +40,7 @@ def sitemap():
     return send_file(os.path.join(app.root_path, 'static', 'sitemap.xml'), mimetype='application/xml')
 
 @app.route('/home_soon')
-def home():
+def home_soon():
     image_folder = os.path.join(app.static_folder, 'images/home')
     images = [f for f in os.listdir(image_folder) if f.endswith(('jpg', 'jpeg', 'png', 'gif', 'webp', '.mp4'))]
     music = BackgroundMusic.query.filter_by(page_name='home').first()
@@ -49,7 +49,7 @@ def home():
     return render_template('01.home_soon.html', song_file=song_file, song_name=song_name, images=images)
 
 @app.route('/')
-def home_orig():
+def home():
     image_folder = os.path.join(app.static_folder, 'images/home/pictureoftheday')
     images = [f for f in os.listdir(image_folder) if f.lower().endswith(('jpg', 'jpeg', 'png', 'gif', 'webp', 'mp4'))]
     random.shuffle(images)
@@ -81,10 +81,13 @@ def termsandconditions():
 def highlights():
     upcoming_events = Upcoming.query.all()
     recaps = Recap.query.order_by(Recap.date.desc()).all()
+    music = BackgroundMusic.query.filter_by(page_name='highlights').first()
+    song_file = music.file_name if music else "default.mp3"
+    song_name = music.song_name if music else "Default Song"
     for event in upcoming_events:
         if isinstance(event.date, str): 
             event.date = datetime.strptime(event.date, '%Y-%m-%d') 
-    return render_template("02.highlights.html", upcoming=upcoming_events, recaps=recaps)
+    return render_template("02.highlights.html", upcoming=upcoming_events, recaps=recaps, song_file=song_file, song_name=song_name)
 
 @app.route('/memories')
 def memories():
@@ -92,7 +95,9 @@ def memories():
     video_files = os.listdir(video_dir)
 
     memories_data = Memory.query.all()
-
+    music = BackgroundMusic.query.filter_by(page_name='memories').first()
+    song_file = music.file_name if music else "default.mp3"
+    song_name = music.song_name if music else "Default Song"
     timeline_data = defaultdict(lambda: defaultdict(list))
 
     for memory in memories_data:
@@ -124,7 +129,7 @@ def memories():
     #                        calendar=calendar, 
     #                        formatted_years=formatted_years)
 
-    return render_template('03.memories_soon.html')
+    return render_template('03.memories_soon.html', song_file=song_file, song_name=song_name)
 
 @app.route('/memories_data')
 def memories_data():
@@ -147,7 +152,9 @@ def memories_data():
 @app.route('/memories_galaxy')
 def memories_galaxy():
     memories_data = Memory.query.all()
-
+    music = BackgroundMusic.query.filter_by(page_name='memories').first()
+    song_file = music.file_name if music else "default.mp3"
+    song_name = music.song_name if music else "Default Song"
     events = []
     for memory in memories_data:
         year, month, day = map(int, memory.date.split('-'))
@@ -162,7 +169,7 @@ def memories_galaxy():
             "date": memory.date
         })
 
-    return render_template('03.memories.html', events=events)
+    return render_template('03.memories.html', events=events, song_file=song_file, song_name=song_name)
 
 @app.route('/get-event-details/<int:event_id>', methods=['GET'])
 def get_event_details(event_id):
