@@ -5,86 +5,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Taekook Universe Galaxy</title>
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500&display=swap" rel="stylesheet">
-<style>
-body {
-  margin: 0;
-  overflow: hidden;
-  background: radial-gradient(#0b0c2a, #000);
-  font-family: 'Orbitron', sans-serif;
-}
-canvas { display: block; }
-
-.tooltip {
-  position: absolute;
-  background: rgba(155, 93, 229, 0.9);
-  padding: 5px 10px;
-  border-radius: 8px;
-  font-size: 0.9rem;
-  pointer-events: none;
-  opacity: 0;
-  color: #fff;
-  transition: opacity 0.2s;
-  z-index: 10;
-}
-
-#eventsPanel {
-  position:absolute;
-  bottom:10px;
-  left:10px;
-  width:320px;
-  max-height:80%;
-  overflow-y:auto;
-  background:rgba(0,0,0,0.75);
-  padding:10px;
-  border-radius:10px;
-  color:#fff;
-  display:none;
-  z-index: 5;
-  backdrop-filter: blur(6px);
-}
-
-#eventModal {
-  position:fixed;
-  top:50%;
-  left:50%;
-  transform:translate(-50%, -50%) scale(1);
-  background:rgba(10, 10, 20, 0.95);
-  color:#fff;
-  padding:25px;
-  border-radius:12px;
-  display:none;
-  max-width:420px;
-  text-align:center;
-  z-index: 20;
-  box-shadow:0 0 30px rgba(155, 93, 229, 0.5);
-  transition:transform 0.3s ease, opacity 0.3s ease;
-}
-
-#eventModal img {
-  width: 100%;
-  max-height: 240px;
-  object-fit: cover;
-  object-position: top; /* <-- focus on top of image */
-  border-radius: 10px;
-  margin-bottom: 15px;
-}
-
-#eventModal button {
-  margin-top:15px;
-  padding:8px 15px;
-  cursor:pointer;
-  background:rgba(155,93,229,0.9);
-  border:none;
-  border-radius:8px;
-  color:#fff;
-  font-family:'Orbitron',sans-serif;
-  letter-spacing:1px;
-}
-#eventModal button:hover {
-  background:rgba(155,93,229,1);
-}
-
-</style>
 </head>
 <body>
 <canvas id="galaxyCanvas"></canvas>
@@ -106,19 +26,16 @@ canvas.height = window.innerHeight;
 const monthNames = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
 const events = {{ events|tojson }};
 
-// --- Group by year & month ---
 const yearData = {};
 events.forEach(ev=>{
-  const dateParts = ev.date.split('-');
-  const year = parseInt(dateParts[0]);
-  const monthIndex = parseInt(dateParts[1]) - 1;
-  const month = monthNames[monthIndex];
-  if(!yearData[year]) yearData[year]={months:{}};
-  if(!yearData[year].months[month]) yearData[year].months[month]=[];
+  const [yearStr, monthStr] = ev.date.split('-');
+  const year = parseInt(yearStr);
+  const month = monthNames[parseInt(monthStr)-1];
+  yearData[year] ??= { months: {} };
+  yearData[year].months[month] ??= [];
   yearData[year].months[month].push(ev);
 });
 
-// --- Create Galaxies ---
 const galaxies = [];
 const margin = 150;
 const visibleWidth = canvas.width - margin*2;
@@ -128,222 +45,149 @@ Object.keys(yearData).sort().forEach(year=>{
   const x = margin + Math.random()*visibleWidth;
   const y = margin + Math.random()*visibleHeight;
   const monthEvents = yearData[year].months;
-  const numEvents = Object.values(monthEvents).reduce((sum,m)=>sum+m.length,0);
-  
-  const stars = [];
-  const numStars = 30 + numEvents*3;
-  const arms = 3;
-
-  for(let s=0;s<numStars;s++){
-    stars.push({
-      arm: Math.floor(Math.random()*arms),
-      radius: 20 + Math.random()*40,
-      t: Math.random()*Math.PI*2,
-      size: Math.random()*1.5 + 0.5,
-      color: `hsla(${Math.random()*360}, 80%, 60%, ${Math.random()*0.7+0.3})`
-    });
-  }
-
-  galaxies.push({year,x,y,numEvents,stars,arms,rotation:Math.random()*Math.PI*2, monthEvents});
+  const numEvents = Object.values(monthEvents).flat().length;
+  const stars = Array.from({length:30 + numEvents*3},()=>({
+    arm: Math.floor(Math.random()*3),
+    radius: 20 + Math.random()*40,
+    t: Math.random()*Math.PI*2,
+    size: Math.random()*1.5 + 0.5,
+    color: `hsla(${Math.random()*360}, 80%, 60%, ${Math.random()*0.7+0.3})`
+  }));
+  galaxies.push({year,x,y,numEvents,stars,arms:3,rotation:Math.random()*Math.PI*2,monthEvents});
 });
 
-// --- Background Stars ---
 const starsBg = Array.from({length:600},()=>({
   x:Math.random()*canvas.width,
   y:Math.random()*canvas.height,
   r:Math.random()*1.5,
-  dx: (Math.random()-0.5)*0.05,
-  dy: (Math.random()-0.5)*0.05
+  dx:(Math.random()-0.5)*0.05,
+  dy:(Math.random()-0.5)*0.05
 }));
 
 function drawBackgroundStars(){
-  ctx.fillStyle = '#fff';
+  ctx.fillStyle='#fff';
   starsBg.forEach(s=>{
-    s.x += s.dx;
-    s.y += s.dy;
-    if(s.x<0) s.x=canvas.width;
-    if(s.x>canvas.width) s.x=0;
-    if(s.y<0) s.y=canvas.height;
-    if(s.y>canvas.height) s.y=0;
-    ctx.beginPath();
-    ctx.arc(s.x,s.y,s.r,0,2*Math.PI);
-    ctx.fill();
+    s.x+=s.dx; s.y+=s.dy;
+    if(s.x<0)s.x=canvas.width; if(s.x>canvas.width)s.x=0;
+    if(s.y<0)s.y=canvas.height; if(s.y>canvas.height)s.y=0;
+    ctx.beginPath(); ctx.arc(s.x,s.y,s.r,0,2*Math.PI); ctx.fill();
   });
 }
 
-let selectedGalaxy = null;
+let selectedGalaxy=null;
+let hoveredPlanet=null;
 
-// --- Animate Galaxies ---
+// store each planet’s current rotation angle so we can freeze it
+const planetAngles = {};
+
 function animate(){
   ctx.clearRect(0,0,canvas.width,canvas.height);
   drawBackgroundStars();
 
   galaxies.forEach(g=>{
-    g.rotation += 0.0001;
+    g.rotation += 0.00005;
     if(selectedGalaxy && selectedGalaxy!==g) return;
 
+    // Draw spiral arms
     g.stars.forEach(s=>{
-        s.t += 0.001;
-        const angle = s.t + s.arm*2*Math.PI/g.arms + g.rotation;
-        const spiralRadius = s.radius * (1 + g.numEvents*0.02) + 10*Math.sin(s.t*2);
-        const x = g.x + spiralRadius*Math.cos(angle);
-        const y = g.y + spiralRadius*Math.sin(angle);
-        const x2 = g.x + (spiralRadius+5)*Math.cos(angle);
-        const y2 = g.y + (spiralRadius+5)*Math.sin(angle);
-        ctx.beginPath();
-        ctx.moveTo(x,y);
-        ctx.lineTo(x2,y2);
-        ctx.strokeStyle = s.color;
-        ctx.lineWidth = s.size;
-        ctx.stroke();
+      s.t += 0.0005;
+      const angle = s.t + s.arm*2*Math.PI/g.arms + g.rotation;
+      const r = s.radius * (1 + g.numEvents*0.02) + 10*Math.sin(s.t*2);
+      const x = g.x + r*Math.cos(angle);
+      const y = g.y + r*Math.sin(angle);
+      const x2 = g.x + (r+5)*Math.cos(angle);
+      const y2 = g.y + (r+5)*Math.sin(angle);
+      ctx.beginPath();
+      ctx.moveTo(x,y);
+      ctx.lineTo(x2,y2);
+      ctx.strokeStyle = s.color;
+      ctx.lineWidth = s.size;
+      ctx.stroke();
     });
 
-    ctx.shadowColor = "rgba(155, 93, 229, 0.8)";
-    ctx.shadowBlur = 10;
-    ctx.fillStyle = "#fff";
-    ctx.textAlign = "center";
-    ctx.font = selectedGalaxy===g ? `50px Orbitron` : `20px Orbitron`;
-    ctx.fillText(g.year, g.x, g.y);
-    ctx.shadowBlur = 0;
+    // Year label
+    ctx.shadowColor="rgba(155,93,229,0.8)";
+    ctx.shadowBlur=10;
+    ctx.fillStyle="#fff";
+    ctx.textAlign="center";
+    ctx.font=selectedGalaxy===g?`50px Orbitron`:`20px Orbitron`;
+    ctx.fillText(g.year,g.x,g.y);
+    ctx.shadowBlur=0;
 
     if(selectedGalaxy===g){
-      const baseRadius = 150; // wider orbit
-      const orbitSpacing = 55;
-      const monthKeys = Object.keys(g.monthEvents);
-      monthKeys.forEach((month,i)=>{
-        const numEvents = g.monthEvents[month].length;
-        const orbitRadius = baseRadius + i*orbitSpacing;
-        const speed = 0.0002 + i*0.00005;
-        const angle = (performance.now()*speed + i*Math.PI/6) % (2*Math.PI);
-        const px = g.x + orbitRadius*Math.cos(angle);
-        const py = g.y + orbitRadius*Math.sin(angle);
-        const planetSize = 8 + numEvents;
+      const baseRadius=180, orbitSpacing=60;
+      const months=Object.keys(g.monthEvents);
+      months.forEach((month,i)=>{
+        const num=g.monthEvents[month].length;
+        const orbitR=baseRadius+i*orbitSpacing;
+        const speed=0.00008+i*0.00002;
+
+        // Freeze rotation when hovered
+        const key=`${g.year}-${month}`;
+        if(!(key in planetAngles)) planetAngles[key]=performance.now()*speed + i*Math.PI/6;
+        if(hoveredPlanet && hoveredPlanet.year===g.year && hoveredPlanet.month===month){
+          // don't change angle
+        } else {
+          planetAngles[key]=performance.now()*speed + i*Math.PI/6;
+        }
+
+        const angle=(planetAngles[key])%(2*Math.PI);
+        const px=g.x+orbitR*Math.cos(angle);
+        const py=g.y+orbitR*Math.sin(angle);
+        const size=10+num*1.5;
+
         ctx.beginPath();
-        ctx.arc(px, py, planetSize, 0, 2*Math.PI);
-        ctx.fillStyle = `hsl(${i*30}, 80%, 60%)`;
+        ctx.arc(px,py,size,0,2*Math.PI);
+        ctx.fillStyle = hoveredPlanet && hoveredPlanet.year===g.year && hoveredPlanet.month===month
+          ? `hsl(${i*30},100%,75%)`
+          : `hsl(${i*30},80%,60%)`;
         ctx.fill();
 
-        ctx.fillStyle = "#fff";
-        ctx.font = `20px Orbitron`;
-        ctx.fillText(month, px, py - planetSize - 8);
+        ctx.fillStyle="#fff";
+        ctx.font="20px Orbitron";
+        ctx.fillText(month,px,py-size-8);
       });
     }
   });
-
   requestAnimationFrame(animate);
 }
 animate();
 
-// --- Tooltip ---
+// Tooltip + Hover
 canvas.addEventListener('mousemove',(e)=>{
   let found=false;
+  hoveredPlanet=null;
   galaxies.forEach(g=>{
     if(selectedGalaxy && selectedGalaxy!==g) return;
-    const dx = e.clientX - g.x;
-    const dy = e.clientY - g.y;
-    if(Math.sqrt(dx*dx+dy*dy)<30){
-      tooltip.style.left = (e.pageX+10)+"px";
-      tooltip.style.top = (e.pageY+10)+"px";
-      tooltip.innerHTML = `Year: ${g.year} (${g.numEvents} events)`;
-      tooltip.style.opacity = 1;
-      found=true;
+    const dx=e.clientX-g.x, dy=e.clientY-g.y;
+    if(Math.hypot(dx,dy)<30){
+      tooltip.style.left=(e.pageX+10)+"px";
+      tooltip.style.top=(e.pageY+10)+"px";
+      tooltip.innerHTML=`Year: ${g.year} (${g.numEvents} events)`;
+      tooltip.style.opacity=1; found=true;
     }
     if(selectedGalaxy===g){
-      const baseRadius = 150;
-      const orbitSpacing = 55;
-      const monthKeys = Object.keys(g.monthEvents);
-      monthKeys.forEach((month,i)=>{
-        const numEvents = g.monthEvents[month].length;
-        const orbitRadius = baseRadius + i*orbitSpacing;
-        const speed = 0.001 + i*0.0003;
-        const angle = (performance.now()*speed + i*Math.PI/6) % (2*Math.PI);
-        const px = g.x + orbitRadius*Math.cos(angle);
-        const py = g.y + orbitRadius*Math.sin(angle);
-        const dist = Math.sqrt((e.clientX-px)**2 + (e.clientY-py)**2);
-        if(dist<5+numEvents){
-          tooltip.style.left = (e.pageX+10)+"px";
-          tooltip.style.top = (e.pageY+10)+"px";
-          tooltip.innerHTML = `${month}: ${numEvents} events`;
-          tooltip.style.opacity = 1;
-          found=true;
+      const baseR=180, orbitSpacing=60;
+      Object.keys(g.monthEvents).forEach((month,i)=>{
+        const num=g.monthEvents[month].length;
+        const orbitR=baseR+i*orbitSpacing;
+        const key=`${g.year}-${month}`;
+        const angle=(planetAngles[key])%(2*Math.PI);
+        const px=g.x+orbitR*Math.cos(angle);
+        const py=g.y+orbitR*Math.sin(angle);
+        if(Math.hypot(e.clientX-px,e.clientY-py)<12+num){
+          hoveredPlanet={year:g.year,month};
+          tooltip.style.left=(e.pageX+10)+"px";
+          tooltip.style.top=(e.pageY+10)+"px";
+          tooltip.innerHTML=`${month}: ${num} events`;
+          tooltip.style.opacity=1; found=true;
         }
       });
     }
   });
-  if(!found) tooltip.style.opacity = 0;
+  if(!found) tooltip.style.opacity=0;
 });
 
-// --- Clicks ---
-canvas.addEventListener('click',(e)=>{
-  galaxies.forEach(g=>{
-    const dx = e.clientX - g.x;
-    const dy = e.clientY - g.y;
-    if(Math.sqrt(dx*dx+dy*dy)<30){
-      if(selectedGalaxy===g){
-        selectedGalaxy=null;
-        eventsPanel.style.display='none';
-      } else {
-        selectedGalaxy=g;
-        eventsPanel.style.display='none';
-      }
-    }
-
-    if(selectedGalaxy===g){
-      const baseRadius = 150;
-      const orbitSpacing = 55;
-      const monthKeys = Object.keys(g.monthEvents);
-      monthKeys.forEach((month,i)=>{
-        const numEvents = g.monthEvents[month].length;
-        const orbitRadius = baseRadius + i*orbitSpacing;
-        const speed = 0.0002 + i*0.00005;
-        const angle = (performance.now()*speed + i*Math.PI/6) % (2*Math.PI);
-        const px = g.x + orbitRadius*Math.cos(angle);
-        const py = g.y + orbitRadius*Math.sin(angle);
-        const dist = Math.sqrt((e.clientX - px)**2 + (e.clientY - py)**2);
-        if(dist < 5 + numEvents){
-          showEventsPanel(g.monthEvents[month], month, g.year);
-        }
-      });
-    }
-  });
-});
-
-// --- Events Panel ---
-function showEventsPanel(events, month, year){
-  eventsPanel.innerHTML = `<h3>${month} ${year}</h3>`;
-  events.forEach(ev=>{
-    const div = document.createElement('div');
-    div.style.marginBottom = '10px';
-    div.style.cursor = 'pointer';
-    div.style.display = 'flex';
-    div.style.alignItems = 'center';
-    div.innerHTML = `
-      <img src="${ev.image ? imageBasePath + ev.image : '/static/default.jpg'}" alt="" style="width:50px;height:50px;border-radius:6px;object-fit:cover;margin-right:10px;">
-      <div>
-        <strong>${ev.title}</strong><br>
-        <small>${ev.date}</small>
-      </div>
-    `;
-    div.onclick = ()=> showEventModal(ev);
-    eventsPanel.appendChild(div);
-  });
-  eventsPanel.style.display = 'block';
-}
-
-// --- Modal ---
-function showEventModal(ev){
-  const imagePath = ev.image ? imageBasePath + ev.image : '/static/default.jpg';
-  eventModal.innerHTML = `
-    <img src="${imagePath}" alt="${ev.title}">
-    <h2>${ev.title}</h2>
-    <p>${ev.description}</p>
-    <button id="closeModal">Close</button>
-  `;
-  eventModal.style.display = 'block';
-  document.getElementById('closeModal').onclick = ()=>{
-    eventModal.style.display = 'none';
-  }
-}
 </script>
 </body>
 </html>
