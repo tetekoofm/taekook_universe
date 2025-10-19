@@ -39,15 +39,22 @@
 <script>
 document.addEventListener("DOMContentLoaded", () => {
 
-  // ==============================
+  const overlay = document.getElementById('logo-intro-overlay');
+  const canvas = document.getElementById('logo-intro-canvas');
+  const ctx = canvas.getContext('2d');
+  const logo = document.getElementById('final-logo');
+  const mainContent = document.querySelector('.main-content');
+
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+
   // --- Persistent Night-Sky Stars ---
-  // ==============================
   function generateStars() {
     const nightSky = document.createElement('div');
     nightSky.classList.add('night-sky');
     document.body.appendChild(nightSky);
 
-    const numberOfStars = 300;
+    const numberOfStars = 200;
     const backgroundStars = [];
 
     for (let i = 0; i < numberOfStars; i++) {
@@ -60,31 +67,14 @@ document.addEventListener("DOMContentLoaded", () => {
       star.style.animationDuration = `${Math.random() * 3 + 2}s`;
       nightSky.appendChild(star);
 
-      backgroundStars.push({
-        el: star,
-        x,
-        y,
-        baseSize: 2,
-        offset: Math.random() * 2
-      });
+      backgroundStars.push({ el: star, x, y, baseSize: 2, offset: Math.random() * 2 });
     }
     return backgroundStars;
   }
 
   const backgroundStars = generateStars();
 
-  // ==============================
-  // --- Logo Constellation ---
-  // ==============================
-  const overlay = document.getElementById('logo-intro-overlay');
-  const canvas = document.getElementById('logo-intro-canvas');
-  const ctx = canvas.getContext('2d');
-  const logo = document.getElementById('final-logo');
-  const mainContent = document.querySelector('.main-content');
-
-  canvas.width = window.innerWidth;
-  canvas.height = window.innerHeight;
-
+  // --- Constellation Stars Setup ---
   const stars = [];
   const starCount = 150;
   const circleRadius = 150;
@@ -108,7 +98,6 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  // Draw constellation + reactive background stars
   function drawStars() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     const time = performance.now() / 500;
@@ -125,7 +114,6 @@ document.addEventListener("DOMContentLoaded", () => {
       ctx.fill();
     });
 
-    // Background stars react subtly to constellation stars
     backgroundStars.forEach(bs => {
       let brightness = 0.3;
       stars.forEach(cs => {
@@ -138,51 +126,86 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  // Animate stars fading in
-  gsap.to(stars, {
-    alpha: 1,
-    duration: 1.5,
-    stagger: 0.01,
-    onUpdate: drawStars,
-    onComplete: () => {
-      gsap.to(stars, {
-        x: i => stars[i].targetX,
-        y: i => stars[i].targetY,
-        duration: 2.5,
-        ease: "power2.inOut",
-        onUpdate: drawStars,
-        onComplete: () => {
-          gsap.to(logo, {
-            opacity: 1,
-            duration: 1,
-            onComplete: () => {
-              gsap.delayedCall(2, () => {
-                gsap.to(overlay, {
-                  opacity: 0,
-                  duration: 1,
-                  onComplete: () => {
-                    overlay.style.display = 'none';
-                    mainContent.classList.add('fade-in');
-                  }
-                });
-              });
-            }
-          });
-        }
-      });
-    }
-  });
-
-  // Continuous animation of constellation stars
   function animateTwinkle() {
     drawStars();
     requestAnimationFrame(animateTwinkle);
   }
   animateTwinkle();
 
-  // ==============================
-  // --- Existing Image Carousel ---
-  // ==============================
+  // --- Logo Animation ---
+  const logoShown = sessionStorage.getItem("logoShown");
+
+  if (!logoShown) {
+    sessionStorage.setItem("logoShown", "true");
+
+    // Fade in constellation stars
+    gsap.to(stars, {
+      alpha: 1,
+      duration: 1,
+      stagger: 0.01,
+      onUpdate: drawStars,
+      onComplete: () => {
+
+        // Form constellation
+        gsap.to(stars, {
+          x: i => stars[i].targetX,
+          y: i => stars[i].targetY,
+          duration: 2.5,
+          ease: "power2.inOut",
+          onUpdate: drawStars,
+          onComplete: () => {
+
+            // Fade in logo
+            gsap.to(logo, {
+              opacity: 1,
+              duration: 2,
+              onComplete: () => {
+
+                // Burst stars
+                gsap.to(stars, {
+                  x: i => stars[i].x + (Math.random() - 0.5) * window.innerWidth * 2,
+                  y: i => stars[i].y + (Math.random() - 0.5) * window.innerHeight * 2,
+                  duration: 3.5,
+                  ease: "power2.out",
+                  onUpdate: drawStars
+                });
+
+                // Fade out logo
+                gsap.to(logo, {
+                  scale: 0,
+                  opacity: 0,
+                  duration: 3,
+                  ease: "power2.inOut",
+                  onComplete: () => {
+
+                    overlay.style.display = 'none';
+
+                    // Animate main content emerging from center
+                    mainContent.style.transformOrigin = "center center";
+                    gsap.fromTo(mainContent, 
+                      { opacity: 0, scale: 0.8 }, 
+                      { opacity: 1, scale: 1, duration: 2, ease: "power2.out" }
+                    );
+
+                  }
+                });
+
+              }
+            });
+
+          }
+        });
+
+      }
+    });
+
+  } else {
+    // Already seen: skip logo
+    overlay.style.display = 'none';
+    mainContent.classList.add('fade-in');
+  }
+
+  // --- Image Carousel ---
   const track = document.querySelector('.slides-track');
   const slides = document.querySelectorAll('.image-slide');
   let index = 0;
@@ -219,4 +242,5 @@ document.addEventListener("DOMContentLoaded", () => {
 
 });
 </script>
+
 {% endblock %}
