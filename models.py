@@ -63,20 +63,6 @@ class InTheNews(db.Model):
     def __repr__(self):
         return f'<InTheNews {self.title}>'
 
-class InTheNews_Spanish(db.Model):
-    __tablename__ = 'inthenews_spanish'
-
-    id = db.Column(db.Integer, primary_key=True)
-    date = db.Column(db.String(50), nullable=False)
-    artist = db.Column(db.String(100), nullable=False)
-    title = db.Column(db.String(200), nullable=False)
-    image = db.Column(db.String(255), nullable=False)
-    description = db.Column(db.Text, nullable=False)
-    link = db.Column(db.String(255), nullable=True) 
-
-    def __repr__(self):
-        return f'<InTheNews_Spanish {self.title}>'
-     
 class Discography(db.Model):
     __tablename__ = 'discography'
 

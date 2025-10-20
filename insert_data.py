@@ -1,5 +1,5 @@
 import pandas as pd
-from models import db, BackgroundMusic, Upcoming,  Recap, Memory, InTheNews, InTheNews_Spanish, Product, Discography, MusicVideo, Vote, Radio, Fanbase, SpotifyStats, YoutubeStats, ShazamStats, Banner, Project, Event, Promotion, FanLetter
+from models import db, BackgroundMusic, Upcoming,  Recap, Memory, InTheNews, Product, Discography, MusicVideo, Vote, Radio, Fanbase, SpotifyStats, YoutubeStats, ShazamStats, Banner, Project, Event, Promotion, FanLetter
 from app import app
 from datetime import datetime, time
 
@@ -96,6 +96,7 @@ def insert_data_from_excel():
         print("Memories updated from Excel!")
 
         inthenews_df = pd.read_excel(excel_file, sheet_name='In The News')
+        inthenews_df['date'] = pd.to_datetime(inthenews_df['date'], errors='coerce')
         inthenews_df['date'] = inthenews_df['date'].dt.strftime('%Y-%m-%d')
 
         for _, row in inthenews_df.iterrows():
@@ -118,30 +119,6 @@ def insert_data_from_excel():
 
         db.session.commit()
         print("InTheNews updated from Excel!")
-
-        inthenews_spanish_df = pd.read_excel(excel_file, sheet_name='Spanish News')
-        inthenews_spanish_df['date'] = inthenews_spanish_df['date'].dt.strftime('%Y-%m-%d')
-
-        for _, row in inthenews_spanish_df.iterrows():
-            existing = InTheNews_Spanish.query.filter_by(
-                date=row['date'], 
-                artist=row['artist'], 
-                title=row['title']
-            ).first()
-            
-            if not existing:
-                inthenews_spanish = InTheNews_Spanish(
-                    date=row['date'],
-                    artist=row['artist'],
-                    title=row['title'],
-                    image=row['image'],
-                    description=row['description'],
-                    link=row['link']
-                )
-                db.session.add(inthenews_spanish)
-
-        db.session.commit()
-        print("InTheNews_Spanish updated from Excel!")
 
         discography_df = pd.read_excel(excel_file, sheet_name='Discography')
 

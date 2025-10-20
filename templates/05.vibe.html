@@ -2,13 +2,13 @@
 {% block title %}Rhythm of Taekook{% endblock %}
 {% block content %}
 
+<div class="song-names"></div>
+
 <!-- Heading and Intro Section -->
 <div class="main-content">
     <h1 class="heading">Rhythm of Taekook</h1>
     <p class="caption">Both artists have distinct musical tastes and styles, offering a blend of soul, energy, and emotion in their playlists.</p>
     <p class="caption">Explore their unique vibes and discover new music along the way!</p>
-    
-    <div class="song-names"></div>
     
     <div class="vibe-container">
         <div class="vibe-section">
@@ -34,6 +34,8 @@
     </div>
 </div>
 
+<div class="universe-link"></div>
+
 <div class="music-videos-container">
     <h2>Music Videos</h2>
     <p>Enjoy some of Taehyung's and Jung Kook's best music videos!</p>
@@ -44,7 +46,7 @@
         <div class="video-scroll-container">
             <button class="arrow-left" onclick="scrollVideos('taehyung', -1)">←</button>
 
-            <div class="video-frame" id="taehyung-videos">
+            <div class="video-frame orbit-frame" id="taehyung-videos">
                 {% for video in taehyung_videos %}
                     <div class="video-item">
                         <iframe width="450" height="250" 
@@ -66,7 +68,7 @@
         <div class="video-scroll-container">
             <button class="arrow-left" onclick="scrollVideos('jungkook', -1)">←</button>
 
-            <div class="video-frame" id="jungkook-videos">
+            <div class="video-frame orbit-frame" id="jungkook-videos">
                 {% for video in jungkook_videos %}
                     <div class="video-item">
                         <iframe width="450" height="250" 
@@ -83,54 +85,76 @@
     </div>
 </div>
 
-    <!-- JavaScript to handle song name popups -->
-    <script>
-        const songs = {{ song_names | tojson }};
-        const emojis = ['🎶', '🎵'];
-        let displayedSongs = [];
+<!-- JavaScript to handle song name popups -->
+<script>
+    const songs = {{ song_names | tojson }};
+    const emojis = ['🎶', '🎵'];
+    let displayedSongs = [];
 
-        function getRandomPosition() {
-            const x = Math.floor(Math.random() * window.innerWidth);
-            const y = Math.floor(Math.random() * window.innerHeight);
-            return { x, y };
-        }
+    function getRandomPosition() {
+        const x = Math.floor(Math.random() * window.innerWidth);
+        const y = Math.floor(Math.random() * window.innerHeight);
+        return { x, y };
+    }
 
-        function getRandomSong() {
-            let randomSong;
-            do {
-                randomSong = songs[Math.floor(Math.random() * songs.length)];
-            } while (displayedSongs.includes(randomSong));
-            displayedSongs.push(randomSong);
-            if (displayedSongs.length > 20) displayedSongs.shift();
-            return randomSong;
-        }
+    function getRandomSong() {
+        let randomSong;
+        do {
+            randomSong = songs[Math.floor(Math.random() * songs.length)];
+        } while (displayedSongs.includes(randomSong));
+        displayedSongs.push(randomSong);
+        if (displayedSongs.length > 20) displayedSongs.shift();
+        return randomSong;
+    }
 
-        function getRandomEmoji() {
-            return emojis[Math.floor(Math.random() * emojis.length)];
-        }
+    function getRandomEmoji() {
+        return emojis[Math.floor(Math.random() * emojis.length)];
+    }
 
-        function createSongNamePopup() {
-            const songName = getRandomSong();
-            const { x, y } = getRandomPosition();
-            const emoji = getRandomEmoji();
+    function createSongNamePopup() {
+        const songName = getRandomSong();
+        const { x, y } = getRandomPosition();
+        const emoji = getRandomEmoji();
 
-            const popup = document.createElement('div');
-            popup.classList.add('song-name');
-            popup.style.left = `${x}px`;
-            popup.style.top = `${y}px`;
-            popup.innerHTML = `${songName} ${emoji}`;
-            document.querySelector('.song-names').appendChild(popup);
+        const popup = document.createElement('div');
+        popup.classList.add('song-name');
+        popup.style.left = `${x}px`;
+        popup.style.top = `${y}px`;
+        popup.innerHTML = `${songName} ${emoji}`;
+        document.querySelector('.song-names').appendChild(popup);
 
-            setTimeout(() => {
-                popup.style.opacity = 0;
-            }, 4000);
-        }
+        setTimeout(() => {
+            popup.style.opacity = 0;
+        }, 4000);
+    }
 
-        function scrollVideos(artist, direction) {
-            const frame = document.querySelector(`#${artist}-videos`);
-            frame.scrollBy({ left: direction * 300, behavior: 'smooth' });
-        }
+    function scrollVideos(artist, direction) {
+        const frame = document.querySelector(`#${artist}-videos`);
+        frame.scrollBy({ left: direction * 300, behavior: 'smooth' });
+    }
 
-        setInterval(createSongNamePopup, 300);
-    </script>
+    setInterval(createSongNamePopup, 300);
+
+    function updateOrbitScroll(frameId) {
+        const frame = document.getElementById(frameId);
+        const items = frame.querySelectorAll('.video-item');
+        const scrollCenter = frame.scrollLeft + frame.offsetWidth / 2;
+
+        items.forEach(item => {
+            const itemCenter = item.offsetLeft + item.offsetWidth / 2;
+            const offset = (itemCenter - scrollCenter) / frame.offsetWidth;
+            const angle = offset * 30; // tilt based on distance from center
+            const scale = 1 - Math.abs(offset) * 0.2; // slightly shrink edges
+            const shadow = 20 - Math.abs(offset) * 20; // dynamic glow
+            item.style.transform = `rotateY(${angle}deg) scale(${scale})`;
+            item.style.boxShadow = `0 0 ${shadow}px rgba(255,255,255,0.5)`;
+        });
+    }
+
+    document.querySelectorAll('.orbit-frame').forEach(frame => {
+        frame.addEventListener('scroll', () => updateOrbitScroll(frame.id));
+        updateOrbitScroll(frame.id); // initialize
+    });
+
+</script>
 {% endblock %}

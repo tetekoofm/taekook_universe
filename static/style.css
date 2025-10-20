@@ -127,6 +127,7 @@ body {
 }
 
 /* Main content section */
+/* Main Content */
 .main-content {
     display: flex;
     flex-direction: column;
@@ -142,15 +143,35 @@ body {
     background: transparent;
 }
 
+/* Heading - Consolidated */
 .main-content .heading {
-    margin-top: 2vh;
-    margin-bottom: 20px;
-    font-family: 'Tangerine', serif;
-    font-size: 5.5rem !important;
+    font-family: 'Orbitron', sans-serif; /* futuristic/galaxy feel */
+    font-size: 5.5rem; /* keeps your original size */
     font-weight: bold;
-    color: #a855f7;
+    text-align: center;
+    background: linear-gradient(90deg, #a855f7, #008000); /* galaxy colors */
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    /* text-shadow: 2px 2px 4px #008000(0,0,0,0.6), 
+                 -2px -2px 4px #a855f7(0,0,0,0.4), 
+                 0px 4px 20px #000000(168,85,247,0.6); */
     animation: fadeIn 2s ease-out;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6), -2px -2px 4px rgba(0, 0, 0, 0.4), 0px 4px 6px rgba(0, 0, 0, 0.3);
+    margin: 2vh 0 20px 0;
+    z-index: 100;
+}
+
+/* Captions - Consolidated */
+.main-content .caption {
+    font-family: 'Fira Sans Condensed', serif;
+    font-size: 1.6rem; 
+    color: #3dcf64; /* bright green galaxy vibe */
+    margin: 0.5rem 10px;
+    text-align: center;
+    max-width: 100%;
+    line-height: 1.2;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.6), 
+                 -2px -2px 4px rgba(0,0,0,0.4), 
+                 0px 4px 6px rgba(0,0,0,0.3);
     z-index: 100;
 }
 
@@ -161,22 +182,6 @@ body {
     100% {
         opacity: 1;
     }
-}
-
-.main-content .caption {
-    font-family: 'Fira Sans Condensed', serif;
-    font-size: 1.6rem; 
-    color: #3dcf64;
-    margin: 0.5rem 0; 
-    margin-left: 10px;
-    margin-right: 10px;
-    text-align: center;
-    max-width: 100%;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6), 
-                 -2px -2px 4px rgba(0, 0, 0, 0.4), 
-                 0px 4px 6px rgba(0, 0, 0, 0.3);
-    line-height: 0.8; 
-    z-index: 100;
 }
 
 footer {
@@ -1480,14 +1485,21 @@ align-items: center;
 }
 
 .vibe-section {
+    position: relative;
     width: 46%;
-    background-color: #2b2b2b;
-    padding: 20px;
-    border-radius: 10px;
-    margin: 10px 0;
-    /* border: 2px solid #a855f7; */
-    box-shadow: 0px 0px 10px rgba(0, 255, 80, 0.6);
+    padding: 25px;
+    border-radius: 15px;
+    margin: 15px 0;
+    background: radial-gradient(circle at 30% 30%, rgba(147, 84, 206, 0.15), rgba(0, 0, 0, 0.85));
+    box-shadow: 0 0 30px rgba(168, 85, 247, 0.3);
+    animation: pulseBorder 4s infinite ease-in-out;
+    backdrop-filter: blur(4px);
 }
+@keyframes pulseBorder {
+    0%, 100% { box-shadow: 0 0 15px rgba(168, 85, 247, 0.5); }
+    50% { box-shadow: 0 0 35px rgba(168, 85, 247, 0.8); }
+}
+
 
 .vibe-section h2 {
     font-family: 'Tangerine', serif;
@@ -1495,6 +1507,7 @@ align-items: center;
     color: #9354ce;
     text-align: center;
     margin-bottom: 20px;
+    text-shadow: 0 0 15px #a855f7;
 }
 
 .vibe-section p {
@@ -1524,19 +1537,19 @@ align-items: center;
 
 @keyframes pop-up-glow {
     0% {
-        opacity: 0;
-        transform: scale(0.5);
+      opacity: 0;
+      transform: translateY(20px) scale(0.5);
     }
     40% {
-        opacity: 1;
-        transform: scale(1);
-        text-shadow: 0 0 10px #9b59b6, 0 0 20px #9b59b6;
+      opacity: 1;
+      transform: translateY(-10px) scale(1.1);
+      text-shadow: 0 0 10px #9b59b6, 0 0 25px #00ff80;
     }
     100% {
-        opacity: 0;
-        transform: scale(0.5);
+      opacity: 0;
+      transform: translateY(-60px) scale(0.7);
     }
-}
+  }
 
 /* Colors for the song names */
 .song-name:nth-child(odd) {
@@ -1559,7 +1572,7 @@ align-items: center;
     font-family: 'Tangerine', serif;
     font-size: 5rem;
     color: #9354ce;
-    text-align: left;
+    text-align: center;
     margin-top: 10px;
     margin-bottom: 8px; 
 }
@@ -1570,6 +1583,7 @@ align-items: center;
     color: #3b9e3b;
     margin-top: 0; 
     margin-bottom: 30px;
+    text-align: center;
 }
 
 .video-section h3 {
@@ -1631,13 +1645,107 @@ align-items: center;
     margin-top: 20px;
 }
 
+.universe-link {
+    width: 100%;
+    height: 2px;
+    background: linear-gradient(90deg, #a855f7, #00ff9d, #a855f7);
+    animation: shimmer 5s linear infinite;
+    margin: 50px 0;
+  }
+  @keyframes shimmer {
+    0% { background-position: 0% 0; }
+    100% { background-position: 200% 0; }
+  }
+
+  .orbit-frame {
+    display: flex;
+    overflow-x: auto;
+    scroll-behavior: smooth;
+    gap: 30px;
+    perspective: 1000px; /* gives 3D orbit feeling */
+    position: relative;
+}
+
+.orbit-frame .video-item {
+    flex: 0 0 auto;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    transform-origin: center bottom; /* rotate around bottom center */
+}
+
+/* Glow trail effect on scroll */
+.orbit-frame::after {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    pointer-events: none;
+    background: linear-gradient(to right, rgba(255,255,255,0.05), transparent 50%, rgba(255,255,255,0.05));
+    mix-blend-mode: screen;
+    opacity: 0.6;
+    transition: opacity 0.3s ease;
+}
+
 @media screen and (min-width: 769px) and (max-width: 1370px) {
-    .vibe-section {
-        width: 100%;
-        margin: 10px 0;
+    .vibe-container {
+        flex-direction: column;
+        align-items: center;
+        padding: 5px 0;
+        margin-top: 10px;
     }
 
+    .vibe-section {
+        width: 80%;
+        padding: 10px 15px;
+        margin: 10px 0;
+        border-radius: 10px;
+    }
+
+    .vibe-section h2 {
+        font-size: 2rem;
+        margin-bottom: 10px;
+    }
+
+    .vibe-section p {
+        font-size: 1rem;
+        line-height: 1.4;
+    }
+
+    .music-videos-container {
+        padding: 10px 5px;
+    }
+
+    .music-videos-container h2 {
+        font-size: 2.5rem;
+        margin: 5px 0;
+    }
+
+    .music-videos-container p {
+        font-size: 1rem;
+        margin-bottom: 10px;
+    }
+
+    .video-section h3 {
+        font-size: 1.2rem;
+        margin-top: 20px;
+        margin-bottom: 10px;
+    }
+
+    .video-frame {
+        gap: 8px;
+        padding: 5px 0;
+    }
+
+    .video-item iframe {
+        width: 260px;
+        height: 145px;
+    }
+
+    .video-item p {
+        font-size: 0.9rem;
+        margin-top: 6px;
+    }
 }
+
 @media screen and (max-width: 768px) {
     .vibe-container {
         flex-direction: column;

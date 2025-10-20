@@ -1,9 +1,10 @@
 from flask import Flask, render_template, request, Response, redirect, session, url_for, jsonify, current_app, send_from_directory, send_file
 import os, secrets, random, calendar, subprocess
-from models import db, BackgroundMusic, Upcoming, Recap, Memory, InTheNews, InTheNews_Spanish, Product, Discography, MusicVideo, Vote, Radio, SpotifyStats, YoutubeStats, ShazamStats, Fanbase, Banner, Project, Event, Promotion, FanLetter
+from models import db, BackgroundMusic, Upcoming, Recap, Memory, InTheNews, Product, Discography, MusicVideo, Vote, Radio, SpotifyStats, YoutubeStats, ShazamStats, Fanbase, Banner, Project, Event, Promotion, FanLetter
 from collections import defaultdict
 from datetime import datetime
 from flask_wtf import CSRFProtect
+from scraper.naver_scraper import scrape_naver_blog
 
 # Initialize the Flask app
 app = Flask(__name__)
@@ -187,7 +188,10 @@ def get_event_details(event_id):
 @app.route('/inthenews')
 def inthenews():
     inthenews = InTheNews.query.order_by(InTheNews.date.desc()).all()
-    return render_template('04.inthenews.html', inthenews=inthenews)
+    music = BackgroundMusic.query.filter_by(page_name='inthenews').first()
+    song_file = music.file_name if music else "default.mp3"
+    song_name = music.song_name if music else "Default Song"
+    return render_template("04.inthenews.html", song_file=song_file, song_name=song_name, inthenews=inthenews)
 
 @app.route('/vibe')
 def vibe():
@@ -196,17 +200,18 @@ def vibe():
     jungkook_videos = db.session.query(MusicVideo).filter(MusicVideo.artist == 'Jungkook').all()
     random.shuffle(taehyung_videos)
     random.shuffle(jungkook_videos)
-   
-    return render_template('05.vibe.html', song_names=song_names, taehyung_videos=taehyung_videos, jungkook_videos=jungkook_videos)
-
+    music = BackgroundMusic.query.filter_by(page_name='vibe').first()
+    song_file = music.file_name if music else "default.mp3"
+    song_name = music.song_name if music else "Default Song"
+    return render_template("05.vibe.html", song_names=song_names, song_file=song_file, song_name=song_name, taehyung_videos=taehyung_videos, jungkook_videos=jungkook_videos)
+    
 @app.route('/projects')
 def projects():
     projects = Project.query.all()  
-    # music = BackgroundMusic.query.filter_by(page_name='projects').first()
-    # song_file = music.file_name if music else "default.mp3"
-    # song_name = music.song_name if music else "Default Song"
-    # return render_template("06.projects.html", song_file=song_file, song_name=song_name, projects=projects)
-    return render_template("06.projects.html", projects=projects)
+    music = BackgroundMusic.query.filter_by(page_name='projects').first()
+    song_file = music.file_name if music else "default.mp3"
+    song_name = music.song_name if music else "Default Song"
+    return render_template("06.projects.html", song_file=song_file, song_name=song_name, projects=projects)
 
 @app.route("/pride")
 def pride():
