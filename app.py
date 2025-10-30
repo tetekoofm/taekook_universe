@@ -40,6 +40,21 @@ def robots():
 def sitemap():
     return send_file(os.path.join(app.root_path, 'static', 'sitemap.xml'), mimetype='application/xml')
 
+@app.route("/unlock_halloween", methods=["POST"])
+def unlock_halloween():
+    session["halloween_unlocked"] = True
+    return jsonify(success=True)
+
+@app.route("/halloween-special")
+def halloween_special():
+    if session.get("halloween_unlocked"):
+        return render_template("halloween-special.html")
+    else:
+        return redirect(url_for("home"))
+# @app.route("/halloween-special")
+# def halloween_special():
+#     return "<h1 style='text-align:center; padding:100px; color:white; background:black;'>💜 Taekook Halloween Special 💜</h1>"
+
 @app.route('/home_soon')
 def home_soon():
     image_folder = os.path.join(app.static_folder, 'images/home')

@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🎃 Taekook Halloween Special</title>
+<style>
+  body {
+    margin: 0;
+    font-family: 'Creepster', cursive, Arial, sans-serif;
+    background-color: #0a0a0a;
+    color: #fff;
+    overflow-x: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    text-align: center;
+    position: relative;
+  }
+
+  h1 {
+    font-size: 4em;
+    color: #b399ff;
+    text-shadow: 0 0 30px #b399ff, 0 0 60px #a07fff;
+    margin: 0.5em 0;
+  }
+
+  .message {
+    font-size: 2em;
+    color: #ffd700;
+    margin: 20px;
+    text-shadow: 0 0 20px #ffd700;
+    line-height: 1.5em;
+  }
+
+  .avatar {
+    width: 300px;
+    height: 300px;
+    border-radius: 50%;
+    border: 5px solid #b399ff;
+    object-fit: cover;
+    box-shadow: 0 0 50px #b399ff;
+    animation: floaty 4s ease-in-out infinite;
+    margin: 20px 0;
+  }
+
+  .taekook-gallery {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 50px;
+    margin: 30px auto 60px auto;
+  }
+
+  .taekook-gallery img {
+    width: 300px;
+    height: 300px;
+    object-fit: cover;
+    border-radius: 15px;
+    box-shadow: 0 0 40px #b399ff;
+    animation: floaty 3s ease-in-out infinite;
+    transition: transform 0.3s ease;
+  }
+
+  .taekook-gallery img:hover {
+    transform: scale(1.3) rotate(-5deg);
+  }
+
+  @keyframes floaty {
+    0% { transform: translateY(0px); }
+    50% { transform: translateY(-25px); }
+    100% { transform: translateY(0px); }
+  }
+
+  .spooky {
+    position: fixed;
+    pointer-events: none;
+    animation: floatSpooky linear infinite;
+  }
+
+  @keyframes floatSpooky {
+    0% { transform: translateY(0) translateX(0) rotate(0deg); }
+    50% { transform: translateY(-120px) translateX(60px) rotate(180deg); }
+    100% { transform: translateY(0) translateX(0) rotate(360deg); }
+  }
+
+  @keyframes fall {
+    0% { transform: translateY(0) rotate(0deg); }
+    100% { transform: translateY(100vh) rotate(360deg); }
+  }
+</style>
+</head>
+<body>
+
+<h1 class="glow">🎃 Halloween Surprise!</h1>
+
+<img src="/static/images/halloween/ghosty.png" alt="Ghosty Admin" class="avatar">
+
+<div class="message glow">
+  Hey Spookies! 👻 <br>
+  You found me finally! I’m still here! <br>
+  Let’s celebrate this Halloween with our Taekook! 🎉
+</div>
+
+<div class="taekook-gallery">
+  <img src="/static/images/halloween/taekook1.gif" alt="Taekook Halloween 1" onerror="this.src='/static/images/halloween/taekook1.png'">
+  <img src="/static/images/halloween/taekook2.gif" alt="Taekook Halloween 2" onerror="this.src='/static/images/halloween/taekook2.png'">
+</div>
+
+<audio id="halloweenAudio" autoplay loop>
+  <source src="/static/audio/halloween.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+  const totalHalloweenImages = 14;
+  const floatingCount = 50;
+
+  for(let i=0;i<floatingCount;i++){
+    const iconNum = Math.floor(Math.random() * totalHalloweenImages) + 1;
+    const img = document.createElement("img");
+    img.src = `/static/images/halloween/${iconNum}.png`;
+    img.className = "spooky";
+
+    // Random starting position
+    img.style.left = Math.random()*100 + "vw";
+    img.style.top = Math.random()*100 + "vh";
+
+    // Random size
+    const size = 20 + Math.random()*20; // 20-40px
+    img.style.width = img.style.height = size + "px";
+
+    // Generate unique animation name
+    const animName = `float${i}`;
+    const duration = 3 + Math.random()*3; // 3-6s
+    const xOffset = 50 + Math.random()*100; // random horizontal movement
+    const yOffset = 50 + Math.random()*100; // random vertical movement
+    const rotate = Math.random()*360;
+
+    // Create dynamic keyframes
+    const style = document.createElement("style");
+    style.innerHTML = `
+      @keyframes ${animName} {
+        0% { transform: translate(0px,0px) rotate(0deg); }
+        25% { transform: translate(${xOffset/2}px,${-yOffset/2}px) rotate(${rotate/4}deg); }
+        50% { transform: translate(${xOffset}px,${yOffset}px) rotate(${rotate/2}deg); }
+        75% { transform: translate(${-xOffset/2}px,${yOffset/2}px) rotate(${rotate*0.75}deg); }
+        100% { transform: translate(0px,0px) rotate(${rotate}deg); }
+      }
+    `;
+    document.head.appendChild(style);
+
+    img.style.animation = `${animName} ${duration}s linear infinite`;
+
+    document.body.appendChild(img);
+  }
+
+  // Confetti as before
+  function launchConfetti(){
+    for(let i=0;i<200;i++){
+      const confetti = document.createElement("div");
+      confetti.style.position="fixed";
+      const size = 5 + Math.random()*10;
+      confetti.style.width = confetti.style.height = size + "px";
+      confetti.style.backgroundColor = `hsl(${Math.random()*360}, 70%, 60%)`;
+      confetti.style.left = Math.random()*100 + "vw";
+      confetti.style.top = -10 + "px";
+      confetti.style.zIndex = 9999;
+      confetti.style.borderRadius = "50%";
+      confetti.style.pointerEvents = "none";
+      confetti.style.animation = `fall ${3+Math.random()*2}s linear forwards`;
+      document.body.appendChild(confetti);
+      setTimeout(()=>confetti.remove(),4000);
+    }
+  }
+
+  launchConfetti();
+</script>
+
+</body>
+</html>

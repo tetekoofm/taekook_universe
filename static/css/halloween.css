@@ -1,0 +1,91 @@
+/* 🎃 Halloween Icon Styles */
+.halloween-icon {
+  position: fixed;
+  cursor: pointer;
+  z-index: 9999;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+  filter: invert(1); /* reverse colors */
+  pointer-events: auto;
+}
+
+/* Hover scaling */
+.halloween-icon:hover {
+  transform: scale(1.3) rotate(var(--rotate-deg));
+}
+
+/* Sparkle effect */
+.sparkle {
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  background: white;
+  border-radius: 50%;
+  pointer-events: none;
+  animation: sparkle 0.8s ease-out forwards;
+}
+
+@keyframes sparkle {
+  0% { opacity: 1; transform: scale(1) translate(0,0); }
+  100% { opacity: 0; transform: scale(0.3) translate(var(--sx), var(--sy)); }
+}
+
+/* Counter */
+.halloween-counter {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background: rgba(50,0,70,0.85);
+  color: #fff;
+  padding: 10px 15px;
+  border-radius: 20px;
+  font-size: 14px;
+  z-index: 9999;
+}
+
+/* Floating animation */
+@keyframes floaty {
+  0% { transform: translateY(0px) rotate(var(--rotate-deg)); }
+  50% { transform: translateY(var(--float-dist)) rotate(calc(var(--rotate-deg) + 5deg)); }
+  100% { transform: translateY(0px) rotate(var(--rotate-deg)); }
+}
+
+/* 🌫️ Dynamic Purple Taekook Fog */
+#fog-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  z-index: 1;
+  overflow: hidden;
+}
+
+.fog-layer {
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  border-radius: 50%;
+  opacity: 0.3; /* stronger for black background */
+  background: radial-gradient(circle, rgba(180,95,255,0.3) 0%, rgba(80,0,120,0.15) 100%);
+  filter: blur(30px); /* glow effect */
+}
+
+/* Animations for each layer */
+@keyframes floatFog1 {
+  0% { transform: translate(0px, 0px) rotate(0deg); }
+  50% { transform: translate(60px, 30px) rotate(0.5deg); }
+  100% { transform: translate(0px, 0px) rotate(0deg); }
+}
+@keyframes floatFog2 {
+  0% { transform: translate(0px, 0px) rotate(0deg); }
+  50% { transform: translate(-70px, 40px) rotate(-0.7deg); }
+  100% { transform: translate(0px, 0px) rotate(0deg); }
+}
+@keyframes floatFog3 {
+  0% { transform: translate(0px, 0px) rotate(0deg); }
+  50% { transform: translate(50px, -50px) rotate(1deg); }
+  100% { transform: translate(0px, 0px) rotate(0deg); }
+}
