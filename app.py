@@ -41,19 +41,22 @@ def sitemap():
     return send_file(os.path.join(app.root_path, 'static', 'sitemap.xml'), mimetype='application/xml')
 
 @app.route("/unlock_halloween", methods=["POST"])
+@csrf.exempt
 def unlock_halloween():
-    session["halloween_unlocked"] = True
-    return jsonify(success=True)
-
+    if "halloween_token" not in session:
+        token = secrets.token_hex(16)
+        session["halloween_token"] = token
+        return jsonify({"status": "ok", "token": token})
+    else:
+        return jsonify({"status": "already_unlocked", "token": session["halloween_token"]})
+        
 @app.route("/halloween-special")
 def halloween_special():
-    if session.get("halloween_unlocked"):
+    token = session.get("halloween_token")
+    if token:
         return render_template("halloween-special.html")
     else:
         return redirect(url_for("home"))
-# @app.route("/halloween-special")
-# def halloween_special():
-#     return "<h1 style='text-align:center; padding:100px; color:white; background:black;'>💜 Taekook Halloween Special 💜</h1>"
 
 @app.route('/home_soon')
 def home_soon():
@@ -74,6 +77,17 @@ def home():
     song_file = music.file_name if music else "your_eyes_tell.mp3"
     song_name = music.song_name if music else "Your Eyes Tell"
     return render_template('01.home.html', song_file=song_file, song_name=song_name, images=images)
+
+@app.route('/homehalloween')
+def homehalloween():
+    image_folder = os.path.join(app.static_folder, 'images/home/pictureoftheday')
+    images = [f for f in os.listdir(image_folder) if f.lower().endswith(('jpg', 'jpeg', 'png', 'gif', 'webp', 'mp4'))]
+    random.shuffle(images)
+    # selected_media = images[:6]  # ✅ correct list slicing
+    music = BackgroundMusic.query.filter_by(page_name='home').first()
+    song_file = music.file_name if music else "your_eyes_tell.mp3"
+    song_name = music.song_name if music else "Your Eyes Tell"
+    return render_template('01.homehalloween.html', song_file=song_file, song_name=song_name, images=images)
 
 @app.route('/meet-tae')
 def meet_tae():
@@ -228,11 +242,11 @@ def projects():
     song_name = music.song_name if music else "Default Song"
     return render_template("06.projects.html", song_file=song_file, song_name=song_name, projects=projects)
 
-@app.route("/pride")
+@app.route('/pride')
 def pride():
     return render_template("11.pride.html")
 
-@app.route("/guide")
+@app.route('/guide')
 def guide():
     return render_template("07.guide.html")
 
@@ -241,7 +255,7 @@ def donating():
     banners = Banner.query.filter_by(subpage='07.01.donating').all()
     return render_template('07.01.donating.html', banners=banners)
 
-@app.route("/fanbases")
+@app.route('/fanbases')
 def fanbases():
     fanbases = Fanbase.query.all()
     banners = Banner.query.filter_by(subpage='07.02.fanbases').all()
@@ -249,7 +263,7 @@ def fanbases():
         print(fanbase.fb_name, fanbase.x, fanbase.instagram, fanbase.facebook)
     return render_template("07.02.fanbases.html", fanbases=fanbases, banners=banners)
 
-@app.route("/streaming")
+@app.route('/streaming')
 def streaming():
     trending_tracks = Discography.query.filter_by(popular=1).all()
     banners = Banner.query.filter_by(subpage='07.03.streaming').all()

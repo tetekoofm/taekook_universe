@@ -1,0 +1,318 @@
+{% extends "00.base.html" %}
+{% block title %}TaeKook Universe{% endblock %}
+{% block content %}
+
+<!-- ✨ Intro Overlay -->
+<div id="logo-intro-overlay" style="position:fixed;top:0;left:0;width:100vw;height:100vh;background:black;z-index:9999;overflow:hidden;display:flex;align-items:center;justify-content:center;">
+  <canvas id="logo-intro-canvas"></canvas>
+  <img id="final-logo" src="{{ url_for('static', filename='images/fanbases/tku.webp') }}" alt="TaeKook Universe Logo" style="max-width:40vw;max-height:40vh;opacity:0;position:absolute;z-index:10;">
+</div>
+
+<!-- 🌌 Night Sky Stars (Persistent) -->
+<div class="night-sky"></div>
+
+<!-- 🌠 Main Content -->
+<div class="main-content hidden">
+  <h1 class="heading">Welcome to TaeKook Universe!</h1>
+  <p class="caption">A fanpage dedicated to Kim Taehyung and Jeon Jung Kook.</p>
+  <p class="caption">Follow their incredible journey from their debut till now!</p>
+
+  <!-- Image Carousel -->
+  <div class="image-carousel">
+    <div class="slides-track">
+      {% for media in images %}
+        <div class="image-slide">
+          {% if media.endswith('.mp4') %}
+            <video class="glow-media" autoplay loop muted playsinline>
+              <source src="{{ url_for('static', filename='images/home/pictureoftheday/' + media) }}" type="video/mp4">
+            </video>
+          {% else %}
+            <img class="glow-media" src="{{ url_for('static', filename='images/home/pictureoftheday/' + media) }}" alt="Taekook {{ loop.index }}">
+          {% endif %}
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+
+<!-- Ghosty Popup (Add inside <body>) -->
+  <div id="ghostyPopupOverlay" style="display:none;">
+    <img src="/static/images/halloween/ghosty.png" alt="Ghosty Avatar" class="ghosty-avatar">
+    <h1>Find Our Ghosty! 👻</h1>
+    <p>
+      Oh no! Ghosty, our mischievous admin, is missing on her birthday!<br>
+      She left behind clues and emojis, floating away with her magical friends<br>
+      <strong>Ms. Catty 🐱</strong> and <strong>Mr. Batty 🦇</strong>.<br>
+      Can you find her before the Halloween party begins? Your trick-or-treating adventure starts now!
+    </p>
+    <button id="startHuntBtn">Start the Hunt!</button>
+  
+    <div class="ghosty-gifs">
+      <img src="/static/images/halloween/taekook1.gif" alt="Taekook Halloween 1">
+      <img src="/static/images/halloween/taekook2.gif" alt="Taekook Halloween 2">
+    </div>
+  </div>
+  
+  <audio id="halloweenAudio" src="/static/audio/halloween.mp3" autoplay loop></audio>
+   
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/gsap.min.js"></script>
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  const overlay = document.getElementById('logo-intro-overlay');
+  const canvas = document.getElementById('logo-intro-canvas');
+  const ctx = canvas.getContext('2d');
+  const logo = document.getElementById('final-logo');
+  const mainContent = document.querySelector('.main-content');
+
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+
+  // --- Persistent Night-Sky Stars ---
+  function generateStars() {
+    const nightSky = document.createElement('div');
+    nightSky.classList.add('night-sky');
+    document.body.appendChild(nightSky);
+
+    const numberOfStars = 200;
+    const backgroundStars = [];
+
+    for (let i = 0; i < numberOfStars; i++) {
+      const star = document.createElement('div');
+      star.classList.add('star');
+      const x = Math.random() * window.innerWidth;
+      const y = Math.random() * window.innerHeight;
+      star.style.top = `${y}px`;
+      star.style.left = `${x}px`;
+      star.style.animationDuration = `${Math.random() * 3 + 2}s`;
+      nightSky.appendChild(star);
+
+      backgroundStars.push({ el: star, x, y, baseSize: 2, offset: Math.random() * 2 });
+    }
+    return backgroundStars;
+  }
+
+  const backgroundStars = generateStars();
+
+  // --- Constellation Stars Setup ---
+  const stars = [];
+  const starCount = 150;
+  const circleRadius = 150;
+  const centerX = canvas.width / 2;
+  const centerY = canvas.height / 2;
+
+  for (let i = 0; i < starCount; i++) {
+    const angle = Math.random() * Math.PI * 2;
+    const radius = circleRadius * (0.5 + Math.random() * 0.5);
+    stars.push({
+      x: Math.random() * canvas.width,
+      y: Math.random() * canvas.height,
+      size: Math.random() * 2 + 1,
+      targetX: centerX + radius * Math.cos(angle),
+      targetY: centerY + radius * Math.sin(angle),
+      color: Math.random() > 0.5 ? '#6A0DAD' : '#10b981',
+      alpha: 0,
+      twinkleOffset: Math.random(),
+      orbitRadius: Math.random() * 5 + 2,
+      orbitAngle: Math.random() * Math.PI * 2
+    });
+  }
+
+  function drawStars() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    const time = performance.now() / 500;
+
+    stars.forEach(s => {
+      const dx = s.orbitRadius * Math.cos(time + s.orbitAngle);
+      const dy = s.orbitRadius * Math.sin(time + s.orbitAngle);
+      const twinkle = 0.5 + 0.5 * Math.sin(time + s.twinkleOffset * 10);
+
+      ctx.globalAlpha = s.alpha * twinkle;
+      ctx.fillStyle = s.color;
+      ctx.beginPath();
+      ctx.arc(s.x + dx, s.y + dy, s.size, 0, Math.PI * 2);
+      ctx.fill();
+    });
+
+    backgroundStars.forEach(bs => {
+      let brightness = 0.3;
+      stars.forEach(cs => {
+        const dx = cs.x - bs.x;
+        const dy = cs.y - bs.y;
+        const dist = Math.sqrt(dx * dx + dy * dy);
+        if (dist < 200) brightness = 0.3 + (200 - dist) / 200 * 0.7;
+      });
+      bs.el.style.opacity = brightness;
+    });
+  }
+
+  function animateTwinkle() {
+    drawStars();
+    requestAnimationFrame(animateTwinkle);
+  }
+  animateTwinkle();
+
+  // --- Logo Animation ---
+  const logoShown = sessionStorage.getItem("logoShown");
+
+  if (!logoShown) {
+    sessionStorage.setItem("logoShown", "true");
+
+    // Fade in constellation stars
+    gsap.to(stars, {
+      alpha: 1,
+      duration: 1,
+      stagger: 0.01,
+      onUpdate: drawStars,
+      onComplete: () => {
+
+        // Form constellation
+        gsap.to(stars, {
+          x: i => stars[i].targetX,
+          y: i => stars[i].targetY,
+          duration: 2.5,
+          ease: "power2.inOut",
+          onUpdate: drawStars,
+          onComplete: () => {
+
+            // Fade in logo
+            gsap.to(logo, {
+              opacity: 1,
+              duration: 2,
+              onComplete: () => {
+
+                // Burst stars
+                gsap.to(stars, {
+                  x: i => stars[i].x + (Math.random() - 0.5) * window.innerWidth * 2,
+                  y: i => stars[i].y + (Math.random() - 0.5) * window.innerHeight * 2,
+                  duration: 3.5,
+                  ease: "power2.out",
+                  onUpdate: drawStars
+                });
+
+                // Fade out logo
+                gsap.to(logo, {
+                  scale: 0,
+                  opacity: 0,
+                  duration: 3,
+                  ease: "power2.inOut",
+                  onComplete: () => {
+
+                    overlay.style.display = 'none';
+
+                    // Animate main content emerging from center
+                    mainContent.style.transformOrigin = "center center";
+                    gsap.fromTo(mainContent, 
+                      { opacity: 0, scale: 0.8 }, 
+                      { opacity: 1, scale: 1, duration: 2, ease: "power2.out" }
+                    );
+
+                  }
+                });
+
+              }
+            });
+
+          }
+        });
+
+      }
+    });
+
+  } else {
+    // Already seen: skip logo
+    overlay.style.display = 'none';
+    mainContent.classList.add('fade-in');
+  }
+
+  // --- Image Carousel ---
+  const track = document.querySelector('.slides-track');
+  const slides = document.querySelectorAll('.image-slide');
+  let index = 0;
+
+  function getVisibleSlides() {
+    if (window.innerWidth <= 768) return 1;
+    else if (window.innerWidth <= 1024) return 2;
+    else return 3;
+  }
+
+  function slideCarousel() {
+    const visible = getVisibleSlides();
+    index++;
+    track.style.transition = 'transform 1s ease-in-out';
+    const offset = -(index * (100 / visible));
+    track.style.transform = `translateX(${offset}%)`;
+
+    if (index >= slides.length) {
+      setTimeout(() => {
+        track.style.transition = 'none';
+        index = 0;
+        track.style.transform = 'translateX(0%)';
+      }, 1000);
+    }
+  }
+
+  setInterval(slideCarousel, 4000);
+
+  window.addEventListener('resize', () => {
+    index = 0;
+    track.style.transition = 'none';
+    track.style.transform = 'translateX(0%)';
+  });
+
+});
+
+document.addEventListener("DOMContentLoaded", () => {
+  const popup = document.getElementById("ghostyPopupOverlay");
+  const halloweenAudio = document.getElementById("halloweenAudio");
+
+  // Detect homepage music (example: <audio id="homepageMusic">)
+  const homepageMusic = document.getElementById("homepageMusic");
+
+  // 🔥 FOR TESTING ONLY — always show popup
+  popup.style.display = "flex";
+
+  // Pause homepage music if playing
+  if(homepageMusic && !homepageMusic.paused){
+    homepageMusic.pause();
+  }
+
+  // Play Halloween music
+  halloweenAudio.play();
+
+  document.getElementById("startHuntBtn").addEventListener("click", () => {
+    popup.style.display = "none";
+
+    // Stop Halloween music
+    halloweenAudio.pause();
+    halloweenAudio.currentTime = 0;
+
+    // Resume homepage music
+    if(homepageMusic) homepageMusic.play();
+  });
+  // if(!localStorage.getItem("ghostyPopupShown")) {
+  //   popup.style.display = "flex";
+
+  //   // Pause homepage music if playing
+  //   if(homepageMusic && !homepageMusic.paused){
+  //     homepageMusic.pause();
+  //   }
+
+  //   // Play Halloween music
+  //   halloweenAudio.play();
+
+  //   document.getElementById("startHuntBtn").addEventListener("click", () => {
+  //     popup.style.display = "none";
+  //     localStorage.setItem("ghostyPopupShown", "true");
+
+  //     // Stop Halloween music
+  //     halloweenAudio.pause();
+  //     halloweenAudio.currentTime = 0;
+
+  //     // Resume homepage music
+  //     if(homepageMusic) homepageMusic.play();
+  //   });
+  // }
+});
+</script>
+
+{% endblock %}
