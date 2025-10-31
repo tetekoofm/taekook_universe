@@ -49,7 +49,7 @@ def unlock_halloween():
         return jsonify({"status": "ok", "token": token})
     else:
         return jsonify({"status": "already_unlocked", "token": session["halloween_token"]})
-        
+
 @app.route("/halloween-special")
 def halloween_special():
     token = session.get("halloween_token")
@@ -69,17 +69,6 @@ def home_soon():
 
 @app.route('/')
 def home():
-    image_folder = os.path.join(app.static_folder, 'images/home/pictureoftheday')
-    images = [f for f in os.listdir(image_folder) if f.lower().endswith(('jpg', 'jpeg', 'png', 'gif', 'webp', 'mp4'))]
-    random.shuffle(images)
-    # selected_media = images[:6]  # ✅ correct list slicing
-    music = BackgroundMusic.query.filter_by(page_name='home').first()
-    song_file = music.file_name if music else "your_eyes_tell.mp3"
-    song_name = music.song_name if music else "Your Eyes Tell"
-    return render_template('01.home.html', song_file=song_file, song_name=song_name, images=images)
-
-@app.route('/homehalloween')
-def homehalloween():
     image_folder = os.path.join(app.static_folder, 'images/home/pictureoftheday')
     images = [f for f in os.listdir(image_folder) if f.lower().endswith(('jpg', 'jpeg', 'png', 'gif', 'webp', 'mp4'))]
     random.shuffle(images)
