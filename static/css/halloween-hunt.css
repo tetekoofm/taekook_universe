@@ -1,9 +1,25 @@
+/* Fonts Import */
+@import url('https://fonts.googleapis.com/css2?family=Creepster&family=Fredericka+the+Great&family=Orbitron:wght@500&display=swap');
+
+/* Usage */
+h1.glow {
+  font-family: 'Creepster', cursive;
+}
+
+.message {
+  font-family: 'Fredericka the Great', cursive;
+}
+
+.taekook-gallery img {
+  font-family: 'Orbitron', sans-serif; /* optional for captions or hover text */
+}
+
 /* ===================== RESET & BODY ===================== */
 body {
   margin: 0;
   padding: 0;
   background: linear-gradient(160deg, #1a001a 0%, #2b001f 100%);
-  font-family: 'Arial', sans-serif;
+  /* font-family: 'Creepster', cursive; */
   color: #fff;
   text-align: center;
   overflow-x: hidden;
