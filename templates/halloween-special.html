@@ -4,99 +4,16 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>🎃 Taekook Halloween Special</title>
-<style>
-  body {
-    margin: 0;
-    font-family: 'Creepster', cursive, Arial, sans-serif;
-    background-color: #0a0a0a;
-    color: #fff;
-    overflow-x: hidden;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    min-height: 100vh;
-    text-align: center;
-    position: relative;
-  }
+<link rel="stylesheet" href="/static/css/halloween-hunt.css">
 
-  h1 {
-    font-size: 4em;
-    color: #b399ff;
-    text-shadow: 0 0 30px #b399ff, 0 0 60px #a07fff;
-    margin: 0.5em 0;
-  }
-
-  .message {
-    font-size: 2em;
-    color: #ffd700;
-    margin: 20px;
-    text-shadow: 0 0 20px #ffd700;
-    line-height: 1.5em;
-  }
-
-  .avatar {
-    width: 300px;
-    height: 300px;
-    border-radius: 50%;
-    border: 5px solid #b399ff;
-    object-fit: cover;
-    box-shadow: 0 0 50px #b399ff;
-    animation: floaty 4s ease-in-out infinite;
-    margin: 20px 0;
-  }
-
-  .taekook-gallery {
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-    gap: 50px;
-    margin: 30px auto 60px auto;
-  }
-
-  .taekook-gallery img {
-    width: 300px;
-    height: 300px;
-    object-fit: cover;
-    border-radius: 15px;
-    box-shadow: 0 0 40px #b399ff;
-    animation: floaty 3s ease-in-out infinite;
-    transition: transform 0.3s ease;
-  }
-
-  .taekook-gallery img:hover {
-    transform: scale(1.3) rotate(-5deg);
-  }
-
-  @keyframes floaty {
-    0% { transform: translateY(0px); }
-    50% { transform: translateY(-25px); }
-    100% { transform: translateY(0px); }
-  }
-
-  .spooky {
-    position: fixed;
-    pointer-events: none;
-    animation: floatSpooky linear infinite;
-  }
-
-  @keyframes floatSpooky {
-    0% { transform: translateY(0) translateX(0) rotate(0deg); }
-    50% { transform: translateY(-120px) translateX(60px) rotate(180deg); }
-    100% { transform: translateY(0) translateX(0) rotate(360deg); }
-  }
-
-  @keyframes fall {
-    0% { transform: translateY(0) rotate(0deg); }
-    100% { transform: translateY(100vh) rotate(360deg); }
-  }
-</style>
 </head>
 <body>
 
 <h1 class="glow">🎃 Halloween Surprise!</h1>
 
-<img src="/static/images/halloween/ghosty.png" alt="Ghosty Admin" class="avatar">
+<div class="avatar-wrapper">
+  <img src="/static/images/halloween/ghosty.png" alt="Ghosty Admin" class="avatar">
+</div>
 
 <div class="message glow">
   Hey Spookies! 👻 <br>

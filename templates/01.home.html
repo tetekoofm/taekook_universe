@@ -36,20 +36,22 @@
 </div>
 
 <!-- Ghosty Popup (Add inside <body>) -->
-  <!-- <div id="ghostyPopupOverlay" style="display:none;">
-    <img src="/static/images/halloween/ghosty.png" alt="Ghosty Avatar" class="ghosty-avatar">
-    <h1>Find Our Ghosty! 👻</h1>
-    <p>
-      Oh no! Ghosty, our mischievous admin, is missing on her birthday!<br>
-      She left behind clues and emojis, floating away with her magical friends<br>
-      <strong>Ms. Catty 🐱</strong> and <strong>Mr. Batty 🦇</strong>.<br>
-      Can you find her before the Halloween party begins? Your trick-or-treating adventure starts now!
-    </p>
-    <button id="startHuntBtn">Start the Hunt!</button>
-  
-    <div class="ghosty-gifs">
-      <img src="/static/images/halloween/taekook1.gif" alt="Taekook Halloween 1">
-      <img src="/static/images/halloween/taekook2.gif" alt="Taekook Halloween 2">
+  <div id="ghostyPopupOverlay" style="display:none;">
+    <div class="popup-content">
+      <img src="/static/images/halloween/ghosty.png" alt="Ghosty Avatar" class="ghosty-avatar">
+      <h1>Find Our Ghosty! 👻</h1>
+      <p>
+        Oh no! Ghosty, our mischievous admin, is missing on her birthday!<br>
+        She left behind clues and emojis, floating away with her magical friends<br>
+        <strong>Ms. Catty 🐱</strong> and <strong>Mr. Batty 🦇</strong>.<br>
+        Can you find her before the Halloween party begins? Your trick-or-treating adventure starts now!
+      </p>
+      <button id="startHuntBtn">Start the Hunt!</button>
+    
+      <div class="ghosty-gifs">
+        <img src="/static/images/halloween/taekook1.gif" alt="Taekook Halloween 1">
+        <img src="/static/images/halloween/taekook2.gif" alt="Taekook Halloween 2">
+      </div>
     </div>
   </div>
   
@@ -120,7 +122,7 @@
 }
   </style>
 
-   -->
+  
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/gsap.min.js"></script>
 <script>
 document.addEventListener("DOMContentLoaded", () => {
@@ -327,37 +329,37 @@ document.addEventListener("DOMContentLoaded", () => {
 
 });
 
-// document.addEventListener("DOMContentLoaded", () => {
-//   const popup = document.getElementById("ghostyPopupOverlay");
-//   const halloweenAudio = document.getElementById("halloweenAudio");
+document.addEventListener("DOMContentLoaded", () => {
+  const popup = document.getElementById("ghostyPopupOverlay");
+  const halloweenAudio = document.getElementById("halloweenAudio");
 
-//   // Detect homepage music (example: <audio id="homepageMusic">)
-//   const homepageMusic = document.getElementById("homepageMusic");
+  // Detect homepage music (example: <audio id="homepageMusic">)
+  const homepageMusic = document.getElementById("homepageMusic");
+  
+  if(!localStorage.getItem("ghostyPopupShown")) {
+    popup.style.display = "flex";
 
-//   if(!localStorage.getItem("ghostyPopupShown")) {
-//     popup.style.display = "flex";
+    // Pause homepage music if playing
+    if(homepageMusic && !homepageMusic.paused){
+      homepageMusic.pause();
+    }
 
-//     // Pause homepage music if playing
-//     if(homepageMusic && !homepageMusic.paused){
-//       homepageMusic.pause();
-//     }
+    // Play Halloween music
+    halloweenAudio.play();
 
-//     // Play Halloween music
-//     halloweenAudio.play();
+    document.getElementById("startHuntBtn").addEventListener("click", () => {
+      popup.style.display = "none";
+      localStorage.setItem("ghostyPopupShown", "true");
 
-//     document.getElementById("startHuntBtn").addEventListener("click", () => {
-//       popup.style.display = "none";
-//       localStorage.setItem("ghostyPopupShown", "true");
+      // Stop Halloween music
+      halloweenAudio.pause();
+      halloweenAudio.currentTime = 0;
 
-//       // Stop Halloween music
-//       halloweenAudio.pause();
-//       halloweenAudio.currentTime = 0;
-
-//       // Resume homepage music
-//       if(homepageMusic) homepageMusic.play();
-//     });
-//   }
-// });
+      // Resume homepage music
+      if(homepageMusic) homepageMusic.play();
+    });
+  }
+});
 </script>
 
 {% endblock %}

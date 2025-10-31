@@ -1,6 +1,6 @@
 document.addEventListener("DOMContentLoaded", () => {
   const totalIconsAvailable = 14; // you have 14 images total
-  const totalToFind = 2; // only 10 will be used in each hunt
+  const totalToFind = 10; // only 10 will be used in each hunt
   const redirectUrl = "/halloween-special";
 
   // Pages where icons can appear

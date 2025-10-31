@@ -37,24 +37,92 @@
 
 <!-- Ghosty Popup (Add inside <body>) -->
   <div id="ghostyPopupOverlay" style="display:none;">
-    <img src="/static/images/halloween/ghosty.png" alt="Ghosty Avatar" class="ghosty-avatar">
-    <h1>Find Our Ghosty! 👻</h1>
-    <p>
-      Oh no! Ghosty, our mischievous admin, is missing on her birthday!<br>
-      She left behind clues and emojis, floating away with her magical friends<br>
-      <strong>Ms. Catty 🐱</strong> and <strong>Mr. Batty 🦇</strong>.<br>
-      Can you find her before the Halloween party begins? Your trick-or-treating adventure starts now!
-    </p>
-    <button id="startHuntBtn">Start the Hunt!</button>
-  
-    <div class="ghosty-gifs">
-      <img src="/static/images/halloween/taekook1.gif" alt="Taekook Halloween 1">
-      <img src="/static/images/halloween/taekook2.gif" alt="Taekook Halloween 2">
+    <div class="popup-content">
+      <img src="/static/images/halloween/ghosty.png" alt="Ghosty Avatar" class="ghosty-avatar">
+      <h1>Find Our Ghosty! 👻</h1>
+      <p>
+        Oh no! Ghosty, our mischievous admin, is missing on her birthday!<br>
+        She left behind clues and emojis, floating away with her magical friends<br>
+        <strong>Ms. Catty 🐱</strong> and <strong>Mr. Batty 🦇</strong>.<br>
+        Can you find her before the Halloween party begins? Your trick-or-treating adventure starts now!
+      </p>
+      <button id="startHuntBtn">Start the Hunt!</button>
+    
+      <div class="ghosty-gifs">
+        <img src="/static/images/halloween/taekook1.gif" alt="Taekook Halloween 1">
+        <img src="/static/images/halloween/taekook2.gif" alt="Taekook Halloween 2">
+      </div>
     </div>
   </div>
   
   <audio id="halloweenAudio" src="/static/audio/halloween.mp3" autoplay loop></audio>
-   
+  
+
+<style>
+#ghostyPopupOverlay {
+  position: fixed;
+  top:0; left:0;
+  width: 100vw; height: 100vh;
+  background: radial-gradient(circle at center, #0a0a0a 0%, #1a001a 100%);
+  display: flex; justify-content: center; align-items: center;
+  flex-direction: column; text-align:center;
+  z-index: 9999;
+  padding: 20px;
+  animation: fadeIn 1s ease;
+}
+@keyframes fadeIn { from {opacity:0;} to {opacity:1;} }
+
+#ghostyPopupOverlay h1 { 
+  font-size: 3em; 
+  color: #9b5de5; /* subtle purple */
+  text-shadow: 0 0 10px #9b5de5, 0 0 20px #6a0dad, 0 0 40px #7b3fbf;
+  margin-bottom: 20px;
+}
+
+#ghostyPopupOverlay p { 
+  font-size: 1.6em; 
+  color: #cda6ff; /* lighter purple text */
+  line-height: 1.6em; 
+  margin-bottom: 40px;
+  text-shadow: 0 0 5px #cda6ff, 0 0 15px #b57eff;
+}
+
+#startHuntBtn { 
+  background: linear-gradient(90deg,#7b3fbf,#9b5de5); 
+  color:#fff; 
+  font-size:1.6em; 
+  padding:15px 35px; 
+  border:none; 
+  border-radius:20px; 
+  cursor:pointer; 
+  box-shadow:0 0 20px #9b5de5, 0 0 40px #7b3fbf;
+  transition: transform 0.3s ease, box-shadow 0.3s ease; 
+}
+#startHuntBtn:hover { 
+  transform:scale(1.2); 
+  box-shadow:0 0 40px #9b5de5,0 0 60px #7b3fbf;
+}
+
+.ghosty-avatar { 
+  width:220px; height:220px; 
+  border-radius:50%; 
+  margin-bottom:30px; 
+  border:5px solid #9b5de5; 
+  box-shadow:0 0 20px #9b5de5,0 0 40px #7b3fbf; 
+}
+
+.ghosty-gifs { 
+  display:flex; justify-content:center; gap:30px; margin-top:30px; 
+}
+.ghosty-gifs img { 
+  width:280px; height:280px; 
+  object-fit:cover; 
+  border-radius:20px; 
+  box-shadow:0 0 20px #9b5de5,0 0 40px #7b3fbf; 
+}
+  </style>
+
+  
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/gsap.min.js"></script>
 <script>
 document.addEventListener("DOMContentLoaded", () => {
@@ -267,7 +335,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Detect homepage music (example: <audio id="homepageMusic">)
   const homepageMusic = document.getElementById("homepageMusic");
-
+  
   // 🔥 FOR TESTING ONLY — always show popup
   popup.style.display = "flex";
 
