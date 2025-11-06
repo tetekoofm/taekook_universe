@@ -27,6 +27,16 @@ class Upcoming(db.Model):
     image = db.Column(db.String(300), nullable=True)
     description = db.Column(db.Text, nullable=True)
 
+class Highlights(db.Model):
+    __tablename__ = 'highlights'
+    id = db.Column(db.Integer, primary_key=True)
+    date = db.Column(db.String(20), nullable=False)
+    artist = db.Column(db.String(100), nullable=False)
+    title = db.Column(db.String(200), nullable=False)
+    folder = db.Column(db.String(100), nullable=True) 
+    image = db.Column(db.String(300), nullable=True)
+    description = db.Column(db.Text, nullable=True)
+
 class Recap(db.Model):
     __tablename__ = 'recap'
 

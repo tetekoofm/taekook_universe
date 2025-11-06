@@ -1,0 +1,29 @@
+{% extends "00.base.html" %}
+{% block title %}Recap{% endblock %}
+
+{% block content %}
+<div class="main-content">
+    <h1 class="heading">Recap</h1>
+    <p class="caption">Weekly Recap of Taehyung and Jung Kook!</p>
+
+    <div class="upcoming-container">        
+        {% if recaps %}
+        <div class="weekly-recap-section">
+            <h2 class="section-heading">🌟 Weekly Recap 🌟</h2>
+            <div class="recap-cards">
+                {% for recap in recaps %}
+                <div class="recap-card">
+                    <h3 class="recap-title">{{ recap.title.replace("Week of ", "Week of<br>") | safe }}</h3>
+                    <video class="recap-video" controls controlsList="nodownload">
+                        <source src="{{ url_for('static', filename='images/recap/' + recap.video) }}" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+        {% endif %}
+    </div>
+</div>
+       
+{% endblock %}

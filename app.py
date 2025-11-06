@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request, Response, redirect, session, url_for, jsonify, current_app, send_from_directory, send_file
 import os, secrets, random, calendar, subprocess
-from models import db, BackgroundMusic, Upcoming, Recap, Memory, InTheNews, Product, Discography, MusicVideo, Vote, Radio, SpotifyStats, YoutubeStats, ShazamStats, Fanbase, Banner, Project, Event, Promotion, FanLetter
+from models import db, BackgroundMusic, Upcoming, Highlights, Recap, Memory, InTheNews, Product, Discography, MusicVideo, Vote, Radio, SpotifyStats, YoutubeStats, ShazamStats, Fanbase, Banner, Project, Event, Promotion, FanLetter
 from collections import defaultdict
 from datetime import datetime
 from flask_wtf import CSRFProtect
@@ -96,17 +96,35 @@ def meet_koo():
 def termsandconditions():
     return render_template("10.03.termsandconditions.html")
 
-@app.route('/highlights')
-def highlights():
+@app.route('/upcoming')
+def upcoming():
     upcoming_events = Upcoming.query.all()
-    recaps = Recap.query.order_by(Recap.date.desc()).all()
-    music = BackgroundMusic.query.filter_by(page_name='highlights').first()
+    music = BackgroundMusic.query.filter_by(page_name='upcoming').first()
     song_file = music.file_name if music else "default.mp3"
     song_name = music.song_name if music else "Default Song"
     for event in upcoming_events:
         if isinstance(event.date, str): 
             event.date = datetime.strptime(event.date, '%Y-%m-%d') 
-    return render_template("02.highlights.html", upcoming=upcoming_events, recaps=recaps, song_file=song_file, song_name=song_name)
+    return render_template("02.01.upcoming.html", upcoming=upcoming_events, song_file=song_file, song_name=song_name)
+
+@app.route('/highlights')
+def highlights():
+    highlights_events = Highlights.query.all()
+    music = BackgroundMusic.query.filter_by(page_name='highlights').first()
+    song_file = music.file_name if music else "default.mp3"
+    song_name = music.song_name if music else "Default Song"
+    for event in highlights_events:
+        if isinstance(event.date, str): 
+            event.date = datetime.strptime(event.date, '%Y-%m-%d') 
+    return render_template("02.02.highlights.html", highlights=highlights_events, song_file=song_file, song_name=song_name)
+
+@app.route('/recap')
+def recap():
+    recaps = Recap.query.order_by(Recap.date.desc()).all()
+    music = BackgroundMusic.query.filter_by(page_name='highlights').first()
+    song_file = music.file_name if music else "default.mp3"
+    song_name = music.song_name if music else "Default Song"
+    return render_template("02.03.recap.html", recaps=recaps, song_file=song_file, song_name=song_name)
 
 @app.route('/memories')
 def memories():

@@ -1,5 +1,5 @@
 import pandas as pd
-from models import db, BackgroundMusic, Upcoming,  Recap, Memory, InTheNews, Product, Discography, MusicVideo, Vote, Radio, Fanbase, SpotifyStats, YoutubeStats, ShazamStats, Banner, Project, Event, Promotion, FanLetter
+from models import db, BackgroundMusic, Upcoming, Highlights, Recap, Memory, InTheNews, Product, Discography, MusicVideo, Vote, Radio, Fanbase, SpotifyStats, YoutubeStats, ShazamStats, Banner, Project, Event, Promotion, FanLetter
 from app import app
 from datetime import datetime, time
 
@@ -48,6 +48,31 @@ def insert_data_from_excel():
 
         db.session.commit()
         print("Upcoming Events updated from Excel!")
+
+        highlights_df = pd.read_excel(excel_file, sheet_name='Highlights')
+        highlights_df['date'] = pd.to_datetime(highlights_df['date'], errors='coerce')
+        highlights_df['date'] = highlights_df['date'].dt.strftime('%Y-%m-%d')
+
+        for _, row in highlights_df.iterrows():
+            existing = Highlights.query.filter_by(
+                date=row['date'],
+                artist=row['artist'],
+                title=row['title']
+            ).first()
+            
+            if not existing:
+                highlights = Highlights(
+                    date=row['date'],
+                    artist=row['artist'],
+                    title=row['title'],
+                    folder=row['folder'], 
+                    image=row['image'], 
+                    description=row['description']
+                )
+                db.session.add(highlights)
+
+        db.session.commit()
+        print("Highlights Events updated from Excel!")
 
         recap_df = pd.read_excel(excel_file, sheet_name='Recap')
         recap_df['date'] = pd.to_datetime(recap_df['date'], errors='coerce')
