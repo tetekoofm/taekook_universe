@@ -212,13 +212,13 @@ footer a:hover {
 
 .navbar {
     background-color: #000;
-    padding: 20px 20px;
+    padding: 20px;
     display: flex;
     justify-content: center;
     align-items: center;
     position: sticky;
-    top: 10;
-    z-index: 9999; 
+    top: 0;
+    z-index: 9999;
 }
 
 .navbar ul {
@@ -232,6 +232,7 @@ footer a:hover {
 
 .navbar li {
     margin: 15px 25px;
+    position: relative;
 }
 
 .navbar a {
@@ -239,12 +240,53 @@ footer a:hover {
     text-decoration: none;
     color: #a855f7;
     font-size: 1.5rem;
-    /* font-weight: bold; */
     transition: color 0.3s ease;
 }
 
 .navbar a:hover {
     color: #0FFF50;
+}
+
+/* Dropdown */
+.dropdown-content {
+    display: none;
+    position: absolute;
+    top: 100%; /* directly below the button */
+    left: 0;
+    background-color: #000;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px rgba(0,0,0,0.2);
+    z-index: 1;
+    border-radius: 6px;
+}
+
+.dropdown-content a {
+    color: #a855f7;
+    padding: 10px 15px;
+    text-decoration: none;
+    display: block;
+    font-size: 1.3rem;
+}
+
+.dropdown-content a:hover {
+    background-color: #333;
+}
+
+/* Desktop: show dropdown on hover */
+@media (hover: hover) and (pointer: fine) {
+    .dropdown:hover .dropdown-content {
+        display: block;
+    }
+}
+
+/* Mobile: show dropdown on active class */
+.dropdown.active .dropdown-content {
+    display: block;
+}
+
+/* Optional: dropdown button hover effect */
+.dropdown .dropbtn {
+    cursor: pointer;
 }
 
 #logo-canvas {
@@ -727,8 +769,8 @@ opacity: 1;
     }
 } 
 
-/************************************************** UPCOMING ****************************************************/
-.upcoming-container {
+/************************************************** UPCOMING & HIGHLIGHTS ****************************************************/
+.upcoming-container, .highlights-container {
     width: 80%;
     margin: 0 auto;
     display: flex;
@@ -738,7 +780,7 @@ opacity: 1;
 }
 
 /* Horizontal Card */
-.upcoming-card {
+.upcoming-card, .highlights-card  {
     background: #111;
     border-radius: 12px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
@@ -748,12 +790,12 @@ opacity: 1;
     transition: transform 0.3s, box-shadow 0.3s;
 }
 
-.upcoming-card:hover {
+.upcoming-card:hover, .highlights-card:hover  {
     transform: translateY(-3px);
     box-shadow: 0 6px 14px rgba(0, 0, 0, 0.5);
 }
 
-.upcoming-header {
+.upcoming-header, .highlights-header {
     border-bottom: 1px solid #444;
     padding-bottom: 8px;
     margin-bottom: 12px;
@@ -763,7 +805,7 @@ opacity: 1;
     align-items: center;  
 }
 
-.upcoming-title {
+.upcoming-title, .highlights-title {
     font-family: 'Fira Sans Condensed', sans-serif;
     font-weight: bold;
     font-size: 1.6rem;
@@ -772,7 +814,7 @@ opacity: 1;
     text-align: left;
 }
 
-.upcoming-date {
+.upcoming-date, .highlights-date  {
     font-family: 'Fira Sans Condensed', sans-serif;
     font-weight: bold;
     font-size: 1.2rem;
@@ -781,7 +823,7 @@ opacity: 1;
     text-align: right;
 }
 
-.upcoming-body {
+.upcoming-body, .highlights-body {
     /* display: flex;  */
     /* flex-direction: row; */
     /* align-items: flex-start; */
@@ -839,14 +881,14 @@ opacity: 1;
 .prev { left: 3px; }
 .next { right: 3px; }
 
-.upcoming-content {
+.upcoming-content, .highlights-content {
     flex: 1;
     display: flex;
     align-items: center;
     text-align: justify;
 }
 
-.upcoming-description {
+.upcoming-description, .highlights-description {
     font-family: 'Fira Sans Condensed', sans-serif;
     font-size: 1.1rem;
     line-height: 1.6;
@@ -942,17 +984,17 @@ opacity: 1;
 
 /* Responsive adjustments */
 @media screen and (min-width: 769px) and (max-width: 1370px) {   
-    .upcoming-title {
+    .upcoming-title, .highlights-title {
         font-size: 1.4rem;
         margin: 0;
     }
     
-    .upcoming-date {
+    .upcoming-date, .highlights-date {
         font-size: 1.4rem;
         margin: 0; 
     }
 
-    .upcoming-body {
+    .upcoming-body, .highlights-body {
         flex-direction: column;
         gap: 10px;
     }
@@ -968,11 +1010,11 @@ opacity: 1;
         height: auto;
     }
 
-    .upcoming-content {
+    .upcoming-content, .highlights-content {
         width: 100%;
     }
 
-    .upcoming-description {
+    .upcoming-description, .highlights-description {
         font-size: 1.1rem;
     }
 
@@ -1002,7 +1044,7 @@ opacity: 1;
 
     .recap-cards {
         justify-content: center;
-        gap: 15px;
+        gap: 8px;
     }
 
     .recap-card {
@@ -1030,17 +1072,17 @@ opacity: 1;
 
 /* Mobile Styles */
 @media (max-width: 768px) {   
-    .upcoming-title {
+    .upcoming-title, .highlights-title {
         font-size: 0.7rem !important;
         margin: 0;
     }
     
-    .upcoming-date {
+    .upcoming-date, .highlights-date {
         font-size: 0.7rem !important;
         margin: 0; 
     }
 
-    .upcoming-body {
+    .upcoming-body, .highlights-body {
         flex-direction: column; 
         gap: 10px !important;
     }
@@ -1067,11 +1109,7 @@ opacity: 1;
         object-fit: cover;
     }
     
-    .upcoming-content {
-        width: 100%;
-    }
-
-    .upcoming-content {
+    .upcoming-content, .highlights-content {
         width: 100%;
         display: flex;
         flex-direction: column;
@@ -1079,7 +1117,7 @@ opacity: 1;
         text-align: justify;
     }
 
-    .upcoming-description {
+    .upcoming-description, .highlights-description {
         font-size: 0.65rem; 
         line-height: 1.2;
     }
