@@ -19,7 +19,14 @@
         <nav class="navbar">
             <ul>
                 <li><a href="/">Home</a></li>
-                <li><a href="/highlights">Highlights</a></li>
+                <li class="dropdown">
+                    <a href="/highlights" class="dropbtn">Features ▾</a>
+                    <div class="dropdown-content">
+                        <a href="/upcoming">Upcoming</a>
+                        <a href="/highlights">Highlights</a>
+                        <a href="/recap">Weekly Recaps</a>
+                    </div>
+                </li>
                 <li><a href="/memories">Memories</a></li>
                 <li><a href="/inthenews">In The News</a></li>
                 <li><a href="/vibe">Vibe</a></li>
@@ -51,4 +58,29 @@
         </footer>
     </div>
 </body>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // select all dropdowns
+        const dropdowns = document.querySelectorAll('.dropdown');
+    
+        dropdowns.forEach(drop => {
+            const btn = drop.querySelector('.dropbtn');
+    
+            btn.addEventListener('click', function(e) {
+                e.preventDefault();
+                // toggle active class
+                drop.classList.toggle('active');
+            });
+        });
+    
+        // Optional: close dropdown when clicking outside
+        document.addEventListener('click', function(e) {
+            dropdowns.forEach(drop => {
+                if (!drop.contains(e.target)) {
+                    drop.classList.remove('active');
+                }
+            });
+        });
+    });
+</script>
 </html>
