@@ -8,6 +8,15 @@ from flask_sqlalchemy import SQLAlchemy
 
 db = SQLAlchemy()
 
+class TKURadio(db.Model):
+    __tablename__ = 'tkuradio'
+    id = db.Column(db.Integer, primary_key=True)
+    playlist_name = db.Column(db.String(200))
+    spotify_playlist_id = db.Column(db.String(200))
+    description = db.Column(db.Text)
+    image = db.Column(db.String(200))  # optional thumbnail
+    is_active = db.Column(db.Boolean, default=True)
+
 class BackgroundMusic(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     page_name = db.Column(db.String(255), unique=True, nullable=False)

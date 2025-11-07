@@ -1,0 +1,157 @@
+{% extends "00.base.html" %}
+{% block title %}TKURadio{% endblock %}
+
+{% block content %}
+<div class="main-content">
+    <div class="tkuradio-page">
+
+        <!-- Hero -->
+        <div class="hero">
+            <h1 class="heading">TKU Radio</h1>
+            <p class="caption">Listen to all playlists in random order without repeating back-to-back.</p>
+        </div>
+
+        <!-- Player Status -->
+        <div class="player-status" id="player-status">Stopped</div>
+
+        <!-- Global Play/Stop Buttons -->
+        <div class="playlist-buttons global-buttons">
+            <button class="play-station" id="global-play">Play All</button>
+            <button class="stop-station" id="global-stop">Stop</button>
+        </div>
+
+        <!-- Playlist Grid -->
+        <div class="playlist-grid">
+            {% for playlist in playlists %}
+            <div class="playlist-card" data-id="{{ playlist.spotify_playlist_id }}">
+                <img src="{{ playlist.image or 'https://via.placeholder.com/300x300?text=No+Image' }}" alt="{{ playlist.playlist_name }}">
+                <h3>{{ playlist.playlist_name }}</h3>
+                <p>{{ playlist.description }}</p>
+                <div class="playlist-buttons">
+                    <button class="play-station">Play</button>
+                    <button class="stop-station">Stop</button>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
+<!-- Spotify JS Player -->
+<script src="https://sdk.scdn.co/spotify-player.js"></script>
+<script>
+const playlists = Array.from(document.querySelectorAll('.playlist-card'));
+let globalQueue = [];
+let currentIndex = 0;
+let globalPlaying = false;
+let player;
+let spotifyToken = "{{ access_token }}";  // pass from Flask route
+
+window.onSpotifyWebPlaybackSDKReady = () => {
+    player = new Spotify.Player({
+        name: 'TKU Radio Web Player',
+        getOAuthToken: cb => { cb(spotifyToken); },
+        volume: 0.5
+    });
+
+    // Ready
+    player.addListener('ready', ({ device_id }) => {
+        console.log('Ready with Device ID', device_id);
+        window.spotifyDeviceId = device_id;
+    });
+
+    // Player state changes
+    player.addListener('player_state_changed', state => {
+        console.log(state);
+    });
+
+    // Connect!
+    player.connect();
+};
+
+// Prepare a random queue avoiding back-to-back duplicates
+function prepareQueue() {
+    globalQueue = [...playlists];
+    for (let i = globalQueue.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [globalQueue[i], globalQueue[j]] = [globalQueue[j], globalQueue[i]];
+    }
+}
+
+// Play a single playlist by Spotify playlist ID
+function playPlaylist(playlistId, playlist_name) {
+    if (!window.spotifyDeviceId) {
+        console.log("Device not ready yet");
+        return;
+    }
+
+    document.getElementById('player-status').innerText = `Playing: ${playlist_name}`;
+
+    fetch(`https://api.spotify.com/v1/me/player/play?device_id=${window.spotifyDeviceId}`, {
+        method: 'PUT',
+        body: JSON.stringify({ context_uri: `spotify:playlist:${playlistId}` }),
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${spotifyToken}`
+        },
+    }).then(response => {
+        if (!response.ok) console.error('Spotify play error', response);
+    });
+}
+
+// Stop playback
+function stopPlayback() {
+    if (!window.spotifyDeviceId) return;
+    fetch(`https://api.spotify.com/v1/me/player/pause?device_id=${window.spotifyDeviceId}`, {
+        method: 'PUT',
+        headers: {
+            'Authorization': `Bearer ${spotifyToken}`
+        },
+    });
+    document.getElementById('player-status').innerText = 'Stopped';
+}
+
+// Global Play All
+document.getElementById('global-play').addEventListener('click', () => {
+    if (!globalPlaying) {
+        prepareQueue();
+        currentIndex = 0;
+        globalPlaying = true;
+        playNext();
+    }
+});
+
+document.getElementById('global-stop').addEventListener('click', () => {
+    globalPlaying = false;
+    stopPlayback();
+});
+
+// Play next in queue
+function playNext() {
+    if (!globalPlaying || currentIndex >= globalQueue.length) return;
+
+    const nextPlaylist = globalQueue[currentIndex];
+    playPlaylist(nextPlaylist.dataset.id, nextPlaylist.querySelector('h3').innerText);
+
+    // Wait for playlist to finish before playing next
+    // Replace this timeout with actual Spotify track length if available
+    setTimeout(() => {
+        currentIndex++;
+        playNext();
+    }, 30000); // 30 seconds demo
+}
+
+// Individual card play/stop
+playlists.forEach(card => {
+  const name = card.querySelector('h3').innerText;
+  card.querySelector('.play-station').addEventListener('click', () => {
+    playPlaylist(card.dataset.id, name);
+    globalPlaying = false;
+  });
+  card.querySelector('.stop-station').addEventListener('click', () => {
+    stopPlayback();
+    globalPlaying = false;
+  });
+});
+</script>
+{% endblock %}

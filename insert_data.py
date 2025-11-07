@@ -1,5 +1,5 @@
 import pandas as pd
-from models import db, BackgroundMusic, Upcoming, Highlights, Recap, Memory, InTheNews, Product, Discography, MusicVideo, Vote, Radio, Fanbase, SpotifyStats, YoutubeStats, ShazamStats, Banner, Project, Event, Promotion, FanLetter
+from models import db, TKURadio, BackgroundMusic, Upcoming, Highlights, Recap, Memory, InTheNews, Product, Discography, MusicVideo, Vote, Radio, Fanbase, SpotifyStats, YoutubeStats, ShazamStats, Banner, Project, Event, Promotion, FanLetter
 from app import app
 from datetime import datetime, time
 
@@ -7,6 +7,31 @@ def insert_data_from_excel():
     excel_file = 'taekook_universe.xlsx'
 
     with app.app_context():
+
+        radio_df = pd.read_excel(excel_file, sheet_name="TKURadio")  # Sheet with radio data
+        radio_df = radio_df.fillna('')  # Replace NaNs with empty strings
+        radio_df.columns = radio_df.columns.str.strip()
+
+        # Insert / update records
+        for _, row in radio_df.iterrows():
+            # Check if record already exists (avoid duplicates)
+            existing = TKURadio.query.filter_by(
+                playlist_name=row['playlist_name'],
+                spotify_playlist_id=row['spotify_playlist_id']
+            ).first()
+            
+            if not existing:
+                radio = TKURadio(
+                    playlist_name=row['playlist_name'],
+                    spotify_playlist_id=row['spotify_playlist_id'],
+                    description=row.get('description', ''),
+                    image=row.get('image', ''),
+                    is_active=True  # Default to True
+                )
+                db.session.add(radio)
+
+        db.session.commit()
+        print("TKURadio table updated from Excel!")
 
         music_df = pd.read_excel(excel_file, sheet_name='Background Music')
 
