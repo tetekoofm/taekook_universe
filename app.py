@@ -22,31 +22,36 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 # Initialize the SQLAlchemy with the app
 db.init_app(app)
 
-
 def get_spotify_credentials():
     """
-    Load Spotify credentials:
-    - First try environment variables (production)
-    - Fallback to local taekook.json (development)
+    Load Spotify credentials dynamically:
+    - In production (Render): uses environment variables.
+    - In local dev: loads from taekook.json if env vars not set.
     """
-    if all(os.getenv(var) for var in ["SPOTIFY_CLIENT_ID", "SPOTIFY_CLIENT_SECRET", "SPOTIPY_REDIRECT_URI", "SPOTIPY_SCOPE"]):
-        return {
-            "SPOTIFY_CLIENT_ID": os.getenv("SPOTIFY_CLIENT_ID"),
-            "SPOTIFY_CLIENT_SECRET": os.getenv("SPOTIFY_CLIENT_SECRET"),
-            "SPOTIPY_REDIRECT_URI": os.getenv("SPOTIPY_REDIRECT_URI"),
-            "SPOTIPY_SCOPE": os.getenv("SPOTIPY_SCOPE"),
-        }
-    else:
-        # local JSON fallback
+    required = ["SPOTIFY_CLIENT_ID", "SPOTIFY_CLIENT_SECRET", "SPOTIPY_REDIRECT_URI", "SPOTIPY_SCOPE"]
+
+    # Check if all env vars exist
+    if all(os.getenv(var) for var in required):
+        print("✅ Loaded Spotify credentials from environment variables")
+        return {var: os.getenv(var) for var in required}
+
+    # Otherwise, try local file
+    try:
         with open("taekook.json") as f:
             creds = json.load(f)
+        print("✅ Loaded Spotify credentials from taekook.json")
         return {
-            "SPOTIFY_CLIENT_ID": creds["SPOTIPY_CLIENT_ID"],
-            "SPOTIFY_CLIENT_SECRET": creds["SPOTIPY_CLIENT_SECRET"],
-            "SPOTIPY_REDIRECT_URI": creds["SPOTIPY_REDIRECT_URI"],
-            "SPOTIPY_SCOPE": creds["SPOTIPY_SCOPE"],
+            "SPOTIFY_CLIENT_ID": creds.get("SPOTIPY_CLIENT_ID"),
+            "SPOTIFY_CLIENT_SECRET": creds.get("SPOTIPY_CLIENT_SECRET"),
+            "SPOTIPY_REDIRECT_URI": creds.get("SPOTIPY_REDIRECT_URI"),
+            "SPOTIPY_SCOPE": creds.get("SPOTIPY_SCOPE"),
         }
-
+    except FileNotFoundError:
+        raise RuntimeError(
+            "❌ No Spotify credentials found. "
+            "Set environment variables or provide taekook.json for local dev."
+        )
+        
 # Load credentials once
 spotify_creds = get_spotify_credentials()
 SPOTIFY_CLIENT_ID = spotify_creds["SPOTIFY_CLIENT_ID"]
@@ -129,7 +134,7 @@ def tkuradio():
     playlists = get_playlists_with_images(playlists, access_token)  # Updates images
     banners = Banner.query.filter_by(subpage='12.tkuradio').all()
     return render_template('12.tkuradio.html', playlists=playlists, banners=banners, access_token=access_token)
-    
+
 @app.route('/favicon.png')
 def favicon():
     return send_from_directory('static', 'favicon.png', mimetype='image/png')
