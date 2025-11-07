@@ -25,39 +25,44 @@ db.init_app(app)
 def get_spotify_credentials():
     """
     Load Spotify credentials dynamically:
-    - In production (Render): uses environment variables.
+    - In production (Render): uses SPOTIFY_* environment variables.
     - In local dev: loads from taekook.json if env vars not set.
     """
-    required = ["SPOTIFY_CLIENT_ID", "SPOTIFY_CLIENT_SECRET", "SPOTIPY_REDIRECT_URI", "SPOTIPY_SCOPE"]
+    required = [
+        "SPOTIFY_CLIENT_ID",
+        "SPOTIFY_CLIENT_SECRET",
+        "SPOTIFY_REDIRECT_URI",
+        "SPOTIFY_SCOPE",
+    ]
 
-    # Check if all env vars exist
+    # ✅ Check if all env vars exist
     if all(os.getenv(var) for var in required):
         print("✅ Loaded Spotify credentials from environment variables")
         return {var: os.getenv(var) for var in required}
 
-    # Otherwise, try local file
+    # 🧩 Otherwise, try local taekook.json
     try:
         with open("taekook.json") as f:
             creds = json.load(f)
         print("✅ Loaded Spotify credentials from taekook.json")
         return {
-            "SPOTIFY_CLIENT_ID": creds.get("SPOTIPY_CLIENT_ID"),
-            "SPOTIFY_CLIENT_SECRET": creds.get("SPOTIPY_CLIENT_SECRET"),
-            "SPOTIPY_REDIRECT_URI": creds.get("SPOTIPY_REDIRECT_URI"),
-            "SPOTIPY_SCOPE": creds.get("SPOTIPY_SCOPE"),
+            "SPOTIFY_CLIENT_ID": creds.get("SPOTIFY_CLIENT_ID"),
+            "SPOTIFY_CLIENT_SECRET": creds.get("SPOTIFY_CLIENT_SECRET"),
+            "SPOTIFY_REDIRECT_URI": creds.get("SPOTIFY_REDIRECT_URI"),
+            "SPOTIFY_SCOPE": creds.get("SPOTIFY_SCOPE"),
         }
     except FileNotFoundError:
         raise RuntimeError(
             "❌ No Spotify credentials found. "
-            "Set environment variables or provide taekook.json for local dev."
+            "Set SPOTIFY_* environment variables or provide taekook.json locally."
         )
-        
+
 # Load credentials once
 spotify_creds = get_spotify_credentials()
 SPOTIFY_CLIENT_ID = spotify_creds["SPOTIFY_CLIENT_ID"]
 SPOTIFY_CLIENT_SECRET = spotify_creds["SPOTIFY_CLIENT_SECRET"]
-SPOTIPY_REDIRECT_URI = spotify_creds["SPOTIPY_REDIRECT_URI"]
-SPOTIPY_SCOPE = spotify_creds["SPOTIPY_SCOPE"]
+SPOTIFY_REDIRECT_URI = spotify_creds["SPOTIFY_REDIRECT_URI"]
+SPOTIFY_SCOPE = spotify_creds["SPOTIFY_SCOPE"]
 
 @app.route("/callback")
 def callback():
@@ -73,7 +78,7 @@ def callback():
         data={
             "grant_type": "authorization_code",
             "code": code,
-            "redirect_uri": SPOTIPY_REDIRECT_URI
+            "redirect_uri": SPOTIFY_REDIRECT_URI
         },
         headers={
             "Authorization": f"Basic {b64_auth}"
