@@ -2,18 +2,24 @@
 {% extends "00.base.html" %}
 {% block title %}Fan Projects{% endblock %}
 {% block content %}
-<div class="project-cards">
-    {% for project in projects %}
-    <div class="project-card" onclick="window.open('{{ project.link }}', '_blank')">
-        <div class="project-card-header">
-            <h2 class="title">{{ project.title }}</h2>
-            <p class="date">{{ project.date }}</p>
+<!-- Heading and Intro Section -->
+<div class="main-content">
+    <h1 class="heading">Fan Initiatives</h1>
+    <p class="caption">Celebrating the impact of our community through donations, campaigns, and acts of kindness inspired by Taekook.</p>   
+    <br>    
+    <div class="project-cards">
+        {% for project in projects %}
+        <div class="project-card" onclick="window.open('{{ project.link }}', '_blank')">
+            <div class="project-card-header">
+                <h2 class="title">{{ project.title }}</h2>
+                <p class="date">{{ project.date }}</p>
+            </div>
+            <div class="project-card-body">
+                <img src="{{ url_for('static', filename='images/projects/' + project.image) }}" alt="{{ project.title }}">
+                <p class="description">{{ project.description }}</p>
+            </div>
         </div>
-        <div class="project-card-body">
-            <img src="{{ url_for('static', filename='images/projects/' + project.image) }}" alt="{{ project.title }}">
-            <p class="description">{{ project.description }}</p>
-        </div>
+        {% endfor %}
     </div>
-    {% endfor %}
 </div>
 {% endblock %}

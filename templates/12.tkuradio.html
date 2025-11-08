@@ -74,8 +74,7 @@
     // Play a single playlist
     function playPlaylist(card) {
         if (!spotifyToken) {
-            // Redirect to login first
-            window.location.href = '/login';
+            window.location.href = "{{ url_for('login') }}"; // ensures correct path
             return;
         }
 
@@ -106,7 +105,6 @@
             if (!res.ok) console.error('Spotify play error', res);
         });
     }
-
     
     // Stop playback
     function stopPlayback() {
