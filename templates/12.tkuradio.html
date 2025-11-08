@@ -129,7 +129,7 @@
     // Global Play All button
     document.getElementById('global-play').addEventListener('click', () => {
         if (!spotifyToken) {
-            window.location.href = '/login';
+            window.location.href = "{{ url_for('login') }}"; 
             return;
         }
         if (!globalPlaying) {
