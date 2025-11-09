@@ -436,32 +436,20 @@ def fan_letters_page():
 def games():
     return render_template('13.games.html')
 
+# ---------------------- HALLOWEEN HUNT ----------------------
+# Required as we have if clause in base nav and sub nav remplates
 @app.context_processor
 def inject_halloween_flag():
     # make this True during the Halloween event
     return dict(halloween_hunt_active=True)
 
-@app.route('/halloween-hunt')
+@app.route("/halloween-hunt")
 def halloween_hunt():
-    return render_template('13.01.halloween_hunt.html')
-
-@app.route("/unlock_halloween", methods=["POST"])
-@csrf.exempt
-def unlock_halloween():
-    if "halloween_token" not in session:
-        token = secrets.token_hex(16)
-        session["halloween_token"] = token
-        return jsonify({"status": "ok", "token": token})
-    else:
-        return jsonify({"status": "already_unlocked", "token": session["halloween_token"]})
+    return render_template("13.01.halloween_hunt.html")
 
 @app.route("/halloween-special")
 def halloween_special():
-    token = session.get("halloween_token")
-    if token:
-        return render_template("13.01.halloween_special.html")
-    else:
-        return redirect(url_for("home"))
+    return render_template("13.01.halloween_special.html")
 
 @app.route('/guesswithemoji')
 def guess_song():

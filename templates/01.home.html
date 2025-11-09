@@ -132,10 +132,10 @@ document.addEventListener("DOMContentLoaded", () => {
   animateTwinkle();
 
   // --- Logo Animation ---
-  const logoShown = sessionStorage.getItem("logoShown");
+  const logoShown = localStorage.getItem("logoShown");
 
   if (!logoShown) {
-    sessionStorage.setItem("logoShown", "true");
+    localStorage.setItem("logoShown", "true");
 
     // Fade in constellation stars
     gsap.to(stars, {

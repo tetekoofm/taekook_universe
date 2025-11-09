@@ -8,7 +8,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const totalToFind = 10;
   const redirectUrl = "/halloween-special";
   const gamesPage = "/games";
-  const pages = [
+  const huntPages = [
     "/", "/memories", "/upcoming", "/highlights", "/recap", "/inthenews", "/vibe",
     "/projects", "/guide", "/fanletters", "/pride", "/meet-tae",
     "/meet-koo", "/termsandconditions", "/streaming", "/buying",
@@ -24,6 +24,7 @@ document.addEventListener("DOMContentLoaded", () => {
   let chosenIcons = JSON.parse(localStorage.getItem("chosenIcons"));
   let gameActive = JSON.parse(localStorage.getItem("gameActive")) ?? false;
 
+  // ---------------------- INITIALIZE ICONS ----------------------
   if (!chosenIcons) {
     const allIcons = Array.from({ length: totalIconsAvailable }, (_, i) => i + 1);
     chosenIcons = [];
@@ -37,93 +38,86 @@ document.addEventListener("DOMContentLoaded", () => {
   // ---------------------- COUNTER ----------------------
   function updateCounter() {
     const counterText = document.querySelector(".counter-text");
-    if (counterText) counterText.textContent = `🎃 Found: ${foundIcons.length} / ${totalToFind}`;
+    if (counterText)
+      counterText.textContent = `🎃 Found: ${foundIcons.length} / ${totalToFind}`;
   }
-
-  const fontLink = document.createElement('link');
-  fontLink.href = "https://fonts.googleapis.com/css2?family=Creepster&display=swap";
-  fontLink.rel = "stylesheet";
-  document.head.appendChild(fontLink);
 
   function createCounter() {
-    if (!document.querySelector(".halloween-counter")) {
-      const counter = document.createElement("div");
-      counter.className = "halloween-counter";
-      counter.style.cssText = `
-        position: fixed; bottom: 20px; right: 20px;
-        background: rgba(0,0,0,0.75); color: #fff;
-        padding: 12px 18px; border-radius: 14px;
-        display: flex; align-items: center; justify-content: center; gap: 12px;
-        z-index: 9999; font-size: 18px; box-shadow: 0 0 15px #ff6600;
-      `;
-      counter.innerHTML = `<span class="counter-text">🎃 Found: ${foundIcons.length} / ${totalToFind}</span>`;
+    if (document.querySelector(".halloween-counter")) return;
 
-      const restartBtn = document.createElement("button");
-      restartBtn.textContent = "↻ Restart";
-      restartBtn.style.cssText = `
-        background:rgb(60, 171, 79); color: white; border: none;
-        padding: 6px 14px; border-radius: 8px; cursor: pointer;
-        width: 140px; line-height: 1.5; vertical-align: middle;
-        font-size: 16px; font-family: 'Creepster', cursive;
-      `;
-      restartBtn.onclick = () => {
-        if (confirm("Restart the Hunt?")) {
-          foundIcons = [];
-          localStorage.setItem("foundIcons", JSON.stringify(foundIcons));
-          localStorage.setItem("gameActive", true);
-          spawnIcons();
-          updateCounter();
+    const counter = document.createElement("div");
+    counter.className = "halloween-counter";
+    counter.style.cssText = `
+      position: fixed; bottom: 20px; right: 20px;
+      background: rgba(0,0,0,0.8); color: #fff;
+      padding: 12px 18px; border-radius: 14px;
+      display: flex; align-items: center; justify-content: center; gap: 10px;
+      z-index: 9999; font-size: 18px; box-shadow: 0 0 15px #ff6600;
+    `;
+    counter.innerHTML = `<span class="counter-text">🎃 Found: ${foundIcons.length} / ${totalToFind}</span>`;
+
+    const restartBtn = document.createElement("button");
+    restartBtn.textContent = "↻ Restart";
+    restartBtn.style.cssText = `
+      background:rgb(60, 171, 79); color: white; border: none;
+      padding: 6px 14px; border-radius: 8px; cursor: pointer;
+      font-size: 16px; font-family: 'Creepster', cursive;
+    `;
+    restartBtn.onclick = () => {
+      if (confirm("Restart the Hunt?")) {
+        localStorage.clear();
+        sessionStorage.clear();
+        window.location.reload();
+      }
+    };
+
+    const exitBtn = document.createElement("button");
+    exitBtn.textContent = "⛔ Exit";
+    exitBtn.style.cssText = `
+      background:rgb(57, 166, 224); color: white; border: none;
+      padding: 6px 14px; border-radius: 8px; cursor: pointer;
+      font-family: 'Creepster', cursive;
+    `;
+    exitBtn.onclick = () => {
+      if (confirm("Exit the Halloween Hunt?")) {
+        document.querySelectorAll(".halloween-icon").forEach(i => i.remove());
+        counter.remove();
+        if (audio) {
+          audio.pause();
+          audio.currentTime = 0;
         }
-      };
+        localStorage.setItem("gameActive", false);
+        localStorage.removeItem("foundIcons");
+        localStorage.removeItem("chosenIcons");
+        sessionStorage.clear();
+        popup.style.display = "flex";
+        window.location.href = "/"; 
+      }
+    };
 
-      const exitBtn = document.createElement("button");
-      exitBtn.textContent = "⛔ Exit";
-      exitBtn.style.cssText = `
-        background:rgb(57, 166, 224); color: white; border: none;
-        padding: 6px 14px; border-radius: 8px; cursor: pointer;
-        font-family: 'Creepster', cursive;
-      `;
-      exitBtn.onclick = () => {
-        if (confirm("Exit the Halloween Hunt?")) {
-          document.querySelectorAll(".halloween-icon").forEach(i => i.remove());
-          counter.remove();
-          if (audio) {
-            audio.pause();
-            audio.currentTime = 0;
-          }
-          localStorage.removeItem("foundIcons");
-          localStorage.removeItem("chosenIcons");
-          localStorage.setItem("gameActive", false);
-          sessionStorage.clear();
-          popup.style.display = "flex";
-        }
-      };
+    const backBtn = document.createElement("button");
+    backBtn.textContent = "👾 Back to Games";
+    backBtn.style.cssText = `
+      background: #9b5de5; color: white; border: none;
+      padding: 6px 14px; border-radius: 8px; cursor: pointer;
+      font-size: 16px; font-family: 'Creepster', cursive;
+    `;
+    backBtn.onclick = () => (window.location.href = gamesPage);
 
-      const backBtn = document.createElement("button");
-      backBtn.textContent = "👾 Back to Games";
-      backBtn.style.cssText = `
-        background: #9b5de5; color: white; border: none;
-        padding: 6px 14px; border-radius: 8px; cursor: pointer;
-        width: 140px; line-height: 1.5; vertical-align: middle;
-        font-size: 16px; font-family: 'Creepster', cursive;
-      `;
-      backBtn.onclick = () => window.location.href = gamesPage;
-
-      counter.appendChild(restartBtn);
-      counter.appendChild(exitBtn);
-      counter.appendChild(backBtn);
-      document.body.appendChild(counter);
-    }
+    counter.appendChild(restartBtn);
+    counter.appendChild(exitBtn);
+    counter.appendChild(backBtn);
+    document.body.appendChild(counter);
   }
 
-  // ---------------------- ICONS ----------------------
+  // ---------------------- SPAWN ICONS ----------------------
   function spawnIcons() {
-    if (!pages.includes(currentPath)) return;
+    if (!huntPages.includes(currentPath)) return;
 
     const availableIcons = chosenIcons.filter(i => !foundIcons.includes(i));
     if (!availableIcons.length) return;
 
-    const iconsToShow = Math.min(availableIcons.length, Math.floor(Math.random() * 2) + 1);
+    const iconsToShow = Math.min(availableIcons.length, 1);
 
     for (let i = 0; i < iconsToShow; i++) {
       const iconNum = availableIcons.splice(Math.floor(Math.random() * availableIcons.length), 1)[0];
@@ -137,24 +131,10 @@ document.addEventListener("DOMContentLoaded", () => {
       img.style.height = "70px";
       img.style.cursor = "pointer";
       img.style.zIndex = "9000";
-      document.body.appendChild(img);
 
-      img.addEventListener("click", (e) => {
+      img.addEventListener("click", () => {
         const chime = new Audio("/static/audio/spooky-chimes.mp3");
         chime.play();
-
-        // Sparkles
-        for (let s = 0; s < 10; s++) {
-          const sparkle = document.createElement("div");
-          sparkle.className = "sparkle";
-          sparkle.style.setProperty("--tx", `${Math.random() * 200 - 100}px`);
-          sparkle.style.setProperty("--ty", `${Math.random() * -200}px`);
-          sparkle.style.top = e.pageY + "px";
-          sparkle.style.left = e.pageX + "px";
-          sparkle.style.animation = `sparkleFly ${0.8 + Math.random()}s ease-out forwards`;
-          document.body.appendChild(sparkle);
-          setTimeout(() => sparkle.remove(), 1000);
-        }
 
         foundIcons.push(iconNum);
         localStorage.setItem("foundIcons", JSON.stringify(foundIcons));
@@ -163,30 +143,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
         if (foundIcons.length >= totalToFind) {
           alert(`🎉 You found all ${totalToFind}! Ghosty’s secret awaits...`);
-        
-          // Stop the game
-          document.querySelectorAll(".halloween-icon").forEach(i => i.remove());
-          const counter = document.querySelector(".halloween-counter");
-          if (counter) counter.remove();
-        
-          if (audio) {
-            audio.pause();
-            audio.currentTime = 0;
-          }
-        
-          // Delay redirect slightly
-          setTimeout(() => {
-            // Clear storage
-            localStorage.removeItem("foundIcons");
-            localStorage.removeItem("chosenIcons");
-            localStorage.setItem("gameActive", false);
-            sessionStorage.clear();
-        
-            // Redirect
-            window.location.href = redirectUrl;
-          }, 50); // 50ms is enough
+          localStorage.setItem("gameActive", false);
+          window.location.href = redirectUrl;
         }
       });
+
+      document.body.appendChild(img);
     }
   }
 
@@ -198,34 +160,39 @@ document.addEventListener("DOMContentLoaded", () => {
     overlay.className = "welcome-overlay";
     overlay.style.cssText = `
       position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-      background: rgba(0, 0, 0, 0.75); color: #fff;
-      display: flex; flex-direction: column; justify-content: center; align-items: center;
+      background: rgba(0, 0, 0, 0.85);
+      color: #fff; display: flex;
+      flex-direction: column; justify-content: center; align-items: center;
       text-align: center; z-index: 9998; padding: 40px;
       backdrop-filter: blur(6px);
     `;
 
     const title = document.createElement("h1");
     title.textContent = "🎃 How the Hunt Works 🎃";
-    title.style.marginBottom = "15px";
+    title.style.cssText = `
+      font-size: 48px; margin-bottom: 20px;
+      color: #ff6600; font-family: 'Creepster', cursive;
+      text-shadow: 2px 2px 6px #000;
+    `;
 
     const description = document.createElement("p");
     description.innerHTML = `
       👻 Ghosty has hidden spooky icons across Taekook Universe pages!<br>
-      🎃 Explore every corner, she loves sneaky spots!<br>
+      🎯 Find at least 10 icons to unlock the secret.<br>
       🕵️‍♀️ Click the icons when you spot them to add to your collection.<br>
-      🎯 Find at least 10 icons.<br>
-      💫 Each icon you catch gets you closer to Ghosty’s secret surprise!<br><br>
-      Keep your eyes sharp, she’s watching from the shadows. 👀
+      💫 Explore different pages — each click counts!<br><br>
+      Keep your eyes sharp!
     `;
     description.style.cssText = `
-      font-size: 22px; color: rgb(70, 206, 93);
-      line-height: 1.6; letter-spacing: 1px; text-shadow: 1px 1px 4px #000;
-      max-width: 650px; text-align: center; font-family: 'Creepster', cursive; margin: 0 auto;
+      font-size: 22px; color: #46ce5d; line-height: 1.6;
+      max-width: 700px; font-family: 'Creepster', cursive;
+      text-shadow: 1px 1px 4px #000; margin: 0 auto;
     `;
 
     overlay.appendChild(title);
     overlay.appendChild(description);
     document.body.appendChild(overlay);
+
   }
 
   // ---------------------- START THE HUNT ----------------------
@@ -233,20 +200,14 @@ document.addEventListener("DOMContentLoaded", () => {
     startBtn.addEventListener("click", () => {
       popup.style.display = "none";
       if (audio) audio.play();
-
-      // Reset game state
-      foundIcons = [];
-      localStorage.setItem("foundIcons", JSON.stringify(foundIcons));
       localStorage.setItem("gameActive", true);
-      localStorage.setItem("foundAll", false);
-
-      showInstructions();
       createCounter();
+      showInstructions();
       spawnIcons();
     });
   }
 
-  // ---------------------- RESTORE STATE ON PAGE RELOAD ----------------------
+  // ---------------------- RESTORE ON RELOAD ----------------------
   if (gameActive) {
     createCounter();
     spawnIcons();

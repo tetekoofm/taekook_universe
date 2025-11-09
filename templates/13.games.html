@@ -1,30 +1,46 @@
 {% extends "00.base.html" %}
 {% block title %}Games & Fun{% endblock %}
 {% block content %}
-
-<div class="games-page">
-  <h1 class="heading">Games & Fun Zone 🎮</h1>
-  <p class="caption">Play, explore, and have fun with our interactive Taekook-themed games!</p>
-
-  <div class="games-grid">
-
-    <!-- 🎃 Halloween Hunt Game -->
-    <div class="game-card">
-      <img src="{{ url_for('static', filename='images/halloween/ghosty.png') }}" alt="Halloween Hunt">
-      <h2>🎃 Ghosty's Halloween Hunt</h2>
-      <p>Find Ghosty and her spooky friends hidden across TKU pages!</p>
-      <a href="{{ url_for('halloween_hunt') }}" class="play-btn">🎃 Play Now</a>
+<div class="main-content">
+    <div class="games-page">
+        <h1 class="heading">Fun Zone 🎮</h1>
+        <p class="caption">Play, explore, and have fun with our interactive Taekook-themed games!</p>
     </div>
 
-    <!-- 💜 Future Game Placeholder -->
-    <div class="game-card">
-      <img src="{{ url_for('static', filename='images/games/quiz.png') }}" alt="Taekook Quiz">
-      <h2>🧠 Taekook Trivia</h2>
-      <p>Test your knowledge about our favorite duo!</p>
-      <button class="play-btn" disabled>Coming Soon</button>
-    </div>
+    <div class="games-grid">
 
-  </div>
+        <!-- 🎃 Halloween Hunt Game -->
+        <div class="game-card">
+        <img src="{{ url_for('static', filename='images/games/ghostys_halloween_hunt.png') }}" alt="Halloween Hunt">
+        <h2>Ghosty's Halloween Hunt</h2>
+        <p>Find Ghosty and her spooky friends hidden across TKU pages!</p>
+        <a href="{{ url_for('halloween_hunt') }}" class="play-btn">Play Now</a>
+        </div>
+
+        <!-- 💜 Guess the Song by Emojis-->
+        <div class="game-card">
+            <img src="{{ url_for('static', filename='images/games/guess_song_emoji.png') }}" alt="Guess the Song by Emojis">
+            <h2>Guess the Song by Emojis</h2>
+            <p>Can you decode the emojis and name the song?</p>
+            <a href="{{ url_for('guess_song') }}" class="play-btn">Play Now</a>
+        </div>
+
+        <!-- 💜 Guess the Song by Emojis-->
+        <div class="game-card">
+            <img src="{{ url_for('static', filename='images/games/guess_song_lyrics.png') }}" alt="Guess the Song by Lyrics">
+            <h2>Guess the Song by Lyrics</h2>
+            <p>Read the lyrics, recall the melody and guess the song!</p>
+            <button class="play-btn" disabled>Coming Soon</button>
+        </div>
+
+        <!-- 💜 Future Game Placeholder -->
+        <div class="game-card">
+            <img src="{{ url_for('static', filename='images/games/taekook_trivia.png') }}" alt="Taekook Trivia">
+            <h2>Taekook Trivia</h2>
+            <p>Test your knowledge about our favorite duo!</p>
+            <button class="play-btn" disabled>Coming Soon</button>
+        </div>
+    </div>
 </div>
 
 {% endblock %}

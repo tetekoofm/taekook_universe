@@ -8,33 +8,36 @@
 
 </head>
 <body>
-  <div class="button-container">
-    <a href="/" class="Home Button" aria-label="Home">🏠</a>
-    <a href="/games" class="Games Button" aria-label="Back to Games">🎮</a>
+  <div class="halloween-container">
+    <div class="button-container">
+      <a href="/" class="Home Button" aria-label="Home">🏠</a>
+      <a href="/games" class="Games Button" aria-label="Back to Games">🎮</a>
+    </div>
+
+  <h1 class="glow">🎃 Halloween Surprise!</h1>
+
+  <div class="avatar-wrapper">
+    <img src="/static/images/halloween/ghosty.png" alt="Ghosty Admin" class="avatar">
   </div>
 
-<h1 class="glow">🎃 Halloween Surprise!</h1>
+  <div class="message glow">
+    Congratulations Spookies! 👻 <br>
+    You finally found me! I’m still here! <br>
+    Let’s spread love everywhere like our Taekook! 🎉
+  </div>
 
-<div class="avatar-wrapper">
-  <img src="/static/images/halloween/ghosty.png" alt="Ghosty Admin" class="avatar">
+  <div class="taekook-gallery">
+    <img src="/static/images/halloween/taekook1.gif" alt="Taekook Halloween 1" onerror="this.src='/static/images/halloween/taekook1.png'">
+    <img src="/static/images/halloween/taekook2.gif" alt="Taekook Halloween 2" onerror="this.src='/static/images/halloween/taekook2.png'">
+  </div>
+
+  <audio id="halloweenAudio" autoplay loop>
+    <source src="/static/audio/halloween.mp3" type="audio/mpeg">
+  </audio>
 </div>
-
-<div class="message glow">
-  Hey Spookies! 👻 <br>
-  You found me finally! I’m still here! <br>
-  Let’s spread love everywhere like our Taekook! 🎉
-</div>
-
-<div class="taekook-gallery">
-  <img src="/static/images/halloween/taekook1.gif" alt="Taekook Halloween 1" onerror="this.src='/static/images/halloween/taekook1.png'">
-  <img src="/static/images/halloween/taekook2.gif" alt="Taekook Halloween 2" onerror="this.src='/static/images/halloween/taekook2.png'">
-</div>
-
-<audio id="halloweenAudio" autoplay loop>
-  <source src="/static/audio/halloween.mp3" type="audio/mpeg">
-</audio>
 
 <script>
+document.addEventListener("DOMContentLoaded", () => {
   const totalHalloweenImages = 14;
   const floatingCount = 50;
 
@@ -97,6 +100,13 @@
   }
 
   launchConfetti();
+
+  localStorage.removeItem("foundIcons");
+  localStorage.removeItem("chosenIcons");
+  localStorage.setItem("gameActive", false);
+  sessionStorage.removeItem("gameToken"); 
+});
+
 </script>
 <style>
   /* ===================== FONTS ===================== */
@@ -120,7 +130,13 @@ body, .halloween-container {
 }
 
 .halloween-container {
-  padding: 40px;
+  max-width: 95%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  box-sizing: border-box;
 }
 
 /* ===================== GLOWING HEADINGS ===================== */
@@ -337,6 +353,47 @@ body, .halloween-container {
 }
 
 @media (max-width: 768px) {
+  body, .halloween-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;      /* horizontal center */
+    justify-content: flex-start;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    text-align: center;
+  }
+
+  .halloween-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    width: 100%;
+    max-width: 100%;
+    padding: 15px;
+    box-sizing: border-box;
+    text-align: center;
+    margin: 0 auto;
+  }
+
+  .taekook-gallery {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;  /* center gallery */
+    gap: 12px;
+    margin: 10px auto;
+  }
+
+  .taekook-gallery img {
+    gap: 1px;
+    width: 120px;
+    height: 120px;
+    object-fit: cover;
+    margin: 0 auto;
+  }
+  
   #ghostyPopupOverlay {
     padding: 0;          /* remove overlay padding */
     display: flex;
@@ -353,24 +410,39 @@ body, .halloween-container {
     align-items: center;
     margin: 0 auto; 
   }
-  .avatar { width: 180px; height: 180px; margin: 20px auto; }
-  .message { font-size: 1.25em; line-height: 1.5em; padding: 14px; margin-bottom: 35px; }
-  .taekook-gallery img { width: 160px; height: 160px; }
-  .ghosty-avatar { width: 120px; height: 120px; margin-bottom: 15px; }
-  .ghosty-gifs { gap: 8px; flex-wrap: wrap; justify-content: center; margin-top: 15px; }
-  .ghosty-gifs img { width: 100px; height: 100px; }
+
+  .message {
+    margin: 10px auto;
+    padding: 14px;
+    font-size: 1em;
+    line-height: 1.3em;
+    max-width: 95%;
+  }
+
+  .avatar, .ghosty-avatar {
+    width: 150px; 
+    height: 150px;
+    margin: 20px auto;
+    display: block;
+  }
+
+  .button-container {
+    justify-content: center;
+    margin: 10px auto;
+    width: 100%;
+  }
+
+  .ghosty-gifs { gap: 20px; flex-wrap: wrap; justify-content: center; margin-top: 15px; }
+  .ghosty-gifs img { width: 50px; height: 50px; }
   #ghostyPopupOverlay h1 { font-size: 1.5em; margin-bottom: 10px; }
   #ghostyPopupOverlay p { font-size: 0.95em; line-height: 1.3em; margin-bottom: 15px; }
   #startHuntBtn { font-size: 0.9em; padding: 8px 16px; margin-top: 10px; }
-  h1 { font-size: 1.8em; }
-  .message { font-size: 0.95em; line-height: 1.3em; margin: 10px 8px; }
-  .taekook-gallery { gap: 12px; margin: 10px auto; }
-  .taekook-gallery img { width: 100px; height: 100px; }
+  h1 { font-size: 2.1em !important; }
+  .message { font-size: 1em !important; line-height: 1.3em; margin: 10px auto; }
   .spooky { width: 12px; height: 12px; }
 }
 
 /* ===================== Game / Home Buttons ===================== */
-/* ===================== Home & Games Buttons ===================== */
 .Home.Button,
 .Games.Button {
   display: inline-flex;
