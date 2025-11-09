@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Guess the Taekook Song!</title>
+<style>
+    body { font-family: Arial, sans-serif; background: #f0f2f5; text-align: center; padding: 20px; }
+    h1 { font-size: 2rem; margin-bottom: 10px; }
+    .card-container { perspective: 1000px; margin: 20px auto; width: 300px; height: 150px; }
+    .emoji-card {
+        width: 100%; height: 100%; background: #fff; border-radius: 15px; display: flex; justify-content: center; align-items: center;
+        font-size: 3rem; box-shadow: 0 5px 15px rgba(0,0,0,0.1); transform-style: preserve-3d; transition: transform 0.6s;
+        position: relative;
+    }
+    .emoji-card.flipped { transform: rotateY(180deg); }
+    .emoji-card .front, .emoji-card .back {
+        position: absolute; width: 100%; height: 100%; backface-visibility: hidden; display: flex; justify-content: center; align-items: center; border-radius: 15px;
+    }
+    .emoji-card .back { transform: rotateY(180deg); font-size: 1.2rem; padding: 10px; text-align: center; }
+    input { padding: 10px; font-size: 1rem; width: 220px; border-radius: 8px; border: 1px solid #ccc; margin-top: 10px; }
+    button { padding: 10px 20px; font-size: 1rem; margin: 5px; cursor: pointer; border-radius: 8px; border: none; background-color: #6200ea; color: #fff; transition: 0.3s; }
+    button:hover { background-color: #3700b3; }
+    #leaderboard { list-style: none; padding: 0; margin-top: 20px; max-width: 300px; margin-left: auto; margin-right: auto; }
+    #leaderboard li { background: #fff; padding: 10px; margin: 5px auto; border-radius: 10px; box-shadow: 0 3px 10px rgba(0,0,0,0.1); }
+    #score-popup { display: none; position: fixed; top: 0; left:0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); justify-content: center; align-items: center; }
+    #score-popup .popup-content { background: #fff; padding: 20px; border-radius: 15px; width: 300px; }
+    #confetti { position: fixed; pointer-events: none; top: 0; left: 0; width: 100%; height: 100%; z-index: 9999; }
+</style>
+</head>
+<body>
+
+<h1>🎵 Guess the Taekook Song!</h1>
+
+<div class="card-container">
+    <div class="emoji-card" id="emoji-card">
+        <div class="front" id="emoji-display">🎵</div>
+        <div class="back" id="song-answer"></div>
+    </div>
+</div>
+
+<input type="text" id="guess-input" placeholder="Type your guess"><br>
+<button onclick="checkGuess()">Submit</button>
+<button onclick="skipSong()">Skip</button>
+
+<div id="score-popup">
+    <div class="popup-content">
+        <h2>🎉 Your Score: <span id="final-score">0</span></h2>
+        <p>Enter a username (optional) to appear on the leaderboard:</p>
+        <input type="text" id="username-input" placeholder="Username"><br><br>
+        <button onclick="submitScore()">Submit</button>
+        <button onclick="skipUsername()">Skip</button>
+
+        <!-- Post-game menu (hidden by default) -->
+        <div id="post-game-menu" style="display:none; margin-top: 15px;">
+            <button onclick="goHome()">🏠 Home</button>
+            <button onclick="goGames()">🎮 Games</button>
+            <button onclick="playAgain()">🔄 Play Again</button>
+        </div>
+    </div>
+</div>
+
+<h2>🏆 Top Players</h2>
+<ul id="leaderboard"></ul>
+
+<div id="confetti"></div>
+
+<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+<script type="module" src="/static/js/firebase-init.js"></script>
+<script>
+let allSongs = [];
+let gameSongs = [];
+let currentIndex = 0;
+let score = 0;
+
+// Load JSON and pick 10 random songs
+fetch('/static/js/guess_song_emoji.json')
+  .then(res => res.json())
+  .then(data => {
+      allSongs = data || [];
+      if(allSongs.length === 0){
+          console.error("No songs found in JSON!");
+          return;
+      }
+      startGame();
+  })  
+  .catch(err => console.error("Failed to load JSON:", err));
+
+function startGame() {
+    if(!allSongs.length) return;  // safety check
+    gameSongs = allSongs.sort(() => 0.5 - Math.random()).slice(0, 3);
+    currentIndex = 0;
+    score = 0;
+    loadNextSong();
+}
+
+function loadNextSong() {
+    if(!gameSongs || gameSongs.length === 0) return;
+    if(currentIndex >= gameSongs.length){
+        showScorePopup();
+        return;
+    }
+    const song = gameSongs[currentIndex];
+    document.getElementById("emoji-display").innerText = song.emojis;
+    document.getElementById("song-answer").innerText = song.name;
+    document.getElementById("guess-input").value = '';
+    document.getElementById("emoji-card").classList.remove("flipped");
+}
+
+// Check guess
+function checkGuess() {
+    const guess = document.getElementById("guess-input").value.trim().toLowerCase();
+    if(!guess) return;
+    const song = gameSongs[currentIndex];
+    flipCard();
+    if(guess === song.name.toLowerCase()) {
+        score++;
+        launchConfetti();
+    }
+    setTimeout(() => {
+        currentIndex++;
+        loadNextSong();
+    }, 1500);
+}
+
+// Skip song
+function skipSong() {
+    flipCard();
+    setTimeout(() => {
+        currentIndex++;
+        loadNextSong();
+    }, 1500);
+}
+
+// Flip card
+function flipCard() {
+    document.getElementById("emoji-card").classList.add("flipped");
+}
+
+// Confetti
+function launchConfetti() {
+    confetti({
+        particleCount: 100,
+        spread: 70,
+        origin: { y: 0.6 }
+    });
+}
+
+// Score popup
+function showScorePopup() {
+    document.getElementById("final-score").innerText = score;
+    document.getElementById("score-popup").style.display = "flex";
+}
+
+function submitScore() {
+    const username = document.getElementById("username-input").value.trim() || "Anonymous";
+    const isTop = saveScore(username, score);  // saveScore now returns true if top scorer
+    showPostGameMenu(isTop);
+}
+
+function skipUsername() {
+    const isTop = saveScore("Anonymous", score);
+    showPostGameMenu(isTop);
+}
+
+function showPostGameMenu(isTop) {
+    // Hide username input/buttons
+    document.getElementById("username-input").style.display = 'none';
+    const submitBtn = document.querySelector("#score-popup button[onclick='submitScore()']");
+    const skipBtn = document.querySelector("#score-popup button[onclick='skipUsername()']");
+    submitBtn.style.display = 'none';
+    skipBtn.style.display = 'none';
+
+    // Show post-game menu
+    const menu = document.getElementById("post-game-menu");
+    menu.style.display = 'block';
+
+    // Launch bigger confetti if top scorer
+    if(isTop){
+        confetti({
+            particleCount: 500,
+            spread: 160,
+            origin: { y: 0.5 }
+        });
+    }
+}
+
+function closePopup() {
+    document.getElementById("score-popup").style.display = "none";
+    startGame();
+}
+
+// Leaderboard
+function saveScore(username, score) {
+    let leaderboard = JSON.parse(localStorage.getItem("leaderboard")) || [];
+    leaderboard.push({ name: username, score: score });
+    leaderboard.sort((a,b) => b.score - a.score);
+    leaderboard = leaderboard.slice(0,10);
+    localStorage.setItem("leaderboard", JSON.stringify(leaderboard));
+    displayLeaderboard(leaderboard);
+
+    // Check if current score is top score
+    return leaderboard.length && leaderboard[0].score === score;
+}
+
+// Post-game menu actions
+function goHome(){
+    window.location.href = '/';  // adjust as needed
+}
+function goGames(){
+    window.location.href = '/games';  // adjust as needed
+}
+function playAgain(){
+    // Reset popup UI
+    document.getElementById("score-popup").style.display = 'none';
+    document.getElementById("username-input").style.display = 'inline-block';
+    document.getElementById("username-input").value = '';
+    document.querySelector("#score-popup button[onclick='submitScore()']").style.display = 'inline-block';
+    document.querySelector("#score-popup button[onclick='skipUsername()']").style.display = 'inline-block';
+    document.getElementById("post-game-menu").style.display = 'none';
+    startGame();
+}
+
+function displayLeaderboard(leaderboard) {
+    const list = document.getElementById("leaderboard");
+    list.innerHTML = "";
+    leaderboard.forEach((entry, index) => {
+        const li = document.createElement("li");
+        li.innerText = `${index+1}️⃣ ${entry.name} — ${entry.score}`;
+        list.appendChild(li);
+    });
+}
+
+// Load leaderboard on page load
+window.onload = function() {
+    const stored = JSON.parse(localStorage.getItem("leaderboard")) || [];
+    displayLeaderboard(stored);
+}
+</script>
+
+</body>
+</html>

@@ -9,8 +9,9 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
     <link rel="manifest" href="{{ url_for('static', filename='manifest.json') }}">
     <meta name="theme-color" content="#008000">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/halloween-hunt.css') }}">
-    <script src="{{ url_for('static', filename='js/halloween-hunt.js') }}"></script>
+    {% if halloween_hunt_active %}
+        <script src="{{ url_for('static', filename='js/halloween-hunt.js') }}"></script>
+    {% endif %}
 
 </head>
 <body>

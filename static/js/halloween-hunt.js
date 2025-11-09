@@ -1,42 +1,28 @@
 document.addEventListener("DOMContentLoaded", () => {
-  const totalIconsAvailable = 14; // total images
-  const totalToFind = 10; // icons to find per hunt
-  const redirectUrl = "/halloween-special";
+  const startBtn = document.getElementById("startHuntBtn");
+  const popup = document.getElementById("ghostyPopupOverlay");
+  const audio = document.getElementById("halloweenAudio");
 
-  // Pages where icons can appear
+  // ---------------------- CONFIG ----------------------
+  const totalIconsAvailable = 14;
+  const totalToFind = 10;
+  const redirectUrl = "/halloween-special";
+  const gamesPage = "/games";
   const pages = [
-    "/",
-    "/memories",
-    "/highlights",
-    "/inthenews",
-    "/vibe",
-    "/projects",
-    "/guide",
-    "/fanletters",
-    "/pride",
-    "/meet-tae",
-    "/meet-koo",
-    "/termsandconditions",
-    "/streaming",
-    "/buying",
-    "/voting",
-    "/radio",
-    "/shazam",
-    "/shazamstats",
-    "/spotifystats",
-    "/youtubestats",
-    "/brandreputation",
-    "/events",
-    "/reporting",
-    "/donating",
-    "/fanbases"
+    "/", "/memories", "/upcoming", "/highlights", "/recap", "/inthenews", "/vibe",
+    "/projects", "/guide", "/fanletters", "/pride", "/meet-tae",
+    "/meet-koo", "/termsandconditions", "/streaming", "/buying",
+    "/voting", "/radio", "/shazam", "/shazamstats", "/spotifystats",
+    "/youtubestats", "/brandreputation", "/events", "/reporting",
+    "/donating", "/fanbases", "/games"
   ];
 
   const currentPath = window.location.pathname;
-  if (!pages.includes(currentPath)) return;
 
+  // ---------------------- STATE ----------------------
   let foundIcons = JSON.parse(localStorage.getItem("foundIcons")) || [];
   let chosenIcons = JSON.parse(localStorage.getItem("chosenIcons"));
+  let gameActive = JSON.parse(localStorage.getItem("gameActive")) ?? false;
 
   if (!chosenIcons) {
     const allIcons = Array.from({ length: totalIconsAvailable }, (_, i) => i + 1);
@@ -48,416 +34,364 @@ document.addEventListener("DOMContentLoaded", () => {
     localStorage.setItem("chosenIcons", JSON.stringify(chosenIcons));
   }
 
-  // --- Floating Counter ---
-  const counter = document.createElement("div");
-  counter.className = "halloween-counter";
-  counter.style.cssText = `
-    position: fixed; bottom: 20px; right: 20px;
-    background: rgba(0,0,0,0.6); color: #ff6fff;
-    padding: 10px 15px; border-radius: 10px; font-size: 18px;
-    z-index: 9999; font-family: 'Creepster', cursive;
-    display: flex; gap: 8px; align-items: center;
-  `;
-
-  const counterText = document.createElement("span");
-  counterText.textContent = `🎃 ${foundIcons.length} / ${totalToFind} found`;
-
-  const restartBtn = document.createElement("button");
-  restartBtn.textContent = "↻ Restart";
-  restartBtn.style.cssText = `
-    background: transparent; color: #ff6fff; border: 1px solid #ff6fff;
-    border-radius: 6px; cursor: pointer; font-size: 14px; padding: 3px 8px;
-  `;
-  restartBtn.addEventListener("click", () => {
-    if (confirm("Restart the Halloween Hunt?")) {
-      localStorage.removeItem("foundIcons");
-      localStorage.removeItem("chosenIcons");
-      sessionStorage.removeItem("halloweenPopupShown"); // reset popup
-      location.reload();
-    }
-  });
-
-  const skipBtn = document.createElement("button");
-  skipBtn.textContent = "🎃 Already Hunted";
-  skipBtn.style.cssText = `
-    background: #ff6fff; color: #000; border: none; border-radius: 6px;
-    cursor: pointer; font-size: 14px; padding: 3px 8px;
-  `;
-  skipBtn.addEventListener("click", () => window.location.href = redirectUrl);
-
-  counter.appendChild(counterText);
-  counter.appendChild(restartBtn);
-  counter.appendChild(skipBtn);
-  document.body.appendChild(counter);
-
-  // --- Sparkle Animation ---
-  const style = document.createElement("style");
-  style.textContent = `
-    @keyframes sparkleFly {
-      0% { transform: scale(1) translate(0,0); opacity:1; }
-      100% { transform: scale(0.5) translate(${Math.random()*200-100}px, ${Math.random()*-200}px); opacity:0; }
-    }
-    .sparkle { position: absolute; width: 8px; height: 8px; border-radius: 50%; background: #ff6fff; z-index: 10000; }
-  `;
-  document.head.appendChild(style);
-
-  // --- Spawn Icons Function ---
-  function spawnIcons() {
-    if (foundIcons.length >= totalToFind) return;
-
-    const availableIcons = chosenIcons.filter(i => !foundIcons.includes(i));
-    if (availableIcons.length === 0) return;
-
-    const iconNum = availableIcons[Math.floor(Math.random() * availableIcons.length)];
-    const img = document.createElement("img");
-    img.src = `/static/images/halloween/${iconNum}.png`;
-    img.className = "halloween-icon";
-    img.style.cssText = `
-      position: absolute; width: 100px; height: 100px; cursor: pointer; z-index: 9999;
-      filter: invert(1); transition: transform 0.3s ease;
-      top: ${Math.random() * (document.body.scrollHeight - 300)}px;
-      left: ${Math.random() * (window.innerWidth - 120)}px;
-    `;
-    img.addEventListener("mouseenter", () => img.style.transform = "scale(1.2)");
-    img.addEventListener("mouseleave", () => img.style.transform = "scale(1)");
-    document.body.appendChild(img);
-
-    const chime = new Audio("/static/audio/spooky-chimes.mp3");
-    img.addEventListener("click", (e) => {
-      chime.currentTime = 0;
-      chime.play();
-
-      for (let s = 0; s < 10; s++) {
-        const sparkle = document.createElement("div");
-        sparkle.className = "sparkle";
-        sparkle.style.cssText = `
-          position: absolute; width: 8px; height: 8px; border-radius: 50%;
-          background: #ff6fff; top: ${e.pageY}px; left: ${e.pageX}px;
-          opacity: 0.8; z-index: 10000;
-          animation: sparkleFly ${0.8 + Math.random()}s ease-out forwards;
-        `;
-        document.body.appendChild(sparkle);
-        setTimeout(() => sparkle.remove(), 1000);
-      }
-
-      img.remove();
-      foundIcons.push(iconNum);
-      localStorage.setItem("foundIcons", JSON.stringify(foundIcons));
-      counterText.textContent = `🎃 ${foundIcons.length} / ${totalToFind} found`;
-
-      if (foundIcons.length >= totalToFind) {
-        fetch("/unlock_halloween", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ completed: true })
-        })
-        .then(r => r.ok ? r.json() : Promise.reject("Failed to unlock"))
-        .then(() => {
-          alert(`🎃 You found all ${totalToFind}! Ghosty’s secret awaits...`);
-          window.location.href = redirectUrl;
-        })
-        .catch(err => console.error("Failed to unlock", err));
-      }
-    });
+  // ---------------------- COUNTER ----------------------
+  function updateCounter() {
+    const counterText = document.querySelector(".counter-text");
+    if (counterText) counterText.textContent = `🎃 Found: ${foundIcons.length} / ${totalToFind}`;
   }
 
-  // --- Popup Overlay (Once per session) ---
-  if (!sessionStorage.getItem("halloweenPopupShown")) {
-    sessionStorage.setItem("halloweenPopupShown", "true"); // mark as shown
+  const fontLink = document.createElement('link');
+  fontLink.href = "https://fonts.googleapis.com/css2?family=Creepster&display=swap";
+  fontLink.rel = "stylesheet";
+  document.head.appendChild(fontLink);
 
-    const halloweenAudio = new Audio("/static/audio/halloween.mp3");
-    const homepageMusic = window.homepageMusic || null;
+  function createCounter() {
+    if (!document.querySelector(".halloween-counter")) {
+      const counter = document.createElement("div");
+      counter.className = "halloween-counter";
+      counter.style.cssText = `
+        position: fixed; bottom: 20px; right: 20px;
+        background: rgba(0,0,0,0.75); color: #fff;
+        padding: 12px 18px; border-radius: 14px;
+        display: flex; align-items: center; justify-content: center; gap: 12px;
+        z-index: 9999; font-size: 18px; box-shadow: 0 0 15px #ff6600;
+      `;
+      counter.innerHTML = `<span class="counter-text">🎃 Found: ${foundIcons.length} / ${totalToFind}</span>`;
 
-    const popup = document.createElement("div");
-    popup.id = "ghostyPopupOverlay";
-    popup.style.cssText = `
-      position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
-      background: rgba(0,0,0,0.85); display: flex; justify-content: center;
-      align-items: center; z-index: 10000; flex-direction: column;
-      color: #7CFC00; font-family: 'Creepster', cursive; text-align: center;
-      padding: 20px;
+      const restartBtn = document.createElement("button");
+      restartBtn.textContent = "↻ Restart";
+      restartBtn.style.cssText = `
+        background:rgb(60, 171, 79); color: white; border: none;
+        padding: 6px 14px; border-radius: 8px; cursor: pointer;
+        width: 140px; line-height: 1.5; vertical-align: middle;
+        font-size: 16px; font-family: 'Creepster', cursive;
+      `;
+      restartBtn.onclick = () => {
+        if (confirm("Restart the Hunt?")) {
+          foundIcons = [];
+          localStorage.setItem("foundIcons", JSON.stringify(foundIcons));
+          localStorage.setItem("gameActive", true);
+          spawnIcons();
+          updateCounter();
+        }
+      };
+
+      const exitBtn = document.createElement("button");
+      exitBtn.textContent = "⛔ Exit";
+      exitBtn.style.cssText = `
+        background:rgb(57, 166, 224); color: white; border: none;
+        padding: 6px 14px; border-radius: 8px; cursor: pointer;
+        font-family: 'Creepster', cursive;
+      `;
+      exitBtn.onclick = () => {
+        if (confirm("Exit the Halloween Hunt?")) {
+          document.querySelectorAll(".halloween-icon").forEach(i => i.remove());
+          counter.remove();
+          if (audio) {
+            audio.pause();
+            audio.currentTime = 0;
+          }
+          localStorage.removeItem("foundIcons");
+          localStorage.removeItem("chosenIcons");
+          localStorage.setItem("gameActive", false);
+          sessionStorage.clear();
+          popup.style.display = "flex";
+        }
+      };
+
+      const backBtn = document.createElement("button");
+      backBtn.textContent = "👾 Back to Games";
+      backBtn.style.cssText = `
+        background: #9b5de5; color: white; border: none;
+        padding: 6px 14px; border-radius: 8px; cursor: pointer;
+        width: 140px; line-height: 1.5; vertical-align: middle;
+        font-size: 16px; font-family: 'Creepster', cursive;
+      `;
+      backBtn.onclick = () => window.location.href = gamesPage;
+
+      counter.appendChild(restartBtn);
+      counter.appendChild(exitBtn);
+      counter.appendChild(backBtn);
+      document.body.appendChild(counter);
+    }
+  }
+
+  // ---------------------- ICONS ----------------------
+  function spawnIcons() {
+    if (!pages.includes(currentPath)) return;
+
+    const availableIcons = chosenIcons.filter(i => !foundIcons.includes(i));
+    if (!availableIcons.length) return;
+
+    const iconsToShow = Math.min(availableIcons.length, Math.floor(Math.random() * 2) + 1);
+
+    for (let i = 0; i < iconsToShow; i++) {
+      const iconNum = availableIcons.splice(Math.floor(Math.random() * availableIcons.length), 1)[0];
+      const img = document.createElement("img");
+      img.src = `/static/images/halloween/${iconNum}.png`;
+      img.className = "halloween-icon";
+      img.style.position = "fixed";
+      img.style.top = `${Math.random() * (window.innerHeight - 100)}px`;
+      img.style.left = `${Math.random() * (window.innerWidth - 100)}px`;
+      img.style.width = "70px";
+      img.style.height = "70px";
+      img.style.cursor = "pointer";
+      img.style.zIndex = "9000";
+      document.body.appendChild(img);
+
+      img.addEventListener("click", (e) => {
+        const chime = new Audio("/static/audio/spooky-chimes.mp3");
+        chime.play();
+
+        // Sparkles
+        for (let s = 0; s < 10; s++) {
+          const sparkle = document.createElement("div");
+          sparkle.className = "sparkle";
+          sparkle.style.setProperty("--tx", `${Math.random() * 200 - 100}px`);
+          sparkle.style.setProperty("--ty", `${Math.random() * -200}px`);
+          sparkle.style.top = e.pageY + "px";
+          sparkle.style.left = e.pageX + "px";
+          sparkle.style.animation = `sparkleFly ${0.8 + Math.random()}s ease-out forwards`;
+          document.body.appendChild(sparkle);
+          setTimeout(() => sparkle.remove(), 1000);
+        }
+
+        foundIcons.push(iconNum);
+        localStorage.setItem("foundIcons", JSON.stringify(foundIcons));
+        updateCounter();
+        img.remove();
+
+        if (foundIcons.length >= totalToFind) {
+          alert(`🎉 You found all ${totalToFind}! Ghosty’s secret awaits...`);
+        
+          // Stop the game
+          document.querySelectorAll(".halloween-icon").forEach(i => i.remove());
+          const counter = document.querySelector(".halloween-counter");
+          if (counter) counter.remove();
+        
+          if (audio) {
+            audio.pause();
+            audio.currentTime = 0;
+          }
+        
+          // Delay redirect slightly
+          setTimeout(() => {
+            // Clear storage
+            localStorage.removeItem("foundIcons");
+            localStorage.removeItem("chosenIcons");
+            localStorage.setItem("gameActive", false);
+            sessionStorage.clear();
+        
+            // Redirect
+            window.location.href = redirectUrl;
+          }, 50); // 50ms is enough
+        }
+      });
+    }
+  }
+
+  // ---------------------- INSTRUCTIONS ----------------------
+  function showInstructions() {
+    if (document.querySelector(".welcome-overlay")) return;
+
+    const overlay = document.createElement("div");
+    overlay.className = "welcome-overlay";
+    overlay.style.cssText = `
+      position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+      background: rgba(0, 0, 0, 0.75); color: #fff;
+      display: flex; flex-direction: column; justify-content: center; align-items: center;
+      text-align: center; z-index: 9998; padding: 40px;
+      backdrop-filter: blur(6px);
     `;
 
     const title = document.createElement("h1");
-    title.textContent = "🎃 Welcome to Ghosty's Halloween Hunt! 🎃";
+    title.textContent = "🎃 How the Hunt Works 🎃";
     title.style.marginBottom = "15px";
 
     const description = document.createElement("p");
     description.innerHTML = `
-      Find Our Ghosty! 👻<br>
-      Oh no! Ghosty, our mischievous admin, is missing on her birthday!<br>
-      She left behind clues and emojis, floating away with her magical friends<br>
-      <strong>Ms. Catty 🐱</strong> and <strong>Mr. Batty 🦇</strong>.<br>
-      Can you find her before the Halloween party begins? Your trick-or-treating adventure starts now!
+      👻 Ghosty has hidden spooky icons across Taekook Universe pages!<br>
+      🎃 Explore every corner, she loves sneaky spots!<br>
+      🕵️‍♀️ Click the icons when you spot them to add to your collection.<br>
+      🎯 Find at least 10 icons.<br>
+      💫 Each icon you catch gets you closer to Ghosty’s secret surprise!<br><br>
+      Keep your eyes sharp, she’s watching from the shadows. 👀
     `;
     description.style.cssText = `
-      font-size: 25px; line-height: 2; letter-spacing: 1px;
-      text-shadow: 1px 1px 4px #000; margin-bottom: 25px;
+      font-size: 22px; color: rgb(70, 206, 93);
+      line-height: 1.6; letter-spacing: 1px; text-shadow: 1px 1px 4px #000;
+      max-width: 650px; text-align: center; font-family: 'Creepster', cursive; margin: 0 auto;
     `;
 
-    const startBtn = document.createElement("button");
-    startBtn.textContent = "Start Hunt";
-    startBtn.style.cssText = `
-      padding: 12px 24px; font-size: 18px;
-      background: #ff6fff; color: #000; border: none; border-radius: 10px;
-      cursor: pointer;
-    `;
+    overlay.appendChild(title);
+    overlay.appendChild(description);
+    document.body.appendChild(overlay);
+  }
 
-    popup.appendChild(title);
-    popup.appendChild(description);
-    popup.appendChild(startBtn);
-    document.body.appendChild(popup);
-
-    // Pause homepage music
-    if (homepageMusic && !homepageMusic.paused) homepageMusic.pause();
-
-    // Play Halloween music
-    halloweenAudio.play().catch(() => {});
-
+  // ---------------------- START THE HUNT ----------------------
+  if (startBtn) {
     startBtn.addEventListener("click", () => {
       popup.style.display = "none";
-      halloweenAudio.pause();
-      halloweenAudio.currentTime = 0;
-      if (homepageMusic) homepageMusic.play();
+      if (audio) audio.play();
 
+      // Reset game state
+      foundIcons = [];
+      localStorage.setItem("foundIcons", JSON.stringify(foundIcons));
+      localStorage.setItem("gameActive", true);
+      localStorage.setItem("foundAll", false);
+
+      showInstructions();
+      createCounter();
       spawnIcons();
     });
-  } else {
-    // Popup already shown, spawn icons immediately
+  }
+
+  // ---------------------- RESTORE STATE ON PAGE RELOAD ----------------------
+  if (gameActive) {
+    createCounter();
     spawnIcons();
   }
 });
-document.addEventListener("DOMContentLoaded", () => {
-  const totalIconsAvailable = 14; // total images
-  const totalToFind = 10; // icons to find per hunt
-  const redirectUrl = "/halloween-special";
 
-  // Pages where icons can appear
-  const pages = [
-    "/",
-    "/memories",
-    "/highlights",
-    "/inthenews",
-    "/vibe",
-    "/projects",
-    "/guide",
-    "/fanletters",
-    "/pride",
-    "/meet-tae",
-    "/meet-koo",
-    "/termsandconditions",
-    "/streaming",
-    "/buying",
-    "/voting",
-    "/radio",
-    "/shazam",
-    "/shazamstats",
-    "/spotifystats",
-    "/youtubestats",
-    "/brandreputation",
-    "/events",
-    "/reporting",
-    "/donating",
-    "/fanbases"
-  ];
-
-  const currentPath = window.location.pathname;
-  if (!pages.includes(currentPath)) return;
-
-  let foundIcons = JSON.parse(localStorage.getItem("foundIcons")) || [];
-  let chosenIcons = JSON.parse(localStorage.getItem("chosenIcons"));
-
-  if (!chosenIcons) {
-    const allIcons = Array.from({ length: totalIconsAvailable }, (_, i) => i + 1);
-    chosenIcons = [];
-    while (chosenIcons.length < totalToFind) {
-      const random = allIcons.splice(Math.floor(Math.random() * allIcons.length), 1)[0];
-      chosenIcons.push(random);
-    }
-    localStorage.setItem("chosenIcons", JSON.stringify(chosenIcons));
+  // ---------------------- MOBILE STYLES ----------------------
+const mobileStyles = `
+@media (max-width: 1024px) {
+  #ghostyPopupOverlay, .welcome-overlay {
+    top: 50% !important;
+    left: 50% !important;
+    transform: translate(-50%, -50%) !important;
+    width: 80% !important;
+    max-width: 700px !important;
+    padding: 25px !important;
+    overflow-y: auto !important;
   }
 
-  // --- Floating Counter ---
-  const counter = document.createElement("div");
-  counter.className = "halloween-counter";
-  counter.style.cssText = `
-    position: fixed; bottom: 20px; right: 20px;
-    background: rgba(0,0,0,0.6); color: #ff6fff;
-    padding: 10px 15px; border-radius: 10px; font-size: 18px;
-    z-index: 9999; font-family: 'Creepster', cursive;
-    display: flex; gap: 8px; align-items: center;
-  `;
-
-  const counterText = document.createElement("span");
-  counterText.textContent = `🎃 ${foundIcons.length} / ${totalToFind} found`;
-
-  const restartBtn = document.createElement("button");
-  restartBtn.textContent = "↻ Restart";
-  restartBtn.style.cssText = `
-    background: transparent; color: #ff6fff; border: 1px solid #ff6fff;
-    border-radius: 6px; cursor: pointer; font-size: 14px; padding: 3px 8px;
-  `;
-  restartBtn.addEventListener("click", () => {
-    if (confirm("Restart the Halloween Hunt?")) {
-      localStorage.removeItem("foundIcons");
-      localStorage.removeItem("chosenIcons");
-      sessionStorage.removeItem("halloweenPopupShown"); // reset popup
-      location.reload();
-    }
-  });
-
-  const skipBtn = document.createElement("button");
-  skipBtn.textContent = "🎃 Already Hunted";
-  skipBtn.style.cssText = `
-    background: #ff6fff; color: #000; border: none; border-radius: 6px;
-    cursor: pointer; font-size: 14px; padding: 3px 8px;
-  `;
-  skipBtn.addEventListener("click", () => window.location.href = redirectUrl);
-
-  counter.appendChild(counterText);
-  counter.appendChild(restartBtn);
-  counter.appendChild(skipBtn);
-  document.body.appendChild(counter);
-
-  // --- Sparkle Animation ---
-  const style = document.createElement("style");
-  style.textContent = `
-    @keyframes sparkleFly {
-      0% { transform: scale(1) translate(0,0); opacity:1; }
-      100% { transform: scale(0.5) translate(${Math.random()*200-100}px, ${Math.random()*-200}px); opacity:0; }
-    }
-    .sparkle { position: absolute; width: 8px; height: 8px; border-radius: 50%; background: #ff6fff; z-index: 10000; }
-  `;
-  document.head.appendChild(style);
-
-  // --- Spawn Icons Function ---
-  function spawnIcons() {
-    if (foundIcons.length >= totalToFind) return;
-
-    const availableIcons = chosenIcons.filter(i => !foundIcons.includes(i));
-    if (availableIcons.length === 0) return;
-
-    const iconNum = availableIcons[Math.floor(Math.random() * availableIcons.length)];
-    const img = document.createElement("img");
-    img.src = `/static/images/halloween/${iconNum}.png`;
-    img.className = "halloween-icon";
-    img.style.cssText = `
-      position: absolute; width: 100px; height: 100px; cursor: pointer; z-index: 9999;
-      filter: invert(1); transition: transform 0.3s ease;
-      top: ${Math.random() * (document.body.scrollHeight - 300)}px;
-      left: ${Math.random() * (window.innerWidth - 120)}px;
-    `;
-    img.addEventListener("mouseenter", () => img.style.transform = "scale(1.2)");
-    img.addEventListener("mouseleave", () => img.style.transform = "scale(1)");
-    document.body.appendChild(img);
-
-    const chime = new Audio("/static/audio/spooky-chimes.mp3");
-    img.addEventListener("click", (e) => {
-      chime.currentTime = 0;
-      chime.play();
-
-      for (let s = 0; s < 10; s++) {
-        const sparkle = document.createElement("div");
-        sparkle.className = "sparkle";
-        sparkle.style.cssText = `
-          position: absolute; width: 8px; height: 8px; border-radius: 50%;
-          background: #ff6fff; top: ${e.pageY}px; left: ${e.pageX}px;
-          opacity: 0.8; z-index: 10000;
-          animation: sparkleFly ${0.8 + Math.random()}s ease-out forwards;
-        `;
-        document.body.appendChild(sparkle);
-        setTimeout(() => sparkle.remove(), 1000);
-      }
-
-      img.remove();
-      foundIcons.push(iconNum);
-      localStorage.setItem("foundIcons", JSON.stringify(foundIcons));
-      counterText.textContent = `🎃 ${foundIcons.length} / ${totalToFind} found`;
-
-      if (foundIcons.length >= totalToFind) {
-        fetch("/unlock_halloween", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ completed: true })
-        })
-        .then(r => r.ok ? r.json() : Promise.reject("Failed to unlock"))
-        .then(() => {
-          alert(`🎃 You found all ${totalToFind}! Ghosty’s secret awaits...`);
-          window.location.href = redirectUrl;
-        })
-        .catch(err => console.error("Failed to unlock", err));
-      }
-    });
+  .popup-content, .welcome-overlay {
+    padding: 25px !important;
   }
 
-  // --- Popup Overlay (Once per session) ---
-  if (!sessionStorage.getItem("halloweenPopupShown")) {
-    sessionStorage.setItem("halloweenPopupShown", "true"); // mark as shown
+  .ghosty-avatar {
+    width: 180px !important;
+    height: 180px !important;
+    margin-bottom: 20px !important;
+  }
 
-    const halloweenAudio = new Audio("/static/audio/halloween.mp3");
-    const homepageMusic = window.homepageMusic || null;
+  .ghosty-gifs img {
+    width: 140px !important;
+    height: 140px !important;
+    gap: 10px !important;
+  }
 
-    const popup = document.createElement("div");
-    popup.id = "ghostyPopupOverlay";
-    popup.style.cssText = `
-      position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
-      background: rgba(0,0,0,0.85); display: flex; justify-content: center;
-      align-items: center; z-index: 10000; flex-direction: column;
-      font-family: 'Creepster', cursive; text-align: center;
-      padding: 20px;
-    `;
+  #ghostyPopupOverlay h1, .welcome-overlay h1 {
+    font-size: 2em !important;
+    margin-bottom: 15px !important;
+  }
 
-    const title = document.createElement("h1");
-    title.textContent = "🎃 Welcome to Ghosty's Halloween Hunt! 🎃";
-    title.style.marginBottom = "15px";
+  #ghostyPopupOverlay p, .welcome-overlay p {
+    font-size: 1.2em !important;
+    line-height: 1.4em !important;
+    margin-bottom: 20px !important;
+  }
 
-    const description = document.createElement("p");
-    description.innerHTML = `
-      Find Our Ghosty! 👻<br>
-      Oh no! Ghosty, our mischievous admin, is missing on her birthday!<br>
-      She left behind clues and emojis, floating away with her magical friends<br>
-      <strong>Ms. Catty 🐱</strong> and <strong>Mr. Batty 🦇</strong>.<br>
-      Can you find her before the Halloween party begins? Your trick-or-treating adventure starts now!
-    `;
-    description.style.cssText = `
-      font-size: 25px;
-      line-height: 2;
-      letter-spacing: 1px;
-      color: #7CFC00 !important;  /* force green */
-      text-shadow: 1px 1px 4px #000;
-      font-family: 'Creepster', cursive !important;
-      margin-bottom: 25px;
-    `;
+  #startHuntBtn {
+    font-size: 1em !important;
+    padding: 10px 20px !important;
+    margin-top: 12px !important;
+  }
+
+  .halloween-counter button {
+    font-size: 15px !important;
+  }
+}
+
+@media (max-width: 768px) {
+  #ghostyPopupOverlay, .welcome-overlay {
+    top: 50% !important;
+    left: 50% !important;
+    transform: translate(-50%, -50%) !important; /* center vertically and horizontally */
+    width: 90% !important;
+    max-width: 320px !important;
+    padding: 15px !important;
+    overflow-y: auto !important; /* allow scrolling if content is tall */
+  }
   
-    const startBtn = document.createElement("button");
-    startBtn.textContent = "Start Hunt";
-    startBtn.style.cssText = `
-      padding: 12px 24px; font-size: 18px;
-      background: #ff6fff; color: #000; border: none; border-radius: 10px;
-      cursor: pointer; font-family: 'Creepster', cursive;
-    `;
-
-    popup.appendChild(title);
-    popup.appendChild(description);
-    popup.appendChild(startBtn);
-    document.body.appendChild(popup);
-
-    // Pause homepage music
-    if (homepageMusic && !homepageMusic.paused) homepageMusic.pause();
-
-    // Play Halloween music
-    halloweenAudio.play().catch(() => {});
-
-    startBtn.addEventListener("click", () => {
-      popup.style.display = "none";
-      halloweenAudio.pause();
-      halloweenAudio.currentTime = 0;
-      if (homepageMusic) homepageMusic.play();
-
-      spawnIcons();
-    });
-  } else {
-    // Popup already shown, spawn icons immediately
-    spawnIcons();
+    .popup-content, .welcome-overlay {
+    padding: 15px !important;
   }
-});
+
+  .ghosty-avatar {
+    width: 120px !important;
+    height: 120px !important;
+    margin-bottom: 15px !important;
+  }
+
+  .ghosty-gifs img {
+    width: 100px !important;
+    height: 100px !important;
+  }
+
+  #ghostyPopupOverlay h1, .welcome-overlay h1 {
+    font-size: 1.5em !important;
+    margin-bottom: 10px !important;
+  }
+
+  #ghostyPopupOverlay p, .welcome-overlay p {
+    font-size: 0.95em !important;
+    line-height: 1.3em !important;
+    margin-bottom: 15px !important;
+  }
+
+  #startHuntBtn {
+    font-size: 0.9em !important;
+    padding: 8px 14px !important;
+    margin-top: 10px !important;
+  }
+
+  .halloween-counter {
+    bottom: 10px !important;
+    right: 10px !important;
+    padding: 8px 10px !important;
+    font-size: 14px !important;
+    flex-direction: column !important;
+    gap: 6px !important;
+    width: auto !important;
+  }
+
+  .halloween-counter button {
+    width: 80% !important;
+    font-size: 10px !important;
+    padding: 6px 0 !important;
+  }
+
+  .halloween-icon {
+    width: 50px !important;
+    height: 50px !important;
+  }
+
+  .sparkle {
+    width: 6px !important;
+    height: 6px !important;
+  }
+
+  .welcome-overlay h1 {
+    font-size: 1.5em !important;
+    margin-bottom: 10px !important;
+  }
+
+  .welcome-overlay p {
+    font-size: 0.9em !important;
+    line-height: 1.4em !important;
+  }
+
+  #startHuntBtn {
+    font-size: 0.9em !important;
+    padding: 8px 14px !important;
+    margin-top: 10px !important;
+  }
+}
+`;
+
+// Inject into the document head
+const styleTag = document.createElement("style");
+styleTag.innerHTML = mobileStyles;
+document.head.appendChild(styleTag);

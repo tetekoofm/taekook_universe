@@ -132,24 +132,6 @@ def robots():
 def sitemap():
     return send_file(os.path.join(app.root_path, 'static', 'sitemap.xml'), mimetype='application/xml')
 
-@app.route("/unlock_halloween", methods=["POST"])
-@csrf.exempt
-def unlock_halloween():
-    if "halloween_token" not in session:
-        token = secrets.token_hex(16)
-        session["halloween_token"] = token
-        return jsonify({"status": "ok", "token": token})
-    else:
-        return jsonify({"status": "already_unlocked", "token": session["halloween_token"]})
-
-@app.route("/halloween-special")
-def halloween_special():
-    token = session.get("halloween_token")
-    if token:
-        return render_template("halloween-special.html")
-    else:
-        return redirect(url_for("home"))
-
 @app.route('/home_soon')
 def home_soon():
     image_folder = os.path.join(app.static_folder, 'images/home')
@@ -439,54 +421,6 @@ def reporting():
     banners = Banner.query.filter_by(subpage='07.11.reporting').all()
     return render_template('07.11.reporting.html', banners=banners)
 
-@app.route('/store')
-def store():
-    products = Product.query.all()
-    selected_quantities = {}  
-    return render_template('08.store.html', products=products, selected_quantities=selected_quantities)
-
-@app.route('/add_to_cart', methods=['POST'])
-def add_to_cart():
-    item = request.form['item']
-    quantity = int(request.form['quantity'])
-    price = float(request.form['price'])
-
-    if 'cart' not in session:
-        session['cart'] = {}
-
-    if item in session['cart']:
-        session['cart'][item]['quantity'] += quantity
-    else:
-        session['cart'][item] = {'quantity': quantity, 'price': price}
-
-    session.modified = True 
-
-    return jsonify({"message": "Item added to cart", "item": item, "quantity": quantity})
-
-@app.route('/cart', methods=['POST', 'GET'])
-def cart():
-    cart_items = session.get('cart', {})
-    
-    if not cart_items:
-        return render_template('08.01.cart.html', cart_items={}, total_price=0, message="Your cart is empty.")
-    
-    products = Product.query.all()
-    
-    if request.method == 'POST':
-        for item in cart_items.keys():
-            quantity = int(request.form.get(f"quantity_{item}", 0))
-            if quantity > 0:
-                cart_items[item]['quantity'] = quantity
-            else:
-                del cart_items[item] 
-
-        session['cart'] = cart_items  
-        session.modified = True 
-        return redirect('/cart') 
-    
-    total_price = sum(item_details['quantity'] * item_details['price'] for item_details in cart_items.values())
-    return render_template('08.01.cart.html', cart_items=cart_items, total_price=total_price, products=products)
-
 @app.route('/fanletters')
 def fan_letters_page():
     page = request.args.get('page', 1, type=int)
@@ -496,6 +430,44 @@ def fan_letters_page():
     song_file = music.file_name if music else "default.mp3"
     song_name = music.song_name if music else "Default Song"
     return render_template('09.fanletters.html', song_file=song_file, song_name=song_name, fan_letters=fan_letters)
+
+## GAMES ##########################################################################################################
+@app.route('/games')
+def games():
+    return render_template('13.games.html')
+
+@app.context_processor
+def inject_halloween_flag():
+    # make this True during the Halloween event
+    return dict(halloween_hunt_active=True)
+
+@app.route('/halloween-hunt')
+def halloween_hunt():
+    return render_template('13.01.halloween_hunt.html')
+
+@app.route("/unlock_halloween", methods=["POST"])
+@csrf.exempt
+def unlock_halloween():
+    if "halloween_token" not in session:
+        token = secrets.token_hex(16)
+        session["halloween_token"] = token
+        return jsonify({"status": "ok", "token": token})
+    else:
+        return jsonify({"status": "already_unlocked", "token": session["halloween_token"]})
+
+@app.route("/halloween-special")
+def halloween_special():
+    token = session.get("halloween_token")
+    if token:
+        return render_template("13.01.halloween_special.html")
+    else:
+        return redirect(url_for("home"))
+
+@app.route('/guesswithemoji')
+def guess_song():
+    return render_template('13.02.guess_song_emoji.html')
+
+## GAMES ##########################################################################################################
 
 @app.after_request
 def add_headers(response):
