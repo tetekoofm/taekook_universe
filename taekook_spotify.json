@@ -1,7 +1,0 @@
-{
-  "SPOTIFY_CLIENT_ID": "c30f2b0a378d47dea592ba6ee5dcd6ca",
-  "SPOTIFY_CLIENT_SECRET": "d857a06c3f514b20a9e9c229e6b2b78d",
-  "SPOTIFY_REDIRECT_URI": "http://localhost:8888/callback",
-  "SPOTIFY_SCOPE": "streaming user-read-playback-state user-modify-playback-state user-read-currently-playing user-read-private",
-  "SPOTIFY_REFRESH_TOKEN": "AQCO70ssQybZapj_ArmcR3KXmX4Zpaud96rH-n0HAs7b6jm9H1NS1BhbaoJiYyfRagvY7LmPSP3G3h71nA6AYPSuOfv7qODDUSHPyUN9Sz4qNZ1W7KRjqmxcbEhvUe6JYLM"
-}
