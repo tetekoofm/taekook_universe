@@ -3,240 +3,448 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Guess the Taekook Song!</title>
+<title>Guess the Song!</title>
+<link href="https://fonts.googleapis.com/css2?family=Pacifico:wght@400;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Fredoka+One&family=Orbitron:wght@500;700&display=swap" rel="stylesheet">
+
 <style>
-    body { font-family: Arial, sans-serif; background: #f0f2f5; text-align: center; padding: 20px; }
-    h1 { font-size: 2rem; margin-bottom: 10px; }
-    .card-container { perspective: 1000px; margin: 20px auto; width: 300px; height: 150px; }
-    .emoji-card {
-        width: 100%; height: 100%; background: #fff; border-radius: 15px; display: flex; justify-content: center; align-items: center;
-        font-size: 3rem; box-shadow: 0 5px 15px rgba(0,0,0,0.1); transform-style: preserve-3d; transition: transform 0.6s;
-        position: relative;
+    /* ===== Page & Container ===== */
+    .game-page {
+    margin: 0;
+    font-family: 'Fredoka One', sans-serif;
+    background: linear-gradient(135deg, #f3e7ff, #e0c3fc);
+    display: flex;
+    justify-content: center;
+    min-height: 100vh;
+    align-items: center;
     }
-    .emoji-card.flipped { transform: rotateY(180deg); }
-    .emoji-card .front, .emoji-card .back {
-        position: absolute; width: 100%; height: 100%; backface-visibility: hidden; display: flex; justify-content: center; align-items: center; border-radius: 15px;
+
+    .game-page html, .game-page body {
+    height: 100%;
+    margin: 0;
     }
-    .emoji-card .back { transform: rotateY(180deg); font-size: 1.2rem; padding: 10px; text-align: center; }
-    input { padding: 10px; font-size: 1rem; width: 220px; border-radius: 8px; border: 1px solid #ccc; margin-top: 10px; }
-    button { padding: 10px 20px; font-size: 1rem; margin: 5px; cursor: pointer; border-radius: 8px; border: none; background-color: #6200ea; color: #fff; transition: 0.3s; }
-    button:hover { background-color: #3700b3; }
-    #leaderboard { list-style: none; padding: 0; margin-top: 20px; max-width: 300px; margin-left: auto; margin-right: auto; }
-    #leaderboard li { background: #fff; padding: 10px; margin: 5px auto; border-radius: 10px; box-shadow: 0 3px 10px rgba(0,0,0,0.1); }
-    #score-popup { display: none; position: fixed; top: 0; left:0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); justify-content: center; align-items: center; }
-    #score-popup .popup-content { background: #fff; padding: 20px; border-radius: 15px; width: 300px; }
-    #confetti { position: fixed; pointer-events: none; top: 0; left: 0; width: 100%; height: 100%; z-index: 9999; }
+
+    .game-page {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* Full background image */
+    background: url('/static/images/games/bg.png') no-repeat center center;
+    background-size: cover;
+    }
+
+    .bg-overlay {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.35); /* dark overlay for contrast */
+    z-index: 1;
+    pointer-events: none; 
+    }
+
+    .game-container {
+    position: relative;
+    z-index: 2;
+    background: rgba(255,255,255,0.85); /* slightly transparent to show bg */
+    border-radius: 25px;
+    padding: 50px 35px;   /* more padding for larger screen */
+    max-width: 700px;     /* increased from 450px */
+    width: 90%;
+    box-shadow: 0 25px 70px rgba(0,0,0,0.25);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    }
+
+    /* ===== Heading ===== */
+    .game-container h1 {
+        font-family: 'Orbitron', sans-serif;
+        font-size: 2.5rem;
+        text-align: center;
+        color: #a855f7;
+        margin-bottom: 25px;
+        text-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+
+    .game-container p {
+        font-family: 'Pacifico', sans-serif;
+        font-size: 1.4rem;
+        text-align: center;
+        color: #0FFF50;
+    }
+
+    /* ===== Card ===== */
+    .game-page .game-main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    margin-top: 20px;
+    z-index: 2;
+    }
+
+    .game-page .card-container {
+    perspective: 1200px;
+    width: 320px;
+    height: 180px;
+    margin-bottom: 25px;
+    }
+
+    .game-page .emoji-card {
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.95); /* semi-transparent white */
+    border-radius: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 3rem;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+    transform-style: preserve-3d;
+    transition: transform 0.6s ease;
+    position: relative;
+    }
+
+    .game-page .emoji-card.flipped {
+    transform: rotateY(180deg);
+    }
+
+    .game-page .emoji-card .front {
+    font-size: 3rem;
+    text-shadow: 0 0 6px rgba(255,255,255,0.8); /* light glow */
+    }
+
+    .game-page .emoji-card .front,
+    .game-page .emoji-card .back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 20px;
+    }
+
+    .game-page .emoji-card .back {
+    transform: rotateY(180deg);
+    font-size: 1.3rem;
+    color: #6a11cb;
+    font-weight: 600;
+    padding: 10px;
+    text-align: center;
+    }
+
+    .game-page .input-group {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    }
+
+    .game-page .input-group input {
+    padding: 12px 15px;
+    font-size: 1.1rem;
+    width: 280px;
+    border-radius: 10px;
+    border: 1px solid #d1b3ff;
+    margin-bottom: 15px;
+    text-align: center;
+    }
+
+    .game-page .input-group input:focus {
+    outline: none;
+    box-shadow: 0 0 15px #b983ff;
+    }
+
+    .game-page .input-group .buttons {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    }
+
+    .game-page .input-group .buttons button {
+    padding: 10px 25px;
+    font-size: 1rem;
+    border-radius: 12px;
+    border: none;
+    cursor: pointer;
+    background: linear-gradient(135deg, #6a11cb, #b983ff);
+    color: #fff;
+    transition: all 0.3s ease;
+    }
+
+    .game-page .input-group .buttons button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(106,17,203,0.4);
+    }
+
+    /* ===== Leaderboard ===== */
+    .leaderboard-section {
+    width: 100%;
+    max-width: 500px;
+    margin-top: 40px;
+    background: rgba(255, 255, 255, 0.9); /* semi-transparent to show bg */
+    border-radius: 20px;
+    padding: 20px;
+    box-shadow: 0 15px 40px rgba(0,0,0,0.2);
+    text-align: center;
+    z-index: 2;
+    }
+
+    .leaderboard-section h2 {
+    font-family: 'Orbitron', sans-serif;
+    color: #a855f7;
+    font-size: 2rem;
+    margin-bottom: 15px;
+    text-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+
+    #leaderboard {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    }
+
+    #leaderboard li {
+    background: rgba(255,255,255,0.95);
+    padding: 10px 15px;
+    margin: 8px 0;
+    border-radius: 12px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    font-weight: 600;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    #leaderboard li:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+    }
+
+    /* Top 3 highlights */
+    #leaderboard li:nth-child(1) { background: #ffe082; border: 2px solid gold; }
+    #leaderboard li:nth-child(2) { background: #e0e0e0; border: 2px solid silver; }
+    #leaderboard li:nth-child(3) { background: #ffd7b5; border: 2px solid #cd7f32; }
+
+    /* ===== Popup ===== */
+    #score-popup {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%;
+    height: 100%;
+    background: transparent; /* or rgba(0,0,0,0.2) if slight dim is okay */
+    display: none;  
+    justify-content: center;
+    align-items: center;
+    z-index: 10;
+    pointer-events: none;
+    }
+
+    #score-popup.active {
+    display: flex;  
+    pointer-events: auto;
+    }
+
+    #score-popup .popup-content {
+    background: rgba(255,255,255,0.95);
+    padding: 30px;
+    border-radius: 25px;
+    max-width: 400px;
+    width: 90%;
+    text-align: center;
+    box-shadow: 0 15px 50px rgba(0,0,0,0.3);
+    animation: popupFade 0.5s ease;
+    }
+
+    @keyframes popupFade {
+    from { transform: scale(0.8); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+    }
+
+    #score-popup h2 {
+    font-family: 'Orbitron', sans-serif;
+    color: #a855f7;
+    font-size: 2rem;
+    margin-bottom: 15px;
+    }
+
+    #score-popup input {
+    padding: 10px 15px;
+    width: 80%;
+    margin-top: 10px;
+    font-size: 1rem;
+    border-radius: 8px;
+    border: 1px solid #d1b3ff;
+    outline: none;
+    }
+
+    #score-popup button {
+    margin: 10px 5px;
+    padding: 10px 20px;
+    font-size: 1rem;
+    border-radius: 10px;
+    border: none;
+    background: linear-gradient(135deg, #6a11cb, #b983ff);
+    color: #fff;
+    cursor: pointer;
+    }
+
+    #score-popup button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(106,17,203,0.4);
+    }
+
+    /* ===== Tablet ===== */
+@media (max-width: 1024px) {
+  .game-container {
+    max-width: 700px;
+    padding: 40px 25px;
+  }
+
+  .game-container h1 {
+    font-size: 2.5rem;
+  }
+
+  .game-container p {
+    font-size: 1.5rem;
+  }
+
+  .game-page .card-container {
+    width: 280px;
+    height: 160px;
+  }
+
+  .game-page .emoji-card {
+    font-size: 2.8rem;
+  }
+
+  .game-page .input-group input {
+    width: 240px;
+    font-size: 1rem;
+  }
+
+  .leaderboard-section {
+    max-width: 550px;
+    padding: 18px;
+  }
+
+  #score-popup .popup-content {
+    max-width: 350px;
+    padding: 25px;
+  }
+}
+
+/* ===== Mobile ===== */
+@media (max-width: 600px) {
+  .game-container {
+    max-width: 80%;
+    padding: 30px 15px;
+  }
+
+  .game-container h1 {
+    font-size: 1.5rem;
+  }
+
+  .game-container p {
+    font-size: 0.9rem;
+  }
+
+  .game-page .card-container {
+    width: 220px;
+    height: 120px;
+  }
+
+  .game-page .emoji-card {
+    font-size: 1.5rem;
+  }
+
+  .game-page .input-group input {
+    width: 170px;
+    font-size: 0.8rem;
+  }
+
+  .game-page .input-group .buttons button {
+    padding: 8px 18px;
+    font-size: 0.8rem;
+  }
+
+  .leaderboard-section {
+    max-width: 80%;
+    padding: 15px;
+  }
+
+  #score-popup .popup-content {
+    max-width: 300px;
+    padding: 20px;
+  }
+
+  .leaderboard-section h2 {
+    font-size: 1.2rem;
+  }
+}
+
 </style>
 </head>
 <body>
+    <div class="game-page">
+      <!-- Background Overlay -->
+      <div class="bg-overlay"></div>
+    
+      <!-- Main Game Container -->
+      <div class="game-container">
+        <header class="game-header">
+            <h1>🎵 Guess the Song!</h1>
+            <p>Welcome to the Emoji Song Challenge!<br>
+                Try to guess the correct song based on the emojis shown on the card.<br></p>
+            <p class="subtitle">Type the song name that matches the emojis 🎯</p>
+        </header>
+    
+        <main class="game-main">
+          <div class="card-container">
+            <div class="emoji-card" id="emoji-card">
+              <div class="front" id="emoji-display">🎵</div>
+              <div class="back" id="song-answer"></div>
+            </div>
+          </div>
+    
+          <div class="input-group">
+            <input type="text" id="guess-input" placeholder="Type your guess">
+            <div class="buttons">
+              <button onclick="checkGuess()">Submit</button>
+              <button onclick="skipSong()">Skip</button>
+            </div>
+          </div>
+        </main>
+    
+        <div id="score-popup">
+            <div class="popup-content">
+              <h2>🎉 Your Score: <span id="final-score">0</span></h2>
+              <input type="text" id="username-input" placeholder="Username"><br><br>
+              <button onclick="submitScore()">Submit</button>
+              <button onclick="skipUsername()">Skip</button>
+          
+              <div id="post-game-menu" style="display:none; margin-top: 15px;">
+                <button onclick="goHome()">🏠 Home</button>
+                <button onclick="goGames()">🎮 Games</button>
+                <button onclick="playAgain()">🔄 Play Again</button>
+              </div>
+            </div>
+          </div>
 
-<h1>🎵 Guess the Taekook Song!</h1>
-
-<div class="card-container">
-    <div class="emoji-card" id="emoji-card">
-        <div class="front" id="emoji-display">🎵</div>
-        <div class="back" id="song-answer"></div>
-    </div>
-</div>
-
-<input type="text" id="guess-input" placeholder="Type your guess"><br>
-<button onclick="checkGuess()">Submit</button>
-<button onclick="skipSong()">Skip</button>
-
-<div id="score-popup">
-    <div class="popup-content">
-        <h2>🎉 Your Score: <span id="final-score">0</span></h2>
-        <p>Enter a username (optional) to appear on the leaderboard:</p>
-        <input type="text" id="username-input" placeholder="Username"><br><br>
-        <button onclick="submitScore()">Submit</button>
-        <button onclick="skipUsername()">Skip</button>
-
-        <!-- Post-game menu (hidden by default) -->
-        <div id="post-game-menu" style="display:none; margin-top: 15px;">
-            <button onclick="goHome()">🏠 Home</button>
-            <button onclick="goGames()">🎮 Games</button>
-            <button onclick="playAgain()">🔄 Play Again</button>
-        </div>
-    </div>
-</div>
-
-<h2>🏆 Top Players</h2>
-<ul id="leaderboard"></ul>
-
-<div id="confetti"></div>
-
+    <section class="leaderboard-section">
+        <h2>🏆 Top Players</h2>
+        <ul id="leaderboard"></ul>
+      </section>
+  
+    <div id="confetti"></div>
+  
 <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
-<script type="module" src="/static/js/firebase-init.js"></script>
-<script>
-let allSongs = [];
-let gameSongs = [];
-let currentIndex = 0;
-let score = 0;
-
-// Load JSON and pick 10 random songs
-fetch('/static/js/guess_song_emoji.json')
-  .then(res => res.json())
-  .then(data => {
-      allSongs = data || [];
-      if(allSongs.length === 0){
-          console.error("No songs found in JSON!");
-          return;
-      }
-      startGame();
-  })  
-  .catch(err => console.error("Failed to load JSON:", err));
-
-function startGame() {
-    if(!allSongs.length) return;  // safety check
-    gameSongs = allSongs.sort(() => 0.5 - Math.random()).slice(0, 3);
-    currentIndex = 0;
-    score = 0;
-    loadNextSong();
-}
-
-function loadNextSong() {
-    if(!gameSongs || gameSongs.length === 0) return;
-    if(currentIndex >= gameSongs.length){
-        showScorePopup();
-        return;
-    }
-    const song = gameSongs[currentIndex];
-    document.getElementById("emoji-display").innerText = song.emojis;
-    document.getElementById("song-answer").innerText = song.name;
-    document.getElementById("guess-input").value = '';
-    document.getElementById("emoji-card").classList.remove("flipped");
-}
-
-// Check guess
-function checkGuess() {
-    const guess = document.getElementById("guess-input").value.trim().toLowerCase();
-    if(!guess) return;
-    const song = gameSongs[currentIndex];
-    flipCard();
-    if(guess === song.name.toLowerCase()) {
-        score++;
-        launchConfetti();
-    }
-    setTimeout(() => {
-        currentIndex++;
-        loadNextSong();
-    }, 1500);
-}
-
-// Skip song
-function skipSong() {
-    flipCard();
-    setTimeout(() => {
-        currentIndex++;
-        loadNextSong();
-    }, 1500);
-}
-
-// Flip card
-function flipCard() {
-    document.getElementById("emoji-card").classList.add("flipped");
-}
-
-// Confetti
-function launchConfetti() {
-    confetti({
-        particleCount: 100,
-        spread: 70,
-        origin: { y: 0.6 }
-    });
-}
-
-// Score popup
-function showScorePopup() {
-    document.getElementById("final-score").innerText = score;
-    document.getElementById("score-popup").style.display = "flex";
-}
-
-function submitScore() {
-    const username = document.getElementById("username-input").value.trim() || "Anonymous";
-    const isTop = saveScore(username, score);  // saveScore now returns true if top scorer
-    showPostGameMenu(isTop);
-}
-
-function skipUsername() {
-    const isTop = saveScore("Anonymous", score);
-    showPostGameMenu(isTop);
-}
-
-function showPostGameMenu(isTop) {
-    // Hide username input/buttons
-    document.getElementById("username-input").style.display = 'none';
-    const submitBtn = document.querySelector("#score-popup button[onclick='submitScore()']");
-    const skipBtn = document.querySelector("#score-popup button[onclick='skipUsername()']");
-    submitBtn.style.display = 'none';
-    skipBtn.style.display = 'none';
-
-    // Show post-game menu
-    const menu = document.getElementById("post-game-menu");
-    menu.style.display = 'block';
-
-    // Launch bigger confetti if top scorer
-    if(isTop){
-        confetti({
-            particleCount: 500,
-            spread: 160,
-            origin: { y: 0.5 }
-        });
-    }
-}
-
-function closePopup() {
-    document.getElementById("score-popup").style.display = "none";
-    startGame();
-}
-
-// Leaderboard
-function saveScore(username, score) {
-    let leaderboard = JSON.parse(localStorage.getItem("leaderboard")) || [];
-    leaderboard.push({ name: username, score: score });
-    leaderboard.sort((a,b) => b.score - a.score);
-    leaderboard = leaderboard.slice(0,10);
-    localStorage.setItem("leaderboard", JSON.stringify(leaderboard));
-    displayLeaderboard(leaderboard);
-
-    // Check if current score is top score
-    return leaderboard.length && leaderboard[0].score === score;
-}
-
-// Post-game menu actions
-function goHome(){
-    window.location.href = '/';  // adjust as needed
-}
-function goGames(){
-    window.location.href = '/games';  // adjust as needed
-}
-function playAgain(){
-    // Reset popup UI
-    document.getElementById("score-popup").style.display = 'none';
-    document.getElementById("username-input").style.display = 'inline-block';
-    document.getElementById("username-input").value = '';
-    document.querySelector("#score-popup button[onclick='submitScore()']").style.display = 'inline-block';
-    document.querySelector("#score-popup button[onclick='skipUsername()']").style.display = 'inline-block';
-    document.getElementById("post-game-menu").style.display = 'none';
-    startGame();
-}
-
-function displayLeaderboard(leaderboard) {
-    const list = document.getElementById("leaderboard");
-    list.innerHTML = "";
-    leaderboard.forEach((entry, index) => {
-        const li = document.createElement("li");
-        li.innerText = `${index+1}️⃣ ${entry.name} — ${entry.score}`;
-        list.appendChild(li);
-    });
-}
-
-// Load leaderboard on page load
-window.onload = function() {
-    const stored = JSON.parse(localStorage.getItem("leaderboard")) || [];
-    displayLeaderboard(stored);
-}
-</script>
-
+<script src="/static/js/guess_song_emoji.js"></script>
 </body>
 </html>

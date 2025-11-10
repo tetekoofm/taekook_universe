@@ -38,7 +38,7 @@ def get_spotify_credentials():
         else:
             creds["SPOTIFY_REDIRECT_URI"] = os.getenv("SPOTIFY_REDIRECT_URI")
         return creds
-    # Fallback to local taekook.json
+    # Fallback to local taekook_spotify.json
     try:
         with open("taekook_spotify.json") as f:
             creds = json.load(f)
@@ -46,7 +46,7 @@ def get_spotify_credentials():
             creds["SPOTIFY_REDIRECT_URI"] = "http://localhost:8888/callback"
         return creds
     except FileNotFoundError:
-        raise RuntimeError("No Spotify credentials found. Set env vars or provide taekook.json.")
+        raise RuntimeError("No Spotify credentials found. Set env vars or provide taekook_spotify.json.")
 
 spotify_creds = get_spotify_credentials()
 print("Loaded Spotify creds:", spotify_creds)
@@ -432,10 +432,59 @@ def fan_letters_page():
     return render_template('09.fanletters.html', song_file=song_file, song_name=song_name, fan_letters=fan_letters)
 
 ## GAMES ##########################################################################################################
+
 @app.route('/games')
 def games():
     return render_template('13.games.html')
 
+
+LEADERBOARD_FILE = 'leaderboard.json'  # or full path if outside project folder
+
+# Load leaderboard JSON
+def load_leaderboard():
+    if not os.path.exists(LEADERBOARD_FILE):
+        return {}
+    with open(LEADERBOARD_FILE, 'r') as f:
+        return json.load(f)
+
+# Save leaderboard JSON
+def save_leaderboard(data):
+    with open(LEADERBOARD_FILE, 'w') as f:
+        json.dump(data, f, indent=2)
+
+@app.route('/submit_score', methods=['POST'])
+@csrf.exempt
+def submit_score():
+    payload = request.get_json()
+    if not payload:
+        return jsonify({"error": "No JSON received"}), 400
+
+    game = payload.get('game')
+    username = payload.get('username', 'Anonymous')
+    score = payload.get('score', 0)
+
+    if not game:
+        return jsonify({"error": "Game name required"}), 400
+
+    # Load existing data
+    data = load_leaderboard()
+    if game not in data:
+        data[game] = []
+
+    # Append and sort
+    data[game].append({"username": username, "score": score})
+    data[game] = sorted(data[game], key=lambda x: x['score'], reverse=True)[:10]
+
+    # Save back
+    save_leaderboard(data)
+
+    return jsonify({"success": True, "leaderboard": data[game]})
+
+# Fetch leaderboard
+@app.route('/leaderboard/<game_name>')
+def get_leaderboard(game_name):
+    data = load_leaderboard()
+    return jsonify(data.get(game_name, []))
 # ---------------------- HALLOWEEN HUNT ----------------------
 # Required as we have if clause in base nav and sub nav remplates
 @app.context_processor
@@ -452,7 +501,7 @@ def halloween_special():
     return render_template("13.01.halloween_special.html")
 
 @app.route('/guesswithemoji')
-def guess_song():
+def guess_song_emoji():
     return render_template('13.02.guess_song_emoji.html')
 
 ## GAMES ##########################################################################################################
