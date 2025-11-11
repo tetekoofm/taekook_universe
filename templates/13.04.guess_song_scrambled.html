@@ -1,0 +1,270 @@
+{% extends "00.base.html" %}
+{% block title %}Song Scramble{% endblock %}
+
+{% block content %}
+<div class="main-content">
+  <div class="game-page">
+    <div class="hero">
+      <h1 class="heading">Song Scramble</h1>
+      <p class="caption">Unscramble the letters to guess the song! You can skip if unsure.</p>
+    </div>
+
+    <div id="scramble-game" class="game-container">
+      <div class="jumbled-song">
+        <p id="clue-text"></p>
+        <p id="jumbled-text"></p>
+      </div>
+
+      <input type="text" id="user-answer" placeholder="Type your answer here..." autocomplete="off" />
+      <div class="buttons">
+        <button id="check-answer-btn">Check</button>
+        <button id="skip-btn">Skip</button>
+      </div>
+
+      <p id="feedback"></p>
+      <div class="score-board">
+        <p>Score: <span id="score">0</span> | Question: <span id="question-count">0</span>/10</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Score popup -->
+<div id="score-popup" style="display:none;">
+  <div>
+    <h2>Final Score: <span id="final-score"></span></h2>
+    <input type="text" id="username-input" placeholder="Enter your name" />
+    <button onclick="submitScore()">Submit</button>
+    <button onclick="skipUsername()">Skip</button>
+    <div id="post-game-menu" style="display:none;">
+      <button onclick="goHome()">Home</button>
+      <button onclick="goGames()">Games</button>
+      <button onclick="playAgain()">Play Again</button>
+    </div>
+    <ul id="leaderboard"></ul>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+<script>
+const GAME_NAME = "Song Scramble";
+let songs = [];
+let currentSong = '';
+let score = 0;
+let questionCount = 0;
+const maxQuestions = 10;
+
+// Load songs JSON
+async function loadSongs() {
+  const response = await fetch('/static/js/guess_song_scrambled.json');
+  songs = await response.json();
+  startGame();
+}
+
+// Shuffle word
+function shuffleWord(word) {
+  let arr = word.replace(/\s+/g, '').split('');
+  for (let i = arr.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [arr[i], arr[j]] = [arr[j], arr[i]];
+  }
+  return arr.join('');
+}
+
+// Start the game
+function startGame() {
+  score = 0;
+  questionCount = 0;
+  document.getElementById('score').innerText = score;
+  document.getElementById('question-count').innerText = questionCount;
+  nextSong();
+}
+
+// Next song
+function nextSong() {
+  if (questionCount >= maxQuestions) {
+    showScorePopup();
+    return;
+  }
+
+  currentSong = songs[Math.floor(Math.random() * songs.length)];
+
+  const wordCount = currentSong.trim().split(/\s+/).length;
+  document.getElementById('clue-text').innerText = `Clue: ${wordCount} word${wordCount > 1 ? 's' : ''}`;
+  document.getElementById('jumbled-text').innerText = shuffleWord(currentSong);
+  document.getElementById('user-answer').value = '';
+  document.getElementById('feedback').innerText = '';
+  questionCount++;
+  document.getElementById('question-count').innerText = questionCount;
+}
+
+// Launch confetti
+function launchConfetti(particles=100) {
+  confetti({
+      particleCount: particles,
+      spread: 70,
+      origin: { y: 0.6 }
+  });
+}
+
+// Check answer
+document.getElementById('check-answer-btn').addEventListener('click', () => {
+  const userAnswer = document.getElementById('user-answer').value.trim().toLowerCase();
+  if (userAnswer === currentSong.toLowerCase()) {
+    score++;
+    document.getElementById('feedback').innerText = 'Correct! 🎉';
+    launchConfetti();
+  } else {
+    document.getElementById('feedback').innerText = `Incorrect ❌. Answer was: ${currentSong}`;
+  }
+  document.getElementById('score').innerText = score;
+  setTimeout(nextSong, 1000);
+});
+
+// Skip button
+document.getElementById('skip-btn').addEventListener('click', nextSong);
+
+// Score popup functions
+function showScorePopup() {
+  document.getElementById("final-score").innerText = score;
+  const popup = document.getElementById("score-popup");
+  popup.style.display = "flex";
+  popup.classList.add("active");
+}
+
+async function submitScore() {
+  const username = document.getElementById("username-input").value.trim() || "Anonymous";
+  const isTop = await saveScore(username, score, GAME_NAME);
+  showPostGameMenu(isTop);
+}
+
+async function skipUsername() {
+  const isTop = await saveScore("Anonymous", score, GAME_NAME);
+  showPostGameMenu(isTop);
+}
+
+function showPostGameMenu(isTop) {
+  document.getElementById("username-input").style.display = 'none';
+  document.querySelector("#score-popup button[onclick='submitScore()']").style.display = 'none';
+  document.querySelector("#score-popup button[onclick='skipUsername()']").style.display = 'none';
+
+  const menu = document.getElementById("post-game-menu");
+  menu.style.display = 'block';
+
+  if (isTop) launchConfetti(500);
+}
+
+async function saveScore(username, score, gameName) {
+  try {
+    const res = await fetch('/submit_score', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ game: gameName, username, score })
+    });
+
+    if (!res.ok) {
+        const text = await res.text();
+        console.error("Server returned error:", text);
+        return false;
+    }
+
+    const data = await res.json();
+    displayLeaderboard(data.leaderboard || []);
+    return data.leaderboard[0]?.score === score;
+  } catch (err) {
+    console.error("Error saving score:", err);
+    return false;
+  }
+}
+
+function displayLeaderboard(leaderboard) {
+  const list = document.getElementById("leaderboard");
+  list.innerHTML = "";
+  if (!leaderboard.length) {
+      list.innerHTML = "<li>No scores yet!</li>";
+      return;
+  }
+
+  leaderboard.forEach((entry, i) => {
+      const li = document.createElement("li");
+      li.innerText = `${i + 1}️⃣ ${entry.username} — ${entry.score}`;
+      if (i === 0) li.style.border = "2px solid gold";
+      else if (i === 1) li.style.border = "2px solid silver";
+      else if (i === 2) li.style.border = "2px solid #cd7f32";
+      list.appendChild(li);
+  });
+}
+
+function goHome(){ window.location.href = '/'; }
+function goGames(){ window.location.href = '/games'; }
+
+function playAgain(){
+  const popup = document.getElementById("score-popup");
+  popup.style.display = 'none';
+  popup.classList.remove("active");
+
+  const usernameInput = document.getElementById("username-input");
+  usernameInput.style.display = 'inline-block';
+  usernameInput.value = '';
+
+  document.querySelector("#score-popup button[onclick='submitScore()']").style.display = 'inline-block';
+  document.querySelector("#score-popup button[onclick='skipUsername()']").style.display = 'inline-block';
+  document.getElementById("post-game-menu").style.display = 'none';
+
+  startGame();
+}
+
+// Load leaderboard on page load
+window.onload = async function() {
+  try {
+      const res = await fetch(`/leaderboard/${GAME_NAME}`);
+      if (!res.ok) {
+          console.error("Failed to fetch leaderboard:", await res.text());
+          return;
+      }
+      const data = await res.json();
+      displayLeaderboard(data);
+  } catch (err) {
+      console.error("Failed to load leaderboard:", err);
+  }
+};
+
+loadSongs();
+</script>
+
+<style>
+.jumbled-song p {
+  font-size: 2rem;
+  letter-spacing: 8px;
+  margin-bottom: 20px;
+  font-weight: bold;
+}
+
+#user-answer {
+  padding: 10px;
+  font-size: 1rem;
+  width: 60%;
+  max-width: 300px;
+  margin-bottom: 10px;
+}
+
+.buttons button {
+  padding: 10px 20px;
+  margin: 5px;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+#feedback {
+  margin-top: 10px;
+  font-weight: bold;
+}
+
+.score-board {
+  margin-top: 20px;
+  font-weight: bold;
+}
+
+</style>
+{% endblock %}

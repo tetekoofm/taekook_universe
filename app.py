@@ -437,8 +437,39 @@ def fan_letters_page():
 def games():
     return render_template('13.games.html')
 
-
 LEADERBOARD_FILE = 'leaderboard.json'  # or full path if outside project folder
+
+
+# ---------------------- HALLOWEEN HUNT ----------------------
+# Required as we have if clause in base nav and sub nav remplates
+@app.context_processor
+def inject_halloween_flag():
+    # make this True during the Halloween event
+    return dict(halloween_hunt_active=True)
+
+@app.route("/christmas_delivery")
+def christmas_delivery():
+    return render_template("13.01.christmas_delivery.html")
+
+@app.route("/halloween-hunt")
+def halloween_hunt():
+    return render_template("13.01.halloween_hunt.html")
+
+@app.route("/halloween-special")
+def halloween_special():
+    return render_template("13.01.halloween_special.html")
+
+@app.route('/guesswithemoji')
+def guess_song_emoji():
+    return render_template('13.02.guess_song_emoji.html')
+
+@app.route('/guesswithlyrics')
+def guess_song_lyrics():
+    return render_template('13.03.guess_song_lyrics.html')
+
+@app.route('/guesswithscrambled')
+def guess_song_scrambled():
+    return render_template('13.04.guess_song_scrambled.html')
 
 # Load leaderboard JSON
 def load_leaderboard():
@@ -485,24 +516,6 @@ def submit_score():
 def get_leaderboard(game_name):
     data = load_leaderboard()
     return jsonify(data.get(game_name, []))
-# ---------------------- HALLOWEEN HUNT ----------------------
-# Required as we have if clause in base nav and sub nav remplates
-@app.context_processor
-def inject_halloween_flag():
-    # make this True during the Halloween event
-    return dict(halloween_hunt_active=True)
-
-@app.route("/halloween-hunt")
-def halloween_hunt():
-    return render_template("13.01.halloween_hunt.html")
-
-@app.route("/halloween-special")
-def halloween_special():
-    return render_template("13.01.halloween_special.html")
-
-@app.route('/guesswithemoji')
-def guess_song_emoji():
-    return render_template('13.02.guess_song_emoji.html')
 
 ## GAMES ##########################################################################################################
 
