@@ -1,0 +1,6 @@
+{
+  "SPOTIFY_CLIENT_ID": "c30f2b0a378d47dea592ba6ee5dcd6ca",
+  "SPOTIFY_CLIENT_SECRET": "d857a06c3f514b20a9e9c229e6b2b78d",
+  "SPOTIFY_REDIRECT_URI": "http://localhost:8888/callback",
+  "SPOTIFY_SCOPE": "ugc-image-upload streaming user-read-playback-state user-modify-playback-state user-read-currently-playing user-read-private"
+}
